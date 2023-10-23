@@ -17,3 +17,5 @@ router.get('/')
 router.put('/')
 router.post('/')
 router.delete('/')
+
+module.exports = router;

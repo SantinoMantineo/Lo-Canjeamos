@@ -1,10 +1,12 @@
 const { DataTypes } = require("sequelize");
+const User = require("./user")
 
 module.exports = (sequelize) => {
   sequelize.define("Chat", {
     id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true
     },
     addresseeId: {
       type: DataTypes.INTEGER,
