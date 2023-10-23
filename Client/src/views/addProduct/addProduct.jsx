@@ -2,10 +2,10 @@ import React from 'react'
 
 import './addProduct.css'
 
-const addProduct = () => {
+const AddProduct = () => {
   return (
-    <div>addProduct</div>
+    <div>AddProduct</div>
   )
 }
 
-export default addProduct
+export default AddProduct
