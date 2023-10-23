@@ -4,7 +4,7 @@ import "./landing.css"
 
 const landing = () => {
   return (
-    <div>landing</div>
+    <div>landing de prueba Joel</div>
   )
 }
 
