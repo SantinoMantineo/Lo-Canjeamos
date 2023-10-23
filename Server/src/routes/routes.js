@@ -1,21 +1,10 @@
 const { Router } = require("express");
-
-/* const  = require("../handler/")
-const  = require("../handler/")
-const  = require("../handler/")
-const  = require("../handler/")
-const  = require("../handler/")
-const  = require("../handler/")
-const  = require("../handler/") */
+const userRoutes = require("./userRoutes/userRoutes")
+const postRoutes = require("./postRoutes/postRoutes")
 
 const router = Router();
 
-router.get('/')
-router.get('/')
-router.get('/')
-router.get('/')
-router.put('/')
-router.post('/')
-router.delete('/')
+router.use('/user', userRoutes)
+router.use('/post', postRoutes)
 
 module.exports = router;
