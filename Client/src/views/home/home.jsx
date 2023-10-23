@@ -1,11 +1,10 @@
 import React from 'react'
+import style from './home.module.css'
 
-import "./home.css"
-
-const home = () => {
+const Home = () => {
   return (
-    <div>home</div>
+    <div>Home</div>
   )
 }
 
-export default home
+export default Home

@@ -2,10 +2,10 @@ import React from 'react'
 
 import './exchanges.css'
 
-const exchanges = () => {
+const Exchanges = () => {
   return (
-    <div>exchanges</div>
+    <div>Exchanges</div>
   )
 }
 
-export default exchanges
+export default Exchanges

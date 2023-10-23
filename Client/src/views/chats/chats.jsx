@@ -2,10 +2,10 @@ import React from 'react'
 
 import './chats.css'
 
-const chats = () => {
+const Chats = () => {
   return (
-    <div>chats</div>
+    <div>Chats</div>
   )
 }
 
-export default chats
+export default Chats
