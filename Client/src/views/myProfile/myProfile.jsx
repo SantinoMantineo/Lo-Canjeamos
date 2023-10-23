@@ -2,10 +2,10 @@ import React from 'react'
 
 import "./myProfile.css"
 
-const myProfile = () => {
+const MyProfile = () => {
   return (
-    <div>myProfile</div>
+    <div>MyProfile</div>
   )
 }
 
-export default myProfile
+export default MyProfile
