@@ -5,7 +5,7 @@
     left: 0px;
     right: 0px;
     grid-template-columns: 10fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 10px;
+    gap: 0px;
     padding: 10px;
     background-color: yellow;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);

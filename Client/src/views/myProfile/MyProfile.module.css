@@ -1,0 +1,26 @@
+.myProfile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.publications {
+    box-shadow: 0px 5px 10px rgba(127, 126, 126, 0.3);
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.publications h3 {
+    color: rgb(95,95,95);
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .myProfile {
+        grid-template-columns: 1fr;
+    }
+
+    .publications {
+        margin-bottom: 100px;
+    }
+}
