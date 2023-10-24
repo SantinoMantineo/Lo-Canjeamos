@@ -1,12 +1,15 @@
 import React from 'react'
+import Cards from '../../components/cards/Cards'
+import Filters from '../../components/filters/Filters'
+import Header from '../../components/header/Header'
 import style from './Home.module.css'
 
 const Home = () => {
   return (
     <>
-    <div className={style.container}>
-      Home
-    </div>
+    <Header></Header>
+    <Filters></Filters>
+    <Cards></Cards>
     </>
   )
 }

@@ -1,0 +1,19 @@
+@media (max-width: 1440px) {
+    .cards {
+        width: 1200px;
+        margin: 0;
+    }
+}
+
+@media (max-width: 1280px) {
+    .cards {
+        width: 700px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cards {
+        width: 300px;
+        margin: 0;
+    }
+}
