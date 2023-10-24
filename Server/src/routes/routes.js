@@ -1,6 +1,6 @@
 const { Router } = require("express");
-const usersRoutes = require("./usersRoutes/usersRoutes")
-const postsRoutes = require("./postsRoutes/postsRoutes")
+const usersRoutes = require("./userRoutes/userRoutes")
+const postsRoutes = require("./postRoutes/postRoutes")
 const plansRoutes = require("./plansRoutes/plansRoutes")
 const chatsRoutes = require("./chatsRoutes/chatsRoutes")
 
@@ -13,5 +13,3 @@ router.use('/plans', plansRoutes)
 router.use('/chats', chatsRoutes)
 
 module.exports = router;
-
-// probando el merge entre ramas
