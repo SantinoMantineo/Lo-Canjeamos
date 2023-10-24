@@ -1,11 +1,11 @@
 import React from 'react'
+import style from './Filters.module.css'
 
-import './filters.css'
 
-const filters = () => {
+const Filters = () => {
   return (
     <div>filters</div>
   )
 }
 
-export default filters
+export default Filters

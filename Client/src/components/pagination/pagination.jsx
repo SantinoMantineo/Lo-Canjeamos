@@ -1,11 +1,11 @@
 import React from 'react'
+import style from './Pagination.module.css'
 
-import './pagination.css'
 
-const pagination = () => {
+const Pagination = () => {
   return (
     <div>pagination</div>
   )
 }
 
-export default pagination
+export default Pagination
