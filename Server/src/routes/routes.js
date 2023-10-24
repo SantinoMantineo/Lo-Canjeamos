@@ -13,3 +13,5 @@ router.use('/plans', plansRoutes)
 router.use('/chats', chatsRoutes)
 
 module.exports = router;
+
+// probando el merge entre ramas
