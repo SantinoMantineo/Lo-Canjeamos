@@ -13,7 +13,7 @@ const navBar = () => {
         <div className={style.div}></div>
         
         <Link to="/profile">
-          <button>
+          <button className={style.iconos}>
             <img
               width="24"
               height="24"
@@ -24,7 +24,7 @@ const navBar = () => {
           </button>
         </Link>
         <Link to="/addProduct">
-          <button>
+          <button className={style.iconos}>
             <img
               width="24"
               height="24"
@@ -35,7 +35,7 @@ const navBar = () => {
           </button>
         </Link>
         <Link to="/home">
-          <button>
+          <button className={style.iconos}>
             <img
               width="24"
               height="24"
@@ -46,7 +46,7 @@ const navBar = () => {
           </button>
         </Link>
         <Link to="exchanges">
-          <button>
+          <button className={style.iconos}>
             <img
               width="24"
               height="24"
@@ -57,7 +57,7 @@ const navBar = () => {
           </button>
         </Link>
         <Link to="/chats">
-          <button>
+          <button className={style.iconos}>
             <img
               width="24"
               height="24"

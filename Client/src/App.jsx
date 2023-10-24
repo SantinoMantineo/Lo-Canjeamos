@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 // import { useState, useEffect } from 'react';
 // import { useDispatch, useSelector } from "react-redux";
-import Landing from "./views/landing/Landing";
 import About from "./views/about/About";
 import AddProduct from "./views/addProduct/AddProduct"
 import Chats from "./views/chats/Chats"
@@ -29,9 +28,9 @@ const App = () => {
 
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar/>
       <Routes>
-        <Route path="/" element={<Home/>} />
+      <Route path="/" element={<Home/>} />
         <Route path="/profile" element={<MyProfile/>} />
         <Route path="/addProduct" element={<AddProduct/>} />
         <Route path="/home" element={<Home/>} />

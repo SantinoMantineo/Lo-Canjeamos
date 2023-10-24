@@ -1,21 +1,17 @@
 const { Router } = require("express");
-
-/* const  = require("../handler/")
-const  = require("../handler/")
-const  = require("../handler/")
-const  = require("../handler/")
-const  = require("../handler/")
-const  = require("../handler/")
-const  = require("../handler/") */
+const usersRoutes = require("./usersRoutes/usersRoutes")
+const postsRoutes = require("./postsRoutes/postsRoutes")
+const plansRoutes = require("./plansRoutes/plansRoutes")
+const chatsRoutes = require("./chatsRoutes/chatsRoutes")
 
 const router = Router();
 
-router.get('/')
-router.get('/')
-router.get('/')
-router.get('/')
-router.put('/')
-router.post('/')
-router.delete('/')
+
+router.use('/users', usersRoutes)
+router.use('/posts', postsRoutes)
+router.use('/plans', plansRoutes)
+router.use('/chats', chatsRoutes)
 
 module.exports = router;
+
+// probando el merge entre ramas

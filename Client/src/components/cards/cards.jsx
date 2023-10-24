@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 import style from "./Cards.module.css";
 
 const Cards = () => {
-  
   const settings = {
     dots: true,
     centerMode: true,

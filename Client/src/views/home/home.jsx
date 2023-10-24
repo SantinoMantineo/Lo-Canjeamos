@@ -5,6 +5,7 @@ import Header from '../../components/header/Header'
 import style from './Home.module.css'
 
 
+import style from './Home.module.css'
 
 const Home = () => {
   return (
