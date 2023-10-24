@@ -1,0 +1,27 @@
+.header {
+  display: inline-block;
+  width: 500px;
+  margin-top: 20px;
+}
+
+.header img {
+  width: 500px;
+  border-radius: 10px;
+}
+
+@media (max-width: 1280px) {
+  .header {
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    width: 300px;
+    margin-top: 10px;
+  }
+
+  .header img {
+    width: 300px;
+  }
+}

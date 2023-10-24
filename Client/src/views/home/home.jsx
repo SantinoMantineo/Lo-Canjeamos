@@ -1,9 +1,18 @@
 import React from 'react'
+import Cards from '../../components/cards/Cards'
+import Filters from '../../components/filters/Filters'
+import Header from '../../components/header/Header'
 import style from './home.module.css'
+
+
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <>
+    <Header></Header>
+    <Filters></Filters>
+    <Cards></Cards>
+    </>
   )
 }
 

@@ -1,16 +1,17 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/locan.png";
 import style from "./Nabvar.module.css";
 
 const navBar = () => {
+
   return (
     <>
       <Link to="/home">
-      <img src={Logo} className={style.logo} />
+        <img src={Logo} className={style.logo} />
       </Link>
       <div className={style.navbar}>
         <div className={style.div}></div>
+        
         <Link to="/profile">
           <button>
             <img
@@ -25,8 +26,8 @@ const navBar = () => {
         <Link to="/addProduct">
           <button>
             <img
-              width="26"
-              height="26"
+              width="24"
+              height="24"
               src="https://img.icons8.com/sf-regular/48/add.png"
               alt="add"
             />
