@@ -3,8 +3,17 @@ const { Post, User} = require('../DB_config');
 exports.getAllUser = async () => {
   try {
     const users = await User.findAll();
-    console.log(users)
-    return users;
+
+    const simplifiedUsers = users.map(user => ({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      image: user.image,
+      ubication: user.ubication,
+      rol: user.rol,
+    }));
+
+    return simplifiedUsers;
   } catch (error) {
     throw error;
   }
