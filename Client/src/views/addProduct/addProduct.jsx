@@ -1,11 +1,10 @@
 import React from 'react'
+import style from './AddProduct.module.css'
 
-import './addProduct.css'
-
-const addProduct = () => {
+const AddProduct = () => {
   return (
-    <div>addProduct</div>
+    <div>AddProduct</div>
   )
 }
 
-export default addProduct
+export default AddProduct

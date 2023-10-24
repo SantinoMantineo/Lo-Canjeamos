@@ -1,0 +1,19 @@
+.header {
+  display: inline-block;
+  width: 500px;
+}
+
+.header img {
+  width: 500px;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .header {
+    width: 300px;
+  }
+
+  .header img {
+    width: 300px;
+  }
+}
