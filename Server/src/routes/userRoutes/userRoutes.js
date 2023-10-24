@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("");
+const userController = require("../../controllers/userControllers");
 
 router.get('/', async(req, res) =>{
     try{
