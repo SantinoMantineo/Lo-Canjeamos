@@ -1,11 +1,11 @@
 import React from 'react'
+import style from './Cards.module.css'
 
-import './cards.css'
 
-const cards = () => {
+const Cards = () => {
   return (
     <div>cards</div>
   )
 }
 
-export default cards
+export default Cards

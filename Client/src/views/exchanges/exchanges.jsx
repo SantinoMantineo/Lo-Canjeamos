@@ -1,6 +1,5 @@
 import React from 'react'
-
-import './exchanges.css'
+import style from './Exchanges.module.css'
 
 const Exchanges = () => {
   return (

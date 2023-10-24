@@ -1,11 +1,16 @@
 const { Router } = require("express");
-const userRoutes = require("./userRoutes/userRoutes")
-const postRoutes = require("./postRoutes/postRoutes")
+const usersRoutes = require("./usersRoutes/usersRoutes")
+const postsRoutes = require("./postsRoutes/postsRoutes")
+const plansRoutes = require("./plansRoutes/plansRoutes")
+const chatsRoutes = require("./chatsRoutes/chatsRoutes")
 
 const router = Router();
 
-router.use('/user', userRoutes)
-router.use('/post', postRoutes)
+
+router.use('/users', usersRoutes)
+router.use('/posts', postsRoutes)
+router.use('/plans', plansRoutes)
+router.use('/chats', chatsRoutes)
 
 module.exports = router;
 
