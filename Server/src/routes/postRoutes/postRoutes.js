@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
+<<<<<<< HEAD
 const postsController = require("../../controllers/postsControllers.js");
+=======
+const postController = require("../../controllers/postControllers");
+>>>>>>> ae3e7c4e9f7cba4eaa3349cd7746ed8ba72f2f31
 
 router.get('/', async(req, res) =>{
     try{
