@@ -1,6 +1,5 @@
 import React from 'react'
-
-import './addProduct.css'
+import style from './AddProduct.module.css'
 
 const AddProduct = () => {
   return (

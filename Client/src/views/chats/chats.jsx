@@ -1,6 +1,6 @@
 import React from 'react'
+import style from './Chats.module.css'
 
-import './chats.css'
 
 const Chats = () => {
   return (

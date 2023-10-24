@@ -1,6 +1,6 @@
 import React from 'react'
+import style from "./MyProfile.module.css"
 
-import "./myProfile.css"
 
 const MyProfile = () => {
   return (
