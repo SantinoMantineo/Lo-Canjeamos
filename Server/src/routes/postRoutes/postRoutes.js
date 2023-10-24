@@ -13,15 +13,17 @@ router.get('/', async(req, res) =>{
     }
 })
 
-router.get("/:id", async(req,res) => {
-    const {id} = req.params
-    try {
-        const response = await postsController.getPostById(id)
-        return res.status(200).json(response)
-    } catch (error) {
-        return res.status(404).json({error: error.message})
-    }
-})
+router.post('/', async (req, res) => {
+  try {
+      const postData = req.body;
+      
+      const newPost = await postsController.createPost(postData);
+
+      return res.status(201).json(newPost);
+  } catch (error) {
+      return res.status(400).json({ error: error.message });
+  }
+});
 
 router.put("/:id", async (req, res) => {
     const { id } = req.params;
