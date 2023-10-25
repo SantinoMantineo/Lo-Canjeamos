@@ -12,7 +12,7 @@ const navBar = () => {
       <div className={style.navbar}>
         <div className={style.div}></div>
         
-        <Link to="/profile">
+        <Link to="/login">
           <button className={style.iconos}>
             <img
               width="24"
@@ -20,7 +20,7 @@ const navBar = () => {
               src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
               alt="experimental-user-puffy"
             />
-            Profile
+            Log-In
           </button>
         </Link>
         <Link to="/addProduct">

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import Avatar from "../../components/avatar/Avatar";
 import Publication from "../../components/publication/Publication";
