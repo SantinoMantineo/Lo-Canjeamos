@@ -1,11 +1,16 @@
 import React from "react";
 import Avatar from "../../components/avatar/Avatar";
 import Publication from "../../components/publication/Publication";
+import Header from "../../components/header/Header";
+import Banner3 from '../../assets/banner3.jpg'
+import Banner4 from '../../assets/banner4.jpg'
 import style from "./MyProfile.module.css";
+
 
 const MyProfile = () => {
   return (
     <>
+      <Header banner1={Banner3} banner2={Banner4}></Header>
       <div className={style.myProfile}>
         <div className={style.avatar}>
           <Avatar></Avatar>
