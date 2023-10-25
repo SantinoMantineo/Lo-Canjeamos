@@ -32,4 +32,14 @@ router.put("/:id", async (req, res) => {
       }
     });
 
+router.get('/:id', async(req, res) =>{
+    const {id} = req.params
+    try{
+        const response = await userController.getUserById(id);
+        return res.status(200).json(response)
+    } catch(error){
+        return res.status(400).json(error.message)
+    }
+})
+
 module.exports = router;

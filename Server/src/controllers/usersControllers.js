@@ -56,19 +56,20 @@ exports.updateUser = async (id, updatedData) => {
     throw error;
   }
 };
-// exports.getPostById = async (id) => {
-//     try {
-//       const post = await Post.findByPk(id);
+
+exports.getUserById = async (id) => {
+    try {
+      const userById = await User.findByPk(id);
   
-//       if (!post) {
-//         throw new Error('Post not found');
-//       }
-  
-//       return post;
-//     } catch (error) {
-//       throw error;
-//     }
-//   };
+      if (!userById) {
+        throw new Error('No users found with the specified id');
+      }
+      
+      return userById;
+    } catch (error) {
+      throw error;
+    }
+  };
 
 
 // exports.updatePost = async (id, updatedData) => {
