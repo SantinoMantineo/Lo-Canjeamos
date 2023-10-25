@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable no-unused-vars */
+import Rect from 'react'
 import style from "./MyProfile.module.css"
 
 
