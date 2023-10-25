@@ -22,7 +22,7 @@
     text-shadow: 0px 5px 10px rgba(124, 123, 123, 0.3);
 }
 
-.avatar button {
+.avatar .premium {
     background-color: goldenrod;
     padding: 5px;
     margin-top: 15px;
@@ -31,6 +31,11 @@
     font-size: 14px;
 }
 
-.avatar button:hover {
-    scale: 0.98;
+.avatar .logout {
+    background-color: tomato;
+    padding: 5px;
+    box-shadow: 0px 5px 10px rgba(125, 125, 125, .3);
+    color: whitesmoke;
+    font-size: 14px;
+    width: 93px;
 }

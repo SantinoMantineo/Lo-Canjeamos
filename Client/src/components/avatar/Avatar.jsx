@@ -10,7 +10,11 @@ const Avatar = () => {
     <h3>Emir Kalehb</h3>
     <p>San Cristóbal, Santa Fe</p>
     <div>⭐️⭐️⭐️⭐️⭐️</div>
-    <button>Sé Premium</button>
+    <button className={style.premium}>Sé Premium</button>
+    <br/>
+    <br/>
+    <button className={style.logout}>Salir</button>
+    
     </div>
     </>
   )
