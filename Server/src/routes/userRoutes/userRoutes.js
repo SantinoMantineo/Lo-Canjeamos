@@ -21,4 +21,15 @@ router.post('/addUser', async(req, res) =>{
     }
 })
 
+router.put("/:id", async (req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body;
+    try {
+      const updatedUser = await userController.updateUser(id, updatedData);
+        return res.status(200).json({ message: 'Resource updated successfully' })
+    } catch (error) {
+        return res.status(404).json({ error: error.message });
+      }
+    });
+
 module.exports = router;
