@@ -11,6 +11,9 @@ import Home from "./views/home/Home";
 import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/MyProfile"
 import UserProfile from "./views/userProfile/UserProfile"
+import Login from './views/login/Login';
+import Register from "./components/register/register";
+
 import "./App.css";
 
 const App = () => {
@@ -39,6 +42,8 @@ const App = () => {
         <Route path="/chats" element={<Chats/>} />
         <Route path="/userProfile" element={<UserProfile/>} />
         <Route path="/about" element={<About/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/register" element={<Register/>} />
       </Routes>
     </>
   );
