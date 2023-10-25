@@ -14,9 +14,9 @@ router.get('/', async(req, res) =>{
 })
 
 router.post('/', async (req, res) => {
+  const postData = req.body;
   try {
-      const postData = req.body;
-      
+      console.log(postData)
       const newPost = await postsController.createPost(postData);
 
       return res.status(201).json(newPost);
