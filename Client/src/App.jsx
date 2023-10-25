@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 // import { useState, useEffect } from 'react';
@@ -10,6 +11,9 @@ import Home from "./views/home/Home";
 import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/MyProfile"
 import UserProfile from "./views/userProfile/UserProfile"
+import Login from './views/Login/Login';
+import Register from "./components/Register/Register";
+
 import "./App.css";
 
 const App = () => {
@@ -38,6 +42,8 @@ const App = () => {
         <Route path="/chats" element={<Chats/>} />
         <Route path="/userProfile" element={<UserProfile/>} />
         <Route path="/about" element={<About/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/register" element={<Register/>} />
       </Routes>
     </>
   );

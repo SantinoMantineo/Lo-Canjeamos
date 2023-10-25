@@ -1,12 +1,10 @@
 import React from "react";
-import Banner from "../../assets/banner1.jpg";
-import Banner2 from "../../assets/banner2.jpg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import style from "./Header.module.css";
 
-function Header() {
+function Header({ banner1, banner2 }) {
   const settings = {
     dots: false,
     arrows: false,
@@ -23,10 +21,10 @@ function Header() {
     <div className={style.header}>
       <Slider {...settings}>
         <div>
-          <img src={Banner} />
+          <img src={banner1} />
         </div>
         <div>
-          <img src={Banner2} />
+          <img src={banner2} />
         </div>
       </Slider>
     </div>

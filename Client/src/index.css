@@ -50,8 +50,23 @@ button {
   cursor: pointer;
   transition: 300ms;
 }
-button:hover {
-  scale: 1.1;
+
+button:active {
+  animation-name: push; 
+  animation-duration: 1000ms; 
+  animation-iteration-count: 1;
+}
+
+@keyframes push {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 0.8;
+  }
+  100% {
+    scale: 1;
+  }
 }
 
 
