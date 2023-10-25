@@ -7,6 +7,7 @@ import style from "./AddProduct.module.css";
 import axios from "axios";
 
 export default function AddProduct() {
+
   //Configuración de la biblioteca para cargar imagenes.
   const thumbsContainer = {
     display: "flex",
@@ -84,7 +85,7 @@ export default function AddProduct() {
   const [provinces, setProvinces] = useState([]);
   const [localities, setLocalities] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
-
+  const [ localidad, setSelectedLocalidad ] = useState("")
   useEffect(() => {
     fetch("https://apis.datos.gob.ar/georef/api/provincias")
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
@@ -108,7 +109,6 @@ export default function AddProduct() {
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then((json) => {
         setLocalities(json.localidades);
-        console.log(localidades);
       })
       .catch((error) => {
         console.error(
@@ -118,7 +118,10 @@ export default function AddProduct() {
         );
       });
   };
-
+  const handleLocalidadChange = (e) => {
+    const selectedLocalidad = e.target.value;
+    setSelectedLocalidad(selectedLocalidad);
+  };
   const sortedProvinces = provinces.sort((a, b) => {
     return a.nombre.localeCompare(b.nombre);
   });
@@ -148,6 +151,49 @@ export default function AddProduct() {
     "Varios",
   ];
 
+  
+  const [formData, setFormData] = useState({
+    title: '',
+    description: "",
+    image: "",
+    ubication: "",
+    category: ""
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+ const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+        let newPost = {
+          title: formData.title,
+          description: formData.description,
+          image: files,
+          ubication: `${selectedProvince}, ${localidad}`,
+          category: selectedCategory,
+        }
+        console.log(newPost)
+      const response = await axios.post('http://localhost:3001/posts/', newPost)
+
+      if (response) {
+        // La solicitud se completó con éxito
+       
+        setPost(true)
+      } else {
+        // Hubo un error en la solicitud
+        console.log('Hubo un error al crear la publicacion.');
+      }
+    } catch (error) {
+      console.error('Error al enviar los datos al servidor:', error);
+      console.log('Hubo un error al crear la publicacion.');
+    }
+  }
+  
+  
   return (
     <>
       <Header banner1={Banner} banner2={Banner2}></Header>
@@ -161,6 +207,8 @@ export default function AddProduct() {
                 className={style.input}
                 type="text"
                 name="title"
+                value={formData.title}
+                onChange={handleChange}
                 placeholder="Inserte titulo"
               />
             </label>
@@ -170,6 +218,8 @@ export default function AddProduct() {
                 className={style.input}
                 type="text"
                 name="description"
+                onChange={handleChange}
+                value={formData.description}
                 placeholder="Inserte descripcion"
               />
             </label>
@@ -196,7 +246,7 @@ export default function AddProduct() {
             </select>
             <span></span>
             <label>Localidad*</label>
-            <select id="selectLocalidades">
+            <select id="selectLocalidades" onChange={handleLocalidadChange}>
               <option value="Elige una localidad">Elige una localidad</option>
               {sortedLocalities.map((locality) => (
                 <option key={locality.id} value={locality.nombre}>
@@ -221,7 +271,7 @@ export default function AddProduct() {
             <span></span>
           </div>
         </form>
-        <button type="submit" className={style.button}>
+        <button type="submit" onClick={handleSubmit} className={style.button}>
           Crear Post
         </button>
         <h5 className={style.message}>Los campos con * son obligatorios</h5>
