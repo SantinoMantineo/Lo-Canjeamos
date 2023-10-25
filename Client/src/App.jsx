@@ -11,9 +11,8 @@ import Home from "./views/home/Home";
 import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/MyProfile"
 import UserProfile from "./views/userProfile/UserProfile"
-import Login from './views/login/Login';
-import Register from "./components/register/register";
-
+import Login from './views/Login/Login';
+import Register from "./components/Register/Register";
 
 import "./App.css";
 
