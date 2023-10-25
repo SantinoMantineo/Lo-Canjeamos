@@ -1,19 +1,23 @@
-@media (max-width: 1440px) {
-    .cards {
-        width: 1200px;
-        margin: 0;
-    }
+.cards {
+  width: 1200px;
+  margin: 0;
+  margin-top: 120px;
 }
 
 @media (max-width: 1280px) {
-    .cards {
-        width: 700px;
-    }
+  .cards {
+    width: 660px;
+    margin: 0;
+    margin-top: 120px;
+  }
 }
 
 @media (max-width: 768px) {
-    .cards {
-        width: 300px;
-        margin: 0;
-    }
+  .cards {
+    display:inline;
+    width: 270px;
+    margin: 0;
+    margin-top: 120px;
+    justify-self: center;
+  }
 }

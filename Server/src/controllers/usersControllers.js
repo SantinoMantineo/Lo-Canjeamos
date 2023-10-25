@@ -40,6 +40,22 @@ exports.createUser = async (user) => {
     throw new Error('No se pudo crear el usuario');
   }
 };
+
+exports.updateUser = async (id, updatedData) => {
+  try {
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      throw new Error('Post not found');
+    }
+
+    await user.update(updatedData);
+
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
 // exports.getPostById = async (id) => {
 //     try {
 //       const post = await Post.findByPk(id);
