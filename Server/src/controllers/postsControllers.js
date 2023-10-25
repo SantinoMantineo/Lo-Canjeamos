@@ -12,20 +12,15 @@ exports.getAllPosts = async () => {
   }
 };
 
+exports.createPost = async (postData) => {
+  try {
+    const newPost = await Post.create(postData);
 
-exports.getPostById = async (id) => {
-    try {
-      const post = await Post.findByPk(id);
-  
-      if (!post) {
-        throw new Error('Post not found');
-      }
-  
-      return post;
-    } catch (error) {
-      throw error;
-    }
-  };
+    return newPost;
+  } catch (error) {
+    throw error;
+  }
+};
 
 
 exports.updatePost = async (id, updatedData) => {

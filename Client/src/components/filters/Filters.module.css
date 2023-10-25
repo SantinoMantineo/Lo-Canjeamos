@@ -32,6 +32,10 @@ select {
 
   .filters {
     margin-top: 0;
-    grid-template-columns: 100px 60px 100px;
+    grid-template-columns: 85px 60px 85px;
+  }
+
+  select {
+    font-size: 14px;
   }
 }

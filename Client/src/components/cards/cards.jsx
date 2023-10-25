@@ -8,7 +8,7 @@ import style from "./Cards.module.css";
 const Cards = () => {
   const settings = {
     dots: true,
-    centerMode: true,
+    
     infinite: true,
     speed: 500,
     slidesToShow: 5,
