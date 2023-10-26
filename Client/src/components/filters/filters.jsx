@@ -18,12 +18,12 @@ const Filters = () => {
         </select>
 
         <select>
-          <option>Localidad</option>
+          <option>Provincia</option>
           <option></option>
         </select>
 
         <select>
-          <option>Provincia</option>
+          <option>Localidad</option>
           <option></option>
         </select>
       </div>
