@@ -68,31 +68,32 @@ exports.createUser = async (user) => {
   }
 };
 
-exports.loginUser = async (user)=>{
-
-  const usuario = await User.findAll({
+exports.loginUser = async (user) => {
+  const usuarios = await User.findAll({
     where: {
       username: user.username
     }
   });
 
-  if(usuario === 0){
-      throw new Error("No existe ningun usuario con ese nombre");
-    } else {
-      try {
-        const validPassword = await bcrypt.compare(user.password, usuario.password)
+  if (usuarios.length === 0) {
+    throw new Error("No existe ningún usuario con ese nombre");
+  } else {
+    try {
+      const usuario = usuarios[0]; // Acceder al primer usuario en el array
 
-        if(!validPassword){
-          throw new Error("La contraseña es incorrecta");
-        } else{
-          const token = jwtGenerator(usuario.id);
-          return { token }
-        }
-      } catch (error) {
-        throw new Error("Error al iniciar sesion");
+      const validPassword = await bcrypt.compare(user.password, usuario.password);
+
+      if (!validPassword) {
+        throw new Error("La contraseña es incorrecta");
+      } else {
+        const token = jwtGenerator(usuario.id);
+        return { token };
       }
+    } catch (error) {
+      throw new Error("Error al iniciar sesión");
     }
   }
+};
 
 exports.updateUser = async (id, updatedData) => {
   try {
