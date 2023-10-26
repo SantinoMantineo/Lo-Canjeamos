@@ -11,10 +11,20 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/addUser", async (req, res) => {
+router.post("/register", async (req, res) => {
   const user = req.body;
   try {
     const response = await userController.createUser(user);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
+});
+
+router.post("/login", async (req, res) => {
+  const user = req.body;
+  try {
+    const response = await userController.loginUser(user);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json(error.message);
