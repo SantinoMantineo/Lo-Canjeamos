@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../../controllers/usersControllers");
+const validInfo = require("../../middleware/validInfo");
+const authorization = require("../../middleware/authorization");
 
 router.get("/", async (req, res) => {
   try {
@@ -11,7 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/register", async (req, res) => {
+router.post("/register", validInfo, async (req, res) => {
   const user = req.body;
   try {
     const response = await userController.createUser(user);
@@ -21,13 +23,21 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", validInfo, async (req, res) => {
   const user = req.body;
   try {
     const response = await userController.loginUser(user);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json(error.message);
+  }
+});
+
+router.get("/verify", authorization, async (req, res) => {
+  try {
+    return res.status(200).json(true);
+  } catch (error) {
+    return res.status(500).json(error.message);
   }
 });
 
