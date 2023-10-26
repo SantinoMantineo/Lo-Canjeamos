@@ -12,6 +12,21 @@ exports.getAllPosts = async () => {
   }
 };
 
+exports.getPostById = async (id) => {
+  try {
+    const postById = await Post.findByPk(id);
+
+    if (!postById) {
+      throw new Error("No post found with the specified id");
+    }
+
+    return postById;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 exports.getPostsByCategory = async (category) => {
   try {
     const posts = await Post.findAll({

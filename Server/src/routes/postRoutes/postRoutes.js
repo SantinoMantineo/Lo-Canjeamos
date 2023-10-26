@@ -43,6 +43,16 @@ router.get("/localidad/:localidad", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const postById = await postsController.getPostById(id);
+    return res.status(200).json(postById);
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
+  }
+});
+
 router.post("/", async (req, res) => {
   const postData = req.body;
   try {
