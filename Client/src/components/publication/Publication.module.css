@@ -10,24 +10,24 @@
     transition: 300ms;
 }
 
-.publication:hover {
-    scale: 1.03;
-}
-
 .img {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 3px solid cornflowerblue;
+    border: 3px solid #4ECDC4;
 }
 
 .publication h3 {
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
     align-self: center;
     color: rgb(45,45,45);
 }
 
 .publication .trash {
     opacity: 50%;
+}
+
+.publication .trash:hover {
+    opacity: 90%;
 }
