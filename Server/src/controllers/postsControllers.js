@@ -12,6 +12,21 @@ exports.getAllPosts = async () => {
   }
 };
 
+exports.getPostById = async (id) => {
+  try {
+    const postById = await Post.findByPk(id);
+
+    if (!postById) {
+      throw new Error("No post found with the specified id");
+    }
+
+    return postById;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 exports.getPostsByCategory = async (category) => {
   try {
     const posts = await Post.findAll({
@@ -67,3 +82,20 @@ exports.deletePost = async (id) => {
     throw error;
   }
 };
+
+exports.getPostsByProvince = async(provincia) => {
+    const posts = await Post.findAll();
+    const provinceFilter = posts.filter((post) => {
+      return post.ubication.endsWith(`${provincia}`);
+    });
+    return provinceFilter;
+}
+
+
+exports.getPostsByLocality = async (localidad) => {
+  const posts = await Post.findAll();
+  const localityFilter = posts.filter((post) => {
+    return post.ubication.startsWith(`${localidad}`);
+  });
+  return localityFilter;
+}
