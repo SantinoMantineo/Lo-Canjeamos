@@ -1,0 +1,41 @@
+.exchanges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.likes {
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+    padding: 30px;
+    height: fit-content;
+}
+
+.likes h3 {
+    margin: 0;
+    color: grey;
+}
+
+.matchs {
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+    padding: 30px;
+    height: fit-content;
+    background-color: #FF6B6B;
+}
+
+.matchs h3 {
+    color: whitesmoke;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .exchanges {
+        grid-template-columns: 1fr;
+    }
+
+    .likes {
+        margin-bottom: 100px;
+    }
+}

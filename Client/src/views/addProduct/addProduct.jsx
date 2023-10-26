@@ -272,7 +272,7 @@ export default function AddProduct() {
           </div>
         </form>
         <button type="submit" onClick={handleSubmit} className={style.button}>
-          Crear Post
+          Crear
         </button>
         <h5 className={style.message}>Los campos con * son obligatorios</h5>
       </div>

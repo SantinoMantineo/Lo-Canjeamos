@@ -20,7 +20,7 @@ const navBar = () => {
               src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
               alt="experimental-user-puffy"
             />
-            Log-In
+            Iniciar sesión
           </button>
         </Link>
         <Link to="/addProduct">
@@ -31,7 +31,7 @@ const navBar = () => {
               src="https://img.icons8.com/sf-regular/48/add.png"
               alt="add"
             />
-            Add
+            Agregar
           </button>
         </Link>
         <Link to="/home">
@@ -42,7 +42,7 @@ const navBar = () => {
               src="https://img.icons8.com/fluency-systems-regular/48/home--v1.png"
               alt="home--v1"
             />
-            Home
+            Principal
           </button>
         </Link>
         <Link to="exchanges">
@@ -53,7 +53,7 @@ const navBar = () => {
               src="https://img.icons8.com/material-rounded/48/available-updates.png"
               alt="available-updates"
             />
-            Match
+            Canjes
           </button>
         </Link>
         <Link to="/chats">
@@ -64,7 +64,7 @@ const navBar = () => {
               src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
               alt="chat--v1"
             />
-            Chats
+            Mensajes
           </button>
         </Link>
       </div>

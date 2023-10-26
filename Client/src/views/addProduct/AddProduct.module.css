@@ -75,7 +75,7 @@ label {
   font-size: 12px;
 }
 .button {
-  background-color: cornflowerblue;
+  background-color: #4ECDC4;
   width: 100px;
   padding: 5px;
   margin: 15px;
@@ -83,10 +83,6 @@ label {
   color: whitesmoke;
   font-size: 14px;
   justify-self: center;
-}
-
-.button:hover {
-  scale: 0.98;
 }
 
 .files {
@@ -112,7 +108,7 @@ label {
 }
 
 .container p:hover {
-  background-color: cornflowerblue;
+  background-color: #1A535C;
   color: whitesmoke;
 }
 
