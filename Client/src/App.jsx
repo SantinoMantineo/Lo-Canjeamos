@@ -8,7 +8,7 @@ import AddProduct from "./views/addProduct/AddProduct"
 import Chats from "./views/chats/Chats"
 import Exchanges from "./views/exchanges/Exchanges"
 import Home from "./views/home/Home";
-import Detail from './components/detail/Detail'
+import Detail from './views/detail/Detail'
 import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/MyProfile"
 import UserProfile from "./views/userProfile/UserProfile"
