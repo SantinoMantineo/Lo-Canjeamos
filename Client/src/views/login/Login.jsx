@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 import React from 'react'
 import style from './Login.module.css'
@@ -42,7 +44,7 @@ console.log(input)
                   value={input.password}/>
               </div>
 
-              <button>Sing In</button>
+              <Link to='/profile'>Sig In</Link>
           </form>
         </div>
 

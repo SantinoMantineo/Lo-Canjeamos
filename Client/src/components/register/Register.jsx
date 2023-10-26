@@ -1,5 +1,6 @@
-import { useState } from 'react'
+/* eslint-disable no-unused-vars */
 import React from 'react'
+import { useState } from 'react'
 import style from './Register.module.css'
 import { Link } from "react-router-dom";
 
@@ -7,43 +8,74 @@ import { Link } from "react-router-dom";
 const Register = () => {
 
   const [input, setInput] = useState({
+    fullname:"",
     username: "",
     password: "",
+    email: "",
+    imag: "",
+    location: "",
   });
+  console.log(input)
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleInputChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    })
+    
+    //  setErrors(validate({
+    //    ...form, 
+    //    [e.target.name]: e.target.value,
+    //  }))
+  }
+  const handleShowPassword = ()=> {
+    setShowPassword(!showPassword)
+}
+
 
   return (
     <div className={style.container}>
         
         <div className={style.title}>
           <h2>Register</h2>
-          <div><p>Completa con tus datos</p></div>
+          <div><p>Please Enter Your Details</p></div>
         </div>
 
         <div className={style.form}>
           <form>
             <div>
-              <input type="text" name="username"/>
-              <span>Nombre</span>
+              <input type="text" name="fullname" placeholder='fullname' onChange={handleInputChange} value={input.fullname}/>
+              <span>Full Name</span>
             </div>
 
             <div>
-              <input type="text" name="apellido"/>
-              <span>Apellido</span>
+              <input type="text" name="username" placeholder='username' onChange={handleInputChange} value={input.username}/>
+              <span>Username</span>
             </div>
 
             <div>
-              <input type="mail" name="mail"/>
-              <span>Mail</span>
+              <input type=  {showPassword ? "text" : "password"} name="password" placeholder='password' onChange={handleInputChange} value={input.password}/>
+              <h2 className=''>Show Pasword <input type="checkbox" onClick={handleShowPassword} /></h2>
             </div>
 
             <div>
-              <input type="password" name="password"/>
-              <span>Password</span>
+              <input type="email" name="email" placeholder='email' onChange={handleInputChange} value={input.email}/>
+              <span>Email</span>
             </div>
 
-            <button>
-              Register
-            </button>
+            <div>
+              <input type="imag" name="imag" placeholder='image' onChange={handleInputChange} value={input.imag}/>
+              <span>Image</span>
+            </div>
+
+            <div>
+              <input type="location" name="location" placeholder='location' onChange={handleInputChange} value={input.location}/>
+              <span>Location</span>
+            </div>
+
+            <Link to='/login'>Register</Link>
           </form>
         </div>
             <div>
