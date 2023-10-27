@@ -6,7 +6,12 @@ import {
   DELETE_USER,
   GET_ALL_POSTS,
   GET_POST_BY_ID,
+  SELECT_CATEGORY,
+  SELECT_LOCALITY,
+  SELECT_PROVINCE,
   GET_POST_BY_CATEGORY,
+  GET_POST_BY_PROVINCE,
+  GET_POST_BY_LOCALITY,
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
@@ -19,6 +24,11 @@ const initialState = {
   allPostsCopy: [],
   selectedPost: null,
   postsCategory: [],
+  postsByProvince: [],
+  postsByLocality: [],
+  selectedProvince: null,
+  selectedLocality: null,
+  selectedCategory: null,
 };
 
 function rootReducer(state = initialState, action) {
@@ -29,11 +39,11 @@ function rootReducer(state = initialState, action) {
         allUsers: action.payload,
       };
 
-      case GET_USER_BY_ID:
-        return {
-          ...state,
-          selectedUser: action.payload,
-        };
+    case GET_USER_BY_ID:
+      return {
+        ...state,
+        selectedUser: action.payload,
+      };
 
     case CREATE_USER:
       return {
@@ -64,16 +74,59 @@ function rootReducer(state = initialState, action) {
         allPostsCopy: action.payload,
       };
 
-      case GET_POST_BY_ID:
-        return {
-          ...state,
-          selectedPost: action.payload,
-        };
+    case GET_POST_BY_ID:
+      return {
+        ...state,
+        selectedPost: action.payload,
+      };
+
+    case SELECT_PROVINCE:
+      return {
+        ...state,
+        selectedProvince: action.payload,
+        selectedLocality: null,
+      };
+
+    case SELECT_LOCALITY:
+      return {
+        ...state,
+        selectedLocality: action.payload,
+      };
+
+    case SELECT_CATEGORY:
+      return {
+        ...state,
+        selectedCategory: action.payload,
+      };
 
     case GET_POST_BY_CATEGORY:
       return {
         ...state,
         postsCategory: action.payload,
+      };
+
+    case GET_POST_BY_PROVINCE:
+      const filteredDataByProvince = action.payload.filter((post) => {
+        return (
+          post.province === state.selectedProvince &&
+          (state.selectedLocality ? post.locality === state.selectedLocality : true)
+        );
+      });
+      return {
+        ...state,
+        postsByProvince: filteredDataByProvince,
+      };
+
+    case GET_POST_BY_LOCALITY:
+      const filteredDataByLocality = action.payload.filter((post) => {
+        return (
+          post.province === state.selectedProvince &&
+          post.locality === state.selectedLocality
+        );
+      });
+      return {
+        ...state,
+        postsByLocality: filteredDataByLocality,
       };
 
     case CREATE_POST:
