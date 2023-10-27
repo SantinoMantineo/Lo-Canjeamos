@@ -28,7 +28,6 @@ const Filters = () => {
         <Link to="/profile">
           <img src={Product} className={style.product} alt="Product" />
         </Link>
-        <span>Filtrar:</span>
 
         <select value={selectedProvince} onChange={handleProvinceChange}>
           <option value="">Provincia</option>
