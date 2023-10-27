@@ -1,4 +1,6 @@
 const { Post, User } = require("../DB_config");
+const bcrypt = require('bcrypt');
+const jwtGenerator = require("../utils/jwtGenerator")
 
 exports.getAllUser = async () => {
   try {
@@ -18,7 +20,6 @@ exports.getAllUser = async () => {
     throw error;
   }
 };
-
 exports.createUser = async (user) => {
   if (
     !user.username ||
@@ -29,23 +30,79 @@ exports.createUser = async (user) => {
     !user.rol
   ) {
     throw new Error("Faltan datos");
-  }
-
-  try {
-    const newUser = await User.create({
-      username: user.username,
-      email: user.email,
-      password: user.password,
-      image: user.image,
-      ubication: user.ubication,
-      rol: user.rol,
+  } else {
+    const existEmail = await User.findAll({
+      where: {
+        email: user.email
+      }
     });
+    const existUsername = await User.findAll({
+      where: {
+        username: user.username
+      }
+    });
+    if (existEmail.length !== 0 || existUsername.length !== 0) {
+      throw new Error("El email o usuario ya están en uso, prueba uno diferente.");
+    } else {
+      try {
+        const saltRounds = 10;
+        const salt = await bcrypt.genSalt(saltRounds);
+        const password = user.password;
+        const bcryptPassword = await bcrypt.hash(password, salt);
 
-    return newUser;
-  } catch (error) {
-    throw new Error("No se pudo crear el usuario");
+        const newUser = await User.create({
+          username: user.username,
+          email: user.email,
+          password: bcryptPassword,
+          image: user.image,
+          ubication: user.ubication,
+          rol: user.rol,
+        });
+
+        const token = jwtGenerator(newUser.id)
+        return {newUser, token};
+      } catch (error) {
+        throw new Error("No se pudo crear el usuario");
+      }
+    }
   }
 };
+
+exports.loginUser = async (user) => {
+  const usuarios = await User.findAll({
+    where: {
+      username: user.username
+    }
+  });
+
+  if (usuarios.length === 0) {
+    throw new Error("No existe ningún usuario con ese nombre");
+  } else {
+    try {
+      const usuario = usuarios[0]; // Acceder al primer usuario en el array
+
+      const validPassword = await bcrypt.compare(user.password, usuario.password);
+
+      if (!validPassword) {
+        throw new Error("La contraseña es incorrecta");
+      } else {
+        const token = jwtGenerator(usuario.id);
+        return { token };
+      }
+    } catch (error) {
+      throw new Error("Error al iniciar sesión");
+    }
+  }
+};
+
+exports.getUserId = async (user) => {
+  try {
+    const userId = await User.findByPk(user)
+    return userId;
+  } catch (error) {
+    throw new Error("Error al iniciar sesión");
+  }
+}
 
 exports.updateUser = async (id, updatedData) => {
   try {
@@ -58,20 +115,6 @@ exports.updateUser = async (id, updatedData) => {
     await user.update(updatedData);
 
     return user;
-  } catch (error) {
-    throw error;
-  }
-};
-
-exports.getUserById = async (id) => {
-  try {
-    const userById = await User.findByPk(id);
-
-    if (!userById) {
-      throw new Error("No users found with the specified id");
-    }
-
-    return userById;
   } catch (error) {
     throw error;
   }

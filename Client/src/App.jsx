@@ -8,6 +8,7 @@ import AddProduct from "./views/addProduct/AddProduct"
 import Chats from "./views/chats/Chats"
 import Exchanges from "./views/exchanges/Exchanges"
 import Home from "./views/home/Home";
+import Detail from './views/detail/Detail'
 import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/MyProfile"
 import UserProfile from "./views/userProfile/UserProfile"
@@ -30,6 +31,7 @@ const App = () => {
     }
   }, []); */
 
+  const [ isAuthenticated, setIsAuthenticated ] = useState(false);
   return (
     <>
       <Navbar/>
@@ -38,9 +40,13 @@ const App = () => {
         <Route path="/profile" element={<MyProfile/>} />
         <Route path="/addProduct" element={<AddProduct/>} />
         <Route path="/home" element={<Home/>} />
+        <Route path="/detail" element={<Detail/>}/>
         <Route path="/exchanges" element={<Exchanges/>} />
         <Route path="/chats" element={<Chats/>} />
-        <Route path="/userProfile" element={<UserProfile/>} />
+        {isAuthenticated ?
+          (<Route path="/userProfile" element={<UserProfile/>} />)
+          : (<Route path="/login" element={<Login/>} />)
+        }
         <Route path="/about" element={<About/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />

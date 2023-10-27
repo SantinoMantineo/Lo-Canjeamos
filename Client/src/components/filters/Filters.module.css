@@ -1,41 +1,62 @@
 .filters {
     display: grid;
-    grid-template-columns: 150px 70px 150px;
-    gap: 30px;
+    grid-template-columns: 60px 100px 100px 100px;
+    gap: 25px;
     justify-content: center;
     margin-bottom: 20px;
 }
 
-.avatar {
+.product {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 3px solid black;
+    border: 3px solid #4ECDC4;
+    margin-right: 40px;
 }
 
 select {
-  border: none;
+  border-radius: 15px;
   outline: none;
   background-color: whitesmoke;
   width: 100px;
   height: 40px;
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: bold;
   justify-self: center;
   align-self: center;
+  color: grey;
+  padding-left: 8px;
 }
 
 @media (max-width: 768px) {
-  .avatar {
-    width: 50px;
-    height: 50px;
+  .product {
+    width: 40px;
+    height: 40px;
   }
 
   .filters {
-    margin-top: 0;
-    grid-template-columns: 85px 60px 85px;
+    width: 250px;
+    justify-self: center;
+    padding-top: 10px;
+    margin-top: 20px;
+    grid-template-columns: 95px 95px;
+    grid-template-rows: 1fr 1fr;
+    background-color: whitesmoke;
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+  }
+
+  option {
+    text-align: right;
+    max-width: fit-content;
+  }
+
+  span {
+    display: none;
   }
 
   select {
-    font-size: 14px;
+    font-size: 12px;
+    margin-left: -20px;
   }
 }

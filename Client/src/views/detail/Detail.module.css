@@ -1,0 +1,54 @@
+.detail {
+    display: grid;
+    justify-self: center;
+    width: 500px;
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.carousel {
+    justify-self: center;
+    width: 300px;
+    border-radius: 10px;
+    background-color: whitesmoke;
+}
+
+.detail img {
+    width: 300px;
+    border-radius: 10px;
+}
+
+.detail h3 {
+    font-size: 14px;
+    color: grey;
+}
+
+.info {
+    margin-top: 30px;
+}
+
+.detail .button {
+    justify-self: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    background-color: #4ECDC4;
+    width: 80px;
+    color: whitesmoke;
+    font-size: 14px;
+    padding: 5px;
+}
+
+@media (max-width: 768px) {
+    .detail {
+        width: 300px;
+    }
+
+    .carousel {
+        width: 200px;
+    }
+
+    .detail img {
+        width: 200px;
+    }
+}
