@@ -1,0 +1,69 @@
+.filters {
+    display: grid;
+    grid-template-columns: 75px 75px 100px 100px 100px;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .product {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid grey;
+  }
+  
+  span {
+    align-self: center;
+    font-size: 14px;
+    padding-bottom: 2px;
+  }
+  
+  .filters select {
+    border: none;
+    outline: none;
+    background-color: whitesmoke;
+    width: 100px;
+    height: 40px;
+    font-size: 14px;
+    justify-self: center;
+    align-self: center;
+    color: grey;
+  }
+  
+  @media (max-width: 768px) {
+    .product {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .filters {
+      width: 250px;
+      justify-self: center;
+      padding-top: 10px;
+      margin-top: 20px;
+      grid-template-columns: 95px 95px;
+      grid-template-rows: 1fr 1fr;
+      background-color: #ffe66d;
+      box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+      border-radius: 10px;
+    }
+  
+    .filters select {
+      background-color: #ffe66d;
+    }
+  
+    option {
+      text-align: right;
+      max-width: fit-content;
+    }
+  
+    span {
+      display: none;
+    }
+  
+    select {
+      font-size: 12px;
+      margin-left: -20px;
+    }
+  }
