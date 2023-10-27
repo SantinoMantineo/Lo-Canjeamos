@@ -43,7 +43,7 @@ router.get("/verify", authorization, async (req, res) => {
 
 router.get("/userId", authorization, async (req, res) => {
   try {
-    const response = req.body.user
+    const response = await userController.getUserId(req.body.user);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json(error.message);
@@ -58,16 +58,6 @@ router.put("/:id", async (req, res) => {
     return res.status(200).json({ message: "Resource updated successfully" });
   } catch (error) {
     return res.status(404).json({ error: error.message });
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const response = await userController.getUserById(id);
-    return res.status(200).json(response);
-  } catch (error) {
-    return res.status(400).json(error.message);
   }
 });
 
