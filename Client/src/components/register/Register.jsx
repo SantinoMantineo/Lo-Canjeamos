@@ -163,7 +163,7 @@ const Register = () => {
             
        
 
-          <Link to="/login">Registrarse</Link>
+          <Link to="/login">Enviar</Link>
         </form>
       </div>
     </div>

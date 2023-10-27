@@ -60,7 +60,7 @@
     width: 215px;
     border: none;
     border-radius: 5px;
-    height: 30px;
+    height: 32px;
     font-size: 12px;
     color: gray;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.1);
@@ -94,5 +94,9 @@
 @media (max-width: 768px) {
     .container {
         width: 250px;
+    }
+
+    .container select {
+        padding-right: 140px;
     }
 }
