@@ -4,7 +4,7 @@ const userController = require("../../controllers/usersControllers");
 const validInfo = require("../../middleware/validInfo");
 const authorization = require("../../middleware/authorization");
 
-router.get("/", async (req, res) => {
+router.get("/allUsers", async (req, res) => {
   try {
     const response = await userController.getAllUser();
     return res.status(200).json(response);
@@ -38,6 +38,15 @@ router.get("/verify", authorization, async (req, res) => {
     return res.status(200).json(true);
   } catch (error) {
     return res.status(500).json(error.message);
+  }
+});
+
+router.get("/userId", authorization, async (req, res) => {
+  try {
+    const response = req.body.user
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(error.message);
   }
 });
 
