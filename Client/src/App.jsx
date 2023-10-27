@@ -31,6 +31,7 @@ const App = () => {
     }
   }, []); */
 
+  const [ isAuthenticated, setIsAuthenticated ] = useState(false);
   return (
     <>
       <Navbar/>
@@ -42,7 +43,10 @@ const App = () => {
         <Route path="/detail" element={<Detail/>}/>
         <Route path="/exchanges" element={<Exchanges/>} />
         <Route path="/chats" element={<Chats/>} />
-        <Route path="/userProfile" element={<UserProfile/>} />
+        {isAuthenticated ?
+          (<Route path="/userProfile" element={<UserProfile/>} />)
+          : (<Route path="/login" element={<Login/>} />)
+        }
         <Route path="/about" element={<About/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
