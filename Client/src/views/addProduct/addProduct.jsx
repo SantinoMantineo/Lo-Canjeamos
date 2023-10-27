@@ -7,7 +7,6 @@ import style from "./AddProduct.module.css";
 import axios from "axios";
 
 export default function AddProduct() {
-
   //Configuración de la biblioteca para cargar imagenes.
   const thumbsContainer = {
     display: "flex",
@@ -35,6 +34,7 @@ export default function AddProduct() {
   const img = {
     display: "block",
     borderRadius: 5,
+    marginRight: 8,
     width: 60,
     height: 60,
   };
@@ -62,19 +62,21 @@ export default function AddProduct() {
     },
   });
 
-  const thumbs = files.map((file) => (
-    <div style={thumb} key={file.name}>
-      <div style={thumbInner}>
-        <img
-          src={file.preview}
-          style={img}
-          onLoad={() => {
-            URL.revokeObjectURL(file.preview);
-          }}
-        />
-      </div>
-    </div>
-  ));
+  // Función de Maxi (comment by Agus).
+
+  // const thumbs = files.map((file) => (
+  //   <div style={thumb} key={file.name}>
+  //     <div style={thumbInner}>
+  //       <img
+  //         src={file.preview}
+  //         style={img}
+  //         onLoad={() => {
+  //           URL.revokeObjectURL(file.preview);
+  //         }}
+  //       />
+  //     </div>
+  //   </div>
+  // ));
 
   useEffect(() => {
     return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
@@ -82,16 +84,14 @@ export default function AddProduct() {
 
   //Manejo del formulario
 
-
   /* Tuve que borrar todo el manejo del formulario porque se me rompia todo y no queria estar buscando parte por parte,
   ya que basicamente tuve que reescribir todo el componenente.  */
-
 
   //Menejo de la API para obtener las provincias y las localidades.
   const [provinces, setProvinces] = useState([]);
   const [localities, setLocalities] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
-  const [ localidad, setSelectedLocalidad ] = useState("")
+  const [localidad, setSelectedLocalidad] = useState("");
   useEffect(() => {
     fetch("https://apis.datos.gob.ar/georef/api/provincias")
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
@@ -157,13 +157,12 @@ export default function AddProduct() {
     "Varios",
   ];
 
-  
   const [formData, setFormData] = useState({
-    title: '',
+    title: "",
     description: "",
     image: null,
     ubication: "",
-    category: ""
+    category: "",
   });
 
   const handleChange = (e) => {
@@ -171,64 +170,82 @@ export default function AddProduct() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const [imageSecureUrl, setImageSecureUrl] = useState("");
+  const [imageSecureUrls, setImageSecureUrls] = useState([]);
 
   function handleFile(event) {
-    const file = event.target.files[0];
 
-    const newFiles = [
-      Object.assign(file, {
-        preview: URL.createObjectURL(file),
-      }),
-      ...files,
-    ];
-  
-    setFiles(newFiles);
+    const selectedFiles = event.target.files;
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', preset_key);
-    formData.append("folder", folderName);
-  
-    axios
-      .post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
-      .then((res) => {
-        setImageSecureUrl(res.data.secure_url);
-      })
-      .catch((error) => console.log(error));
+    if (files.length + selectedFiles.length > 3) {
+      console.log("Solo se permiten 3 imágenes.");
+      return; // No agregues más archivos
+    }
+
+    const updatedFiles = [...selectedFiles];
+
+    const updatedImageSecureUrls = updatedFiles.map((file) =>
+      URL.createObjectURL(file)
+    );
+
+    setFiles(updatedFiles);
+    setImageSecureUrls(updatedImageSecureUrls);
+
+    const uploadPromises = updatedFiles.map((file) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", preset_key);
+      formData.append("folder", folderName);
+
+      return axios
+        .post(
+          `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
+          formData
+        )
+        .then((res) => res.data.secure_url)
+        .catch((error) => {
+          console.log("Error al subir las imágenes: " + error);
+          return null;
+        });
+    });
+
+    Promise.all(uploadPromises).then((imageUrls) => {
+      // Filtrar los resultados nulos, en caso de que haya habido errores
+      const validImageUrls = imageUrls.filter((url) => url !== null);
+      const newImageSecureUrls = [...imageSecureUrls, ...validImageUrls];
+      setImageSecureUrls(newImageSecureUrls);
+    });
   }
 
- const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-
-        let newPost = {
-          title: formData.title,
-          description: formData.description,
-          image: imageSecureUrl,
-          ubication: `${selectedProvince}, ${localidad}`,
-          category: selectedCategory,
-        }
-        console.log(newPost)
-      const response = await axios.post('http://localhost:3001/posts/', newPost)
+      let newPost = {
+        title: formData.title,
+        description: formData.description,
+        image: imageSecureUrls,
+        ubication: `${selectedProvince}, ${localidad}`,
+        category: selectedCategory,
+      };
+      console.log(newPost);
+      const response = await axios.post(
+        "http://localhost:3001/posts/",
+        newPost
+      );
 
       if (response) {
         // La solicitud se completó con éxito
-        console.log('Producto cargado correctamente.');
+        console.log("Producto cargado correctamente.");
       } else {
         // Hubo un error en la solicitud
-        console.log('Hubo un error al crear la publicacion.');
+        console.log("Hubo un error al crear la publicacion.");
       }
     } catch (error) {
-      console.error('Error al enviar los datos al servidor:', error);
-      console.log('Hubo un error al crear la publicacion.');
+      console.error("Error al enviar los datos al servidor:", error);
+      console.log("Hubo un error al crear la publicacion.");
     }
-  }
+  };
 
-  
-  
-  
   return (
     <>
       <Header banner1={Banner} banner2={Banner2}></Header>
@@ -240,39 +257,48 @@ export default function AddProduct() {
               Titulo*
               <input
                 className={style.input}
-                type="text"
-                name="title"
+                type='text'
+                name='title'
                 value={formData.title}
                 onChange={handleChange}
-                placeholder="Inserte titulo"
+                placeholder='Inserte titulo'
               />
             </label>
             <label>
               Descripción
               <input
                 className={style.input}
-                type="text"
-                name="description"
+                type='text'
+                name='description'
                 onChange={handleChange}
                 value={formData.description}
-                placeholder="Inserte descripcion"
+                placeholder='Inserte descripcion'
               />
             </label>
             <label>
               Imagen*
               <section className={style.files}>
                 <div {...getRootProps({ className: "dropzone" })}>
-                  <input {...getInputProps()} onChange={handleFile}/>
+                  <input {...getInputProps()} onChange={handleFile} />
                   <p>Arrastra o haz clic para seleccionar hasta 3 archivos.</p>
                 </div>
-                <aside style={thumbsContainer}>{thumbs}</aside>
+                <aside style={thumbsContainer}>
+                  {imageSecureUrls.map((imageUrl, index) => (
+                    <img
+                      style={img}
+                      key={index}
+                      src={imageUrl}
+                      alt={`Thumbnail ${index}`}
+                    />
+                  ))}
+                </aside>
               </section>
             </label>
           </div>
           <div className={style.part2}>
             <label>Provincias*</label>
             <select onChange={handleProvinceChange}>
-              <option value="Elige una provincia">Elige una provincia</option>
+              <option value='Elige una provincia'>Elige una provincia</option>
               {sortedProvinces.map((province) => (
                 <option key={province.id} value={province.nombre}>
                   {province.nombre}
@@ -281,8 +307,8 @@ export default function AddProduct() {
             </select>
             <span></span>
             <label>Localidad*</label>
-            <select id="selectLocalidades" onChange={handleLocalidadChange}>
-              <option value="Elige una localidad">Elige una localidad</option>
+            <select id='selectLocalidades' onChange={handleLocalidadChange}>
+              <option value='Elige una localidad'>Elige una localidad</option>
               {sortedLocalities.map((locality) => (
                 <option key={locality.id} value={locality.nombre}>
                   {locality.nombre}
@@ -292,11 +318,11 @@ export default function AddProduct() {
             <span></span>
             <label>Categoría*</label>
             <select
-              name="category"
+              name='category'
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              <option value="Elige una categoría">Elige una categoría</option>
+              <option value='Elige una categoría'>Elige una categoría</option>
               {categories.map((category, index) => (
                 <option key={index} value={category}>
                   {category}
@@ -306,7 +332,7 @@ export default function AddProduct() {
             <span></span>
           </div>
         </form>
-        <button type="submit" onClick={handleSubmit} className={style.button}>
+        <button type='submit' onClick={handleSubmit} className={style.button}>
           Crear
         </button>
         <h5 className={style.message}>Los campos con * son obligatorios</h5>
