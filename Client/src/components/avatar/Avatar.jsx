@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import avatar from '../../assets/avatar.jpg'
 import style from './Avatar.module.css'
 
@@ -13,8 +14,9 @@ const Avatar = () => {
     <button className={style.premium}>Sé Premium</button>
     <br/>
     <br/>
+    <Link to="/login">
     <button className={style.logout}>Salir</button>
-    
+    </Link>
     </div>
     </>
   )
