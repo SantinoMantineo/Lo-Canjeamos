@@ -31,27 +31,27 @@ console.log(input)
   return (
     <div className={style.container}>
         <div>
-          <h2>Login</h2>
+          <h2>Iniciar sesión</h2>
         </div>
-        <div>
+        <div className={style.form}>
           <form>
               <div>
-                <input type="text" name="username" placeholder='UserName' onChange={handleInputChange}
+                <input type="text" name="username" placeholder='usuario' onChange={handleInputChange}
                   value={input.username}/>
               </div>
               <div>
-                <input type="password"name="password" placeholder='Password'onChange={handleInputChange}
+                <input type="password"name="password" placeholder='contraseña'onChange={handleInputChange}
                   value={input.password}/>
               </div>
 
-              <Link to='/profile'>Sig In</Link>
+              <Link to='/profile'>Iniciar sesión</Link>
           </form>
         </div>
 
-        <div>
+        <div className={style.buttons}>
           <span>
-          Don't have an account? 
-          <Link to='/register' >Register</Link>
+          No tienes una cuenta? 
+          <Link to='/register' className={style.register}>Registrate</Link>
           </span>
         </div>
 
