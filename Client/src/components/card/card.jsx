@@ -9,7 +9,7 @@ const Card = () => {
       <Link to="/detail" className={style.link}>
         <div className={style.card}>
           <img src={Shoes} className={style.img} alt="Nike Air Jordan" />
-          <p>Nike Air Jordan</p>
+          <p>Nike Air</p>
           <h6>San Cristóbal, Santa Fe</h6>
         </div>
       </Link>

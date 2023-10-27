@@ -36,7 +36,7 @@ const Detail = () => {
     <>
       {/* <Header banner1={Banner3} banner2={Banner4}></Header> */}
       <div className={style.detail}>
-        <h3>Nike Air Jordan</h3>
+        <h3>Nike Air</h3>
         <div className={style.carousel}>
           <Slider {...settings}>
             <div>
@@ -51,7 +51,7 @@ const Detail = () => {
           </Slider>
         </div>
         <div className={style.info}>
-          <h3>Ubicación: Elisa, Santa Fe</h3>
+          <h3>Ubicación: San Cristóbal, Santa Fe</h3>
           <h3>Rating usuario: ⭐️⭐️⭐️</h3>
         </div>
         <div className={style.buttons}>
