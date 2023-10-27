@@ -22,11 +22,11 @@
     border-radius: 10px;
     padding: 30px;
     height: fit-content;
-    background-color: #FF6B6B;
+    background-color: whitesmoke;
 }
 
 .matchs h3 {
-    color: whitesmoke;
+    color: grey;
     margin: 0;
 }
 

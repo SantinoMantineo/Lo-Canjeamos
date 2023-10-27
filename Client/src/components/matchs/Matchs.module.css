@@ -3,9 +3,9 @@
     grid-template-columns: 1fr 1fr 1fr;
     width: 250px;
     padding: 10px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
     border-radius: 10px;
-    margin-bottom: 20px;
+    
     margin-top: 20px;
     background-color: whitesmoke;
     transition: 300ms;
