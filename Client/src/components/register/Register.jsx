@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import React from "react";
 import { useState, useEffect } from "react";
 import style from "./Register.module.css";
