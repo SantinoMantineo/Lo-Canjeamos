@@ -5,6 +5,12 @@
     padding: 40px;
 }
 
+.container img {
+    width: 200px;
+    justify-self: center;
+    margin: 0px;
+}
+
 .container .buttons {
     display: grid;
 }
@@ -16,6 +22,8 @@
 
 .container h2 {
     color: grey;
+    margin-bottom: -10px;
+    font-size: 18px;
 }
 
 .container input {
@@ -26,6 +34,7 @@
     margin-top: 20px;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.1);
     padding-left: 10px;
+    font-family: "DM Sans";
 }
 
 .container span {

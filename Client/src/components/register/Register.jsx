@@ -1,4 +1,4 @@
-
+import Logo from '../../assets/locan.png'
 import React from "react";
 import { useState, useEffect } from "react";
 import style from "./Register.module.css";
@@ -83,6 +83,7 @@ const Register = () => {
 
   return (
     <div className={style.container}>
+      <img src={Logo}/>
       <div className={style.title}>
         <h2>Registrate</h2>
       </div>
@@ -141,7 +142,7 @@ const Register = () => {
 
            
             <select onChange={handleProvinceChange}>
-              <option value="Elige una provincia">Provincia</option>
+              <option value="Elige una provincia">provincia</option>
               {sortedProvinces.map((province) => (
                 <option key={province.id} value={province.nombre}>
                   {province.nombre}
@@ -153,7 +154,7 @@ const Register = () => {
 
            
             <select id="selectLocalidades" onChange={handleLocalidadChange}>
-              <option value="Elige una localidad">Localidad</option>
+              <option value="Elige una localidad">localidad</option>
               {sortedLocalities.map((locality) => (
                 <option key={locality.id} value={locality.nombre}>
                   {locality.nombre}
