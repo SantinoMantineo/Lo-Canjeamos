@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectProvince, selectLocality, selectCategory } from "../../redux/actions";
 import Product from "../../assets/product.jpeg";
 import style from "./Filters.module.css";
-
+import { Link } from "react-router-dom";
 const Filters = () => {
   const selectedProvince = useSelector((state) => state.selectedProvince);
   const selectedLocality = useSelector((state) => state.selectedLocality);
