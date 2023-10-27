@@ -1,7 +1,7 @@
 .paginationContainer {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 0px;
   }
   
   .paginationList {
@@ -13,15 +13,18 @@
   
   .paginationListItem {
     margin: 0 5px;
+    font-size: 10px;
   }
   
   .paginationButton {
     cursor: pointer;
+    font-size: 10px;
     padding: 5px 10px;
-    background-color: #3498db;
+    background-color: #4ECDC4;
     color: #fff;
     border: none;
     border-radius: 3px;
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   }
   
   .paginationButton:disabled {
@@ -30,10 +33,14 @@
   }
   
   .paginationInput {
-    padding: 5px;
+    padding-bottom: 4px;
+    padding-top:8px;
     margin-right: 5px;
-    border: 1px solid #3498db;
+    border: none;
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
     border-radius: 3px;
+    outline: none;
+    width: 50px;
   }
   
   .paginationError {

@@ -1,6 +1,6 @@
 .card {
   width: 200px;
-  height: 300px;
+  height: 250px;
   background-color: whitesmoke;
   border-radius: 10px;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
@@ -15,20 +15,36 @@
 }
 
 .card p {
-    margin-top: -280px;
+  color: whitesmoke;
+  text-shadow: 0px 5px 10px black;
+  position: absolute;
+  top: 215px;
+  margin: 0;
+  margin-left: 10px;
+  font-weight: bold;
 }
 
-.card button {
-  outline: 0;
-  margin-top: 200px;
-  transition: 500ms;
-  align-content: center;
+.card h6 {
+  color: whitesmoke;
+  text-shadow: 0px 5px 5px black;
+  position: absolute;
+  top: 235px;
+  margin: 0;
+  margin-left: 10px;
+  font-weight: 400;
 }
 
 @media (max-width: 768px) {
   .card {
     width: 250px;
-    height: auto;
+    height: 300px;
+  }
+
+  .card p {
+    top: 260px
+  }
+
+  .card h6 {
+    top: 280px
   }
 }
-

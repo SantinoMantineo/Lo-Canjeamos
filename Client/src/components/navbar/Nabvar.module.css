@@ -4,7 +4,7 @@
     top: 0px;
     left: 0px;
     right: 0px;
-    grid-template-columns: 10fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 10fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 0px;
     padding: 10px;
     background-color: #FFE66D;
@@ -15,7 +15,7 @@
 .navbar button {
     display: grid;
     justify-content: center;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .navbar button img {
@@ -23,9 +23,9 @@
 }
 
 .logo {
-    position: fixed;
+    position: absolute;
     width: 200px;
-    top: -5px;
+    margin-top: -1%;
     left: 40px;
     z-index: 999;
 }
@@ -43,6 +43,10 @@
     }
 
     .logo {
+        display: none;
+    }
+
+    .link {
         display: none;
     }
 

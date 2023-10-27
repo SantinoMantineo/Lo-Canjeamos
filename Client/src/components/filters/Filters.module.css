@@ -10,7 +10,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 3px solid #4ECDC4;
+    border: 3px solid grey;
 }
 
 span {
@@ -19,7 +19,7 @@ span {
   padding-bottom: 2px;
 }
 
-select {
+.filters select {
   border: none;
   outline: none;
   background-color: whitesmoke;
@@ -44,9 +44,13 @@ select {
     margin-top: 20px;
     grid-template-columns: 95px 95px;
     grid-template-rows: 1fr 1fr;
-    background-color: whitesmoke;
+    background-color: #FFE66D;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
     border-radius: 10px;
+  }
+
+  .filters select {
+    background-color: #FFE66D;
   }
 
   option {
