@@ -39,6 +39,12 @@ export default function AddProduct() {
     height: 60,
   };
 
+  // Constantes para Cloudinary.
+
+  const preset_key = "postsimages";
+  const cloud_name = "dlahgnpwp";
+  const folderName = "postimages";
+
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: 3,
@@ -155,7 +161,7 @@ export default function AddProduct() {
   const [formData, setFormData] = useState({
     title: '',
     description: "",
-    image: "",
+    image: null,
     ubication: "",
     category: ""
   });
@@ -165,14 +171,42 @@ export default function AddProduct() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const [imageSecureUrl, setImageSecureUrl] = useState("");
+
+  function handleFile(event) {
+    const file = event.target.files[0];
+
+    const newFiles = [
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      }),
+      ...files,
+    ];
+  
+    setFiles(newFiles);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', preset_key);
+    formData.append("folder", folderName);
+  
+    axios
+      .post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
+      .then((res) => {
+        setImageSecureUrl(res.data.secure_url);
+      })
+      .catch((error) => console.log(error));
+  }
+
  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+
         let newPost = {
           title: formData.title,
           description: formData.description,
-          image: files,
+          image: imageSecureUrl,
           ubication: `${selectedProvince}, ${localidad}`,
           category: selectedCategory,
         }
@@ -181,8 +215,7 @@ export default function AddProduct() {
 
       if (response) {
         // La solicitud se completó con éxito
-       
-        setPost(true)
+        console.log('Producto cargado correctamente.');
       } else {
         // Hubo un error en la solicitud
         console.log('Hubo un error al crear la publicacion.');
@@ -192,6 +225,8 @@ export default function AddProduct() {
       console.log('Hubo un error al crear la publicacion.');
     }
   }
+
+  
   
   
   return (
@@ -227,7 +262,7 @@ export default function AddProduct() {
               Imagen*
               <section className={style.files}>
                 <div {...getRootProps({ className: "dropzone" })}>
-                  <input {...getInputProps()} />
+                  <input {...getInputProps()} onChange={handleFile}/>
                   <p>Arrastra o haz clic para seleccionar hasta 3 archivos.</p>
                 </div>
                 <aside style={thumbsContainer}>{thumbs}</aside>
