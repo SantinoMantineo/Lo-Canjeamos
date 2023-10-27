@@ -50,7 +50,10 @@ span {
   }
 
   .filters select {
+    border-radius: 15px;
     background-color: #FFE66D;
+    border: 3px solid #4ECDC4;
+    margin-right: 40px;
   }
 
   option {
