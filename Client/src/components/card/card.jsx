@@ -1,9 +1,13 @@
 import React from "react";
-import Shoes from "../../assets/Shoes.jpeg";
+import { Link } from 'react-router-dom'
+import Shoes from "../../assets/shoes.jpeg";
 import style from "./Card.module.css";
 
 const Card = () => {
+
   return (
+    <>
+    <Link to="/detail">
     <div className={style.card}>
       <img src={Shoes} className={style.img} alt="Nike Air Jordan" />
         <p>Nike Air Jordan</p>
@@ -16,6 +20,8 @@ const Card = () => {
           />
         </button>
       </div>
+      </Link>
+      </>
   );
 };
 

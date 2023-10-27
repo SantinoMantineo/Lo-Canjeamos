@@ -2,7 +2,7 @@
 import React  from 'react'
 import { useState } from 'react'
 import Cards from '../../components/cards/Cards'
-import Filters from '../../components/filters/Filters'
+import Filters from '../../components/filters/filters'
 import Header from '../../components/header/Header'
 import Banner from "../../assets/banner1.jpg";
 import Banner2 from "../../assets/banner2.jpg";

@@ -9,7 +9,6 @@
   .cards {
     width: 660px;
     margin: 0;
-    margin-top: 120px;
   }
 }
 
@@ -18,7 +17,6 @@
     display:inline;
     width: 270px;
     margin: 0;
-    margin-top: 120px;
     justify-self: center;
   }
 }
