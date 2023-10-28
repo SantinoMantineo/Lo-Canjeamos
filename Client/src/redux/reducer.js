@@ -19,16 +19,16 @@ import {
 
 const initialState = {
   allUsers: [],
-  selectedUser: null,
+  selectedUser: "",
   allPosts: [],
   allPostsCopy: [],
-  selectedPost: null,
+  selectedPost: "",
   postsCategory: [],
   postsByProvince: [],
   postsByLocality: [],
-  selectedProvince: null,
-  selectedLocality: null,
-  selectedCategory: null,
+  selectedProvince: "",
+  selectedLocality: "",
+  selectedCategory: "",
 };
 
 function rootReducer(state = initialState, action) {
@@ -84,7 +84,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         selectedProvince: action.payload,
-        selectedLocality: null,
+        selectedLocality: "",
       };
 
     case SELECT_LOCALITY:
@@ -106,27 +106,15 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_POST_BY_PROVINCE:
-      const filteredDataByProvince = action.payload.filter((post) => {
-        return (
-          post.province === state.selectedProvince &&
-          (state.selectedLocality ? post.locality === state.selectedLocality : true)
-        );
-      });
       return {
         ...state,
-        postsByProvince: filteredDataByProvince,
+        postsByProvince: action.payload,
       };
 
     case GET_POST_BY_LOCALITY:
-      const filteredDataByLocality = action.payload.filter((post) => {
-        return (
-          post.province === state.selectedProvince &&
-          post.locality === state.selectedLocality
-        );
-      });
       return {
         ...state,
-        postsByLocality: filteredDataByLocality,
+        postsByLocality: action.payload,
       };
 
     case CREATE_POST:
