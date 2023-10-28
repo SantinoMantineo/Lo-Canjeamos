@@ -10,7 +10,7 @@ const Card = () => {
         <div className={style.card}>
           <img src={Shoes} className={style.img} alt="Nike Air Jordan" />
           <p>Nike Air</p>
-          <h6>San Cristóbal, Santa Fe</h6>
+          <h6>San Cristóbal, Santa Fe📍</h6>
         </div>
       </Link>
     </>
