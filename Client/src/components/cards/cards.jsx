@@ -6,7 +6,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import style from "./Cards.module.css";
 
-const Cards = () => {
+const Cards = ({ allPosts }) => {
+  
   const settings = {
     dots: true,
 
@@ -41,28 +42,17 @@ const Cards = () => {
     ],
   };
 
+  const posts = allPosts
+
   return (
     <>
         <div className={style.cards}>
           <Slider {...settings}>
-            <div>
-              <Card></Card>
+          {posts && posts.map((post, index) => (
+            <div key={index}>
+              <Card key={post.id} post={post} />
             </div>
-            <div>
-              <Card></Card>
-            </div>
-            <div>
-              <Card></Card>
-            </div>
-            <div>
-              <Card></Card>
-            </div>
-            <div>
-              <Card></Card>
-            </div>
-            <div>
-              <Card></Card>
-            </div>
+          ))}
           </Slider>
         </div>
     </>
