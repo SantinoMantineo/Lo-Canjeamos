@@ -32,21 +32,23 @@ const App = () => {
   }, []); */
 
   const [ isAuthenticated, setIsAuthenticated ] = useState(false);
+  
+  const setAuth = (boolean) => {
+    setIsAuthenticated(boolean);
+  };
+
   return (
     <>
       <Navbar/>
       <Routes>
-      <Route path="/" element={<Home/>} />
-        <Route path="/profile" element={<MyProfile/>} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/profile" element={ isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>}/>
+        <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>} />
         <Route path="/addProduct" element={<AddProduct/>} />
         <Route path="/home" element={<Home/>} />
         <Route path="/detail" element={<Detail/>}/>
         <Route path="/exchanges" element={<Exchanges/>} />
         <Route path="/chats" element={<Chats/>} />
-        {isAuthenticated ?
-          (<Route path="/userProfile" element={<UserProfile/>} />)
-          : (<Route path="/login" element={<Login/>} />)
-        }
         <Route path="/about" element={<About/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />

@@ -1,7 +1,7 @@
 .filters {
     display: grid;
-    grid-template-columns: 75px 75px 100px 100px 100px;
-    gap: 5px;
+    grid-template-columns: 75px 100px 100px 100px;
+    gap: 20px;
     justify-content: center;
     margin-bottom: 20px;
   }
@@ -20,7 +20,7 @@
   }
 
   .filters select {
-    border: none;
+    border-radius: 15px;
     outline: none;
     background-color: whitesmoke;
     width: 100px;

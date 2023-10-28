@@ -5,7 +5,7 @@ import style from './Login.module.css'
 import { Link } from "react-router-dom";
 
 
-const Login = () => {
+const Login = ({setAuth}) => {
 
   const [input, setInput] = useState({
     username: "",
@@ -43,7 +43,7 @@ console.log(input)
                   value={input.password}/>
               </div>
 
-              <Link to='/profile'>Iniciar sesión</Link>
+              <button onClick={()=>{setAuth(true)}}>Iniciar sesión</button>
           </form>
         </div>
 
