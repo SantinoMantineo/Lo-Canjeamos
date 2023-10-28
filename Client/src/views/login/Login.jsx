@@ -1,4 +1,4 @@
-
+import Logo from '../../assets/locan.png'
 import { useState } from 'react'
 import React from 'react'
 import style from './Login.module.css'
@@ -29,6 +29,7 @@ console.log(input)
 
   return (
     <div className={style.container}>
+      <img src={Logo}/>
         <div>
           <h2>Iniciar sesión</h2>
         </div>

@@ -7,6 +7,12 @@
     margin-bottom: 100px;
 }
 
+.container img {
+    width: 200px;
+    justify-self: center;
+    margin-top: -30px;
+}
+
 .container .buttons {
     display: grid;
 }
@@ -53,6 +59,7 @@
     margin-top: 20px;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.1);
     padding-left: 10px;
+    font-family: "DM Sans";
 }
 
 .container select {
@@ -60,12 +67,14 @@
     width: 215px;
     border: none;
     border-radius: 5px;
-    height: 30px;
+    height: 32px;
     font-size: 12px;
     color: gray;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.1);
     margin-top: 20px;
     justify-self: center;
+    background-color: white;
+    padding-left: 10px;
   }
 
 .container span {
@@ -91,8 +100,19 @@
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
 }
 
+.container .title {
+    font-size: 14px;
+    margin-top: -20px;
+    margin-bottom: -20px;
+}
+
 @media (max-width: 768px) {
     .container {
         width: 250px;
+    }
+
+    .container select {
+        padding-right: 140px;
+        padding-left: 0px;
     }
 }
