@@ -8,7 +8,7 @@
 .container img {
     width: 200px;
     justify-self: center;
-    margin: 0px;
+    margin-top: -30px;
 }
 
 .container .buttons {
