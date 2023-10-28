@@ -26,8 +26,7 @@ exports.createUser = async (user) => {
     !user.email ||
     !user.password ||
     !user.image ||
-    !user.ubication ||
-    !user.rol
+    !user.ubication
   ) {
     throw new Error("Faltan datos");
   } else {
@@ -56,7 +55,6 @@ exports.createUser = async (user) => {
           password: bcryptPassword,
           image: user.image,
           ubication: user.ubication,
-          rol: user.rol,
         });
 
         const token = jwtGenerator(newUser.id)

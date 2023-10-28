@@ -28,7 +28,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     rol: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      defaultValue: "user"
     },
   });
 };
