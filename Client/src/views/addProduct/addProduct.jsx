@@ -272,7 +272,7 @@ export default function AddProduct() {
           <div className={style.part2}>
             <label>Provincias*</label>
             <select onChange={handleProvinceChange}>
-              <option value="Elige una provincia">Elige una provincia</option>
+              <option value="Elige una provincia">Provincia</option>
               {sortedProvinces.map((province) => (
                 <option key={province.id} value={province.nombre}>
                   {province.nombre}
@@ -282,7 +282,7 @@ export default function AddProduct() {
             <span></span>
             <label>Localidad*</label>
             <select id="selectLocalidades" onChange={handleLocalidadChange}>
-              <option value="Elige una localidad">Elige una localidad</option>
+              <option value="Elige una localidad">Localidad</option>
               {sortedLocalities.map((locality) => (
                 <option key={locality.id} value={locality.nombre}>
                   {locality.nombre}
@@ -296,7 +296,7 @@ export default function AddProduct() {
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              <option value="Elige una categoría">Elige una categoría</option>
+              <option value="Elige una categoría">Categoría</option>
               {categories.map((category, index) => (
                 <option key={index} value={category}>
                   {category}

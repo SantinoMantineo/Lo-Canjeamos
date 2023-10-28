@@ -1,0 +1,61 @@
+.container {
+    display: grid;
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.container img {
+    width: 200px;
+    justify-self: center;
+    margin-top: -30px;
+}
+
+.container .buttons {
+    display: grid;
+}
+
+.container .form form {
+    display: grid;
+    margin-bottom: 20px;
+}
+
+.container h2 {
+    color: grey;
+    margin-bottom: -10px;
+    font-size: 18px;
+}
+
+.container input {
+    border: none;
+    height: 30px;
+    width: 200px;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.1);
+    padding-left: 10px;
+    font-family: "DM Sans";
+}
+
+.container span {
+    display: grid;
+    color: grey;
+}
+
+.container a {
+    margin-top: 40px;
+    color: whitesmoke;
+    background-color: #4ECDC4;
+    width: 100px;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px;
+    justify-self: center;
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
+}
+
+.container .register {
+    margin-top: 10px;
+    background-color: goldenrod;
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
+}

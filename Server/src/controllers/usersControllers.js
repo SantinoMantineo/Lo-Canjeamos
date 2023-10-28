@@ -95,6 +95,15 @@ exports.loginUser = async (user) => {
   }
 };
 
+exports.getUserId = async (user) => {
+  try {
+    const userId = await User.findByPk(user)
+    return userId;
+  } catch (error) {
+    throw new Error("Error al iniciar sesión");
+  }
+}
+
 exports.updateUser = async (id, updatedData) => {
   try {
     const user = await User.findByPk(id);
@@ -106,20 +115,6 @@ exports.updateUser = async (id, updatedData) => {
     await user.update(updatedData);
 
     return user;
-  } catch (error) {
-    throw error;
-  }
-};
-
-exports.getUserById = async (id) => {
-  try {
-    const userById = await User.findByPk(id);
-
-    if (!userById) {
-      throw new Error("No users found with the specified id");
-    }
-
-    return userById;
   } catch (error) {
     throw error;
   }

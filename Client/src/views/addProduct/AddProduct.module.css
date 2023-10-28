@@ -42,13 +42,16 @@
 .create select {
   display: grid;
   width: 243px;
+  height: 32px;
   margin-left: 30px;
-  border: 2px solid rgba(128, 128, 128, 0.3);
+  border: none;
   border-radius: 5px;
-  height: 30px;
   font-size: 12px;
   color: gray;
+  background-color: white;
   margin-bottom: 20px;
+  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
+  outline: none;
 }
 
 label {
@@ -57,18 +60,21 @@ label {
   margin-right: 30px;
   width: auto;
   font-size: 12px;
-  color: black;
+  color: grey;
 }
 
 .input {
   margin-bottom: 20px;
   width: 235px;
-  height: 25px;
+  height: 30px;
   font-size: 14px;
   border-radius: 5px;
-  border: 2px solid rgba(128, 128, 128, 0.3);
+  border: none;
   align-self: center;
-  background-color: transparent;
+  padding-left: 10px;
+  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
+  outline: none;
+  font-family: "DM Sans";
 }
 
 .img {
@@ -116,6 +122,10 @@ label {
   .create {
     grid-template-columns: 1fr;
   }
+
+  .create select {
+    padding-right: 160px;
+}
 }
 
 

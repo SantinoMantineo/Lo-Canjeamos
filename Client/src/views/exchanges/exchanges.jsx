@@ -15,6 +15,7 @@ const Exchanges = () => {
           <h3>Canjes logrados</h3>
           <Matchs></Matchs>
           <Matchs></Matchs>
+          <Matchs></Matchs>
         </div>
         <div className={style.likes}>
           <h3>Intentos de canje</h3>

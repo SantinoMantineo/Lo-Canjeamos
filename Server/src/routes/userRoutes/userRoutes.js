@@ -4,7 +4,7 @@ const userController = require("../../controllers/usersControllers");
 const validInfo = require("../../middleware/validInfo");
 const authorization = require("../../middleware/authorization");
 
-router.get("/", async (req, res) => {
+router.get("/allUsers", async (req, res) => {
   try {
     const response = await userController.getAllUser();
     return res.status(200).json(response);
@@ -41,6 +41,15 @@ router.get("/verify", authorization, async (req, res) => {
   }
 });
 
+router.get("/userId", authorization, async (req, res) => {
+  try {
+    const response = await userController.getUserId(req.body.user);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
+});
+
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const updatedData = req.body;
@@ -49,16 +58,6 @@ router.put("/:id", async (req, res) => {
     return res.status(200).json({ message: "Resource updated successfully" });
   } catch (error) {
     return res.status(404).json({ error: error.message });
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const response = await userController.getUserById(id);
-    return res.status(200).json(response);
-  } catch (error) {
-    return res.status(400).json(error.message);
   }
 });
 

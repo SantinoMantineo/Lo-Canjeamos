@@ -20,7 +20,7 @@ const Card = ({ post }) => {
         </button>
       </div>
       </Link>
-      </>
+    </>
   );
 };
 

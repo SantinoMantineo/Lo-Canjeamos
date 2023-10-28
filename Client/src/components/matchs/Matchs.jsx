@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import Product from "../../assets/product.jpeg";
 import Product2 from "../../assets/shoes.jpeg";
+import Logo from "../../../public/favicon.png"
 import style from "./Matchs.module.css";
 
 const Matchs = () => {
@@ -13,7 +14,7 @@ const Matchs = () => {
         <img
           width="24"
           height="24"
-          src="https://img.icons8.com/material-rounded/48/available-updates.png"
+          src={Logo}
           alt="available-updates"
           className={style.matchLogo}
         />

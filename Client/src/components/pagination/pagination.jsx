@@ -90,19 +90,7 @@ export default function Paginado({ allCard, cardPerPage, paginado, currentPage }
                         {currentPage} / {Math.ceil(allCard / cardPerPage)}
                     </p>
                 </li>
-                <li className={styles.paginationListItem}>
-                    <input
-                        type="text"
-                        value={inputPage}
-                        onChange={handleInputChange}
-                        placeholder=""
-                        onKeyDown={handleKeyDown}
-                        className={styles.paginationInput}
-                    />
-                    <button onClick={handleGoToPage} className={styles.paginationButton}>
-                        Go
-                    </button>
-                </li>
+                
                 <p className={styles.paginationError} disabled={!errorInput}>
                     {errorInput && errorInput}
                 </p>
