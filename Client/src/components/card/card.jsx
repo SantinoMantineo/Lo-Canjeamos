@@ -1,16 +1,15 @@
 import React from "react";
 import { Link } from 'react-router-dom'
-import Shoes from "../../assets/shoes.jpeg";
 import style from "./Card.module.css";
 
-const Card = () => {
-
+const Card = ({ post }) => {
+  const { title, image } = post
   return (
     <>
     <Link to="/detail">
     <div className={style.card}>
-      <img src={Shoes} className={style.img} alt="Nike Air Jordan" />
-        <p>Nike Air Jordan</p>
+      <img src={image} className={style.img} alt={title} />
+        <p>{title}</p>
         <button>
           <img
             width="24"

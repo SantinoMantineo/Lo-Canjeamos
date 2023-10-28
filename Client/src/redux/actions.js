@@ -41,7 +41,7 @@ export function getUserById(id) {
 export function createUser(user) {
   return async (dispatch) => {
     const result = await axios.post(
-      "http://localhost:3001/users/addUser",
+      "http://localhost:3001/users/register",
       user
     );
     dispatch({
@@ -91,17 +91,6 @@ export function getPostById(id) {
   };
 }
 
-export function getPostByCategory(category) {
-  return async function (dispatch) {
-    const response = await axios(
-      `http://localhost:3001/posts/categories/${category}`
-    );
-    return dispatch({
-      type: GET_POST_BY_CATEGORY,
-      payload: response.data,
-    });
-  };
-}
 
 export function selectCategory(category) {
   return {
@@ -124,6 +113,18 @@ export function selectLocality(localidad) {
   };
 }
 
+export function getPostByCategory(category) {
+  return async function (dispatch) {
+    const response = await axios(
+      `http://localhost:3001/posts/categories/${category}`
+    );
+    return dispatch({
+      type: GET_POST_BY_CATEGORY,
+      payload: response.data,
+    });
+  };
+}
+
 export function getPostByProvince(provincia) {
   return async function (dispatch) {
     const response = await axios(
@@ -136,9 +137,8 @@ export function getPostByProvince(provincia) {
   };
 }
 
-export function getPostByLocalidad(localidad) {
-  return async function (dispatch, getState) {
-    const { selectedProvince } = getState();
+export function getPostByLocality(localidad) {
+  return async function (dispatch) {
     const response = await axios(
       `http://localhost:3001/posts/localidad/${localidad}`
     );
