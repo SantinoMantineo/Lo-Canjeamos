@@ -178,7 +178,7 @@ const Register = () => {
             
        
 
-          <button>Registrarse</button>
+          <button className={style.register}>Registrarse</button>
         </form>
       </div>
     </div>
