@@ -5,7 +5,7 @@ import style from "./Register.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Register = () => {
+const Register = ({setAuth}) => {
 
   const [provinces, setProvinces] = useState([]);
   const [localities, setLocalities] = useState([]);
@@ -95,7 +95,7 @@ const Register = () => {
       console.log(response);
       if (response) {
         // La solicitud se completó con éxito
-        console.log('Usuario creado correctamente.');
+        setAuth(true)
       } else {
         // Hubo un error en la solicitud
         console.log('Hubo un error al crear el usuario.');

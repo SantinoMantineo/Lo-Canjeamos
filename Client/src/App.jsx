@@ -13,7 +13,7 @@ import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/MyProfile"
 import UserProfile from "./views/userProfile/UserProfile"
 import Login from './views/Login/Login';
-import Register from "./components/Register/Register";
+import Register from "./components/register/Register";
 
 import "./App.css";
 
@@ -44,6 +44,7 @@ const App = () => {
         <Route path="/" element={<Home/>} />
         <Route path="/profile" element={ isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>}/>
         <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>} />
+        <Route path="/register" element={ isAuthenticated ?  <Login/> : <Register setAuth={setAuth}/>} />
         <Route path="/addProduct" element={<AddProduct/>} />
         <Route path="/home" element={<Home/>} />
         <Route path="/detail" element={<Detail/>}/>
