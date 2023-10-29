@@ -82,7 +82,7 @@
     color: grey;
 }
 
-.container a {
+.register {
     margin-top: 40px;
     color: whitesmoke;
     background-color: #4ECDC4;
@@ -94,11 +94,6 @@
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
 }
 
-.container .register {
-    margin-top: 10px;
-    background-color: goldenrod;
-    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
-}
 
 .container .title {
     font-size: 14px;

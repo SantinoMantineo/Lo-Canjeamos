@@ -3,13 +3,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import style from "./Register.module.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const Register = () => {
+const Register = ({setAuth}) => {
 
   const [provinces, setProvinces] = useState([]);
   const [localities, setLocalities] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [ localidad, setSelectedLocalidad ] = useState("")
+  
   useEffect(() => {
     fetch("https://apis.datos.gob.ar/georef/api/provincias")
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
@@ -55,14 +57,11 @@ const Register = () => {
   });
 
   const [input, setInput] = useState({
-    fullname: "",
     username: "",
     password: "",
     email: "",
-    imag: "",
-    location: "",
+    image: ""
   });
-  console.log(input);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -81,6 +80,33 @@ const Register = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleSumbit = async (e) => {
+    e.preventDefault();
+
+    try {
+        let newUser = {
+          username: input.username,
+          password: input.password,
+          email: input.email,
+          image: input.image,
+          ubication: `${selectedProvince}, ${localidad}`,
+        }
+      const response = await axios.post('http://localhost:3001/users/register', newUser)
+
+      if (response) {
+        // La solicitud se completó con éxito
+        console.log(response.data.token)
+        setAuth(true)
+      } else {
+        // Hubo un error en la solicitud
+        console.log('Hubo un error al crear el usuario.');
+      }
+    } catch (error) {
+      console.error('Error al enviar los datos al servidor:', error);
+      console.log('Hubo un error al crear el usuario.');
+    }
+  }
+
   return (
     <div className={style.container}>
       <img src={Logo}/>
@@ -89,17 +115,7 @@ const Register = () => {
       </div>
 
       <div className={style.form}>
-        <form>
-          <div>
-            <input
-              type="text"
-              name="fullname"
-              placeholder="nombre completo"
-              onChange={handleInputChange}
-              value={input.fullname}
-            />
-          </div>
-
+        <form onSubmit={handleSumbit}>
           <div>
             <input
               type="text"
@@ -133,10 +149,10 @@ const Register = () => {
           <div>
             <input
               type="imag"
-              name="imag"
+              name="image"
               placeholder="imagen de perfil"
               onChange={handleInputChange}
-              value={input.imag}
+              value={input.image}
             />
           </div>
 
@@ -164,7 +180,7 @@ const Register = () => {
             
        
 
-          <Link to="/login">Enviar</Link>
+          <button className={style.register}>Registrarse</button>
         </form>
       </div>
     </div>
