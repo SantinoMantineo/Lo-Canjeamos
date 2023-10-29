@@ -4,11 +4,13 @@ import style from "./Card.module.css";
 
 const Card = ({ post }) => {
   const { title, image } = post
+
+  console.log(image);
   return (
     <>
     <Link to="/detail">
     <div className={style.card}>
-      <img src={image} className={style.img} alt={title} />
+      <img src={image[0]} className={style.img} alt={title} />
         <p>{title}</p>
         <button>
           <img
