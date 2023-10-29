@@ -41,9 +41,9 @@ router.get("/verify", authorization, async (req, res) => {
   }
 });
 
-router.get("/userId", authorization, async (req, res) => {
+router.get("/userData", authorization, async (req, res) => {
   try {
-    const response = await userController.getUserId(req.body.user);
+    const response = await userController.getUserData(req.body.user);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json(error.message);

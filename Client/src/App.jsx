@@ -12,9 +12,9 @@ import Detail from './views/detail/Detail'
 import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/MyProfile"
 import UserProfile from "./views/userProfile/UserProfile"
-import Login from './views/Login/Login';
+import Login from './views/login/Login';
 import Register from "./components/register/Register";
-
+import axios from "axios";
 import "./App.css";
 
 const App = () => {
@@ -37,21 +37,44 @@ const App = () => {
     setIsAuthenticated(boolean);
   };
 
+  const [ userData, setUserData] = useState("")
+
+  const getUserData = async () => {
+    try {
+      const user = localStorage.token;
+      const response = await axios.get('http://localhost:3001/users/userData', user);
+      const username = response.username;
+      const id = response.id;
+  
+      // Update the state using setUserData function
+      setUserData(username, id);
+  
+      console.log(`Bienvenido ${userData.username}`);
+    } catch (error) {
+      console.error('Error al obtener los datos del usuario:', error);
+    }
+  };
+
+  const [log, setLogueado] = useState(false)
+
+  const setLog = (boolean) => {
+    setLogueado(boolean);
+    getUserData()
+  }
   return (
     <>
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/profile" element={ isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>}/>
-        <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>} />
-        <Route path="/register" element={ isAuthenticated ?  <Login/> : <Register setAuth={setAuth}/>} />
+        <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth} setLog={setLog}/>} />
+        <Route path="/register" element={ isAuthenticated ?  <Login setAuth={setAuth}/> : <Register setAuth={setAuth}/>} />
         <Route path="/addProduct" element={<AddProduct/>} />
         <Route path="/home" element={<Home/>} />
         <Route path="/detail" element={<Detail/>}/>
         <Route path="/exchanges" element={<Exchanges/>} />
         <Route path="/chats" element={<Chats/>} />
         <Route path="/about" element={<About/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/login" element={<Login setAuth={setAuth}/>} />
         <Route path="/register" element={<Register/>} />
       </Routes>
     </>
