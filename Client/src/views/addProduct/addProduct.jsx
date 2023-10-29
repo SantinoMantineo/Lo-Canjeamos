@@ -16,27 +16,30 @@ export default function AddProduct() {
     marginTop: 15,
   };
 
-  const thumb = {
-    display: "inline-flex",
-    marginBottom: 8,
-    marginRight: 8,
-    width: 70,
-    height: 70,
-    padding: 4,
-    boxSizing: "border-box",
-  };
+  // ↓ Sin uso ↓
 
-  const thumbInner = {
-    display: "flex",
-    minWidth: 0,
-    overflow: "hidden",
-  };
+  // const thumb = {
+  //   display: "inline-flex",
+  //   marginBottom: 8,
+  //   marginRight: 8,
+  //   width: 70,
+  //   height: 70,
+  //   padding: 4,
+  //   boxSizing: "border-box",
+  // };
+
+  // const thumbInner = {
+  //   display: "flex",
+  //   minWidth: 0,
+  //   overflow: "hidden",
+  // };
 
   const img = {
     display: "block",
     borderRadius: 5,
     width: 60,
     height: 60,
+    marginRight: 5,
   };
 
   // Constantes para Cloudinary.
@@ -62,19 +65,21 @@ export default function AddProduct() {
     },
   });
 
-  const thumbs = files.map((file) => (
-    <div style={thumb} key={file.name}>
-      <div style={thumbInner}>
-        <img
-          src={file.preview}
-          style={img}
-          onLoad={() => {
-            URL.revokeObjectURL(file.preview);
-          }}
-        />
-      </div>
-    </div>
-  ));
+  // Función de Maxi sin uso (comment by Agus).
+
+  // const thumbs = files.map((file) => (
+  //   <div style={thumb} key={file.name}>
+  //     <div style={thumbInner}>
+  //       <img
+  //         src={file.preview}
+  //         style={img}
+  //         onLoad={() => {
+  //           URL.revokeObjectURL(file.preview);
+  //         }}
+  //       />
+  //     </div>
+  //   </div>
+  // ));
 
   useEffect(() => {
     return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
@@ -171,31 +176,49 @@ export default function AddProduct() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const [imageSecureUrl, setImageSecureUrl] = useState("");
+  const [imageSecureUrls, setImageSecureUrls] = useState([]);
 
   function handleFile(event) {
-    const file = event.target.files[0];
+    const selectedFiles = event.target.files;
 
-    const newFiles = [
-      Object.assign(file, {
-        preview: URL.createObjectURL(file),
-      }),
-      ...files,
-    ];
-  
-    setFiles(newFiles);
+    if (files.length + selectedFiles.length > 3) {
+      console.log("Solo se permiten 3 imágenes.");
+      return; // No agregues más archivos
+    }
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', preset_key);
-    formData.append("folder", folderName);
-  
-    axios
-      .post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
-      .then((res) => {
-        setImageSecureUrl(res.data.secure_url);
-      })
-      .catch((error) => console.log(error));
+    const updatedFiles = [...selectedFiles];
+
+    const updatedImageSecureUrls = updatedFiles.map((file) =>
+      URL.createObjectURL(file)
+    );
+
+    setFiles(updatedFiles);
+    setImageSecureUrls(updatedImageSecureUrls);
+
+    const uploadPromises = updatedFiles.map((file) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", preset_key);
+      formData.append("folder", folderName);
+
+      return axios
+        .post(
+          `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
+          formData
+        )
+        .then((res) => res.data.secure_url)
+        .catch((error) => {
+          console.log("Error al subir las imágenes: " + error);
+          return null;
+        });
+    });
+
+    Promise.all(uploadPromises).then((imageUrls) => {
+      // Filtrar los resultados nulos, en caso de que haya habido errores
+      const validImageUrls = imageUrls.filter((url) => url !== null);
+      const newImageSecureUrls = [...imageSecureUrls, ...validImageUrls];
+      setImageSecureUrls(newImageSecureUrls);
+    });
   }
 
  const handleSubmit = async (e) => {
@@ -206,7 +229,7 @@ export default function AddProduct() {
         let newPost = {
           title: formData.title,
           description: formData.description,
-          image: imageSecureUrl,
+          image: imageSecureUrls,
           ubication: `${selectedProvince}, ${localidad}`,
           category: selectedCategory,
         }
@@ -215,7 +238,18 @@ export default function AddProduct() {
 
       if (response) {
         // La solicitud se completó con éxito
-        console.log('Producto cargado correctamente.');
+        alert("Producto creado correctamente")
+        // Reinicio de campos.
+        setImageSecureUrls([])
+        setLocalities([])
+        setProvinces([])
+        setSelectedCategory("");
+        setSelectedLocalidad("");
+        setSelectedProvince("");
+        setFormData({
+          title: '',
+          description: "",
+        })
       } else {
         // Hubo un error en la solicitud
         console.log('Hubo un error al crear la publicacion.');
@@ -265,7 +299,16 @@ export default function AddProduct() {
                   <input {...getInputProps()} onChange={handleFile}/>
                   <p>Arrastra o haz clic para seleccionar hasta 3 archivos.</p>
                 </div>
-                <aside style={thumbsContainer}>{thumbs}</aside>
+                <aside style={thumbsContainer}>
+                  {imageSecureUrls.map((imageUrl, index) => (
+                    <img
+                      style={img}
+                      key={index}
+                      src={imageUrl}
+                      alt={`Thumbnail ${index}`}
+                    />
+                  ))}
+                </aside>
               </section>
             </label>
           </div>
