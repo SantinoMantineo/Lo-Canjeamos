@@ -2,7 +2,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import Cards from "../../components/cards/Cards";
+import Cards from "../../components/cards/cards";
 import Filters from "../../components/filters/filters";
 import Header from "../../components/header/Header";
 import Banner from "../../assets/banner1.jpg";
@@ -14,9 +14,6 @@ import { getAllPosts } from "../../redux/actions";
 const Home = () => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
-  const postsCategory = useSelector((state) => state.postsCategory);
-  const postsByProvince = useSelector((state) => state.postsByProvince);
-  const postsByLocality = useSelector((state) => state.postsByLocality);
 
   useEffect(() => {
     dispatch(getAllPosts());
