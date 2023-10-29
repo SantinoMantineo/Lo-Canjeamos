@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import Header from "../../components/header/Header";
 import Banner from "../../assets/banner1.jpg";
@@ -47,23 +47,55 @@ export default function AddProduct() {
   const preset_key = "postsimages";
   const cloud_name = "dlahgnpwp";
   const folderName = "postimages";
-
+  
   const [files, setFiles] = useState([]);
-  const { getRootProps, getInputProps } = useDropzone({
-    maxFiles: 3,
-    accept: {
-      "image/*": [],
-    },
-    onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
+  const [imageSecureUrls, setImageSecureUrls] = useState([]);
+
+  const onDrop = useCallback((acceptedFiles) => {
+
+    const selectedFiles = acceptedFiles
+
+    if (files.length + acceptedFiles.length > 3) {
+      alert("¡No puedes cargar más de 3 imágenes!")
+      return; // No agregues más archivos
+    }
+
+    const updatedFiles = [...selectedFiles];
+
+    const updatedImageSecureUrls = updatedFiles.map((file) =>
+      URL.createObjectURL(file)
+    );
+
+    setFiles(updatedFiles);
+    setImageSecureUrls(updatedImageSecureUrls);
+
+    const uploadPromises = updatedFiles.map((file) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", preset_key);
+      formData.append("folder", folderName);
+
+      return axios
+        .post(
+          `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
+          formData
         )
-      );
-    },
-  });
+        .then((res) => res.data.secure_url)
+        .catch((error) => {
+          console.log("Error al subir las imágenes: " + error);
+          return null;
+        });
+    });
+
+    Promise.all(uploadPromises).then((imageUrls) => {
+      // Filtrar los resultados nulos, en caso de que haya habido errores
+      const validImageUrls = imageUrls.filter((url) => url !== null);
+      const newImageSecureUrls = [...imageSecureUrls, ...validImageUrls];
+      setImageSecureUrls(newImageSecureUrls);
+    });
+  }, [files.length, imageSecureUrls]) 
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({onDrop, maxFiles:3, 'image/*': ['.jpeg', '.png']});
 
   // Función de Maxi sin uso (comment by Agus).
 
@@ -176,13 +208,11 @@ export default function AddProduct() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const [imageSecureUrls, setImageSecureUrls] = useState([]);
-
   function handleFile(event) {
     const selectedFiles = event.target.files;
 
     if (files.length + selectedFiles.length > 3) {
-      console.log("Solo se permiten 3 imágenes.");
+      alert("¡Solo puedes subir un máximo 3 imágenes!")
       return; // No agregues más archivos
     }
 
@@ -295,20 +325,13 @@ export default function AddProduct() {
             <label>
               Imagen*
               <section className={style.files}>
-                <div {...getRootProps({ className: "dropzone" })}>
+                <div className="dropzone" {...getRootProps()} onClick={event => event.stopPropagation()}>
                   <input {...getInputProps()} onChange={handleFile}/>
-                  <p>Arrastra o haz clic para seleccionar hasta 3 archivos.</p>
+                  {isDragActive ? 'Suelta tus archivos aquí' : 'Selecciona o arrastra tus archivos aquí'}
                 </div>
-                <aside style={thumbsContainer}>
-                  {imageSecureUrls.map((imageUrl, index) => (
-                    <img
-                      style={img}
-                      key={index}
-                      src={imageUrl}
-                      alt={`Thumbnail ${index}`}
-                    />
-                  ))}
-                </aside>
+                {imageSecureUrls.length > 0 && <div style={thumbsContainer}>
+                  {imageSecureUrls.map((file, index) => <img style={img} src={file} key={index}/>)}  
+                </div>}
               </section>
             </label>
           </div>
