@@ -92,9 +92,10 @@ const Register = ({setAuth}) => {
           ubication: `${selectedProvince}, ${localidad}`,
         }
       const response = await axios.post('http://localhost:3001/users/register', newUser)
-      console.log(response);
+
       if (response) {
         // La solicitud se completó con éxito
+        console.log(response.data.token)
         setAuth(true)
       } else {
         // Hubo un error en la solicitud

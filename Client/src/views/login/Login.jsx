@@ -12,7 +12,6 @@ const Login = ({setAuth}) => {
     password: "",
   });
 
-console.log(input)
 
   const handleInputChange = (e) => {
     setInput({
