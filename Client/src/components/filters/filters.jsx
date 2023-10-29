@@ -61,6 +61,8 @@ const Filters = () => {
   // Obtener las provincias únicas
   const provinces = Array.from(provinceToLocalityMap.keys());
 
+  const uniqueCategories = [...new Set(allPosts.map((post) => post.category))];
+
   return (
     <>
       <div className={style.filters}>
@@ -89,7 +91,7 @@ const Filters = () => {
 
         <select value={selectedCategory} onChange={handleCategoryChange}>
           <option value="">Categoría</option>
-          {categories.map((category, index) => (
+          {uniqueCategories.map((category, index) => (
             <option key={index} value={category}>
               {category}
             </option>
@@ -99,5 +101,4 @@ const Filters = () => {
     </>
   );
 };
-
 export default Filters;
