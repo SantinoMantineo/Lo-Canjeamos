@@ -52,8 +52,12 @@ const Filters = () => {
     if (!provinceToLocalityMap.has(province)) {
       provinceToLocalityMap.set(province, []);
     }
-    provinceToLocalityMap.get(province).push(locality);
+    const localityArray = provinceToLocalityMap.get(province);
+    if (!localityArray.includes(locality)) {
+      localityArray.push(locality);
+    }
   });
+  
 
   // Obtener las provincias únicas
   const provinces = Array.from(provinceToLocalityMap.keys());
