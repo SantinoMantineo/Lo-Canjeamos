@@ -2,11 +2,11 @@ import Logo from '../../assets/locan.png'
 import { useState } from 'react'
 import React from 'react'
 import style from './Login.module.css'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-
-const Login = ({setAuth}) => {
-
+const Login = ({ setAuth, setLog }) => {
+  const [ userValidated, setUser ] = useState(false);
   const [input, setInput] = useState({
     username: "",
     password: "",
@@ -25,6 +25,31 @@ const Login = ({setAuth}) => {
     //  }))
   }
 
+  const handleSumbit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      let loginUser = {
+        username: input.username,
+        password: input.password,
+      }
+      const response = await axios.post('http://localhost:3001/users/login', loginUser)
+  
+      if (response.data && response.data.token) {
+        // Authentication successful, set auth to true
+        const token = await localStorage.setItem("token", response.data.token);
+        setAuth(true); // Set auth to true here
+        setLog(true);
+      } else {
+        // Authentication failed
+        console.log('Hubo un error al iniciar sesión.');
+      }
+    } catch (error) {
+      console.error('Error al enviar los datos al servidor:', error);
+      console.log('Hubo un error al iniciar sesión.');
+    }
+  }
+  
 
   return (
     <div className={style.container}>
@@ -42,8 +67,7 @@ const Login = ({setAuth}) => {
                 <input type="password"name="password" placeholder='contraseña'onChange={handleInputChange}
                   value={input.password}/>
               </div>
-
-              <button onClick={()=>{setAuth(true)}}>Iniciar sesión</button>
+              <button onClick={handleSumbit}>Iniciar sesión</button>
           </form>
         </div>
 

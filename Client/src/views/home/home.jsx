@@ -11,7 +11,7 @@ import style from "./Home.module.css";
 import Paginado from "../../components/pagination/pagination";
 import { getAllPosts } from "../../redux/actions";
 
-const Home = () => {
+const Home = ({}) => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
   const postsCategory = useSelector((state) => state.postsCategory);

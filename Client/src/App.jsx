@@ -12,9 +12,9 @@ import Detail from './views/detail/Detail'
 import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/MyProfile"
 import UserProfile from "./views/userProfile/UserProfile"
-import Login from './views/Login/Login';
+import Login from './views/login/Login';
 import Register from "./components/register/Register";
-
+import axios from "axios";
 import "./App.css";
 
 const App = () => {
@@ -37,21 +37,65 @@ const App = () => {
     setIsAuthenticated(boolean);
   };
 
+  const [ userToken, setUserToken] = useState("")
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    
+    if (token) {
+      // El token se encontró en el local storage, por lo que el usuario está autenticado
+      // Almacenar el token en el estado userData
+      setUserToken(token);
+    }
+  }, []);
+
+const [ userData, setUserData ] = useState()
+
+  const getUserData = async () => {
+    try {
+      console.log(userToken)
+      axios.get('http://localhost:3001/users/userId', {
+        headers: {
+          token: userToken
+        }
+      })
+      .then((response) => {
+        // Actualizar el estado con los datos del usuario
+        const userInfo = {
+          email: response.data.email,
+          id: response.data.id,
+          username: response.data.username
+        }
+        setUserData(userInfo);
+      })
+      .catch((error) => {
+        console.error('Error al obtener los datos del usuario:', error);
+      });
+    } catch (error) {
+      console.error('Error al obtener los datos del usuario:', error);
+    }
+  };
+
+  const [log, setLogueado] = useState(false)
+
+  const setLog = (boolean) => {
+    setLogueado(boolean);
+    getUserData()
+  }
   return (
     <>
-      <Navbar/>
+      <Navbar isAuthenticated={isAuthenticated} userData={userData} setAuth={setAuth}/>
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/profile" element={ isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>}/>
-        <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>} />
-        <Route path="/register" element={ isAuthenticated ?  <Login/> : <Register setAuth={setAuth}/>} />
+        <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth} setLog={setLog}/>} />
+        <Route path="/register" element={ isAuthenticated ?  <Login setAuth={setAuth}/> : <Register setAuth={setAuth}/>} />
         <Route path="/addProduct" element={<AddProduct/>} />
         <Route path="/home" element={<Home/>} />
         <Route path="/detail" element={<Detail/>}/>
         <Route path="/exchanges" element={<Exchanges/>} />
         <Route path="/chats" element={<Chats/>} />
         <Route path="/about" element={<About/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/login" element={<Login setAuth={setAuth}/>} />
         <Route path="/register" element={<Register/>} />
       </Routes>
     </>
