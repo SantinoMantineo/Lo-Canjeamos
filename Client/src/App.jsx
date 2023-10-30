@@ -37,19 +37,40 @@ const App = () => {
     setIsAuthenticated(boolean);
   };
 
-  const [ userData, setUserData] = useState("")
+  const [ userToken, setUserToken] = useState("")
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    
+    if (token) {
+      // El token se encontró en el local storage, por lo que el usuario está autenticado
+      // Almacenar el token en el estado userData
+      setUserToken(token);
+    }
+  }, []);
+
+const [ userData, setUserData ] = useState()
 
   const getUserData = async () => {
     try {
-      const user = localStorage.token;
-      const response = await axios.get('http://localhost:3001/users/userData', user);
-      const username = response.username;
-      const id = response.id;
-  
-      // Update the state using setUserData function
-      setUserData(username, id);
-  
-      console.log(`Bienvenido ${userData.username}`);
+      console.log(userToken)
+      axios.get('http://localhost:3001/users/userId', {
+        headers: {
+          token: userToken
+        }
+      })
+      .then((response) => {
+        // Actualizar el estado con los datos del usuario
+        const userInfo = {
+          email: response.data.email,
+          id: response.data.id,
+          username: response.data.username
+        }
+        setUserData(userInfo);
+      })
+      .catch((error) => {
+        console.error('Error al obtener los datos del usuario:', error);
+      });
     } catch (error) {
       console.error('Error al obtener los datos del usuario:', error);
     }
@@ -63,7 +84,7 @@ const App = () => {
   }
   return (
     <>
-      <Navbar/>
+      <Navbar isAuthenticated={isAuthenticated} userData={userData} setAuth={setAuth}/>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth} setLog={setLog}/>} />

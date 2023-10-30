@@ -1,8 +1,6 @@
 const { Post, User } = require("../DB_config");
 const bcrypt = require('bcrypt');
 const jwtGenerator = require("../utils/jwtGenerator")
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
 exports.getAllUser = async () => {
   try {
@@ -95,18 +93,10 @@ exports.loginUser = async (user) => {
   }
 };
 
-exports.getUserData = async (user) => {
+exports.getUserId = async (user) => {
   try {
-    const decodedToken = jwt.verify(user, process.env.JWTSECRET);
-
-    // Retrieve the user from the database based on the decoded user ID
-    const userId = decodedToken.id;
-
-    const user = await User.findByPk(userId);
-
-    if (!user) {
-      throw new Error('User not found');
-    }
+    const userId = await User.findByPk(user)
+    return userId;
   } catch (error) {
     throw new Error("Error al iniciar sesión");
   }

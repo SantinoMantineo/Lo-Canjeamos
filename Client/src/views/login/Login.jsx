@@ -37,7 +37,7 @@ const Login = ({ setAuth, setLog }) => {
   
       if (response.data && response.data.token) {
         // Authentication successful, set auth to true
-        await localStorage.setItem("token", response.data.token);
+        const token = await localStorage.setItem("token", response.data.token);
         setAuth(true); // Set auth to true here
         setLog(true);
       } else {
