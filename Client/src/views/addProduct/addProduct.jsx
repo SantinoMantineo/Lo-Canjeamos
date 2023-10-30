@@ -313,7 +313,7 @@ export default function AddProduct() {
             </label>
             <label>
               Descripción
-              <input
+              <textarea
                 className={style.input}
                 type="text"
                 name="description"
