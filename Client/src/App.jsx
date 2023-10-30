@@ -32,11 +32,14 @@ const App = () => {
   }, []); */
 
 const [ isAuthenticated, setIsAuthenticated ] = useState(false);
-const setAuth = (boolean) => {
-  setIsAuthenticated(boolean);
-};
+
 const [ userToken, setUserToken] = useState("")
 const [ userData, setUserData ] = useState()
+
+const setAuth = (boolean, user) => {
+  setIsAuthenticated(boolean);
+};
+
 useEffect(() => {
   // Intentar obtener el token del almacenamiento local
   const token = localStorage.getItem("token");
@@ -85,9 +88,10 @@ useEffect(() => {
     setIsAuthenticated(false);
   }
 }, []);
+
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} userData={userData} setAuth={setAuth}/>
+      <Navbar isAuthenticated={isAuthenticated} userData={userData} setAuth={setAuth} setUserData={setUserData}/>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>} />

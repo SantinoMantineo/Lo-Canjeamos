@@ -12,11 +12,6 @@ const Login = ({ setAuth }) => {
     password: "",
   });
 
-  const [log, setLogueado] = useState(false)
-
-  const setLog = (boolean) => {
-    setLogueado(boolean);
-  }
   const handleInputChange = (e) => {
     setInput({
       ...input,
@@ -43,7 +38,6 @@ const Login = ({ setAuth }) => {
         // Authentication successful, set auth to true
         const token = await localStorage.setItem("token", response.data.token);
         setAuth(true); // Set auth to true here
-        setLog(true);
       } else {
         // Authentication failed
         console.log('Hubo un error al iniciar sesión.');

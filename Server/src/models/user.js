@@ -26,6 +26,7 @@ module.exports = (sequelize) => {
     },
     ubication: {
       type: DataTypes.STRING,
+      allowNull: false
     },
     rol: {
       type: DataTypes.STRING,
