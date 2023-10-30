@@ -44,8 +44,9 @@ const Detail = () => {
   return (
     <>
       <div className={style.detail}>
-        {post && post.title && <h3>{post.title}</h3>}
+        
         <div className={style.carousel}>
+        {post && post.title && <h3>{post.title}</h3>}
           <Slider {...settings}>
             {post && post.image && post.image[0] && (
               <div>
@@ -64,13 +65,18 @@ const Detail = () => {
             )}
           </Slider>
         </div>
+        
         <div className={style.info}>
+          <span>Rating usuario:</span>
+          <h4>⭐️⭐️⭐️</h4>
           <span>Publicacion de:</span>
           {User && User.username && <h4>{User.username}</h4> }
+
           <span>Ubicación:</span>
           {post && post.ubication && <h4>{post.ubication}</h4>}
           <span>Descripción:</span>
           {post && post.description && <h4>{post.description}</h4>}
+          
         </div>
         <div className={style.buttons}>
           <Link to="/">

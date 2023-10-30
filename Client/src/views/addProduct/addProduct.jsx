@@ -255,7 +255,7 @@ export default function AddProduct({ userData }) {
             </label>
             <label>
               Descripción
-              <input
+              <textarea
                 className={style.input}
                 type='text'
                 name='description'
