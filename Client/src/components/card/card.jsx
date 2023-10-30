@@ -8,7 +8,7 @@ const Card = ({ post }) => {
   return (
     <>
       <div className={style.card}>
-        {<img src={image[0]} className={style.img} alt={title} />}
+        <img src={image[0]} className={style.img} alt={title} />
         <Link to={`detail/${id}`}>
           <p>{title}</p>
           <h6>{ubication}📍</h6>

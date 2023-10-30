@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Logo from "../../assets/locan.png";
-import smile from '../../assets/smile.gif'
 import style from "./Nabvar.module.css";
 
 const NavBar = ({ isAuthenticated, setAuth }) => {
@@ -12,13 +11,6 @@ const NavBar = ({ isAuthenticated, setAuth }) => {
 
   return (
     <div className={style.navbar}>
-
-      {isAuthenticated && userData ? (
-        <div className={style.saludo}>
-          <h2>Hola, {userData.username}! <img src={smile} className={style.smile}></img></h2>
-        </div>
-      ) : null}
-
       <Link to="/" className={style.link}>
         <img src={Logo} className={style.logo} alt="Locan" />
       </Link>
