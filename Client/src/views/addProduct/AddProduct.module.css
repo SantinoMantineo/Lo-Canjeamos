@@ -28,9 +28,6 @@
   margin: 0;
   border-radius: 5px;
 }
-.container textarea {
-  height: 60px;
-}
 
 .create {
   display: grid;
@@ -45,7 +42,7 @@
 .create select {
   display: grid;
   width: 243px;
-  height: 31px;
+  height: 32px;
   margin-left: 30px;
   border: none;
   border-radius: 5px;
