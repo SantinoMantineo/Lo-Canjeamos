@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Card from "../card/Card";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -9,11 +8,13 @@ import style from "./Cards.module.css";
 const Cards = ({ allPosts }) => {
   
   const settings = {
+    autoplay: true,
     dots: true,
-
     infinite: true,
     speed: 500,
     slidesToShow: Math.min(5, allPosts.length),
+    variableWidth: true,
+    className: "slider variable-width",
     slidesToScroll: 1,
     responsive: [
       {
@@ -42,11 +43,14 @@ const Cards = ({ allPosts }) => {
     ],
   };
 
-  const posts = allPosts
+  const posts = allPosts.slice(0, 6);
+
+  console.log(posts)
 
   return (
     <>
         <div className={style.cards}>
+          <h3>Lo más reciente 🔥</h3>
           <Slider {...settings}>
           {posts && posts.map((post, index) => (
             <div key={index}>
