@@ -1,0 +1,25 @@
+.allCards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    justify-content: center;
+}
+
+.cards {
+    justify-self: center;
+}
+
+@media (max-width: 1280px) {
+    .allCards {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .allCards {
+        grid-template-columns: 1fr;
+        justify-self: center;
+        margin-top: 10px;
+    }
+}

@@ -14,7 +14,9 @@ exports.getAllPosts = async () => {
 
 exports.getPostById = async (id) => {
   try {
-    const postById = await Post.findByPk(id);
+    const postById = await Post.findByPk(id, {
+      include: User, 
+    });
 
     if (!postById) {
       throw new Error("No post found with the specified id");
