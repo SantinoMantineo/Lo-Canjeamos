@@ -14,9 +14,11 @@ import MyProfile from "./views/myProfile/MyProfile"
 import UserProfile from "./views/userProfile/UserProfile"
 import Login from './views/login/Login';
 import Register from "./components/register/Register";
+import Loading from "./views/loading/loading";
 import axios from "axios";
 import "./App.css";
-
+import Welcome from "./views/welcome/welcome"
+import { motion } from "framer-motion"
 const App = () => {
 
 /* const [darkMode, setDarkMode] = useState(false);
@@ -80,16 +82,21 @@ useEffect(() => {
   } else {
     setIsAuthenticated(false);
   }
-}, []);
+}, [isAuthenticated]);
 
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} userData={userData} setAuth={setAuth} setUserData={setUserData}/>
+    {isAuthenticated && 
+      <motion.div>
+        <Welcome userData={userData}/>
+      </motion.div>
+    }
+      <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth}/>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>} />
-        <Route path="/register" element={ isAuthenticated ?  <Login setAuth={setAuth}/> : <Register setAuth={setAuth}/>} />
-        <Route path="/addProduct" element={<AddProduct/>} />
+        <Route path="/addProduct" element={userData ? <AddProduct userData={userData}/> : <Loading/>} />
+        <Route path="/register" element={ isAuthenticated ?  <MyProfile/> : <Register setAuth={setAuth}/>} />
         <Route path="/detail/:id" element={<Detail/>}/>
         <Route path="/exchanges" element={<Exchanges/>} />
         <Route path="/chats" element={<Chats/>} />

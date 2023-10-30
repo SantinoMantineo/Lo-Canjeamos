@@ -12,6 +12,8 @@ const Detail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const post = useSelector((state) => state.selectedPost);
+  const { User } = post
+  console.log(User)
 
   useEffect(() => {
     dispatch(getPostById(id));
@@ -67,6 +69,9 @@ const Detail = () => {
         <div className={style.info}>
           <span>Rating usuario:</span>
           <h4>⭐️⭐️⭐️</h4>
+          <span>Publicacion de:</span>
+          {User && User.username && <h4>{User.username}</h4> }
+
           <span>Ubicación:</span>
           {post && post.ubication && <h4>{post.ubication}</h4>}
           <span>Descripción:</span>
