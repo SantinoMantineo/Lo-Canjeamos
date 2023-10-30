@@ -1,18 +1,17 @@
-
+import Logo from '../../assets/locan.png'
 import { useState } from 'react'
 import React from 'react'
 import style from './Login.module.css'
 import { Link } from "react-router-dom";
 
 
-const Login = () => {
+const Login = ({setAuth}) => {
 
   const [input, setInput] = useState({
     username: "",
     password: "",
   });
 
-console.log(input)
 
   const handleInputChange = (e) => {
     setInput({
@@ -29,6 +28,7 @@ console.log(input)
 
   return (
     <div className={style.container}>
+      <img src={Logo}/>
         <div>
           <h2>Iniciar sesión</h2>
         </div>
@@ -43,7 +43,7 @@ console.log(input)
                   value={input.password}/>
               </div>
 
-              <Link to='/profile'>Iniciar sesión</Link>
+              <button onClick={()=>{setAuth(true)}}>Iniciar sesión</button>
           </form>
         </div>
 

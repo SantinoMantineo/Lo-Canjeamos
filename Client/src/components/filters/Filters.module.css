@@ -1,7 +1,7 @@
 .filters {
     display: grid;
-    grid-template-columns: 75px 75px 100px 100px 100px;
-    gap: 5px;
+    grid-template-columns: 75px 100px 100px 100px;
+    gap: 20px;
     justify-content: center;
     margin-bottom: 20px;
   }
@@ -16,16 +16,17 @@
   span {
     align-self: center;
     font-size: 14px;
-    padding-bottom: 2px;
+    padding-bottom: 3px;
+    color: grey;
   }
 
   .filters select {
-    border: none;
+    border-radius: 15px;
     outline: none;
     background-color: whitesmoke;
-    width: 100px;
+    width: 80px;
     height: 40px;
-    font-size: 14px;
+    font-size: 12px;
     justify-self: center;
     align-self: center;
     color: grey;
@@ -64,6 +65,5 @@
 
     select {
       font-size: 12px;
-      margin-left: -20px;
     }
   }
