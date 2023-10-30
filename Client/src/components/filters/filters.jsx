@@ -8,6 +8,7 @@ import {
   getPostByLocality,
   getPostByCategory,
   getAllPosts,
+  resetFilters
 } from "../../redux/actions";
 import style from "./Filters.module.css";
 import { useEffect } from "react";
@@ -64,6 +65,11 @@ const Filters = () => {
 
   const uniqueCategories = [...new Set(allPostsCopy.map((post) => post.category))];
 
+  const handleResetFilters = () => {
+    dispatch(resetFilters()); 
+    dispatch(getAllPosts())
+  }
+
   return (
     <>
       <div className={style.filters}>
@@ -98,6 +104,7 @@ const Filters = () => {
             </option>
           ))}
         </select>
+        <button onClick={handleResetFilters}>Resetear Filtros</button>
       </div>
     </>
   );

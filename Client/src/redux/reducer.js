@@ -15,6 +15,7 @@ import {
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
+  RESET_FILTERS
 } from "./actionTypes";
 
 const initialState = {
@@ -96,27 +97,33 @@ function rootReducer(state = initialState, action) {
         selectedCategory: action.payload,
       };
 
-      case GET_POST_BY_CATEGORY:
-      case GET_POST_BY_PROVINCE:
-      case GET_POST_BY_LOCALITY:
-          let filteredPosts = state.allPostsCopy;
-        
-          if (state.selectedCategory) {
-            filteredPosts = filteredPosts.filter((post) => post.category === state.selectedCategory);
-          }
-        
-          if (state.selectedProvince) {
-            filteredPosts = filteredPosts.filter((post) => post.ubication.includes(state.selectedProvince));
-          }
-        
-          if (state.selectedLocality) {
-            filteredPosts = filteredPosts.filter((post) => post.ubication.includes(state.selectedLocality));
-          }
-        
-          return {
-            ...state,
-            allPosts: filteredPosts,
-          };
+    case GET_POST_BY_CATEGORY:
+    case GET_POST_BY_PROVINCE:
+    case GET_POST_BY_LOCALITY:
+      let filteredPosts = state.allPostsCopy;
+
+      if (state.selectedCategory) {
+        filteredPosts = filteredPosts.filter(
+          (post) => post.category === state.selectedCategory
+        );
+      }
+
+      if (state.selectedProvince) {
+        filteredPosts = filteredPosts.filter((post) =>
+          post.ubication.includes(state.selectedProvince)
+        );
+      }
+
+      if (state.selectedLocality) {
+        filteredPosts = filteredPosts.filter((post) =>
+          post.ubication.includes(state.selectedLocality)
+        );
+      }
+
+      return {
+        ...state,
+        allPosts: filteredPosts,
+      };
 
     case CREATE_POST:
       return {
@@ -138,6 +145,14 @@ function rootReducer(state = initialState, action) {
         allPosts: state.allPosts.filter(
           (post) => post.id !== action.payload.id
         ),
+      };
+
+    case RESET_FILTERS:
+      return {
+        ...state,
+        selectedCategory: "",
+        selectedProvince: "",
+        selectedLocality: "",
       };
 
     default:
