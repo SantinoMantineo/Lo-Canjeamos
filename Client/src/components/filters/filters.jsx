@@ -104,7 +104,7 @@ const Filters = () => {
             </option>
           ))}
         </select>
-        <button onClick={handleResetFilters}>Resetear Filtros</button>
+        <button onClick={handleResetFilters}><img width="24" height="24" src="https://img.icons8.com/windows/32/trash.png" alt="trash"/></button>
       </div>
     </>
   );
