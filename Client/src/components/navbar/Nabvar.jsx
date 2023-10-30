@@ -2,22 +2,15 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/locan.png";
 import style from "./Nabvar.module.css";
 
-const NavBar = ({ isAuthenticated, userData, setAuth, setUserData }) => {
+const NavBar = ({ isAuthenticated, setAuth }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
     setAuth(false);
-    setUserData("")
   };
 
   return (
     <div className={style.navbar}>
-      {isAuthenticated && userData ? (
-        <div className={style.saludo}>
-          <h2>Hola, {userData.username}! 😃</h2>
-        </div>
-      ) : null}
-
       <Link to="/" className={style.link}>
         <img src={Logo} className={style.logo} alt="Locan" />
       </Link>

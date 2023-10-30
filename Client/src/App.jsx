@@ -84,7 +84,7 @@ useEffect(() => {
 
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} userData={userData} setAuth={setAuth} setUserData={setUserData}/>
+      <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth}/>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>} />
