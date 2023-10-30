@@ -6,7 +6,7 @@ import { getAllPosts } from '../../redux/actions';
 import product from "../../assets/product.jpeg";
 import style from "./Publication.module.css";
 
-const Publication = () => {
+const Publication = ({userData}) => {
 
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
@@ -15,24 +15,26 @@ const Publication = () => {
     dispatch(getAllPosts());
   }, [dispatch]);
 
-  const firstPost = allPosts[0];
+  const userPosts = allPosts.filter((post) => post.UserId === userData.id);
 
-  return (
+
+
+    return (
     <>
-     <div className={style.publication}>
-        {firstPost && firstPost.image && (
-          <img src={firstPost.image[0]} className={style.img} alt="Publication Image" />
-        )}
-        {firstPost && firstPost.title && <h3>{firstPost.title}</h3>}
-        <button className={style.trash}>
-          <img
-            width="24"
-            height="24"
-            src="https://img.icons8.com/color/48/delete-forever.png"
-            alt="delete-forever"
-          />
-        </button>
-      </div>
+      {userPosts.map((post) => (
+        <div key={post.id} className={style.publication}>
+          {post.image && <img src={post.image[0]} className={style.img} alt="Publication Image" />}
+          {post.title && <h3>{post.title}</h3>}
+          <button className={style.trash}>
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/color/48/delete-forever.png"
+              alt="delete-forever"
+            />
+          </button>
+        </div>
+      ))}
     </>
   );
 };

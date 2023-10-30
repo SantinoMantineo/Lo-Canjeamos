@@ -8,7 +8,7 @@ import Banner4 from '../../assets/banner4.jpg'
 import style from "./MyProfile.module.css";
 
 
-const MyProfile = () => {
+const MyProfile = ({ userData }) => {
   return (
     <>
       <Header banner1={Banner3} banner2={Banner4}></Header>
@@ -18,7 +18,7 @@ const MyProfile = () => {
         </div>
         <div className={style.publications}>
           <h3>Publicaciones</h3>
-          <Publication></Publication>
+          <Publication userData={userData}></Publication>
         </div>
       </div>
     </>

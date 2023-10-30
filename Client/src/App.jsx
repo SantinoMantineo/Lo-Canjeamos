@@ -10,7 +10,7 @@ import Exchanges from "./views/exchanges/Exchanges"
 import Home from "./views/home/Home";
 import Detail from './views/detail/Detail'
 import Navbar from "./components/navbar/Nabvar";
-import MyProfile from "./views/myProfile/MyProfile"
+import MyProfile from "./views/myProfile/myProfile"
 import UserProfile from "./views/userProfile/UserProfile"
 import Login from './views/login/Login';
 import Register from "./components/register/Register";
@@ -94,9 +94,9 @@ useEffect(() => {
       <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth}/>
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>} />
+        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Login setAuth={setAuth}/>)}/>
         <Route path="/addProduct" element={userData ? <AddProduct userData={userData}/> : <Loading/>} />
-        <Route path="/register" element={ isAuthenticated ?  <MyProfile/> : <Register setAuth={setAuth}/>} />
+        <Route path="/register" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Register setAuth={setAuth}/>)}/>
         <Route path="/detail/:id" element={<Detail/>}/>
         <Route path="/exchanges" element={<Exchanges/>} />
         <Route path="/chats" element={<Chats/>} />
