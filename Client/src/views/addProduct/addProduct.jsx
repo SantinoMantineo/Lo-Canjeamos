@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 import Header from "../../components/header/Header";
 import Banner from "../../assets/banner1.jpg";
 import Banner2 from "../../assets/banner2.jpg";
+import Modal from "../../components/modal/Modal.jsx"
 import style from "./AddProduct.module.css";
 import axios from "axios";
 
@@ -31,6 +32,7 @@ export default function AddProduct({ userData }) {
   const cloud_name = "dlahgnpwp";
   const folderName = "postimages";
 
+  const [showModal, setShowModal] = useState(false);
   const [files, setFiles] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [selectedIndices, setSelectedIndices] = useState([]);
@@ -213,8 +215,7 @@ export default function AddProduct({ userData }) {
       console.log(newPost);
 
       if (response) {
-        // La solicitud se completó con éxito
-        alert("Producto creado correctamente");
+        setShowModal(true)
         // Reinicio de campos.
         setFiles([]);
         setSelectedCategory("");
@@ -331,6 +332,7 @@ export default function AddProduct({ userData }) {
         </button>
         <h5 className={style.message}>Los campos con * son obligatorios</h5>
       </div>
+      {showModal && <Modal/>}
     </>
   );
 }
