@@ -95,7 +95,7 @@ const Register = ({setAuth}) => {
 
       if (response) {
         // La solicitud se completó con éxito
-        console.log(response.data.token)
+        await localStorage.setItem("token", response.data.token)
         setAuth(true)
       } else {
         // Hubo un error en la solicitud

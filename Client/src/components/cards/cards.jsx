@@ -13,13 +13,13 @@ const Cards = ({ allPosts }) => {
 
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: Math.min(5, allPosts.length),
     slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 1280,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: Math.min(3, allPosts.length),
           slidesToScroll: 3,
           infinite: true,
           variableWidth: true,
