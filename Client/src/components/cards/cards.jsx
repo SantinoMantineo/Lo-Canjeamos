@@ -3,6 +3,7 @@ import Card from "../card/Card";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import fire from '../../assets/fire.gif'
 import style from "./Cards.module.css";
 
 const Cards = ({ allPosts }) => {
@@ -43,14 +44,14 @@ const Cards = ({ allPosts }) => {
     ],
   };
 
-  const posts = allPosts.slice(0, 6);
+  const posts = allPosts.slice(-6);
 
   console.log(posts)
 
   return (
     <>
         <div className={style.cards}>
-          <h3>Lo más reciente 🔥</h3>
+          <div><span>Lo más destacado</span> <img src={fire} className={style.fire}></img></div>
           <Slider {...settings}>
           {posts && posts.map((post, index) => (
             <div key={index}>
