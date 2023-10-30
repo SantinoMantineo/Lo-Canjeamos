@@ -17,6 +17,7 @@ import style from "./Home.module.css";
 const Home = ({}) => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
+  const Posts = useSelector((state) => state.allPostsCopy);
 
   useEffect(() => {
     dispatch(getAllPosts());
@@ -34,7 +35,7 @@ const Home = ({}) => {
   return (
     <>
       <Header banner1={Banner} banner2={Banner2}></Header>
-      <Cards allPosts={allPosts}></Cards>
+      <Cards allPosts={Posts}></Cards>
       <Filters></Filters>
       <AllCards posts={allPosts}></AllCards>
     </>
