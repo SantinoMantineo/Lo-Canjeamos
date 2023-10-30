@@ -94,6 +94,14 @@
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
 }
 
+.buttonDisabled {
+    background-color: #ccc; 
+    color: #888; 
+    cursor: not-allowed;
+    pointer-events: none;
+    border: 1px solid #ccc;
+  }
+
 
 .container .title {
     font-size: 14px;
