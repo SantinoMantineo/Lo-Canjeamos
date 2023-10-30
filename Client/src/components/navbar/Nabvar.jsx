@@ -13,7 +13,9 @@ const NavBar = ({ isAuthenticated, userData, setAuth }) => {
       <div className={style.div}></div>
 
       {isAuthenticated && userData ? (
-        <h2 className={style.saludo}>Hola, {userData.username}</h2>
+        <div className={style.saludo}>
+          <h2>Hola, {userData.username}</h2>
+        </div>
       ) : null}
       
       {isAuthenticated ? (

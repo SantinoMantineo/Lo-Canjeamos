@@ -15,13 +15,28 @@
 .navbar button {
     display: grid;
     justify-content: center;
-    font-size: 10px;
 }
 
 .navbar button img {
     justify-self: center;
 }
 
+.saludo{
+    position: absolute;
+    width: 200px;
+    left: 250px;
+    margin-top: -0.3%;
+    font-weight: bolder;
+    
+}
+.logout{
+    position: absolute;
+    grid-column-start: 2;
+    left: 15px;
+    font-weight: bolder;
+    font-size: 20px;
+    margin-top: 20px;
+}
 .logo {
     position: absolute;
     width: 200px;
