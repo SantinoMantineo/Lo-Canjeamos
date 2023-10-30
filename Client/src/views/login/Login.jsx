@@ -5,6 +5,8 @@ import style from './Login.module.css'
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import LoginButton from '../Auth0/LoginButton';
+
 const Login = ({ setAuth, userData }) => {
   const [ userValidated, setUser ] = useState(false);
   const [input, setInput] = useState({
@@ -71,6 +73,13 @@ const Login = ({ setAuth, userData }) => {
           <span>
           No tienes una cuenta? 
           <Link to='/register' className={style.register}>Registrate</Link>
+          </span>
+        </div>
+
+        <div className={style.buttons}>
+          <span>
+          o 
+          <LoginButton/>
           </span>
         </div>
 
