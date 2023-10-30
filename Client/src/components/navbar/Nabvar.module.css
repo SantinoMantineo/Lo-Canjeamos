@@ -23,35 +23,33 @@
 
 .saludo{
     position: absolute;
-    width: 200px;
-    left: 250px;
-    margin-top: -0.3%;
-    font-weight: bolder;
-    
+    left: 280px;
+    top: 5px;
+    font-size: 12px;
 }
+
 .logout{
-    position: absolute;
-    grid-column-start: 2;
-    left: 15px;
-    font-weight: bolder;
-    font-size: 20px;
-    margin-top: 20px;
+    display: grid;
+    justify-content: center;
+    font-size: 10px;
 }
+
 .logo {
     position: absolute;
     width: 200px;
-    margin-top: -1%;
+    margin-top: -15px;
     left: 40px;
     z-index: 999;
 }
 
 .iconos{
     background: transparent;
+    font-size: 10px;
 }
 
 @media (max-width: 768px) {
     .navbar {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         gap: 5px;
         bottom: 0;
         top: auto;
@@ -66,6 +64,10 @@
     }
 
     .div {
+        display: none;
+    }
+
+    .saludo {
         display: none;
     }
 }
