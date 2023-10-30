@@ -14,6 +14,7 @@ import MyProfile from "./views/myProfile/MyProfile"
 import UserProfile from "./views/userProfile/UserProfile"
 import Login from './views/login/Login';
 import Register from "./components/register/Register";
+import Loading from "./views/loading/loading";
 import axios from "axios";
 import "./App.css";
 import Welcome from "./views/welcome/welcome"
@@ -94,8 +95,8 @@ useEffect(() => {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>} />
+        <Route path="/addProduct" element={userData ? <AddProduct userData={userData}/> : <Loading/>} />
         <Route path="/register" element={ isAuthenticated ?  <MyProfile/> : <Register setAuth={setAuth}/>} />
-        <Route path="/addProduct" element={<AddProduct/>} />
         <Route path="/detail/:id" element={<Detail/>}/>
         <Route path="/exchanges" element={<Exchanges/>} />
         <Route path="/chats" element={<Chats/>} />

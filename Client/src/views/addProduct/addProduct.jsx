@@ -6,7 +6,8 @@ import Banner2 from "../../assets/banner2.jpg";
 import style from "./AddProduct.module.css";
 import axios from "axios";
 
-export default function AddProduct() {
+export default function AddProduct({ userData }) {
+  const { id } = userData
 
   //Configuración de la biblioteca para cargar imagenes.
   const thumbsContainer = {
@@ -262,6 +263,7 @@ export default function AddProduct() {
           image: imageSecureUrls,
           ubication: `${selectedProvince}, ${localidad}`,
           category: selectedCategory,
+          UserId: id
         }
         console.log(newPost)
       const response = await axios.post('http://localhost:3001/posts/', newPost)
