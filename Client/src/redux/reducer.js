@@ -15,6 +15,7 @@ import {
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
+  RESET_FILTERS
 } from "./actionTypes";
 
 const initialState = {
@@ -23,9 +24,6 @@ const initialState = {
   allPosts: [],
   allPostsCopy: [],
   selectedPost: "",
-  postsCategory: [],
-  postsByProvince: [],
-  postsByLocality: [],
   selectedProvince: "",
   selectedLocality: "",
   selectedCategory: "",
@@ -100,21 +98,31 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_POST_BY_CATEGORY:
-      return {
-        ...state,
-        postsCategory: action.payload,
-      };
-
     case GET_POST_BY_PROVINCE:
-      return {
-        ...state,
-        allPosts: action.payload,
-      };
-
     case GET_POST_BY_LOCALITY:
+      let filteredPosts = state.allPostsCopy;
+
+      if (state.selectedCategory) {
+        filteredPosts = filteredPosts.filter(
+          (post) => post.category === state.selectedCategory
+        );
+      }
+
+      if (state.selectedProvince) {
+        filteredPosts = filteredPosts.filter((post) =>
+          post.ubication.includes(state.selectedProvince)
+        );
+      }
+
+      if (state.selectedLocality) {
+        filteredPosts = filteredPosts.filter((post) =>
+          post.ubication.includes(state.selectedLocality)
+        );
+      }
+
       return {
         ...state,
-        postsByLocality: action.payload,
+        allPosts: filteredPosts,
       };
 
     case CREATE_POST:
@@ -137,6 +145,14 @@ function rootReducer(state = initialState, action) {
         allPosts: state.allPosts.filter(
           (post) => post.id !== action.payload.id
         ),
+      };
+
+    case RESET_FILTERS:
+      return {
+        ...state,
+        selectedCategory: "",
+        selectedProvince: "",
+        selectedLocality: "",
       };
 
     default:

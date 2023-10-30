@@ -1,9 +1,10 @@
 .filters {
     display: grid;
-    grid-template-columns: 75px 100px 100px 100px;
+    grid-template-columns: 75px 75px 100px 100px 100px 50px;
     gap: 20px;
     justify-content: center;
     margin-bottom: 20px;
+    border-radius: 10px;
   }
 
   .product {
@@ -16,20 +17,20 @@
   span {
     align-self: center;
     font-size: 14px;
-    padding-bottom: 3px;
     color: grey;
   }
 
   .filters select {
-    border-radius: 15px;
+    border-radius: 5px;
     outline: none;
     background-color: whitesmoke;
     width: 80px;
-    height: 40px;
+    height: 30px;
     font-size: 12px;
     justify-self: center;
     align-self: center;
     color: grey;
+    border: none;
   }
 
   @media (max-width: 768px) {
@@ -39,19 +40,13 @@
     }
 
     .filters {
-      width: 250px;
       justify-self: center;
-      padding-top: 10px;
+      width: 340px;
       margin-top: 20px;
-      grid-template-columns: 95px 95px;
-      grid-template-rows: 1fr 1fr;
-      background-color: #ffe66d;
-      box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
-      border-radius: 10px;
-    }
-
-    .filters select {
-      background-color: #ffe66d;
+      padding: 5px;
+      gap: 5px;
+      grid-template-columns: 50px 75px 75px 75px 40px;
+      background-color: #FFE66D;
     }
 
     option {
@@ -63,7 +58,9 @@
       display: none;
     }
 
-    select {
-      font-size: 12px;
+    .filters select {
+      font-size: 10px;
+      border: none;
+      background-color: #FFE66D;
     }
   }

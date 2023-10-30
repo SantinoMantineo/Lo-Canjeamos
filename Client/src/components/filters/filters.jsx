@@ -8,6 +8,7 @@ import {
   getPostByLocality,
   getPostByCategory,
   getAllPosts,
+  resetFilters
 } from "../../redux/actions";
 import style from "./Filters.module.css";
 import { useEffect } from "react";
@@ -52,18 +53,27 @@ const Filters = () => {
     if (!provinceToLocalityMap.has(province)) {
       provinceToLocalityMap.set(province, []);
     }
-    provinceToLocalityMap.get(province).push(locality);
+    const localityArray = provinceToLocalityMap.get(province);
+    if (!localityArray.includes(locality)) {
+      localityArray.push(locality);
+    }
   });
+  
 
   // Obtener las provincias únicas
   const provinces = Array.from(provinceToLocalityMap.keys());
 
   const uniqueCategories = [...new Set(allPostsCopy.map((post) => post.category))];
 
+  const handleResetFilters = () => {
+    dispatch(resetFilters()); 
+    dispatch(getAllPosts())
+  }
+
   return (
     <>
       <div className={style.filters}>
-        <Link to="/profile">
+        <Link to="">
           <img src={Product} className={style.product} alt="Product" />
         </Link>
         <span>Filtros:</span>
@@ -94,6 +104,7 @@ const Filters = () => {
             </option>
           ))}
         </select>
+        <button onClick={handleResetFilters}><img width="24" height="24" src="https://img.icons8.com/windows/32/trash.png" alt="trash"/></button>
       </div>
     </>
   );

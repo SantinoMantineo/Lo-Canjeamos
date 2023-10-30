@@ -32,17 +32,18 @@ const App = () => {
   }, []); */
 
 const [ isAuthenticated, setIsAuthenticated ] = useState(false);
-const setAuth = (boolean) => {
-  setIsAuthenticated(boolean);
-};
 const [ userToken, setUserToken] = useState("")
-const [ userData, setUserData ] = useState()
+const [userData, setUserData] = useState(null);
+
+const setAuth = (status, user) => {
+  setIsAuthenticated(status);
+  setUserData(user);
+};
+
 useEffect(() => {
-  // Intentar obtener el token del almacenamiento local
   const token = localStorage.getItem("token");
 
   if (token) {
-    // Si existe un token, verifica si es válido
     axios
       .get("http://localhost:3001/users/verify", {
         headers: {
@@ -51,10 +52,7 @@ useEffect(() => {
       })
       .then((response) => {
         if (response.data === true) {
-          // Si el token es válido, autentica al usuario y obtén sus datos
           setIsAuthenticated(true);
-
-          // Obtener los datos del usuario
           axios
             .get("http://localhost:3001/users/userId", {
               headers: {
@@ -72,7 +70,6 @@ useEffect(() => {
               console.error("Error al obtener los datos del usuario:", userDataError);
             });
         } else {
-          // Si el token no es válido, el usuario no está autenticado
           setIsAuthenticated(false);
         }
       })
@@ -81,20 +78,19 @@ useEffect(() => {
         setIsAuthenticated(false);
       });
   } else {
-    // Si no hay token en el almacenamiento local, el usuario no está autenticado
     setIsAuthenticated(false);
   }
 }, []);
+
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} userData={userData} setAuth={setAuth}/>
+      <Navbar isAuthenticated={isAuthenticated} userData={userData} setAuth={setAuth} setUserData={setUserData}/>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>} />
         <Route path="/register" element={ isAuthenticated ?  <Login setAuth={setAuth}/> : <Register setAuth={setAuth}/>} />
         <Route path="/addProduct" element={<AddProduct/>} />
-        <Route path="/home" element={<Home/>} />
-        <Route path="/detail" element={<Detail/>}/>
+        <Route path="/detail/:id" element={<Detail/>}/>
         <Route path="/exchanges" element={<Exchanges/>} />
         <Route path="/chats" element={<Chats/>} />
         <Route path="/about" element={<About/>} />

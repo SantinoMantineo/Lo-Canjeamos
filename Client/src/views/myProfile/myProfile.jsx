@@ -19,8 +19,6 @@ const MyProfile = () => {
         <div className={style.publications}>
           <h3>Publicaciones</h3>
           <Publication></Publication>
-          <Publication></Publication>
-          <Publication></Publication>
         </div>
       </div>
     </>
