@@ -86,7 +86,7 @@ exports.deletePost = async (id) => {
 exports.getPostsByProvince = async(provincia) => {
     const posts = await Post.findAll();
     const provinceFilter = posts.filter((post) => {
-      return post.ubication.endsWith(`${provincia}`);
+      return post.ubication.startsWith(`${provincia}`);
     });
     return provinceFilter;
 }
@@ -95,7 +95,7 @@ exports.getPostsByProvince = async(provincia) => {
 exports.getPostsByLocality = async (localidad) => {
   const posts = await Post.findAll();
   const localityFilter = posts.filter((post) => {
-    return post.ubication.startsWith(`${localidad}`);
+    return post.ubication.endsWith(`${localidad}`);
   });
   return localityFilter;
 }
