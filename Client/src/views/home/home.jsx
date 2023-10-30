@@ -2,14 +2,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import Cards from "../../components/cards/cards";
+import { getAllPosts } from "../../redux/actions";
+
+import Cards from "../../components/cards/Cards";
 import Filters from "../../components/filters/filters";
 import Header from "../../components/header/Header";
 import Banner from "../../assets/banner1.jpg";
 import Banner2 from "../../assets/banner2.jpg";
-import style from "./Home.module.css";
 import Paginado from "../../components/pagination/pagination";
-import { getAllPosts } from "../../redux/actions";
+import AllCards from "../../components/allCards/AllCards";
+
+import style from "./Home.module.css";
 
 const Home = ({}) => {
   const dispatch = useDispatch();
@@ -18,7 +21,6 @@ const Home = ({}) => {
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
-
 
   // Estado para la página actual
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,16 +34,9 @@ const Home = ({}) => {
   return (
     <>
       <Header banner1={Banner} banner2={Banner2}></Header>
-      <Filters></Filters>
-      {/* Renderizar solo las tarjetas correspondientes a la página actual */}
       <Cards allPosts={allPosts}></Cards>
-      {/* Componente de paginado con las props adecuadas */}
-      <Paginado
-        allCard={allPosts.length}
-        cardPerPage={10}
-        paginado={handlePaginado}
-        currentPage={currentPage}
-      />
+      <Filters></Filters>
+      <AllCards posts={allPosts}></AllCards>
     </>
   );
 };
