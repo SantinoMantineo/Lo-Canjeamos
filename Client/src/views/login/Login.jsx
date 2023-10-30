@@ -5,14 +5,18 @@ import style from './Login.module.css'
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Login = ({ setAuth, setLog }) => {
+const Login = ({ setAuth }) => {
   const [ userValidated, setUser ] = useState(false);
   const [input, setInput] = useState({
     username: "",
     password: "",
   });
 
+  const [log, setLogueado] = useState(false)
 
+  const setLog = (boolean) => {
+    setLogueado(boolean);
+  }
   const handleInputChange = (e) => {
     setInput({
       ...input,
