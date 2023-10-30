@@ -3,7 +3,7 @@ import Logo from "../../assets/locan.png";
 import smile from '../../assets/smile.gif'
 import style from "./Nabvar.module.css";
 
-const NavBar = ({ isAuthenticated, setAuth }) => {
+const NavBar = ({ isAuthenticated, setAuth, userData }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
