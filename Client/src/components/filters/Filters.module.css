@@ -1,6 +1,6 @@
 .filters {
     display: grid;
-    grid-template-columns: 75px 75px 100px 100px 100px;
+    grid-template-columns: 75px 75px 100px 100px 100px 100px;
     gap: 20px;
     justify-content: center;
     margin-bottom: 20px;
