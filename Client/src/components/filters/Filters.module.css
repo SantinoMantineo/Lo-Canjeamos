@@ -3,7 +3,7 @@
     grid-template-columns: 75px 75px 100px 100px 100px 50px;
     gap: 20px;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 20px;margin-top: 50px;
     border-radius: 10px;
   }
 
