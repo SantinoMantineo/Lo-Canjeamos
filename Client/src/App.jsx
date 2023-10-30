@@ -16,7 +16,8 @@ import Login from './views/login/Login';
 import Register from "./components/register/Register";
 import axios from "axios";
 import "./App.css";
-
+import Welcome from "./views/welcome/welcome"
+import { motion } from "framer-motion"
 const App = () => {
 
 /* const [darkMode, setDarkMode] = useState(false);
@@ -80,10 +81,15 @@ useEffect(() => {
   } else {
     setIsAuthenticated(false);
   }
-}, []);
+}, [isAuthenticated]);
 
   return (
     <>
+    {isAuthenticated && 
+      <motion.div>
+        <Welcome userData={userData}/>
+      </motion.div>
+    }
       <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth}/>
       <Routes>
         <Route path="/" element={<Home/>} />
