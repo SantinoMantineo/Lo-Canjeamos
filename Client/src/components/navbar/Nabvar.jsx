@@ -2,19 +2,15 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/locan.png";
 import style from "./Nabvar.module.css";
 
-const NavBar = ({ isAuthenticated, userData, setAuth }) => {
+const NavBar = ({ isAuthenticated, setAuth }) => {
+
   const logout = () => {
     localStorage.removeItem("token");
     setAuth(false);
   };
+
   return (
     <div className={style.navbar}>
-      {isAuthenticated && userData ? (
-        <div className={style.saludo}>
-          <h2>Hola, {userData.username}! 😃</h2>
-        </div>
-      ) : null}
-
       <Link to="/" className={style.link}>
         <img src={Logo} className={style.logo} alt="Locan" />
       </Link>
@@ -68,6 +64,7 @@ const NavBar = ({ isAuthenticated, userData, setAuth }) => {
       </Link>
 
       <Link to="/login">
+        {isAuthenticated ? 
         <button className={style.iconos}>
           <img
             width="24"
@@ -75,8 +72,16 @@ const NavBar = ({ isAuthenticated, userData, setAuth }) => {
             src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
             alt="Usuario"
           />
+          Perfil
+        </button> : <button className={style.iconos}>
+          <img
+            width="24"
+            height="24"
+            src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
+            alt="Usuario"
+          />
           Iniciar sesión
-        </button>
+        </button>}
       </Link>
 
       {isAuthenticated ? (

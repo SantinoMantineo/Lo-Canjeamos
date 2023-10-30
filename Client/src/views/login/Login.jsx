@@ -5,18 +5,13 @@ import style from './Login.module.css'
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Login = ({ setAuth }) => {
+const Login = ({ setAuth, userData }) => {
   const [ userValidated, setUser ] = useState(false);
   const [input, setInput] = useState({
     username: "",
     password: "",
   });
 
-  const [log, setLogueado] = useState(false)
-
-  const setLog = (boolean) => {
-    setLogueado(boolean);
-  }
   const handleInputChange = (e) => {
     setInput({
       ...input,
@@ -36,23 +31,20 @@ const Login = ({ setAuth }) => {
       let loginUser = {
         username: input.username,
         password: input.password,
-      }
-      const response = await axios.post('http://localhost:3001/users/login', loginUser)
+      };
+      const response = await axios.post("http://localhost:3001/users/login", loginUser);
   
       if (response.data && response.data.token) {
-        // Authentication successful, set auth to true
         const token = await localStorage.setItem("token", response.data.token);
-        setAuth(true); // Set auth to true here
-        setLog(true);
+        setAuth(true, userData); // Set auth to true and pass user data
       } else {
-        // Authentication failed
-        console.log('Hubo un error al iniciar sesión.');
+        console.log("Hubo un error al iniciar sesión.");
       }
     } catch (error) {
-      console.error('Error al enviar los datos al servidor:', error);
-      console.log('Hubo un error al iniciar sesión.');
+      console.error("Error al enviar los datos al servidor:", error);
+      console.log("Hubo un error al iniciar sesión.");
     }
-  }
+  };
   
 
   return (

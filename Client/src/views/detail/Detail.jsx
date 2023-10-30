@@ -64,8 +64,10 @@ const Detail = () => {
           </Slider>
         </div>
         <div className={style.info}>
-          {post && post.ubication && <h3>Ubicación: {post.ubication}</h3>}
-          {post && post.description && <h3>Descripción: {post.description}</h3>}
+          <span>Ubicación:</span>
+          {post && post.ubication && <h4>{post.ubication}</h4>}
+          <span>Descripción:</span>
+          {post && post.description && <h4>{post.description}</h4>}
         </div>
         <div className={style.buttons}>
           <Link to="/">

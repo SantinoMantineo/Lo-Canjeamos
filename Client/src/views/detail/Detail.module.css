@@ -5,6 +5,7 @@
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
     border-radius: 10px;
     margin-top: 30px;
+    margin-bottom: 100px;
 }
 
 .carousel {
@@ -21,11 +22,31 @@
 }
 
 .detail h3 {
+    font-size: 20px;
+    color: black;
+}
+
+.detail h4 {
+    display: grid;
     font-size: 14px;
     color: grey;
+    width: 75%;
+    justify-self: center;
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.detail span {
+    text-align: left;
+    margin-left: 50px;
+    margin-bottom: -20px;
+    color: black;
 }
 
 .info {
+    display: grid;
     margin-top: 30px;
 }
 
