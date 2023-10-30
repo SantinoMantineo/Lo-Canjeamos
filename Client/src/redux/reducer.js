@@ -108,7 +108,7 @@ function rootReducer(state = initialState, action) {
     case GET_POST_BY_PROVINCE:
       return {
         ...state,
-        postsByProvince: action.payload,
+        allPosts: action.payload,
       };
 
     case GET_POST_BY_LOCALITY:

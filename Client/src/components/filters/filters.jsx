@@ -19,7 +19,7 @@ const Filters = () => {
   const selectedLocality = useSelector((state) => state.selectedLocality);
   const selectedCategory = useSelector((state) => state.selectedCategory);
   const dispatch = useDispatch();
-  const allPosts = useSelector((state) => state.allPosts);
+  const allPostsCopy = useSelector((state) => state.allPostsCopy);
 
   useEffect(() => {
     dispatch(getAllPosts());
@@ -43,15 +43,12 @@ const Filters = () => {
     dispatch(getPostByCategory(category));
   };
 
-
-  const categories = allPosts.map((post) => post.category);
-
-  const locations = allPosts.map((post) => post.ubication);
+  const locations = allPostsCopy.map((post) => post.ubication);
 
   // Crear un mapa de provincias y sus localidades correspondientes
   const provinceToLocalityMap = new Map();
   locations.forEach((location) => {
-    const [locality, province] = location.split(", ");
+    const [province, locality] = location.split(", ");
     if (!provinceToLocalityMap.has(province)) {
       provinceToLocalityMap.set(province, []);
     }
@@ -60,6 +57,8 @@ const Filters = () => {
 
   // Obtener las provincias únicas
   const provinces = Array.from(provinceToLocalityMap.keys());
+
+  const uniqueCategories = [...new Set(allPostsCopy.map((post) => post.category))];
 
   return (
     <>
@@ -89,7 +88,7 @@ const Filters = () => {
 
         <select value={selectedCategory} onChange={handleCategoryChange}>
           <option value="">Categoría</option>
-          {categories.map((category, index) => (
+          {uniqueCategories.map((category, index) => (
             <option key={index} value={category}>
               {category}
             </option>
@@ -99,5 +98,4 @@ const Filters = () => {
     </>
   );
 };
-
 export default Filters;
