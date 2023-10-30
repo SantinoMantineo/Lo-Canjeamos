@@ -93,8 +93,7 @@ useEffect(() => {
         <Route path="/login" element={isAuthenticated ? <MyProfile/> : <Login setAuth={setAuth}/>} />
         <Route path="/register" element={ isAuthenticated ?  <Login setAuth={setAuth}/> : <Register setAuth={setAuth}/>} />
         <Route path="/addProduct" element={<AddProduct/>} />
-        <Route path="/home" element={<Home/>} />
-        <Route path="/detail" element={<Detail/>}/>
+        <Route path="/detail/:id" element={<Detail/>}/>
         <Route path="/exchanges" element={<Exchanges/>} />
         <Route path="/chats" element={<Chats/>} />
         <Route path="/about" element={<About/>} />

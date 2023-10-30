@@ -63,7 +63,7 @@ const Filters = () => {
   return (
     <>
       <div className={style.filters}>
-        <Link to="/profile">
+        <Link to="">
           <img src={Product} className={style.product} alt="Product" />
         </Link>
         <span>Filtros:</span>
