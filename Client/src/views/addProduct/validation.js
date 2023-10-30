@@ -1,4 +1,4 @@
-//?VALIDACIONES
+/* //?VALIDACIONES
 const validate = (form) => {
     let errors = {}
 
@@ -50,4 +50,21 @@ const validate = (form) => {
     }
 
     return errors;
+  } */
+
+  export function validateTitle(title) {
+    if (title.trim() === "") {
+      return "El título es obligatorio";
+    } else if(title.length < 3 ){
+    return "El titulo debe contenter mas de 3 caracteres";
+    }else if(title.length > 30 )
+    return "El titulo no debe contenter mas de 30 caracteres";
+  }
+  
+  // Función para validar la descripción
+  export function validateDescription(description) {
+    if (description.length > 400) {
+      return "La descripción no puede superar los 400 caracteres";
+    }
+    return "";
   }
