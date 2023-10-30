@@ -16,6 +16,7 @@ import {
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
+  RESET_FILTERS
 } from "./actionTypes";
 
 export function getAllUsers() {
@@ -176,5 +177,10 @@ export function deletePost(id) {
       type: DELETE_POST,
       payload: result.data,
     });
+  };
+}
+export function resetFilters() {
+  return {
+    type: RESET_FILTERS,
   };
 }

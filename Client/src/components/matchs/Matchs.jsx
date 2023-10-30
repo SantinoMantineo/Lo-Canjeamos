@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import Product from "../../assets/product.jpeg";
 import Product2 from "../../assets/shoes.jpeg";
-import Logo from "../../../public/favicon.png"
+import Logo from "../../assets/favicon.png"
 import style from "./Matchs.module.css";
 
 const Matchs = () => {
