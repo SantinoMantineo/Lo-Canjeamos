@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Logo from '../../assets/locan.png'
 import React from "react";
 import { useState, useEffect } from "react";
@@ -6,6 +7,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { validateUsername, validateEmail, validatePassword, validateImagen, validateProvince, validateLocalidad } from "./validations";
 
+// eslint-disable-next-line react/prop-types
 const Register = ({setAuth}) => {
 
   const [provinces, setProvinces] = useState([]);
