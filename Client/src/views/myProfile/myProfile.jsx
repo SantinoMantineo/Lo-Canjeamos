@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
 import Avatar from "../../components/avatar/Avatar";
@@ -14,7 +15,7 @@ const MyProfile = ({ userData }) => {
       <Header banner1={Banner3} banner2={Banner4}></Header>
       <div className={style.myProfile}>
         <div className={style.avatar}>
-          <Avatar></Avatar>
+          <Avatar userData={userData}/>
         </div>
         <div className={style.publications}>
           <h3>Publicaciones</h3>

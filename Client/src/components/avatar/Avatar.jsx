@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import avatar from '../../assets/avatar.jpg'
 import style from './Avatar.module.css'
 
-const Avatar = () => {
+const Avatar = ({userData}) => {
   return (
     <>
     <div className={style.avatar}>
     <img src={avatar}></img>
-    <h3>Emir Kalehb</h3>
-    <p>San Cristóbal, Santa Fe</p>
+    <h3>{userData.username}</h3>
+    <p>{userData.email}</p>
     <div>⭐️⭐️⭐️⭐️⭐️</div>
     <button className={style.premium}>Sé Premium</button>
     <br/>
