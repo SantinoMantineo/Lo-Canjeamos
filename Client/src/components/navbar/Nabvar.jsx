@@ -58,8 +58,8 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
           Canjes
         </button>
       </Link>
-
-      <Link to="/chats">
+        {isAuthenticated && 
+        <Link to="/chats">
         <button className={style.iconos}>
           <img
             width="24"
@@ -70,6 +70,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
           Mensajes
         </button>
       </Link>
+        }
 
       <Link to="/login">
         {isAuthenticated ? 
