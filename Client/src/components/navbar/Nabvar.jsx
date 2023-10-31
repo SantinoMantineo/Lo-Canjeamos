@@ -14,7 +14,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
     <div className={style.navbar}>
 
       {isAuthenticated && userData ? (
-        <div className={style.saludo}>
+        <div>
           <h2>Hola, {userData.username}! <img src={smile} className={style.smile}></img></h2>
         </div>
       ) : null}

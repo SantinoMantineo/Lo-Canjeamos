@@ -1,10 +1,11 @@
 .header {
   display: inline-block;
-  width: 500px;
+  justify-self: center;
+  width: 800px;
 }
 
 .header img {
-  width: 500px;
+  width: 800px;
   border-radius: 10px;
 }
 

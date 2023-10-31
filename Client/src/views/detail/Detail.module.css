@@ -1,6 +1,7 @@
 .detail {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
   justify-self: center;
   width: 800px;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
@@ -33,25 +34,26 @@
   font-size: 14px;
   color: grey;
   width: 75%;
+  align-self: center;
   justify-self: center;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
   border: 1px solid #4ecdc4;
   background-color: whitesmoke;
   border-radius: 5px;
   padding: 5px;
+  margin-top: 30px;
   text-align: left;
 }
 
 .detail span {
   width: 305px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   padding-left: 5px;
   border-radius: 5px;
   text-align: left;
   margin-left: 45px;
-  margin-bottom: -20px;
-  margin-top: 30px;
+  margin-bottom: -30px;
   color: whitesmoke;
   background-color: rgba(126, 126, 126, 0.5);
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
@@ -105,9 +107,14 @@
     height: 300px;
   }
 
+  .detail h4 {
+    margin-top: 5px;
+  }
+
   .detail span {
     display: grid;
     margin: 0;
+    margin-top: 10px;
     margin-left: 35px;
     width: 255px;
     padding-top: 5px;

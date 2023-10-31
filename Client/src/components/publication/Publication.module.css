@@ -1,6 +1,6 @@
 .publication {
     display: grid;
-    width: 250px;
+    width: 300px;
     grid-template-columns: 1fr 2fr 0.5fr;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
     border-radius: 10px;
