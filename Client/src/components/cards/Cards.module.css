@@ -3,6 +3,16 @@
   margin: 0;
 }
 
+.fire {
+  width: 30px;
+  margin-bottom: -5px;
+}
+
+.cards span {
+  font-size: 24px;
+  color: black;
+}
+
 @media (max-width: 1280px) {
   .cards {
     width: 660px;
@@ -12,9 +22,14 @@
 
 @media (max-width: 768px) {
   .cards {
-    display:inline;
+    display: inline;
     width: 270px;
     margin: 0;
     justify-self: center;
+  }
+
+  .cards span {
+    display: inline;
+    font-size: 18px;
   }
 }

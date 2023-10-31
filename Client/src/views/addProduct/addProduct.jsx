@@ -6,6 +6,7 @@ import Banner2 from "../../assets/banner2.jpg";
 import Modal from "../../components/modal/Modal.jsx"
 import style from "./AddProduct.module.css";
 import axios from "axios";
+import { validateDescription, validateTitle } from './validation'
 
 export default function AddProduct({ userData }) {
   const { id } = userData;
@@ -36,6 +37,7 @@ export default function AddProduct({ userData }) {
   const [files, setFiles] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [selectedIndices, setSelectedIndices] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const onDrop = useCallback((acceptedFiles) => {
     if (files.length + acceptedFiles.length > 3) {
@@ -138,7 +140,15 @@ export default function AddProduct({ userData }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
+    let error = "";
+
+  if (name === "title") {
+    error = validateTitle(value);
+  } else if (name === "description") {
+    error = validateDescription(value);
+};
+setErrors({ ...errors, [name]: error });
+};
 
   const handleFile = (event) => {
     const selectedFiles = event.target.files;
@@ -189,6 +199,43 @@ export default function AddProduct({ userData }) {
     });
 
     const imageUrls = await Promise.all(uploadPromises);
+    const errors = {};
+
+    const titleError = validateTitle(formData.title);
+      if (titleError) {
+        errors.title = titleError;
+      }
+    
+      const descriptionError = validateDescription(formData.description);
+      if (descriptionError) {
+        errors.description = descriptionError;
+      }
+    
+      if (
+        formData.title.trim() === "" ||
+        imageUrls.length === 0 ||  // Reemplaza imageUrls2 por imageUrls
+        selectedProvince === "" ||
+        localidad === "" ||
+        selectedCategory === ""
+      ) {
+        alert("Todos los campos marcados con * son obligatorios");
+        return;
+      }
+      setErrors(errors);
+    
+      const errorKeys = Object.keys(errors);
+    
+      if (errorKeys.length > 0) {
+        const errorMessage = errorKeys.map((key) => {
+          if (key === "requiredFields") {
+            return errors[key];
+          }
+          return `Hay un error en el campo ${key}`;
+        });
+    
+        alert(errorMessage.join("\n"));
+        return;
+      }
 
     // Filtrar los resultados nulos, en caso de que haya habido errores.
     const validImageUrls = imageUrls.filter((url) => url !== null);
@@ -252,10 +299,11 @@ export default function AddProduct({ userData }) {
                 onChange={handleChange}
                 placeholder='Inserte titulo'
               />
+              {errors.title && <div className="error-message">{errors.title}</div>}
             </label>
             <label>
               Descripción
-              <input
+              <textarea
                 className={style.input}
                 type='text'
                 name='description'
@@ -263,6 +311,7 @@ export default function AddProduct({ userData }) {
                 value={formData.description}
                 placeholder='Inserte descripcion'
               />
+              {errors.description && <div className="error-message">{errors.description}</div>}
             </label>
             <label>
               Imagen*

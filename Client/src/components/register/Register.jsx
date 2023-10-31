@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import style from "./Register.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { validateUsername, validateEmail, validatePassword, validateImagen, validateProvince, validateLocalidad } from "./validations";
 
 // eslint-disable-next-line react/prop-types
 const Register = ({setAuth}) => {
@@ -13,6 +14,15 @@ const Register = ({setAuth}) => {
   const [localities, setLocalities] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [ localidad, setSelectedLocalidad ] = useState("")
+
+  const [errors, setErrors] = useState({
+    username: null,
+    password: null,
+    email: null,
+    image: null,
+    province: null,
+    localidad: null,
+  });
   
   useEffect(() => {
     fetch("https://apis.datos.gob.ar/georef/api/provincias")
@@ -30,6 +40,9 @@ const Register = ({setAuth}) => {
   const handleProvinceChange = (e) => {
     const selectedProvince = e.target.value;
     setSelectedProvince(selectedProvince);
+
+    const provinceError = validateProvince(selectedProvince);
+    setErrors({ ...errors, province: provinceError });
 
     fetch(
       `https://apis.datos.gob.ar/georef/api/localidades?provincia=${selectedProvince}&max=500`
@@ -49,6 +62,9 @@ const Register = ({setAuth}) => {
   const handleLocalidadChange = (e) => {
     const selectedLocalidad = e.target.value;
     setSelectedLocalidad(selectedLocalidad);
+
+    const localidadError = validateLocalidad(selectedLocalidad);
+    setErrors({ ...errors, localidad: localidadError });
   };
   const sortedProvinces = provinces.sort((a, b) => {
     return a.nombre.localeCompare(b.nombre);
@@ -65,25 +81,45 @@ const Register = ({setAuth}) => {
     image: ""
   });
 
-  const [showPassword, setShowPassword] = useState(false);
-
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setInput({
       ...input,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
-
-    //  setErrors(validate({
-    //    ...form,
-    //    [e.target.name]: e.target.value,
-    //  }))
+    
+    // Realiza la validación y actualiza los errores
+    if (name === "username") {
+      setErrors({ ...errors, username: validateUsername(value) });
+    } else if (name === "email") {
+      setErrors({ ...errors, email: validateEmail(value) });
+    } else if (name === "password") {
+      setErrors({ ...errors, password: validatePassword(value) });
+    } else if (name === "image") {
+      setErrors({ ...errors, image: validateImagen(value) });
+    }
   };
+
+    const [showPassword, setShowPassword] = useState(false);
+    
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
   const handleSumbit = async (e) => {
     e.preventDefault();
+
+    if (
+      !input.username ||
+      !input.email ||
+      !input.password ||
+      !input.image ||
+      !selectedProvince ||
+      !localidad
+    ) {
+      alert('Complete todos los campos antes de enviar el formulario.');
+      return;
+    }
 
     try {
         let newUser = {
@@ -109,6 +145,10 @@ const Register = ({setAuth}) => {
     }
   }
 
+  function isSubmitDisabled() {
+    return Object.values(errors).some((error) => error !== null);
+  }
+
   return (
     <div className={style.container}>
       <img src={Logo}/>
@@ -126,6 +166,7 @@ const Register = ({setAuth}) => {
               onChange={handleInputChange}
               value={input.username}
             />
+             {errors.username && <span className="error">{errors.username}</span>}
           </div>
 
           <div>
@@ -136,6 +177,7 @@ const Register = ({setAuth}) => {
               onChange={handleInputChange}
               value={input.email}
             />
+            {errors.email && <span className="error">{errors.email}</span>}
           </div>
 
           <div>
@@ -146,6 +188,7 @@ const Register = ({setAuth}) => {
               onChange={handleInputChange}
               value={input.password}
             />
+            {errors.password && <span className="error">{errors.password}</span>}
           </div>
 
           <div>
@@ -156,6 +199,7 @@ const Register = ({setAuth}) => {
               onChange={handleInputChange}
               value={input.image}
             />
+            {errors.image && <span className="error">{errors.image}</span>}
           </div>
 
            
@@ -167,7 +211,7 @@ const Register = ({setAuth}) => {
                 </option>
               ))}
             </select>
-           
+            {errors.province && <span className="error">{errors.province}</span>}
            
 
            
@@ -179,10 +223,12 @@ const Register = ({setAuth}) => {
                 </option>
               ))}
             </select>
-            
+            {errors.localidad && <span className="error">{errors.localidad}</span>}
        
 
-          <button className={style.register}>Registrarse</button>
+          <button className={isSubmitDisabled() ? `${style.register} ${style.buttonDisabled}` : style.register} disabled={isSubmitDisabled()} type="submit">
+            Registrarse
+          </button>
         </form>
       </div>
     </div>
