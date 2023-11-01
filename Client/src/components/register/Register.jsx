@@ -225,7 +225,7 @@ const Register = ({setAuth}) => {
        
 
           <button className={isSubmitDisabled() ? `${style.register} ${style.buttonDisabled}` : style.register} disabled={isSubmitDisabled()} type="submit">
-            Registrarse
+            Enviar
           </button>
         </form>
       </div>

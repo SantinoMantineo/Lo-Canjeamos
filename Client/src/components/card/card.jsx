@@ -7,13 +7,13 @@ const Card = ({ post }) => {
 
   return (
     <>
-      <div className={style.card}>
-        {<img src={image[0]} className={style.img} alt={title} />}
-        <Link to={`detail/${id}`}>
+      <Link to={`detail/${id}`}>
+        <div className={style.card}>
+          {<img src={image[0]} className={style.img} alt={title} />}
+          <h6>📍{ubication}</h6>
           <p>{title}</p>
-          <h6>{ubication}📍</h6>
-        </Link>
-      </div>
+        </div>
+      </Link>
     </>
   );
 };

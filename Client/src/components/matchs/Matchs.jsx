@@ -13,8 +13,6 @@ const Matchs = ({ userData }) => {
   const dispatch = useDispatch();
   const userId = userData.id
 
-console.log(matches)
-
   useEffect(() => {
     dispatch(getMatches(userId));
     }, [userId, dispatch]);
