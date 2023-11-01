@@ -12,7 +12,7 @@
   },
   "proxy": "http://localhost:3001",
   "dependencies": {
-    "@auth0/auth0-react": "^2.2.1",
+    "@auth0/auth0-react": "^2.2.2",
     "axios": "^1.5.1",
     "framer-motion": "^10.16.4",
     "gh-pages": "^6.0.0",

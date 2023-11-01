@@ -1,11 +1,21 @@
 import React from "react";
+import { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import Product from "../../assets/product.jpeg";
 import Product2 from "../../assets/shoes.jpeg";
 import Logo from "../../assets/favicon.png"
 import style from "./Matchs.module.css";
+import { useSelector, useDispatch } from 'react-redux';
+import { getMatches } from "../../redux/actions";
 
-const Matchs = () => {
+const Matchs = ({ userData }) => {
+  const matches = useSelector((state) => state.matches);
+  const dispatch = useDispatch();
+  const userId = userData.id
+console.log(matches)
+  useEffect(() => {
+    dispatch(getMatches(userId));
+    }, [userId, dispatch]);
   return (
     <>
     <Link>

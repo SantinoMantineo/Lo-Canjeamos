@@ -1,23 +1,23 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPosts } from '../../redux/actions';
-import product from "../../assets/product.jpeg";
+import { getAllPosts, selectedPost } from '../../redux/actions';
 import style from "./Publication.module.css";
+import icon from '../../assets/iconChoosed.png'
 
 const Publication = ({userData}) => {
-
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
-
+  
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
 
   const userPosts = allPosts.filter((post) => post.UserId === userData.id);
 
-
+  const handlePostClick = (postId, postImage) => {
+    dispatch(selectedPost(postId, postImage));
+  };
 
     return (
     <>
@@ -31,6 +31,14 @@ const Publication = ({userData}) => {
               height="24"
               src="https://img.icons8.com/color/48/delete-forever.png"
               alt="delete-forever"
+            />
+          </button>
+          <button className={style.trash} onClick={() => handlePostClick(post.id, post.image[0])}>Elegir
+          <img
+              width="24"
+              height="24"
+              src={icon}
+              alt="Choose"
             />
           </button>
         </div>
