@@ -12,10 +12,13 @@ const Matchs = ({ userData }) => {
   const matches = useSelector((state) => state.matches);
   const dispatch = useDispatch();
   const userId = userData.id
+
 console.log(matches)
+
   useEffect(() => {
     dispatch(getMatches(userId));
     }, [userId, dispatch]);
+
   return (
     <>
     <Link>
