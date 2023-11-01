@@ -11,7 +11,7 @@
 
 .cards span {
   font-size: 24px;
-  color: black;
+  color: grey;
 }
 
 @media (max-width: 1280px) {
