@@ -8,7 +8,6 @@ const nodemailer = require('nodemailer')
 exports.getAllUser = async () => {
   try {
     const users = await User.findAll();
-
     const simplifiedUsers = users.map((user) => ({
       id: user.id,
       username: user.username,
@@ -61,7 +60,7 @@ exports.createUser = async (user) => {
         });
 
         const token = jwtGenerator(newUser.id)
-        // await transporter.sendMail(registerMail(user))
+        await transporter.sendMail(registerMail(user))
         return {newUser, token};
       } catch (error) {
         throw new Error("No se pudo crear el usuario");
