@@ -103,7 +103,7 @@ useEffect(() => {
         <Route path="/detail/:id" element={<Detail/>}/>
         <Route path="/exchanges" element={<Exchanges/>} />
         <Route path="/chats" element={<Chats/>} />
-        <Route path="/about" element={<About/>} />
+        
         <Route path="/login" element={<Login setAuth={setAuth}/>} />
         <Route path="/register" element={<Register/>} />
       </Routes>
