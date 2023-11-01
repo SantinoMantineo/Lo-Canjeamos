@@ -17,8 +17,6 @@ import Register from "./components/register/Register";
 import Loading from "./views/loading/loading";
 import axios from "axios";
 import "./App.css";
-import Welcome from "./views/welcome/welcome";
-import { motion } from "framer-motion";
 const App = () => {
   /* const [darkMode, setDarkMode] = useState(false);
 
@@ -91,11 +89,6 @@ const App = () => {
 
   return (
     <>
-      {isAuthenticated && (
-        <motion.div>
-          <Welcome userData={userData} />
-        </motion.div>
-      )}
       <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} />
       <Routes>
         <Route path="/" element={<Home/>} />
