@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { transporter } = require("../config/mailer")
 const { registerMail } = require("../utils/mailObjects")
 const jwtGenerator = require("../utils/jwtGenerator")
-// const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer')
 
 exports.getAllUser = async () => {
   try {
@@ -61,6 +61,7 @@ exports.createUser = async (user) => {
         });
 
         const token = jwtGenerator(newUser.id)
+        await transporter.sendMail(registerMail(user))
         return {newUser, token};
       } catch (error) {
         throw new Error("No se pudo crear el usuario");
