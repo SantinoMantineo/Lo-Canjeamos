@@ -13,9 +13,12 @@ import {
   GET_POST_BY_CATEGORY,
   GET_POST_BY_PROVINCE,
   GET_POST_BY_LOCALITY,
+  LIKE_POST,
+  GET_MATCHES,
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
+  SELECTED_POST,
   RESET_FILTERS
 } from "./actionTypes";
 
@@ -91,6 +94,49 @@ export function getPostById(id) {
     });
   };
 }
+
+export const likePost = (myUserId, likedPostId, myPostId, anotherUserId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post('http://localhost:3001/likes/', {
+        myUserId: myUserId,
+        likedPostId: likedPostId,
+        myPostId: myPostId,
+        anotherUserId, anotherUserId
+      });
+      const likedPost = response.data;
+      dispatch({
+        type: LIKE_POST,
+        payload: likedPost,
+      });
+    } catch (error) {
+      console.error('Error al dar like a la publicación', error);
+    }
+  };
+};
+
+export const getMatches = (userId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/matches/${userId}`);
+      const matches = response.data;
+      dispatch({ type: GET_MATCHES, payload: matches });
+    } catch (error) {
+      // Manejar errores, por ejemplo, mostrar un mensaje de error en la interfaz de usuario
+      console.error('Error al obtener los matches', error);
+    }
+  };
+};
+
+export const selectedPost = (postId, postImage) => {
+  return {
+    type: "SELECTED_POST",
+    payload: {
+      id: postId,
+      image: postImage,
+    },
+  };
+};
 
 
 export function selectCategory(category) {

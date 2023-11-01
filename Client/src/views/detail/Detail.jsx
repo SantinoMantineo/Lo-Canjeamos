@@ -1,23 +1,41 @@
 import { Link, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostById } from "../../redux/actions";
+import { getPostById, likePost } from "../../redux/actions";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import style from "./Detail.module.css";
 
-const Detail = () => {
+const Detail = ({ userData }) => {
+  const myUserId = userData.id
   const { id } = useParams();
+  const likedPostId = id
   const dispatch = useDispatch();
   const post = useSelector((state) => state.selectedPost);
-  const { User } = post
-  console.log(User)
-
+  const anotherUserId = post.User?.id
+  const userName = post.User?.username
+  const myPostId = useSelector((state) => state.selectedPostToInteract);
+  
+  
   useEffect(() => {
     dispatch(getPostById(id));
   }, [id]);
+  
+  const [liked, setLiked] = useState(false)
+  
+  
+  const handleLikeClick = () => {
+    // Verificar si el usuario ya dio "like" a esta publicación para evitar doble clic
+    if (!liked) {
+      // Llamar a la acción de Redux para dar "like" a la publicación
+      dispatch(likePost(myUserId, likedPostId, myPostId, anotherUserId));
+
+      // Actualizar el estado local para reflejar el "like"
+      setLiked(true);
+    }
+  };
 
   const settings = {
     dots: true,
@@ -70,7 +88,7 @@ const Detail = () => {
           <span>Rating usuario:</span>
           <h4>⭐️⭐️⭐️</h4>
           <span>Publicacion de:</span>
-          {User && User.username && <h4>{User.username}</h4> }
+          {post.User && userName && <h4>{userName}</h4> }
 
           <span>Ubicación:</span>
           {post && post.ubication && <h4>{post.ubication}</h4>}
@@ -82,7 +100,7 @@ const Detail = () => {
           <Link to="/">
             <button className={style.back}>Volver</button>
           </Link>
-          <button className={style.match}>Canjear</button>
+          <button className={style.match} onClick={handleLikeClick} disabled={liked}>Canjear</button>
         </div>
       </div>
     </>
