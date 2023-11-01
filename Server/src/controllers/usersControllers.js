@@ -61,7 +61,6 @@ exports.createUser = async (user) => {
         });
 
         const token = jwtGenerator(newUser.id)
-
         return {newUser, token};
       } catch (error) {
         throw new Error("No se pudo crear el usuario");
