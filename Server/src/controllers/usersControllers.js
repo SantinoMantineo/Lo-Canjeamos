@@ -60,7 +60,7 @@ exports.createUser = async (user) => {
         });
 
         const token = jwtGenerator(newUser.id)
-        await transporter.sendMail(registerMail(user))
+        // await transporter.sendMail(registerMail(user))
         return {newUser, token};
       } catch (error) {
         throw new Error("No se pudo crear el usuario");
