@@ -9,7 +9,7 @@ const router = Router();
 
 router.use('/users', usersRoutes)
 router.use('/posts', postsRoutes)
-// router.use('/plans', plansRoutes)
+router.use('/plans', plansRoutes)
 // router.use('/chats', chatsRoutes)
 
 module.exports = router;
