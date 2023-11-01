@@ -71,4 +71,34 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+  const result = await userController.forgotPassword(email);
+
+  if (result.status === 'User doesnt exist') {
+    return res.status(404).json(result);
+  }
+  if (result.status === 'Success') {
+    return res.status(200).json(result);
+  }
+  return res.status(500).json(result);
+});
+
+router.post('/reset-password/:id', async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  const result = await userController.resetPassword(id, password);
+  console.log(result);
+
+  if (result.status === 'User not found') {
+    return res.status(404).json(result);
+  }
+
+  if (result.status === 'Success') {
+    return res.status(200).json(result);
+  }
+
+  return res.status(500).json(result);
+});
+
 module.exports = router;

@@ -123,6 +123,7 @@ export default function AddProduct({ userData }) {
     "Herramientas",
     "Muebles y hogar",
     "Arte y artesanías",
+    "Instrumentos musicales",
     "Alimentos",
     "Joyas y relojes",
     "Ropa e indumentaria",
@@ -255,7 +256,7 @@ setErrors({ ...errors, [name]: error });
       };
 
       const response = await axios.post(
-        "http://localhost:3001/posts/",
+        "/posts/",
         newPost
       );
 

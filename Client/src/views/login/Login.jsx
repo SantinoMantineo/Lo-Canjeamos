@@ -14,16 +14,17 @@ const Login = ({ setAuth, userData }) => {
     password: "",
   });
 
+  const [error, setErrors] = useState("")
+  // const [userError, setUserErrors] = useState("")
+  // const [passwordError, setPasswordErrors] = useState("")
+
+
   const handleInputChange = (e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     })
     
-    //  setErrors(validate({
-    //    ...form, 
-    //    [e.target.name]: e.target.value,
-    //  }))
   }
 
   const handleSumbit = async (e) => {
@@ -34,20 +35,22 @@ const Login = ({ setAuth, userData }) => {
         username: input.username,
         password: input.password,
       };
-      const response = await axios.post("http://localhost:3001/users/login", loginUser);
+      const response = await axios.post("/users/login", loginUser);
   
       if (response.data && response.data.token) {
         const token = await localStorage.setItem("token", response.data.token);
         setAuth(true, userData); // Set auth to true and pass user data
       } else {
         console.log("Hubo un error al iniciar sesión.");
+        setErrors("Usuario o contraseña incorrectos")
       }
     } catch (error) {
       console.error("Error al enviar los datos al servidor:", error);
-      console.log("Hubo un error al iniciar sesión.");
+      // console.log("Hubo un error al iniciar sesión.");
+      setErrors("Usuario o contraseña incorrectos")
+
     }
   };
-  
 
   return (
     <div className={style.container}>
@@ -65,6 +68,7 @@ const Login = ({ setAuth, userData }) => {
                 <input type="password"name="password" placeholder='contraseña'onChange={handleInputChange}
                   value={input.password}/>
               </div>
+              {error && <div className={style.error}>{error}</div> }
               <button onClick={handleSumbit}>Iniciar sesión</button>
           </form>
         </div>

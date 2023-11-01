@@ -13,7 +13,7 @@ router.use('/users', usersRoutes)
 router.use('/posts', postsRoutes)
 router.use('/likes', likesRoutes)
 router.use('/matches', matchRoutes)
-// router.use('/plans', plansRoutes)
+router.use('/plans', plansRoutes)
 // router.use('/chats', chatsRoutes)
 
 module.exports = router;

@@ -127,7 +127,7 @@ const Register = ({setAuth}) => {
           image: input.image,
           ubication: `${selectedProvince}, ${localidad}`,
         }
-      const response = await axios.post('http://localhost:3001/users/register', newUser)
+      const response = await axios.post('/users/register', newUser)
 
       if (response) {
         // La solicitud se completó con éxito
