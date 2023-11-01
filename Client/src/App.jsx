@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 // import { useState, useEffect } from 'react';
 // import { useDispatch, useSelector } from "react-redux";
-import About from "./views/about/About";
+
 import AddProduct from "./views/addProduct/AddProduct"
 import Chats from "./views/chats/Chats"
 import Exchanges from "./views/exchanges/Exchanges"
@@ -11,7 +11,7 @@ import Home from "./views/home/Home";
 import Detail from './views/detail/Detail'
 import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/myProfile"
-import UserProfile from "./views/userProfile/UserProfile"
+
 import Login from './views/login/Login';
 import Register from "./components/register/Register";
 import Loading from "./views/loading/loading";
