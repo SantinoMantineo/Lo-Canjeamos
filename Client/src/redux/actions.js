@@ -98,7 +98,7 @@ export function getPostById(id) {
 export const likePost = (myUserId, likedPostId, myPostId, anotherUserId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post('http://localhost:3001/likes/', {
+      const response = await axios.post('/likes', {
         myUserId: myUserId,
         likedPostId: likedPostId,
         myPostId: myPostId,
@@ -118,7 +118,7 @@ export const likePost = (myUserId, likedPostId, myPostId, anotherUserId) => {
 export const getMatches = (userId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:3001/matches/${userId}`);
+      const response = await axios.get(`/matches/${userId}`);
       const matches = response.data;
       dispatch({ type: GET_MATCHES, payload: matches });
     } catch (error) {
