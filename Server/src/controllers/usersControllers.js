@@ -8,7 +8,6 @@ const nodemailer = require('nodemailer')
 exports.getAllUser = async () => {
   try {
     const users = await User.findAll();
-
     const simplifiedUsers = users.map((user) => ({
       id: user.id,
       username: user.username,
