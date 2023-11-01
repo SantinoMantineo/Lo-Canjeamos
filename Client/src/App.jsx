@@ -33,6 +33,9 @@ const App = () => {
     }
   }, []); */
 
+//axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/"
+
 const [ isAuthenticated, setIsAuthenticated ] = useState(false);
 const [ userToken, setUserToken] = useState("")
 const [userData, setUserData] = useState(null);
@@ -47,7 +50,7 @@ useEffect(() => {
 
   if (token) {
     axios
-      .get("http://localhost:3001/users/verify", {
+      .get("/users/verify", {
         headers: {
           token: token,
         },
@@ -56,7 +59,7 @@ useEffect(() => {
         if (response.data === true) {
           setIsAuthenticated(true);
           axios
-            .get("http://localhost:3001/users/userId", {
+            .get("/users/userId", {
               headers: {
                 token: token,
               },

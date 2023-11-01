@@ -21,7 +21,7 @@ import {
 
 export function getAllUsers() {
   return async function (dispatch) {
-    const response = await axios("http://localhost:3001/users");
+    const response = await axios("/users");
     return dispatch({
       type: GET_ALL_USERS,
       payload: response.data,
@@ -31,7 +31,7 @@ export function getAllUsers() {
 
 export function getUserById(id) {
   return async function (dispatch) {
-    const response = await axios(`http://localhost:3001/users/${id}`);
+    const response = await axios(`/users/${id}`);
     return dispatch({
       type: GET_USER_BY_ID,
       payload: response.data,
@@ -42,7 +42,7 @@ export function getUserById(id) {
 export function createUser(user) {
   return async (dispatch) => {
     const result = await axios.post(
-      "http://localhost:3001/users/register",
+      "/users/register",
       user
     );
     dispatch({
@@ -54,7 +54,7 @@ export function createUser(user) {
 
 export function updateUser(id, user) {
   return async (dispatch) => {
-    const result = await axios.put(`http://localhost:3001/users/${id}`, user);
+    const result = await axios.put(`/users/${id}`, user);
     dispatch({
       type: UPDATE_USER,
       payload: result.data,
@@ -64,7 +64,7 @@ export function updateUser(id, user) {
 
 export function deleteUser(id) {
   return async (dispatch) => {
-    const result = await axios.delete(`http://localhost:3001/users/${id}`);
+    const result = await axios.delete(`/users/${id}`);
     dispatch({
       type: DELETE_USER,
       payload: result.data,
@@ -74,7 +74,7 @@ export function deleteUser(id) {
 
 export function getAllPosts() {
   return async function (dispatch) {
-    const response = await axios("http://localhost:3001/posts");
+    const response = await axios("/posts");
     return dispatch({
       type: GET_ALL_POSTS,
       payload: response.data,
@@ -84,7 +84,7 @@ export function getAllPosts() {
 
 export function getPostById(id) {
   return async function (dispatch) {
-    const response = await axios(`http://localhost:3001/posts/${id}`);
+    const response = await axios(`/posts/${id}`);
     return dispatch({
       type: GET_POST_BY_ID,
       payload: response.data,
@@ -117,7 +117,7 @@ export function selectLocality(localidad) {
 export function getPostByCategory(category) {
   return async function (dispatch) {
     const response = await axios(
-      `http://localhost:3001/posts/categories/${category}`
+      `/posts/categories/${category}`
     );
     return dispatch({
       type: GET_POST_BY_CATEGORY,
@@ -129,7 +129,7 @@ export function getPostByCategory(category) {
 export function getPostByProvince(provincia) {
   return async function (dispatch) {
     const response = await axios(
-      `http://localhost:3001/posts/provincia/${provincia}`
+      `/posts/provincia/${provincia}`
     );
     return dispatch({
       type: GET_POST_BY_PROVINCE,
@@ -141,7 +141,7 @@ export function getPostByProvince(provincia) {
 export function getPostByLocality(localidad) {
   return async function (dispatch) {
     const response = await axios(
-      `http://localhost:3001/posts/localidad/${localidad}`
+      `/posts/localidad/${localidad}`
     );
     return dispatch({
       type: GET_POST_BY_LOCALITY,
@@ -152,7 +152,7 @@ export function getPostByLocality(localidad) {
 
 export function createPost(post) {
   return async (dispatch) => {
-    const result = await axios.post("http://localhost:3001/posts", post);
+    const result = await axios.post("/posts", post);
     dispatch({
       type: CREATE_POST,
       payload: result.data,
@@ -162,7 +162,7 @@ export function createPost(post) {
 
 export function updatePost(id, post) {
   return async (dispatch) => {
-    const result = await axios.put(`http://localhost:3001/posts/${id}`, post);
+    const result = await axios.put(`/posts/${id}`, post);
     dispatch({
       type: UPDATE_POST,
       payload: result.data,
@@ -172,7 +172,7 @@ export function updatePost(id, post) {
 
 export function deletePost(id) {
   return async (dispatch) => {
-    const result = await axios.delete(`http://localhost:3001/posts/${id}`);
+    const result = await axios.delete(`/posts/${id}`);
     dispatch({
       type: DELETE_POST,
       payload: result.data,
