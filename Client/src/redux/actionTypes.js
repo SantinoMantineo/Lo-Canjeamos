@@ -15,4 +15,8 @@ export const SELECT_LOCALITY = "SELECT_LOCALITY";
 export const CREATE_POST = "CREATE_POST"
 export const UPDATE_POST = "UPDATE_POST"
 export const DELETE_POST = "DELETE_POST"
+export const SELECTED_POST = "SELECTED_POST"
 export const RESET_FILTERS = "RESET_FILTERS"
+
+export const LIKE_POST = "LIKE_POST"
+export const GET_MATCHES = "GET_MATCHES"
