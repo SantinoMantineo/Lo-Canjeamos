@@ -5,10 +5,21 @@ const path = require('path');
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
 
-const sequelize = new Sequelize(DB_DEPLOY, {
+
+/* const sequelize = new Sequelize(DB_DEPLOY, {
+  logging: false,
+  native: false,
+}); */
+
+const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/locanjeamos`, {
   logging: false,
   native: false,
 });
+
+/* const sequelize = new Sequelize(DB_DEPLOY, {
+  logging: false,
+  native: false,
+}); */
 
 const basename = path.basename(__filename);
 
@@ -38,8 +49,6 @@ const { Post, User, Like } = sequelize.models;
 
 User.hasMany(Post);
 Post.belongsTo(User);
-Like.belongsTo(User)
-Like.belongsTo(Post)
 
 module.exports = {
   ...sequelize.models,
