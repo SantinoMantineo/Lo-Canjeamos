@@ -98,7 +98,7 @@ export function getPostById(id) {
 export const likePost = (myUserId, likedPostId, myPostId, anotherUserId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post('/likes/', {
+      const response = await axios.post('/likes', {
         myUserId: myUserId,
         likedPostId: likedPostId,
         myPostId: myPostId,
