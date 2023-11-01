@@ -13,7 +13,6 @@ import {
 import style from "./Filters.module.css";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Product from "../../assets/product.jpeg";
 
 const Filters = () => {
   const selectedProvince = useSelector((state) => state.selectedProvince);
@@ -21,6 +20,7 @@ const Filters = () => {
   const selectedCategory = useSelector((state) => state.selectedCategory);
   const dispatch = useDispatch();
   const allPostsCopy = useSelector((state) => state.allPostsCopy);
+  const selectedImage = useSelector((state) => state.selectedPostImage);
 
   useEffect(() => {
     dispatch(getAllPosts());
@@ -74,7 +74,7 @@ const Filters = () => {
     <>
       <div className={style.filters}>
         <Link to="">
-          <img src={Product} className={style.product} alt="Product" />
+          <img src={selectedImage} className={style.product} alt="Product" />
         </Link>
         <span>Filtros:</span>
         <select value={selectedProvince} onChange={handleProvinceChange}>

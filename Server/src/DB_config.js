@@ -34,10 +34,12 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Post, User } = sequelize.models;
+const { Post, User, Like } = sequelize.models;
 
 User.hasMany(Post);
 Post.belongsTo(User);
+Like.belongsTo(User)
+Like.belongsTo(Post)
 
 module.exports = {
   ...sequelize.models,

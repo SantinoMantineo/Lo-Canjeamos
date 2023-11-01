@@ -98,45 +98,15 @@ const App = () => {
       )}
       <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/login"
-          element={
-            isAuthenticated ? (
-              userData ? (
-                <MyProfile userData={userData} />
-              ) : (
-                <Loading />
-              )
-            ) : (
-              <Login setAuth={setAuth} />
-            )
-          }
-        />
-        <Route
-          path="/addProduct"
-          element={userData ? <AddProduct userData={userData} /> : <Loading />}
-        />
-        <Route
-          path="/register"
-          element={
-            isAuthenticated ? (
-              userData ? (
-                <MyProfile userData={userData} />
-              ) : (
-                <Loading />
-              )
-            ) : (
-              <Register setAuth={setAuth} />
-            )
-          }
-        />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/exchanges" element={<Exchanges />} />
-        <Route path="/chats" element={<Chats />} />
-
-        <Route path="/login" element={<Login setAuth={setAuth} />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Login setAuth={setAuth}/>)}/>
+        <Route path="/addProduct" element={userData ? <AddProduct userData={userData}/> : <Loading/>} />
+        <Route path="/register" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Register setAuth={setAuth}/>)}/>
+        <Route path="/detail/:id" element={userData ? <Detail userData={userData}/> : <Loading/>} />
+        <Route path="/exchanges" element={userData ? <Exchanges userData={userData}/> : <Loading/>} />
+        <Route path="/chats" element={<Chats/>} />
+        <Route path="/login" element={<Login setAuth={setAuth}/>} />
+        <Route path="/register" element={<Register/>} />
       </Routes>
     </>
   );

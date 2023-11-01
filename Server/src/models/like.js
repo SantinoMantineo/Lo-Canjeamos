@@ -2,13 +2,30 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define("Like", {
-    userId: {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    myUserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    postId: {
+    myPostId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    anotherUserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    likedPostId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    isMatch: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   });
 };

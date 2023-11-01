@@ -15,7 +15,9 @@ import {
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
-  RESET_FILTERS
+  RESET_FILTERS,
+  GET_MATCHES,
+  SELECTED_POST
 } from "./actionTypes";
 
 const initialState = {
@@ -27,6 +29,9 @@ const initialState = {
   selectedProvince: "",
   selectedLocality: "",
   selectedCategory: "",
+  selectedPostToInteract: "",
+  selectedPostImage: "",
+  matches: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -97,6 +102,13 @@ function rootReducer(state = initialState, action) {
         selectedCategory: action.payload,
       };
 
+    case SELECTED_POST:
+      return {
+        ...state,
+        selectedPostToInteract: action.payload.id,
+        selectedPostImage: action.payload.image,
+      }
+
     case GET_POST_BY_CATEGORY:
     case GET_POST_BY_PROVINCE:
     case GET_POST_BY_LOCALITY:
@@ -145,6 +157,12 @@ function rootReducer(state = initialState, action) {
         allPosts: state.allPosts.filter(
           (post) => post.id !== action.payload.id
         ),
+      };
+
+    case GET_MATCHES:
+      return {
+        ...state,
+        matches: action.payload,
       };
 
     case RESET_FILTERS:

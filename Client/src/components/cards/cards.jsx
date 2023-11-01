@@ -46,8 +46,6 @@ const Cards = ({ allPosts }) => {
 
   const posts = allPosts.slice(-6);
 
-  console.log(posts)
-
   return (
     <>
         <div className={style.cards}>
