@@ -78,6 +78,7 @@ const Detail = () => {
           {post && post.description && <h4>{post.description}</h4>}
           
         </div>
+        <div></div>
         <div className={style.buttons}>
           <Link to="/">
             <button className={style.back}>Volver</button>

@@ -123,6 +123,7 @@ export default function AddProduct({ userData }) {
     "Herramientas",
     "Muebles y hogar",
     "Arte y artesanías",
+    "Instrumentos musicales",
     "Alimentos",
     "Joyas y relojes",
     "Ropa e indumentaria",
