@@ -1,0 +1,6 @@
+# Ignorar la carpeta node_modules en ambos directorios
+/Client/node_modules
+/Server/node_modules
+
+# Ignorar el archivo .env en el directorio del servidor
+/Server/.env
