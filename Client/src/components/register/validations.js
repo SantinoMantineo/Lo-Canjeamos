@@ -54,4 +54,13 @@ export function validateUsername(username) {
       return "Seleccione una localidad";
     }
     return null; // Si no hay errores de validación
-  }
+}
+
+export const validatePasswordRepeat = (passwordRepeat, password) => {
+  if (passwordRepeat === '') {
+    return "Debes completar el campo";
+  } else if (passwordRepeat !== password) {
+    return "Las contraseñas no coinciden";
+  }
+  return null;
+};

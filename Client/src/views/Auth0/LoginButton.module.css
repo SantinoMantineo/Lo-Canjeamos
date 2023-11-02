@@ -1,0 +1,26 @@
+.login {
+    display: grid;
+    margin: 0;
+}
+.login button {
+    display: grid;
+    align-content: center;
+    grid-template-columns: 3fr 1fr;
+    width: 120px;
+    height: 35px;
+    background-color: white;
+    color: grey;
+    padding: 0;
+    padding-right: 2px;
+    border-radius: 5px;
+    margin: 0px;
+    font-size: 14px;
+    text-align: right;
+}
+
+.login img {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding-top: 0px;
+}
