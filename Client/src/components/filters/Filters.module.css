@@ -12,6 +12,7 @@
     height: 60px;
     border-radius: 50%;
     border: 3px solid grey;
+    object-fit: cover;
   }
 
   span {

@@ -260,8 +260,6 @@ setErrors({ ...errors, [name]: error });
         newPost
       );
 
-      console.log(newPost);
-
       if (response) {
         setShowModal(true)
         // Reinicio de campos.

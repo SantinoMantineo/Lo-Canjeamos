@@ -130,7 +130,7 @@ export const getMatches = (userId) => {
 
 export const selectedPost = (postId, postImage) => {
   return {
-    type: "SELECTED_POST",
+    type: SELECTED_POST,
     payload: {
       id: postId,
       image: postImage,

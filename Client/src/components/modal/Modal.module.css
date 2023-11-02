@@ -28,17 +28,26 @@ body.activeModal {
     left: 50%;
     transform: translate(-50%, -50%);
     line-height: 1.4;
-    background: #f1f1f1;
+    background: whitesmoke;
     padding: 14px 28px;
     border-radius: 3px;
     max-width: 600px;
     min-width: 300px;
 }
 
+.modal p {
+    color: grey;
+}
+
 .closeModal {
     position: absolute;
     top: 10px;
     right: 10px;
-    padding: 5px 7px;
+    padding: 0px 7px;
     color: crimson;
+    font-size: 20px;
+}
+
+.closeModal:hover {
+    scale: 1.1;
 }
