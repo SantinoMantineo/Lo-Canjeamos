@@ -1,9 +1,8 @@
 const { Post, User } = require("../DB_config");
 const bcrypt = require('bcrypt');
 const { transporter } = require("../config/mailer")
-const { registerMail } = require("../utils/mailObjects")
+const { registerMail, passwordForgot} = require("../utils/mailObjects")
 const jwtGenerator = require("../utils/jwtGenerator")
-const nodemailer = require('nodemailer')
 
 exports.getAllUser = async () => {
   try {
@@ -138,61 +137,16 @@ exports.deleteUser = async (id) => {
 };
 
 exports.forgotPassword = async (email) => {
-
   try{
+    const check = await User.findOne({where: {email}})
+    if(!check){
+        throw new Error("El usuario no existe")
+    }
+    await transporter.sendMail(passwordForgot(email, check.id))
+    return "El mail fue enviado correctamente";
 
-  const check = await User.findOne({where: {email}})
-
-  if(check === null){
-      return res.send({Status: "User doesnt exist"})
-  }
-  
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com", //? chequear que se hace aca
-    port: 465, //? chequear que se hace aca
-    secure: true, //? chequear que se hace aca
-    auth: {
-      user: "locanjeamos@gmail.com",
-      pass: "lmlg nyse vzrc thuc", //? chequear que se hace aca
-    },
-    });
-    
-    const mailOptions = {
-      from: 'locanjeamos@gmail.com',
-      to: check.email,
-      subject: 'Reset Password',
-      html: `
-      <html>
-<head>
-   <style>
-      /* Style the anchor to look like a button */
-      .button-link {
-          display: inline-block;
-          padding: 10px 20px;
-          background-color: #007bff; /* Change the background color to your preference */
-          color: #fff; /* Change the text color to your preference */
-          text-decoration: none;
-          border: 1px solid #007bff; /* Add a border to make it look like a button */
-          border-radius: 4px; /* Add rounded corners */
-      }
-
-      .button-link:hover {
-          background-color: #0056b3; /* Change the background color on hover */
-      }
-    </style>
-</head>
-<body>
-  <a class="button-link" href=""/reset-password/${check.userId}">Reset Password</a>
-</body>
-</html
-  `
-    };
-    
-    await transporter.sendMail(mailOptions);
-    return { status: 'Success' };
   } catch (error) {
-    console.log(error);
-    return { status: 'Error' };
+    throw error;
   }
 };
 
@@ -201,14 +155,17 @@ exports.resetPassword = async (id, newPassword) => {
     const user = await User.findOne({ where: { id } });
 
     if (!user) {
-      return { status: 'User not found' };
-    }
+      throw new Error('User not found', error);
+    } 
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const bcryptPassword = await bcrypt.hash(newPassword, salt);
 
-    await user.update({ passwordHash: newPassword });
+    await user.update({ password: bcryptPassword });
 
-    return { status: 'Success' };
+    return "Contraseña actualizada correctamente";
   } catch (error) {
     console.error(error);
-    return { status: 'Error' };
+  throw new Error("No se pudo actualizar la contraseña", error);
   }
 };
