@@ -15,6 +15,8 @@ import MyProfile from "./views/myProfile/myProfile";
 import Login from "./views/login/Login";
 import Register from "./components/register/Register";
 import Loading from "./views/loading/loading";
+import ForgotPassword from "./components/forgotPassword/ForgotPassword";
+import ResetPassword from "./components/resetPassword/ResetPassword";
 import axios from "axios";
 import "./App.css";
 const App = () => {
@@ -92,50 +94,17 @@ const App = () => {
     <>
       <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/login"
-          element={
-            isAuthenticated ? (
-              userData ? (
-                <MyProfile userData={userData} />
-              ) : (
-                <Loading />
-              )
-            ) : (
-              <Login setAuth={setAuth} />
-            )
-          }
-        />
-        <Route
-          path="/addProduct"
-          element={userData ? <AddProduct userData={userData} /> : <Loading />}
-        />
-        <Route
-          path="/register"
-          element={
-            isAuthenticated ? (
-              userData ? (
-                <MyProfile userData={userData} />
-              ) : (
-                <Loading />
-              )
-            ) : (
-              <Register setAuth={setAuth} />
-            )
-          }
-        />
-        <Route
-          path="/detail/:id"
-          element={userData ? <Detail userData={userData} /> : <Loading />}
-        />
-        <Route
-          path="/exchanges"
-          element={userData ? <Exchanges userData={userData} /> : <Loading />}
-        />
-        <Route path="/chats" element={<Chats />} />
-        <Route path="/login" element={<Login setAuth={setAuth} />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Login setAuth={setAuth}/>)}/>
+        <Route path="/addProduct" element={userData ? <AddProduct userData={userData}/> : <Loading/>} />
+        <Route path="/register" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Register setAuth={setAuth}/>)}/>
+        <Route path="/detail/:id" element={userData ? <Detail userData={userData}/> : <Loading/>} />
+        <Route path="/exchanges" element={userData ? <Exchanges userData={userData}/> : <Loading/>} />
+        <Route path="/chats" element={<Chats/>} />
+        <Route path="/login" element={<Login setAuth={setAuth}/>} />
+        <Route path="/register" element={<Register/>} />
+        <Route path="/forgotpassword" element={<ForgotPassword/>} />
+        <Route path="/resetpassword" element={<ResetPassword/>} />
       </Routes>
     </>
   );

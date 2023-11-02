@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import Logo from '../../assets/locan.png'
 import { useState } from 'react'
 import React from 'react'
@@ -68,6 +70,11 @@ const Login = ({ setAuth, userData }) => {
                 <input type="password"name="password" placeholder='contraseña'onChange={handleInputChange}
                   value={input.password}/>
               </div>
+
+              <div className={style.buttons}>
+                <span>Recuperar contraseña <Link to='/forgotpassword' className={style.register}>Click Aqui</Link> </span>
+              </div>
+              
               {error && <div className={style.error}>{error}</div> }
               <button onClick={handleSumbit}>Iniciar sesión</button>
           </form>
