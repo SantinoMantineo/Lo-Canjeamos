@@ -1,15 +1,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react'
-import { Link } from 'react-router-dom';
 import avatar from '../../assets/avatar.jpg'
 import style from './Avatar.module.css'
 
 const Avatar = ({userData, setAuth}) => {
+
   const logout = () => {
     localStorage.removeItem("token");
     setAuth(false);
   };
+
   return (
     <>
     <div className={style.avatar}>
