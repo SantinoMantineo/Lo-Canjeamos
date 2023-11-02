@@ -36,7 +36,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
         </button>
       </Link>
 
-      {isAuthenticated && (
+      {isAuthenticated ? (
         <Link to="/addProduct">
           <button className={style.iconos}>
             <img
@@ -48,9 +48,21 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
             Agregar
           </button>
         </Link>
-      )}
+      ) :         
+      (<Link to="/addProduct">
+      <button className={style.iconosFalse}>
+        <img
+          width="24"
+          height="24"
+          src="https://img.icons8.com/sf-regular/48/add.png"
+          alt="Add"
+        />
+        Agregar🔒
+      </button>
+    </Link>
+  )}
 
-      {isAuthenticated && (
+      {isAuthenticated ? (
         <Link to="exchanges">
           <button className={style.iconos}>
             <img
@@ -62,9 +74,21 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
             Canjes
           </button>
         </Link>
+      ) : (
+        <Link to="exchanges">
+        <button className={style.iconosFalse}>
+          <img
+            width="24"
+            height="24"
+            src="https://img.icons8.com/material-rounded/48/available-updates.png"
+            alt="Available Updates"
+          />
+          Canjes🔒
+        </button>
+      </Link> 
       )}
 
-      {isAuthenticated && (
+      {isAuthenticated ? (
         <Link to="/chats">
           <button className={style.iconos}>
             <img
@@ -76,6 +100,18 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
             Mensajes
           </button>
         </Link>
+      ) : (
+        <Link to="/chats">
+        <button className={style.iconosFalse}>
+          <img
+            width="24"
+            height="24"
+            src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
+            alt="Chat"
+          />
+          Mensajes🔒
+        </button>
+      </Link>
       )}
 
       <Link to="/login">

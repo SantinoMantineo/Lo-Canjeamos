@@ -12,8 +12,9 @@ const Publication = ({ userData }) => {
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
-
-  const userPosts = allPosts.filter((post) => post.UserId === userData.id);
+  
+  let userPosts = [];
+  if(userData) { userPosts = allPosts.filter((post) => post.UserId === userData.id);}
 
   const handlePostClick = (postId, postImage) => {
     dispatch(selectedPost(postId, postImage));
