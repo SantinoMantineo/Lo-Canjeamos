@@ -22,6 +22,26 @@ exports.getAllUser = async () => {
     throw error;
   }
 };
+
+exports.createGoogleUser = async (user) => {
+  console.log("esto esta llegando",user);
+  try {
+    const createdUser = await User.create({
+      username: user.nickname,
+      ubication:"Buenos Aires,Palermo",
+      password:"contraseña",
+      email: user.email, 
+      image: user.picture,
+      rol: "user",
+    });
+
+    return createdUser;
+  } catch (error) {
+    console.error("Error al crear el usuario:", error);
+    throw error;
+  }
+};
+
 exports.createUser = async (user) => {
   if (
     !user.username ||
@@ -63,7 +83,14 @@ exports.createUser = async (user) => {
         await transporter.sendMail(registerMail(user))
         return {newUser, token};
       } catch (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          setErrorMessage(`Error: ${error.response.data.message}`);
+        }
         throw new Error("No se pudo crear el usuario");
+        
       }
     }
   }

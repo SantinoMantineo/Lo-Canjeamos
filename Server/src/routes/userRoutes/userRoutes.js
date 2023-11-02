@@ -13,6 +13,16 @@ router.get("/allUsers", async (req, res) => {
   }
 });
 
+router.post("/registerGoogle", validInfo, async (req, res) => {
+  const user = req.body;
+  try {
+    const response = await userController.createGoogleUser(user);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
+});
+
 router.post("/register", validInfo, async (req, res) => {
   const user = req.body;
   try {

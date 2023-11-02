@@ -17,6 +17,13 @@ import Register from "./components/register/Register";
 import Loading from "./views/loading/loading";
 import axios from "axios";
 import "./App.css";
+import { useSelector,useDispatch, createDispatchHook } from "react-redux";
+import {getAllUsers,createGoogleUser} from '../src/redux/actions'
+
+
+//Auht0
+import { useAuth0 } from "@auth0/auth0-react";
+
 const App = () => {
   /* const [darkMode, setDarkMode] = useState(false);
 
@@ -29,11 +36,30 @@ const App = () => {
       document.body.style.color = "whitesmoke";
     }
   }, []); */
+//Auth0
+const { user, isAuthenticated} = useAuth0();//datos de BD Auht0
+const dispatch = useDispatch()//*
+  const allUsers= useSelector((state) => state.allUsers);//*
+
+console.log( allUsers);//*
+
+  useEffect(() => {//*
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  const maxId = allUsers.reduce((max, user) => (user.id > max ? user.id : max), 0);//busca cuantos user hay.//*
+  const nextId = maxId + 1;//*
+
+  const user2 = { ...user, id: nextId};//*
+console.log("este es el usergoogle  con id",user2);
+
+const filteredUsers = allUsers.filter((user) => user.email === user2.email);//verifica mail en BD
 
   axios.defaults.baseURL = "http://localhost:3001";
   //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const [isAuthenticatedBd, setIsAuthenticated] = useState(false);
   const [userToken, setUserToken] = useState("");
   const [userData, setUserData] = useState(null);
 
@@ -41,11 +67,15 @@ const App = () => {
     setIsAuthenticated(status);
     setUserData(user);
   };
-
+  
+  if(filteredUsers){
+    dispatch(createGoogleUser(user2))
+  }
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if (token) {
+    if (token) {  
       axios
         .get("/users/verify", {
           headers: {
@@ -85,18 +115,31 @@ const App = () => {
     } else {
       setIsAuthenticated(false);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticatedBd]);
+console.log("Este es el user Google", user);
+ 
+
 
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} />
+      <Navbar isAuthenticatedBd={isAuthenticatedBd} setAuth={setAuth} />
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Login setAuth={setAuth}/>)}/>
-        <Route path="/addProduct" element={userData ? <AddProduct userData={userData}/> : <Loading/>} />
-        <Route path="/register" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Register setAuth={setAuth}/>)}/>
-        <Route path="/detail/:id" element={userData ? <Detail userData={userData}/> : <Loading/>} />
-        <Route path="/exchanges" element={userData ? <Exchanges userData={userData}/> : <Loading/>} />
+        
+        <Route path="/login" element={isAuthenticatedBd ? (userData ? (<MyProfile userData={userData} />) : (<Loading/>)) : (isAuthenticated ? (user ? (<MyProfile userData={user.name}/>) : (<Loading />)) : (<Login setAuth={setAuth} />))}/>
+
+        <Route path="/addProduct" element={userData ? (<AddProduct userData={userData} />)
+         : user ? (<AddProduct userData={user} />)
+         : (<Loading />)}/>//?
+        
+        <Route path="/register" element={isAuthenticatedBd ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Register setAuth={setAuth}/>)}/>
+
+        <Route path="/detail/:id" element={userData ? <Detail userData={userData}/> : (user ? <Detail userData={user} /> : <Loading/>)} />
+
+        <Route path="/exchanges" element={userData ? (<Exchanges userData={userData}/>)
+        : user ? (<Exchanges userData={user}/>)
+        : <Loading/>} />
+        
         <Route path="/chats" element={<Chats/>} />
         <Route path="/login" element={<Login setAuth={setAuth}/>} />
         <Route path="/register" element={<Register/>} />

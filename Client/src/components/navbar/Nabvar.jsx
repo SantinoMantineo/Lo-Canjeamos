@@ -2,10 +2,15 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/locan.png";
 import smile from '../../assets/smile.gif'
 import style from "./Nabvar.module.css";
+import LogoutButton from "../../views/Auth0/LogoutButton"
+//Auth0
+import { useAuth0 } from "@auth0/auth0-react";
 
-const NavBar = ({ isAuthenticated, setAuth, userData }) => {
+const NavBar = ({ isAuthenticatedBd, setAuth, userData }) => {
 
-  const logout = () => {
+  const { isAuthenticated,user,logout} = useAuth0();
+
+  const logoutBd = () => {
     localStorage.removeItem("token");
     setAuth(false);
   };
@@ -13,11 +18,11 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
   return (
     <div className={style.navbar}>
 
-      {isAuthenticated && userData ? (
+      {/* {isAuthenticatedBd || isAuthenticated && userData || user ? (
         <div>
-          <h2>Hola, {userData.username}! <img src={smile} className={style.smile}></img></h2>
+          <h2>Hola, {userData ? username : user.name}! <img src={smile} className={style.smile}></img></h2>
         </div>
-      ) : null}
+      ) : null} */}
 
       <Link to="/" className={style.link}>
         <img src={Logo} className={style.logo} alt="Locan" />
@@ -58,7 +63,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
           Canjes
         </button>
       </Link>
-        {isAuthenticated && 
+        {isAuthenticatedBd || isAuthenticated && 
         <Link to="/chats">
         <button className={style.iconos}>
           <img
@@ -73,7 +78,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
         }
 
       <Link to="/login">
-        {isAuthenticated ? 
+        {isAuthenticated || isAuthenticatedBd ? 
         <button className={style.iconos}>
           <img
             width="24"
@@ -92,9 +97,9 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
           Iniciar sesión
         </button>}
       </Link>
-
-      {isAuthenticated ? (
-        <button className={style.logout} onClick={logout}>
+    
+      {isAuthenticatedBd ? (
+        <button className={style.logout} onClick={logoutBd}>
           <img
             width="24"
             height="24"
@@ -103,7 +108,16 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
           />
           Salir
         </button>
-      ) : null}
+      ) : isAuthenticated ? (
+        <button className={style.logout} onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+              <img width="24"
+              height="24"
+              src="https://img.icons8.com/?size=256&id=n5UlZzfuGwnQ&format=png"
+              alt="exit"
+               />
+               Exit google
+              </button>
+              ) : null}
     </div>
   );
 };

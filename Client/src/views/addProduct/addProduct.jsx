@@ -7,9 +7,30 @@ import Modal from "../../components/modal/Modal.jsx"
 import style from "./AddProduct.module.css";
 import axios from "axios";
 import { validateDescription, validateTitle } from './validation'
+import { useAuth0 } from "@auth0/auth0-react";
+import { useSelector,useDispatch } from "react-redux";
+import {getAllUsers} from '../../redux/actions.js'
+
 
 export default function AddProduct({ userData }) {
   const { id } = userData;
+
+  const { user, isAuthenticated} = useAuth0();//datos de BD Auht0//*
+
+// const dispatch = useDispatch()//*
+//   const allUsers= useSelector((state) => state.allUsers);//*
+
+// console.log( allUsers);//*
+
+//   useEffect(() => {//*
+//     dispatch(getAllUsers());
+//   }, [dispatch]);
+
+//   const maxId = allUsers.reduce((max, user) => (user.id > max ? user.id : max), 0);//busca cuantos user hay.//*
+//   const nextId = maxId + 1;//*
+
+//   const user2 = { ...user, id: nextId};//*
+// console.log(user2);
 
   //Configuración de la biblioteca para cargar imagenes.
   const thumbsContainer = {

@@ -24,7 +24,7 @@ import {
 
 export function getAllUsers() {
   return async function (dispatch) {
-    const response = await axios("/users");
+    const response = await axios("/users/allUsers");
     return dispatch({
       type: GET_ALL_USERS,
       payload: response.data,
@@ -38,6 +38,20 @@ export function getUserById(id) {
     return dispatch({
       type: GET_USER_BY_ID,
       payload: response.data,
+    });
+  };
+}
+
+export function createGoogleUser(user) {//*
+  console.log("user de Actions",user);
+  return async (dispatch) => {
+    const result = await axios.post(
+      "/users/registerGoogle",
+      user
+    );
+    dispatch({
+      type: CREATE_USER,
+      payload: result.data,
     });
   };
 }
@@ -206,6 +220,8 @@ export function createPost(post) {
   };
 }
 
+
+
 export function updatePost(id, post) {
   return async (dispatch) => {
     const result = await axios.put(`/posts/${id}`, post);
@@ -225,6 +241,8 @@ export function deletePost(id) {
     });
   };
 }
+
+
 export function resetFilters() {
   return {
     type: RESET_FILTERS,
