@@ -3,9 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import style from"./ForgotPassword.module.css"
+import style from "./ForgotPassword.module.css";
 import axios from "axios";
-
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -14,18 +13,18 @@ const ForgotPassword = () => {
   });
   const [error, setError] = useState({});
   // eslint-disable-next-line no-unused-vars
-  
+
   const handleChange = (e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
   };
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     axios
-      .post('/forgot-password', { email: input.email }) // Pass email from input state
+      .post("/forgot-password", { email: input.email }) // Pass email from input state
       .then((res) => {
         if (res.data.Status === "Success") {
           navigate("/login");
@@ -34,19 +33,18 @@ const ForgotPassword = () => {
       .catch((err) => console.log(err));
   };
 
-    useEffect(()=> {
-  
-  },[])
+  useEffect(() => {}, []);
 
-  
   return (
     <div className={`${style.container} ${style.bgColor} ${style.fadeUp}`}>
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.textContainer}>
-          <h1 className={`${style.title} ${style.fontSemiBold}`}>Recuperar Contraseña</h1>
+          <h1 className={`${style.title} ${style.fontSemiBold}`}>
+            Recuperar Contraseña
+          </h1>
         </div>
         <div className={`${style.inputContainer} ${style.flexCol}`}>
-          <label className={style.label}>Email</label>
+          <label className={style.label}>Ingrese su email</label>
           <input
             type="text"
             name="email"
@@ -62,10 +60,14 @@ const ForgotPassword = () => {
             className={`${style.button} ${style.btnStone} ${style.btnHover}`}
             onClick={handleSubmit}
           >
-            Send
+            Enviar
           </button>
-          <span className={style.registerLink}> No tiene una cuenta?  <Link to='/register' 
-          className={style.textYellow}><button className={style.btnAqui}>Registrese </button></Link>
+          <span className={style.registerLink}>
+            {" "}
+            No tiene una cuenta?{" "}
+            <Link to="/register" className={style.textYellow}>
+              <button className={style.btnAqui}>Registrese </button>
+            </Link>
           </span>
         </div>
       </form>

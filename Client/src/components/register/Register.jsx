@@ -407,7 +407,7 @@ const Register = ({setAuth}) => {
               onChange={handleInputChange}
               value={input.username}
             />
-             {errors.username && <span className="error">{errors.username}</span>}
+             {errors.username && <span className={style.error}>{errors.username}</span>}
           </div>
 
           <div>
@@ -418,7 +418,7 @@ const Register = ({setAuth}) => {
               onChange={handleInputChange}
               value={input.email}
             />
-            {errors.email && <span className="error">{errors.email}</span>}
+            {errors.email && <span className={style.error}>{errors.email}</span>}
           </div>
 
           <div>
@@ -435,7 +435,7 @@ const Register = ({setAuth}) => {
               onChange={handleShowPassword}
               checked={showPassword}
             /> */}
-            {errors.password && <span className="error">{errors.password}</span>}
+            {errors.password && <span className={style.error}>{errors.password}</span>}
           </div>
           <div>
             <input
@@ -445,7 +445,7 @@ const Register = ({setAuth}) => {
               onChange={handleInputChange}
               value={input.passwordRepeat}
             />
-            {errors.passwordRepeat && <span className="error">{errors.passwordRepeat}</span>}
+            {errors.passwordRepeat && <span className={style.error}>{errors.passwordRepeat}</span>}
         </div>
             {/* <input
               type="checkbox"
@@ -461,7 +461,7 @@ const Register = ({setAuth}) => {
               onChange={handleInputChange}
               value={input.image}
             />
-            {errors.image && <span className="error">{errors.image}</span>}
+            {errors.image && <span className={style.error}>{errors.image}</span>}
           </div>
            
             <select onChange={handleProvinceChange}>
@@ -472,7 +472,7 @@ const Register = ({setAuth}) => {
                 </option>
               ))}
             </select>
-            {errors.province && <span className="error">{errors.province}</span>}
+            {errors.province && <span className={style.error}>{errors.province}</span>}
                
             <select id="selectLocalidades" onChange={handleLocalidadChange}>
               <option value="Elige una localidad">localidad</option>
@@ -482,7 +482,7 @@ const Register = ({setAuth}) => {
                 </option>
               ))}
             </select>
-            {errors.localidad && <span className="error">{errors.localidad}</span>}
+            {errors.localidad && <span className={style.error}>{errors.localidad}</span>}
        
           <button className={isSubmitDisabled() ? `${style.register} ${style.buttonDisabled}` : style.register} disabled={isSubmitDisabled()} type="submit">
             Enviar
