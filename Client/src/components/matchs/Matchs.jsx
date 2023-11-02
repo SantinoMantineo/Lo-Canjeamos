@@ -84,7 +84,7 @@ const Matchs = ({ userData }) => {
   console.log("matches a renderizar: ", matchedPairs);
 
   return (
-    <div>
+    <div className={style.container}>
       {matchedPairs.map((pair, index) => (
         <div key={index} className={style.matchs}>
           <div className={style.match}>
@@ -95,8 +95,8 @@ const Matchs = ({ userData }) => {
             />
             {/* Otros detalles de tu post */}
           </div>
-          <div>
-            <img className={style.matchLogo} src={Logo} alt="logo" />
+          <div className={style.matchLogo}>
+            <img src={Logo} alt="logo" />
           </div>
           {pair.anotherUserPost && (
             <div className={style.matchItem}>

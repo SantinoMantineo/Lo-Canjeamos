@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import {motion} from 'framer-motion';
 import Header from "../../components/header/Header";
 import Banner from "../../assets/banner1.jpg";
 import Banner2 from "../../assets/banner2.jpg";
@@ -284,7 +285,16 @@ setErrors({ ...errors, [name]: error });
   return (
     <>
       <Header banner1={Banner} banner2={Banner2}></Header>
-      <div className={style.container}>
+      <motion.div
+      initial={{
+        opacity: 0,
+        scale: 0.8,
+      }}
+      animate={{
+        opacity: 1,
+        scale: 1,
+      }}
+      className={style.container}>
         <h3>Crear publicación</h3>
         <form className={style.create}>
           <div className={style.part1}>
@@ -379,7 +389,7 @@ setErrors({ ...errors, [name]: error });
           Crear
         </button>
         <h5 className={style.message}>Los campos con * son obligatorios</h5>
-      </div>
+      </motion.div>
       {showModal && <Modal/>}
     </>
   );

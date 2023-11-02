@@ -1,4 +1,5 @@
 import React from "react";
+import {motion} from 'framer-motion';
 import Publication from "../../components/publication/Publication";
 import style from "./Exchanges.module.css";
 import Matchs from "../../components/matchs/Matchs";
@@ -10,7 +11,16 @@ const Exchanges = ({ userData }) => {
   return (
     <>
     <Header banner1={Banner3} banner2={Banner4}></Header>
-      <div className={style.exchanges}>
+      <motion.div
+      initial={{
+        opacity: 0,
+        y: 50,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      className={style.exchanges}>
         <div className={style.matchs}>
           <h3>Canjes logrados</h3>
           <Matchs userData={userData}></Matchs>
@@ -18,7 +28,7 @@ const Exchanges = ({ userData }) => {
         <div className={style.likes}>
           <h3>Intentos de canje</h3>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
