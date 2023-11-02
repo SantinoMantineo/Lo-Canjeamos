@@ -95,7 +95,7 @@ const App = () => {
       <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} />
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Login setAuth={setAuth}/>)}/>
+        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData} setAuth={setAuth}/>) : (<Loading/>)) : (<Login setAuth={setAuth}/>)}/>
         <Route path="/addProduct" element={userData ? <AddProduct userData={userData}/> : <Loading/>} />
         <Route path="/register" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Register setAuth={setAuth}/>)}/>
         <Route path="/detail/:id" element={userData ? <Detail userData={userData}/> : <Loading/>} />

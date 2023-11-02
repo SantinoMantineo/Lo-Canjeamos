@@ -70,13 +70,9 @@ const Login = ({ setAuth, userData }) => {
                 <input type="password"name="password" placeholder='contraseña'onChange={handleInputChange}
                   value={input.password}/>
               </div>
-
-              <div className={style.buttons}>
-                <span>Recuperar contraseña <Link to='/forgotpassword' className={style.register}>Click Aqui</Link> </span>
-              </div>
               
               {error && <div className={style.error}>{error}</div> }
-              <button onClick={handleSumbit}>Iniciar sesión</button>
+              <button onClick={handleSumbit} className={style.iniciar}>Iniciar sesión</button>
           </form>
         </div>
 
@@ -93,7 +89,12 @@ const Login = ({ setAuth, userData }) => {
           <LoginButton/>
           </span>
         </div>
-
+        <div className={style.buttons}>
+          <span className={style.recover}>
+          Olvidaste la contraseña? 
+          <Link to='/forgotpassword' className={style.register}>Recuperar contraseña</Link>
+          </span>
+        </div>
     </div>
     
   )

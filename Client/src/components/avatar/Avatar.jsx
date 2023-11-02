@@ -5,7 +5,11 @@ import { Link } from 'react-router-dom';
 import avatar from '../../assets/avatar.jpg'
 import style from './Avatar.module.css'
 
-const Avatar = ({userData}) => {
+const Avatar = ({userData, setAuth}) => {
+  const logout = () => {
+    localStorage.removeItem("token");
+    setAuth(false);
+  };
   return (
     <>
     <div className={style.avatar}>
@@ -16,9 +20,7 @@ const Avatar = ({userData}) => {
     <button className={style.premium}>Sé Premium</button>
     <br/>
     <br/>
-    <Link to="/login">
-    <button className={style.logout}>Salir</button>
-    </Link>
+    <button className={style.logout} onClick={logout}>Salir</button>
     </div>
     </>
   )
