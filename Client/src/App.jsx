@@ -15,6 +15,8 @@ import MyProfile from "./views/myProfile/myProfile";
 import Login from "./views/login/Login";
 import Register from "./components/register/Register";
 import Loading from "./views/loading/loading";
+import ForgotPassword from "./components/forgotPassword/ForgotPassword";
+import ResetPassword from "./components/resetPassword/ResetPassword";
 import axios from "axios";
 import "./App.css";
 const App = () => {
@@ -100,6 +102,8 @@ const App = () => {
         <Route path="/chats" element={<Chats/>} />
         <Route path="/login" element={<Login setAuth={setAuth}/>} />
         <Route path="/register" element={<Register/>} />
+        <Route path="/forgotpassword" element={<ForgotPassword/>} />
+        <Route path="/resetpassword" element={<ResetPassword/>} />
       </Routes>
     </>
   );
