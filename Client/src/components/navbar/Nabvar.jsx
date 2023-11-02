@@ -1,21 +1,22 @@
 import { Link } from "react-router-dom";
 import Logo from "../../assets/locan.png";
-import smile from '../../assets/smile.gif'
+import smile from "../../assets/smile.gif";
 import style from "./Nabvar.module.css";
 
 const NavBar = ({ isAuthenticated, setAuth, userData }) => {
-
   const logout = () => {
     localStorage.removeItem("token");
     setAuth(false);
   };
 
   return (
-    <div className={style.navbar}>
-
+    <div className={isAuthenticated ? style.navbar : style.navbarOff}>
       {isAuthenticated && userData ? (
         <div>
-          <h2>Hola, {userData.username}! <img src={smile} className={style.smile}></img></h2>
+          <h2>
+            Hola, {userData.username}!{" "}
+            <img src={smile} className={style.smile}></img>
+          </h2>
         </div>
       ) : null}
 
@@ -35,62 +36,70 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
         </button>
       </Link>
 
-      <Link to="/addProduct">
-        <button className={style.iconos}>
-          <img
-            width="24"
-            height="24"
-            src="https://img.icons8.com/sf-regular/48/add.png"
-            alt="Add"
-          />
-          Agregar
-        </button>
-      </Link>
+      {isAuthenticated && (
+        <Link to="/addProduct">
+          <button className={style.iconos}>
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/sf-regular/48/add.png"
+              alt="Add"
+            />
+            Agregar
+          </button>
+        </Link>
+      )}
 
-      <Link to="exchanges">
-        <button className={style.iconos}>
-          <img
-            width="24"
-            height="24"
-            src="https://img.icons8.com/material-rounded/48/available-updates.png"
-            alt="Available Updates"
-          />
-          Canjes
-        </button>
-      </Link>
-        {isAuthenticated && 
+      {isAuthenticated && (
+        <Link to="exchanges">
+          <button className={style.iconos}>
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/material-rounded/48/available-updates.png"
+              alt="Available Updates"
+            />
+            Canjes
+          </button>
+        </Link>
+      )}
+
+      {isAuthenticated && (
         <Link to="/chats">
-        <button className={style.iconos}>
-          <img
-            width="24"
-            height="24"
-            src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
-            alt="Chat"
-          />
-          Mensajes
-        </button>
-      </Link>
-        }
+          <button className={style.iconos}>
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
+              alt="Chat"
+            />
+            Mensajes
+          </button>
+        </Link>
+      )}
 
       <Link to="/login">
-        {isAuthenticated ? 
-        <button className={style.iconos}>
-          <img
-            width="24"
-            height="24"
-            src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
-            alt="Usuario"
-          />
-          Perfil
-        </button> : <button className={style.iconos}>
-          <img
-            width="24"
-            height="24"
-            src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
-            alt="Usuario"
-          />
-          Iniciar sesión
-        </button>}
+        {isAuthenticated ? (
+          <button className={style.iconos}>
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
+              alt="Usuario"
+            />
+            Perfil
+          </button>
+        ) : (
+          <button className={style.iconos}>
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
+              alt="Usuario"
+            />
+            Iniciar sesión
+          </button>
+        )}
       </Link>
 
       {isAuthenticated ? (
