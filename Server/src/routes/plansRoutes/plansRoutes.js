@@ -20,6 +20,23 @@ router.get('/success', async(req, res) =>{
     }
 })
 
+router.get('/failure', async(req, res) =>{
+    try{
+        const response = await plansController.getPlanById();
+        return res.status(200).json(response)
+    } catch(error){
+        return res.status(400).json(error.message)
+    }
+})
+
+router.get('/pending', async(req, res) =>{
+    try{
+        const response = await plansController.getPlanById();
+        return res.status(200).json(response)
+    } catch(error){
+        return res.status(400).json(error.message)
+    }
+})
 
 router.get('/webhook', async(req, res) =>{
     try{
