@@ -10,8 +10,13 @@ const Matchs = ({ userData }) => {
   const matches = useSelector((state) => state.matches);
   const allPosts = useSelector((state) => state.allPostsCopy);
   const dispatch = useDispatch();
-  const userId = userData.id;
 
+
+  let userId = ""
+
+  if(userData){
+    userId = userData.id
+  }
 
   if (matches != 0) {
     console.log("Todos los matches: ", matches);

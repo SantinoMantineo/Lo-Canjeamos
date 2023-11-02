@@ -57,7 +57,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
           src="https://img.icons8.com/sf-regular/48/add.png"
           alt="Add"
         />
-        Agregar🔒
+        Agregar 🔒
       </button>
     </Link>
   )}
@@ -83,7 +83,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
             src="https://img.icons8.com/material-rounded/48/available-updates.png"
             alt="Available Updates"
           />
-          Canjes🔒
+          Canjes 🔒
         </button>
       </Link> 
       )}
@@ -109,7 +109,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
             src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
             alt="Chat"
           />
-          Mensajes🔒
+          Mensajes 🔒
         </button>
       </Link>
       )}
