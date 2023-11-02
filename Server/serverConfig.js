@@ -2,7 +2,7 @@ const express = require("express");
 const router = require("./src/routes/routes");
 const morgan = require("morgan");
 const cors = require("cors");
-
+const mercadopago = require("mercadopago");
 const server = express();
 
 server.use(morgan("dev"));
