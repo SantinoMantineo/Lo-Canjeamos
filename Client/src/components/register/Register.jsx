@@ -250,6 +250,12 @@ const Register = ({setAuth}) => {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [ localidad, setSelectedLocalidad ] = useState("")
 
+    // Constantes para Cloudinary.
+
+    const preset_key = "postsimages";
+    const cloud_name = "dlahgnpwp";
+    const folderName = "usersProfilePic";
+
   const [errors, setErrors] = useState({
     username: null,
     password: null,
@@ -313,8 +319,12 @@ const Register = ({setAuth}) => {
     username: "",
     password: "",
     email: "",
-    image: ""
+    image: "",
+    imageFile: null
   });
+
+  const [imageFile, setImageFile] = useState(null);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -346,6 +356,26 @@ const Register = ({setAuth}) => {
     setShowPassword(!showPassword);
   };
 
+  const handleFile = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setInput({
+        ...input,
+        image: imageUrl,
+      });
+      setImageFile(file); 
+    }
+  };
+  
+  const handleImageClear = () => {
+    setInput({
+      ...input,
+      image: '',
+    });
+    setImageFile(null);
+  };
+
   const handleSumbit = async (e) => {
     e.preventDefault();
 
@@ -363,11 +393,34 @@ const Register = ({setAuth}) => {
     }
 
     try {
+
+      let secureUrl = ''; // Inicializa la URL de la imagen en blanco
+
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append('file', imageFile);
+        formData.append('upload_preset', preset_key);
+        formData.append('folder', folderName);
+  
+        const responseImage = await axios
+          .post(
+            `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
+            formData
+          )
+          .then((res) => res.data.secure_url)
+          .catch((error) => {
+            console.log('Error al subir la imagen a la nube: ' + error);
+            throw error;
+          });
+  
+        secureUrl = responseImage;
+      }
+
         let newUser = {
           username: input.username,
           password: input.password,
           email: input.email,
-          image: input.image,
+          image: secureUrl,
           ubication: `${selectedProvince}, ${localidad}`,
         }
       const response = await axios.post('/users/register', newUser)
@@ -453,16 +506,23 @@ const Register = ({setAuth}) => {
               onChange={handleShowPassword}
               checked={showPassword}
             /> */}
-          <div>
-            <input
-              type="imag"
-              name="image"
-              placeholder="imagen de perfil"
-              onChange={handleInputChange}
-              value={input.image}
-            />
-            {errors.image && <span className={style.error}>{errors.image}</span>}
-          </div>
+        <div>
+          <input
+            type="file"
+            accept="image/*"
+            name="image"
+            onChange={handleFile}
+          />
+          {input.image && (
+            <div className={style.imagePreview}>
+              <img src={input.image} alt="Preview" style={{
+                width: '150px',
+                height: '150px'
+                }}/>
+              <button onClick={handleImageClear}>Eliminar</button>
+            </div>
+          )}
+        </div>
            
             <select onChange={handleProvinceChange}>
               <option value="Elige una provincia">provincia</option>
