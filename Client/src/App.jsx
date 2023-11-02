@@ -31,8 +31,8 @@ const App = () => {
     }
   }, []); */
 
-  //axios.defaults.baseURL = "http://localhost:3001/";
-  axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+  axios.defaults.baseURL = "http://localhost:3001/";
+  //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userToken, setUserToken] = useState("");
