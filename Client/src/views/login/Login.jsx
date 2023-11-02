@@ -92,7 +92,7 @@ const Login = ({ setAuth, userData }) => {
         <div className={style.buttons}>
           <span className={style.recover}>
           Olvidaste la contraseña? 
-          <Link to='/forgotpassword' className={style.register}>Recuperar contraseña</Link>
+          <Link to='/forgotpassword' className={style.register}>Recuperar</Link>
           </span>
         </div>
     </div>

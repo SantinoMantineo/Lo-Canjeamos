@@ -8,11 +8,12 @@ import {
   getPostByLocality,
   getPostByCategory,
   getAllPosts,
-  resetFilters
+  resetFilters,
 } from "../../redux/actions";
 import style from "./Filters.module.css";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import imgBase from "../../assets/imgBase.jpg";
 
 const Filters = () => {
   const selectedProvince = useSelector((state) => state.selectedProvince);
@@ -58,23 +59,32 @@ const Filters = () => {
       localityArray.push(locality);
     }
   });
-  
 
   // Obtener las provincias únicas
   const provinces = Array.from(provinceToLocalityMap.keys());
 
-  const uniqueCategories = [...new Set(allPostsCopy.map((post) => post.category))];
+  const uniqueCategories = [
+    ...new Set(allPostsCopy.map((post) => post.category)),
+  ];
 
   const handleResetFilters = () => {
-    dispatch(resetFilters()); 
-    dispatch(getAllPosts())
-  }
+    dispatch(resetFilters());
+    dispatch(getAllPosts());
+  };
 
   return (
     <>
       <div className={style.filters}>
-        <Link to="">
-          <img src={selectedImage} className={style.product} alt="Product" />
+        <Link to="/login">
+          {selectedImage ? (
+            <img src={selectedImage} className={style.product} alt="Product" />
+          ) : (
+            <img
+              src={imgBase}
+              className={style.product}
+              alt="Imagen Predeterminada"
+            />
+          )}
         </Link>
         <span>Filtros:</span>
         <select value={selectedProvince} onChange={handleProvinceChange}>
@@ -89,11 +99,13 @@ const Filters = () => {
         <select value={selectedLocality} onChange={handleLocalityChange}>
           <option value="">Localidad</option>
           {provinceToLocalityMap.get(selectedProvince) &&
-            provinceToLocalityMap.get(selectedProvince).map((locality, index) => (
-              <option key={index} value={locality}>
-                {locality}
-              </option>
-            ))}
+            provinceToLocalityMap
+              .get(selectedProvince)
+              .map((locality, index) => (
+                <option key={index} value={locality}>
+                  {locality}
+                </option>
+              ))}
         </select>
 
         <select value={selectedCategory} onChange={handleCategoryChange}>
@@ -104,7 +116,14 @@ const Filters = () => {
             </option>
           ))}
         </select>
-        <button onClick={handleResetFilters}><img width="24" height="24" src="https://img.icons8.com/windows/32/trash.png" alt="trash"/></button>
+        <button onClick={handleResetFilters}>
+          <img
+            width="24"
+            height="24"
+            src="https://img.icons8.com/windows/32/trash.png"
+            alt="trash"
+          />
+        </button>
       </div>
     </>
   );

@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const { transporter } = require("../config/mailer")
 const { registerMail, passwordForgot} = require("../utils/mailObjects")
 const jwtGenerator = require("../utils/jwtGenerator")
+const nodemailer = require('nodemailer')
 
 exports.getAllUser = async () => {
   try {
