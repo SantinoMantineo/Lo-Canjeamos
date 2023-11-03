@@ -12,6 +12,7 @@
 }
 
 .publications {
+  width: 300px;
   box-shadow: 0px 5px 10px rgba(127, 126, 126, 0.3);
   border-radius: 10px;
   padding: 30px;

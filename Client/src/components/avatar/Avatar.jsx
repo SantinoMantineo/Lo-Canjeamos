@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 
-import React, { useState } from "react";
-import avatar from "../../assets/avatar.jpg";
-import style from "./Avatar.module.css";
-import PayModal from "../payModal/PayModal";
+import React, {useState} from "react";
+import avatar from '../../assets/avatar.jpg'
+import style from './Avatar.module.css'
+import PayModal from "../payModal/PayModal"
 import { useAuth0 } from "@auth0/auth0-react";
-const Avatar = ({ userData, setAuth }) => {
-  const { user, logout: loguotAuth0 } = useAuth0();
+const Avatar = ({userData, setAuth}) => {
 
+  const {user,logout:loguotAuth0} = useAuth0()
+  
   const logout = () => {
     localStorage.removeItem("token");
     setAuth(false);
@@ -51,8 +52,4 @@ const Avatar = ({ userData, setAuth }) => {
   );
 };
 
-<<<<<<< HEAD
 export default Avatar;
-=======
-export default Avatar;
->>>>>>> 762af37f13012e184fdeddceb0bee8402c507591
