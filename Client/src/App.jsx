@@ -121,13 +121,13 @@ const filteredUsers = allUsers.filter((user) => user.email === userByGoogle.emai
       <Routes>
         <Route path="/" element={<Home/>} />
 
-        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData} />) : (<Loading/>)) : (isAuthenticatedAuth0 ? (user ? (<MyProfile userData={user.name}/>) : (<Loading />)) : (<Login setAuth={setAuth} />))}/>
+        <Route path="/login" element={isAuthenticated ? (userData && <MyProfile userData={userData} />) : (isAuthenticatedAuth0 ? (user && <MyProfile userData={user.name}/>) : (<Login setAuth={setAuth} />))}/>
 
         <Route path="/addProduct" element={userData ? (<AddProduct userData={userData} />)
          : user ? (<AddProduct userData={user} />)
          : (<Loading />)} />
 
-        <Route path="/register" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Register setAuth={setAuth}/>)}/>
+        <Route path="/register" element={isAuthenticated ? (userData && <MyProfile userData={userData}/>) : (<Register setAuth={setAuth}/>)}/>
 
         <Route path="/detail/:id" element={userData ? <Detail userData={userData}/> : (user ? <Detail userData={user} /> : <Loading/>)} />
 
