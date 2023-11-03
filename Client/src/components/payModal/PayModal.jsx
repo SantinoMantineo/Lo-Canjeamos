@@ -6,17 +6,19 @@ const payModal = ({ isOpen, onClose }) => {
   return (
     isOpen && (
       <motion.div
-        initial={{
+         initial={{
           opacity: 0,
-          scale: 0.9,
+          scale: 0.7,
         }}
         animate={{
           opacity: 1,
-          scale: 1.1,
+          scale: 1,
         }}
         className={style.modaloverlay}
       >
-        <div className={style.modalcontent}>
+        <div
+          className={style.modalcontent}
+        >
           <button onClick={onClose} className={style.close}>
             ✖️
           </button>
