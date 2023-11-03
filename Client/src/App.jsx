@@ -38,8 +38,8 @@ const App = () => {
   }, []); */
 
 
-  axios.defaults.baseURL = "http://localhost:3001/";
-  // axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+  //axios.defaults.baseURL = "http://localhost:3001/";
+  axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   //*Auth0
   const { user, isAuthenticated:isAuthenticatedAuth0}= useAuth0();//datos de BD Auht0
   const dispatch = useDispatch()//*
