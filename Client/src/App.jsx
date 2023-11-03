@@ -139,7 +139,7 @@ console.log(filteredUsers);
 
         <Route path="/chats" element={<Chats/>} />
 
-        <Route path="/login" element={<Login setAuth={setAuth}/>} />
+        {/* <Route path="/login" element={<Login setAuth={setAuth}/>} /> */}
 
         <Route path="/register" element={<Register/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
