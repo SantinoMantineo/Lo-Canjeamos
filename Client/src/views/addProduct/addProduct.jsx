@@ -349,7 +349,7 @@ setErrors({ ...errors, [name]: error });
             </label>
           </div>
           <div className={style.part2}>
-            <label>Provincias*</label>
+            <label>Provincia*</label>
             <select onChange={handleProvinceChange}>
               <option value='Elige una provincia'>Provincia</option>
               {sortedProvinces.map((province) => (
