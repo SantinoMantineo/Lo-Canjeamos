@@ -57,6 +57,7 @@ const App = () => {
 const filteredUsers = allUsers.filter((user) => user.email === userByGoogle.email);//verifica mail en BD
 //*Area de auth0
 
+console.log(filteredUsers);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userToken, setUserToken] = useState("");
   const [userData, setUserData] = useState(null);
@@ -65,8 +66,8 @@ const filteredUsers = allUsers.filter((user) => user.email === userByGoogle.emai
     setIsAuthenticated(status);
     setUserData(user);
   };
-console.log("App",setAuth);
-  if(filteredUsers){
+
+  if(!filteredUsers){
     dispatch(createGoogleUser(userByGoogle))
   }//?despacha la funcion de crear un nuevo usuarios
 
