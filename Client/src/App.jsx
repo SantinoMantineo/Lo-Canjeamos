@@ -37,8 +37,25 @@ const App = () => {
     }
   }, []); */
 
-  axios.defaults.baseURL = "http://localhost:3001/";
-  //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+
+  //axios.defaults.baseURL = "http://localhost:3001/";
+  axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+  //*Auth0
+  const { user, isAuthenticated:isAuthenticatedAuth0}= useAuth0();//datos de BD Auht0
+  const dispatch = useDispatch()//*
+  const allUsers= useSelector((state) => state.allUsers);//*
+  
+  useEffect(() => {//*
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  const maxId = allUsers.reduce((max, user) => (user.id > max ? user.id : max), 0);//busca cuantos user hay.//*
+  const nextId = maxId + 1;//*
+
+  const userByGoogle = { ...user, id: nextId};//*
+
+const filteredUsers = allUsers.filter((user) => user.email === userByGoogle.email);//verifica mail en BD
+//*Area de auth0
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userToken, setUserToken] = useState("");
@@ -120,7 +137,7 @@ const App = () => {
 
         <Route path="/chats" element={<Chats/>} />
 
-        <Route path="/login" element={<Login setAuth={setAuth}/>} />
+        
 
         <Route path="/register" element={<Register/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />

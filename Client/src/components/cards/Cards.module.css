@@ -24,8 +24,7 @@
 @media (max-width: 768px) {
   .cards {
     display: inline;
-    width: 330px;
-    margin: 0;
+    width: 340px;
     justify-self: center;
   }
 

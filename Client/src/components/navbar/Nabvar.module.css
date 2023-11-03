@@ -6,10 +6,16 @@
   right: 0px;
   grid-template-columns: 10fr 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 0px;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 5px;
   background-color: #ffe66d;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
   z-index: 998;
+}
+
+.active img {
+  background-color: #4ECDC4;
+  border-radius: 50%;
 }
 
 .navbarOff {
@@ -60,7 +66,7 @@
 .logout {
   display: grid;
   justify-content: center;
-  font-size: 10px;
+  font-size: 14px;
 }
 
 .logo {
@@ -73,13 +79,13 @@
 
 .iconos {
   background: transparent;
-  font-size: 10px;
+  font-size: 14px;
   white-space: nowrap;
 }
 
 .iconosFalse {
   background-color: #ffe66d;
-  font-size: 10px;
+  font-size: 13px;
   white-space: nowrap;
 }
 
@@ -88,7 +94,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     bottom: 0;
     top: auto;
-    justify-self: center;
+    padding-bottom: 10px;
   }
 
   .navbarOff {
@@ -102,7 +108,7 @@
     display: none;
   }
 
-  .link {
+  .linkLogo {
     display: none;
   }
 
@@ -110,8 +116,20 @@
     display: none;
   }
 
+  .iconos {
+    font-size: 10px;
+  }
+
   .saludo {
     display: none;
+  }
+
+  .iconosFalse {
+    font-size: 10px;
+  }
+
+  .logout {
+    font-size: 10px;
   }
 
   .navbarOff {
