@@ -32,5 +32,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       defaultValue: "user"
     },
+    plan: {
+      type: DataTypes.STRING,
+      defaultValue: "notPremium"
+    },
   });
 };

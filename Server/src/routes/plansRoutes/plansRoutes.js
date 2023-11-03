@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const plansController = require("../../controllers/plansController");
+require("dotenv").config();
 
-router.get('/createOrder', async(req, res) =>{
+let purchaseUserId = "";
+
+router.post('/create-order', async(req, res) =>{
+    const paymentData = req.body
     try{
-        const response = await plansController.createOrder();
+        const response = await plansController.createOrder(paymentData);
+        purchaseUserId = response.userId
         return res.status(200).json(response)
     } catch(error){
         return res.status(400).json(error.message)
@@ -13,17 +18,18 @@ router.get('/createOrder', async(req, res) =>{
 
 router.get('/success', async(req, res) =>{
     try{
-        const response = await plansController.getPlanById();
-        return res.status(200).json(response)
+        await plansController.successfullPurchase(purchaseUserId);
+        return res.status(200)
     } catch(error){
         return res.status(400).json(error.message)
     }
 })
 
-router.get('/failure', async(req, res) =>{
+router.get('/failedPurchase', async(req, res) =>{
     try{
-        const response = await plansController.getPlanById();
-        return res.status(200).json(response)
+        // hacer que nos lleve a una ruta con un cartel en la pagina
+        console.log("La compra fallo")
+        return res.status(400)
     } catch(error){
         return res.status(400).json(error.message)
     }
@@ -31,17 +37,9 @@ router.get('/failure', async(req, res) =>{
 
 router.get('/pending', async(req, res) =>{
     try{
-        const response = await plansController.getPlanById();
-        return res.status(200).json(response)
-    } catch(error){
-        return res.status(400).json(error.message)
-    }
-})
-
-router.get('/webhook', async(req, res) =>{
-    try{
-        const response = await plansController.getPlanById();
-        return res.status(200).json(response)
+        // hacer que nos lleve a una ruta con un cartel en la pagina
+        console.log("La compra esta en estado pendiente")
+        return res.status(200)
     } catch(error){
         return res.status(400).json(error.message)
     }

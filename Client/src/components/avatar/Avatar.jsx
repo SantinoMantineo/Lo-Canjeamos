@@ -44,7 +44,7 @@ const Avatar = ({userData, setAuth}) => {
     <button className={style.logout} onClick={logout}>Salir BaseDatos</button>
   )}
 </div>
-<PayModal isOpen={isModalOpen} onClose={closeModal} />
+<PayModal isOpen={isModalOpen} userData={userData} user={user} onClose={closeModal} />
     </div>
 
     </>
