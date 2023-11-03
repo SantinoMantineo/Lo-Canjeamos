@@ -38,8 +38,8 @@ const App = () => {
   }, []); */
 
 
-  axios.defaults.baseURL = "http://localhost:3001/";
-  //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+  //axios.defaults.baseURL = "http://localhost:3001/";
+  axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   //*Auth0
   const { user, isAuthenticated:isAuthenticatedAuth0}= useAuth0();//datos de BD Auht0
   const dispatch = useDispatch()//*
@@ -123,7 +123,8 @@ console.log(filteredUsers);
       <Routes>
         <Route path="/" element={<Home/>} />
 
-        <Route path="/login" element={isAuthenticated ? (userData && <MyProfile userData={userData} setAuth={setAuth} />) : (isAuthenticatedAuth0 ? (user && <MyProfile userData={user.name} setAuth={setAuth}/>) : (<Login setAuth={setAuth} />))}/>
+        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData} />) : (<h2>CARGANDO...</h2>)) : (isAuthenticatedAuth0 ? (user ? (<MyProfile userData={user.name}/>) : (<h2>CARGANDO...</h2>)) : (<Login setAuth={setAuth} />))}/>
+
 
         <Route path="/addProduct" element={userData ? (<AddProduct userData={userData} />)
          : user ? (<AddProduct userData={user} />)
