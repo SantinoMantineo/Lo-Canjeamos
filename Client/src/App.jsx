@@ -95,16 +95,16 @@ const App = () => {
       <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} />
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData} setAuth={setAuth}/>) : (<Loading/>)) : (<Login setAuth={setAuth}/>)}/>
-        <Route path="/addProduct" element={userData ? <AddProduct userData={userData}/> : <Loading/>} />
-        <Route path="/register" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Register setAuth={setAuth}/>)}/>
-        <Route path="/detail/:id" element={userData ? <Detail userData={userData}/> : <Loading/>} />
-        <Route path="/exchanges" element={userData ? <Exchanges userData={userData}/> : <Loading/>} />
-        <Route path="/chats" element={<Chats/>} />
+        <Route path="/login" element={isAuthenticated ? <MyProfile userData={userData} setAuth={setAuth}/> : (<Login setAuth={setAuth}/>)}/>
+        <Route path="/addProduct" element={isAuthenticated ? <AddProduct userData={userData}/> : <Loading/>} />
+        <Route path="/register" element={isAuthenticated ? <MyProfile userData={userData}/> : <Register setAuth={setAuth}/>}/>
+        <Route path="/detail/:id" element={isAuthenticated ? <Detail userData={userData}/> : <Loading/>} />
+        <Route path="/exchanges" element={isAuthenticated ? <Exchanges userData={userData}/> : <Loading/>} />
+        <Route path="/chats" element={isAuthenticated ? <Chats/> : <Loading/>} />
         <Route path="/login" element={<Login setAuth={setAuth}/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
-        <Route path="/resetpassword" element={<ResetPassword/>} />
+        <Route path="/resetpassword/:id" element={<ResetPassword/>} />
       </Routes>
     </>
   );

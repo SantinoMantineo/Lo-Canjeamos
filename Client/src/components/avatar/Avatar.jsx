@@ -26,8 +26,8 @@ const Avatar = ({ userData, setAuth }) => {
     <>
       <div className={style.avatar}>
         <img src={avatar}></img>
-        <h3>{userData.username}</h3>
-        <p>{userData.email}</p>
+        <h3>{userData && userData.username}</h3>
+        <p>{userData && userData.email}</p>
         <div>⭐️⭐️⭐️⭐️⭐️</div>
         <button className={style.premium} onClick={openModal}>Sé Premium</button>
         <br />
