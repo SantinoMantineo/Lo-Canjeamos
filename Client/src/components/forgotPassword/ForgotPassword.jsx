@@ -18,7 +18,7 @@ const ForgotPassword = () => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
-    });s
+    });
   };
 
   const handleSubmit = async (event) => {
