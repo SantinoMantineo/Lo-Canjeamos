@@ -1,41 +1,48 @@
 .avatar {
-    padding: 30px;
-    box-shadow: 0px 5px 10px rgba(125, 125, 125, .3);
-    border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  border-radius: 10px;
 }
 
 .avatar img {
-    width: 60px;
-    border-radius: 50%;
-    border: 3px solid #4ECDC4;
+  width: 60px;
+  border-radius: 50%;
+  border: 3px solid #4ecdc4;
 }
 
 .avatar h3 {
-    margin: 5px;
+  margin: 5px;
 }
 
 .avatar p {
-    margin: 5px;
+  margin: 5px;
 }
 
 .avatar div {
-    text-shadow: 0px 5px 10px rgba(124, 123, 123, 0.3);
+  text-shadow: 0px 5px 10px rgba(124, 123, 123, 0.3);
 }
 
 .avatar .premium {
-    background-color: goldenrod;
-    padding: 5px;
-    margin-top: 15px;
-    box-shadow: 0px 5px 10px rgba(125, 125, 125, .3);
-    color: whitesmoke;
-    font-size: 14px;
+  background-color: goldenrod;
+  padding: 5px;
+  margin-top: 15px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  color: whitesmoke;
+  font-size: 14px;
 }
 
 .avatar .logout {
-    background-color: #FF6B6B;
-    padding: 5px;
-    box-shadow: 0px 5px 10px rgba(125, 125, 125, .3);
-    color: whitesmoke;
-    font-size: 14px;
-    width: 93px;
+  background-color: #ff6b6b;
+  padding: 5px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  color: whitesmoke;
+  font-size: 14px;
+  width: 93px;
+}
+
+@media (max-width: 768px) {
+  .avatar {
+    
+    justify-self: center;
+  }
 }

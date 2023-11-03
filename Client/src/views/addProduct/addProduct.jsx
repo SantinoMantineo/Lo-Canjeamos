@@ -18,6 +18,7 @@ export default function AddProduct({ userData }) {
     flexDirection: "row",
     flexWrap: "wrap",
     marginTop: 15,
+    justifyContent: "center",
   };
 
   const img = {
@@ -326,7 +327,7 @@ setErrors({ ...errors, [name]: error });
               Imagen*
               <section className={style.files}>
                 <div
-                  className='dropzone'
+                  className={style.dropzone}
                   {...getRootProps()}
                   onClick={(event) => event.stopPropagation()}
                 >
@@ -340,7 +341,7 @@ setErrors({ ...errors, [name]: error });
                     {files.map((file, index) => (
                       <div key={index}>
                       <img style={img} src={URL.createObjectURL(file)} alt={`Imagen ${index}`} />
-                      <button type="button" onClick={() => handleDeleteImage(index)}>╳</button>
+                      <button type="button" onClick={() => handleDeleteImage(index)}>✖️</button>
                     </div>
                     ))}
                   </div>
