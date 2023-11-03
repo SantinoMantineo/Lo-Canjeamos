@@ -40,7 +40,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
         </button>
       </Link>
 
-      {(isAuthenticatedAuth0 || isAuthenticated) && (
+      {isAuthenticatedAuth0 || isAuthenticated ? (
         <Link to="/addProduct">
           <button className={style.iconos}>
             <img
@@ -66,7 +66,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
     </Link>
   )}
 
-      {(isAuthenticated || isAuthenticatedAuth0) && (
+      {isAuthenticated || isAuthenticatedAuth0?  (
 
         <Link to="exchanges">
           <button className={style.iconos}>
@@ -78,9 +78,8 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
             />
             Canjes
           </button>
-        </Link>
-      ) : (
-        <Link to="exchanges">
+        </Link>)
+        :(<Link to="exchanges">
         <button className={style.iconosFalse}>
           <img
             width="24"
@@ -93,32 +92,31 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
       </Link> 
       )}
 
-      {(isAuthenticated || isAuthenticatedAuth0) && (
-
-        <Link to="/chats">
-          <button className={style.iconos}>
-            <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
-              alt="Chat"
-            />
-            Mensajes
-          </button>
-        </Link>
-      ) : (
-        <Link to="/chats">
-        <button className={style.iconosFalse}>
-          <img
-            width="24"
-            height="24"
-            src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
-            alt="Chat"
-          />
-          Mensajes 🔒
-        </button>
-      </Link>
-      )}
+{isAuthenticated || isAuthenticatedAuth0 ? (
+  <Link to="/chats">
+    <button className={style.iconos}>
+      <img
+        width="24"
+        height="24"
+        src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
+        alt="Chat"
+      />
+      Mensajes
+    </button>
+  </Link>
+) : (
+  <Link to="/chats">
+    <button className={style.iconosFalse}>
+      <img
+        width="24"
+        height="24"
+        src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
+        alt="Chat"
+      />
+      Mensajes 🔒
+    </button>
+  </Link>
+)}
 
       <Link to="/login">
         {(isAuthenticated || isAuthenticatedAuth0) ? (
