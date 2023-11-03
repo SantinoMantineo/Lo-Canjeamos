@@ -250,6 +250,12 @@ const Register = ({setAuth}) => {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [ localidad, setSelectedLocalidad ] = useState("")
 
+    // Constantes para Cloudinary.
+
+    const preset_key = "postsimages";
+    const cloud_name = "dlahgnpwp";
+    const folderName = "usersProfilePic";
+
   const [errors, setErrors] = useState({
     username: null,
     password: null,
@@ -313,8 +319,12 @@ const Register = ({setAuth}) => {
     username: "",
     password: "",
     email: "",
-    image: ""
+    image: "",
+    imageFile: null
   });
+
+  const [imageFile, setImageFile] = useState(null);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -346,6 +356,26 @@ const Register = ({setAuth}) => {
     setShowPassword(!showPassword);
   };
 
+  const handleFile = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setInput({
+        ...input,
+        image: imageUrl,
+      });
+      setImageFile(file); 
+    }
+  };
+  
+  const handleImageClear = () => {
+    setInput({
+      ...input,
+      image: '',
+    });
+    setImageFile(null);
+  };
+
   const handleSumbit = async (e) => {
     e.preventDefault();
 
@@ -363,11 +393,34 @@ const Register = ({setAuth}) => {
     }
 
     try {
+
+      let secureUrl = ''; // Inicializa la URL de la imagen en blanco
+
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append('file', imageFile);
+        formData.append('upload_preset', preset_key);
+        formData.append('folder', folderName);
+  
+        const responseImage = await axios
+          .post(
+            `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
+            formData
+          )
+          .then((res) => res.data.secure_url)
+          .catch((error) => {
+            console.log('Error al subir la imagen a la nube: ' + error);
+            throw error;
+          });
+  
+        secureUrl = responseImage;
+      }
+
         let newUser = {
           username: input.username,
           password: input.password,
           email: input.email,
-          image: input.image,
+          image: secureUrl,
           ubication: `${selectedProvince}, ${localidad}`,
         }
       const response = await axios.post('/users/register', newUser)
@@ -407,7 +460,7 @@ const Register = ({setAuth}) => {
               onChange={handleInputChange}
               value={input.username}
             />
-             {errors.username && <span className="error">{errors.username}</span>}
+             {errors.username && <span className={style.error}>{errors.username}</span>}
           </div>
 
           <div>
@@ -418,7 +471,7 @@ const Register = ({setAuth}) => {
               onChange={handleInputChange}
               value={input.email}
             />
-            {errors.email && <span className="error">{errors.email}</span>}
+            {errors.email && <span className={style.error}>{errors.email}</span>}
           </div>
 
           <div>
@@ -435,7 +488,7 @@ const Register = ({setAuth}) => {
               onChange={handleShowPassword}
               checked={showPassword}
             /> */}
-            {errors.password && <span className="error">{errors.password}</span>}
+            {errors.password && <span className={style.error}>{errors.password}</span>}
           </div>
           <div>
             <input
@@ -445,7 +498,7 @@ const Register = ({setAuth}) => {
               onChange={handleInputChange}
               value={input.passwordRepeat}
             />
-            {errors.passwordRepeat && <span className="error">{errors.passwordRepeat}</span>}
+            {errors.passwordRepeat && <span className={style.error}>{errors.passwordRepeat}</span>}
         </div>
             {/* <input
               type="checkbox"
@@ -453,16 +506,23 @@ const Register = ({setAuth}) => {
               onChange={handleShowPassword}
               checked={showPassword}
             /> */}
-          <div>
-            <input
-              type="imag"
-              name="image"
-              placeholder="imagen de perfil"
-              onChange={handleInputChange}
-              value={input.image}
-            />
-            {errors.image && <span className="error">{errors.image}</span>}
-          </div>
+        <div>
+          <input
+            type="file"
+            accept="image/*"
+            name="image"
+            onChange={handleFile}
+          />
+          {input.image && (
+            <div className={style.imagePreview}>
+              <img src={input.image} alt="Preview" style={{
+                width: '150px',
+                height: '150px'
+                }}/>
+              <button onClick={handleImageClear}>Eliminar</button>
+            </div>
+          )}
+        </div>
            
             <select onChange={handleProvinceChange}>
               <option value="Elige una provincia">provincia</option>
@@ -472,7 +532,7 @@ const Register = ({setAuth}) => {
                 </option>
               ))}
             </select>
-            {errors.province && <span className="error">{errors.province}</span>}
+            {errors.province && <span className={style.error}>{errors.province}</span>}
                
             <select id="selectLocalidades" onChange={handleLocalidadChange}>
               <option value="Elige una localidad">localidad</option>
@@ -482,7 +542,7 @@ const Register = ({setAuth}) => {
                 </option>
               ))}
             </select>
-            {errors.localidad && <span className="error">{errors.localidad}</span>}
+            {errors.localidad && <span className={style.error}>{errors.localidad}</span>}
        
           <button className={isSubmitDisabled() ? `${style.register} ${style.buttonDisabled}` : style.register} disabled={isSubmitDisabled()} type="submit">
             Enviar

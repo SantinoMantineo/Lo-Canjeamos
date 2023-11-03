@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostById, likePost } from "../../redux/actions";
+import {motion} from 'framer-motion';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -61,7 +62,16 @@ const Detail = ({ userData }) => {
 
   return (
     <>
-      <div className={style.detail}>
+      <motion.div 
+        initial={{
+          opacity: 0,
+          scale: 0.9,
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1.1,
+        }}
+      className={style.detail}>
         
         <div className={style.carousel}>
         {post && post.title && <h3>{post.title}</h3>}
@@ -103,7 +113,7 @@ const Detail = ({ userData }) => {
           </Link>
           <button className={style.match} onClick={handleLikeClick} disabled={liked}>Canjear</button>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

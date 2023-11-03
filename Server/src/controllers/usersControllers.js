@@ -63,7 +63,7 @@ exports.createUser = async (user) => {
         await transporter.sendMail(registerMail(user))
         return {newUser, token};
       } catch (error) {
-        throw new Error(error);
+        throw new Error("Hubo un error al crear el usuario: " + error);
       }
     }
   }

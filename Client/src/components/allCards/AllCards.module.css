@@ -18,7 +18,7 @@
 
 @media (max-width: 768px) {
     .allCards {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         justify-self: center;
         margin-top: 10px;
     }

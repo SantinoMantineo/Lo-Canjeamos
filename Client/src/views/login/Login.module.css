@@ -3,6 +3,9 @@
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
     border-radius: 10px;
     padding: 40px;
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-bottom: 100px;
 }
 
 .container img {
@@ -43,12 +46,12 @@
 }
 
 .container button {
-    margin-top: 40px;
+    margin-top: 20px;
     color: whitesmoke;
     background-color: #4ECDC4;
-    width: 100px;
+    width: 120px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 16px;
     padding: 5px;
     justify-self: center;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
@@ -56,11 +59,20 @@
 
 .container .register {
     width: 120px;
-    height: 30px;
+    height: 35px;
     justify-self: center;
     align-content: center;
     border-radius: 5px;
     margin-top: 10px;
     background-color: goldenrod;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
+}
+
+.error {
+    font-size: 12px;
+    color: red;
+}
+
+.recover{
+    margin-top: 20px;
 }

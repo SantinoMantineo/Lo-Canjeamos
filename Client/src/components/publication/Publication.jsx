@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts, selectedPost } from "../../redux/actions";
 import style from "./Publication.module.css";
@@ -8,15 +7,27 @@ import icon from "../../assets/iconChoosed.png";
 const Publication = ({ userData }) => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
+  const [selectedPostId, setSelectedPostId] = useState(null);
 
   useEffect(() => {
     dispatch(getAllPosts());
+    const storedSelectedPostId = localStorage.getItem("selectedPostId");
+    if (storedSelectedPostId) {
+      setSelectedPostId(Number(storedSelectedPostId));
+    }
   }, [dispatch]);
 
   const userPosts = allPosts.filter((post) => post.UserId === userData.id);
 
   const handlePostClick = (postId, postImage) => {
-    dispatch(selectedPost(postId, postImage));
+    if (selectedPostId === postId) {
+      localStorage.removeItem("selectedPostId"); 
+      setSelectedPostId(null);
+    } else {
+      localStorage.setItem("selectedPostId", postId); 
+      setSelectedPostId(postId);
+      dispatch(selectedPost(postId, postImage));
+    }
   };
 
   return (
@@ -36,8 +47,18 @@ const Publication = ({ userData }) => {
             className={style.choose}
             onClick={() => handlePostClick(post.id, post.image[0])}
           >
-            <img width="24" height="24" src={icon} alt="Choose" />
+            {selectedPostId === post.id ? (
+              <img width="24" height="24" src={icon} alt="Choose" />
+            ) : (
+              <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/ios-glyphs/30/circled.png"
+                alt="circled"
+              />
+            )}
           </button>
+
           <button className={style.trash}>
             <img
               width="24"
