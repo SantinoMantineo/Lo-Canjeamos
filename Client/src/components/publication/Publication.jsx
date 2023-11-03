@@ -16,8 +16,9 @@ const Publication = ({ userData }) => {
       setSelectedPostId(Number(storedSelectedPostId));
     }
   }, [dispatch]);
-
-  const userPosts = allPosts.filter((post) => post.UserId === userData.id);
+  
+  let userPosts = [];
+  if(userData) { userPosts = allPosts.filter((post) => post.UserId === userData.id);}
 
   const handlePostClick = (postId, postImage) => {
     if (selectedPostId === postId) {
