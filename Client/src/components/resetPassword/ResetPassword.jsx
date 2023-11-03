@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import style from "./ResetPassword.module.css"
 import axios from "axios";
-
+import { validatePassw, validateRepeat } from "./validate";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -18,18 +18,31 @@ const ResetPassword = () => {
   // eslint-disable-next-line no-unused-vars
   
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setInput({
       ...input,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+    if (name === 'password') {
+      setError({ ...error, password: validatePassw(value) });
+    } 
+    else if (name === 'passwordRepeat') {
+      setError({
+        ...error,
+        passwordRepeat: validateRepeat(value, input.password),
+      });
   };
-  
+}
   const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .post(`/reset-password/${id}`, { password: input.password }) 
+
+    if (error.password || error.passwordRepeat) {
+      return;
+    }
+    await axios
+      .post(`/users/reset-password/${id}`, { password: input.password }) 
       .then((res) => {
-        if (res.data.Status === "Success") {
+        if (res.data) {
           navigate("/login");
         }
       })
@@ -43,6 +56,11 @@ const ResetPassword = () => {
     // setUser(user)
     // console.log(user)
   },[])
+  const [showPassword, setShowPassword] = useState(false);
+    
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   
 
@@ -55,12 +73,28 @@ const ResetPassword = () => {
         <div className={style.inputContainer}>
           <label className={style.label}>Nueva contraseña</label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
+            placeholder="contraseña"
             value={input.password}
             onChange={handleChange}
             className={style.input}
           />
+              {error.password && <span className={style.error}>{error.password}</span>}
+          <input
+              type={showPassword ? "text" : "password"}
+              name="passwordRepeat"
+              placeholder="repetir contraseña"
+              onChange={handleChange}
+              value={input.passwordRepeat}
+            />
+              {error.passwordRepeat && <span className={style.error}>{error.passwordRepeat}</span>}
+            <input
+              type="checkbox"
+              id="showPassword"
+              onChange={handleShowPassword}
+              checked={showPassword}
+            />
         </div>
         <div className={style.buttonContainer}>
           <button
