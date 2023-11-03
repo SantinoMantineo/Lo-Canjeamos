@@ -47,6 +47,15 @@ const Login = ({ setAuth, userData }) => {
         setErrors("Usuario o contraseña incorrectos")
       }
     } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        setErrorMessage(`Error: ${error.response.data.message}`);
+      } else if (error.request) {
+        console.log(error.request);
+        setErrorMessage('Error: No response received from server');
+      }
       console.error("Error al enviar los datos al servidor:", error);
       // console.log("Hubo un error al iniciar sesión.");
       setErrors("Usuario o contraseña incorrectos")

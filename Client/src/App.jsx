@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
 // import { useState, useEffect } from 'react';
-// import { useDispatch, useSelector } from "react-redux";
 
 import AddProduct from "./views/addProduct/AddProduct";
 import Chats from "./views/chats/Chats";
@@ -19,6 +19,10 @@ import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/resetPassword/ResetPassword";
 import axios from "axios";
 import "./App.css";
+//Actions
+import {getAllUsers,createGoogleUser} from '../src/redux/actions'
+//Auht0
+import { useAuth0 } from "@auth0/auth0-react";
 const App = () => {
 
   /* const [darkMode, setDarkMode] = useState(false);
@@ -44,6 +48,10 @@ const App = () => {
     setIsAuthenticated(status);
     setUserData(user);
   };
+
+  if(filteredUsers){
+    dispatch(createGoogleUser(userByGoogle))
+  }//?despacha la funcion de crear un nuevo usuarios
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -95,16 +103,30 @@ const App = () => {
       <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} />
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/login" element={isAuthenticated ? <MyProfile userData={userData} setAuth={setAuth}/> : (<Login setAuth={setAuth}/>)}/>
-        <Route path="/addProduct" element={isAuthenticated ? <AddProduct userData={userData}/> : <Loading/>} />
-        <Route path="/register" element={isAuthenticated ? <MyProfile userData={userData}/> : <Register setAuth={setAuth}/>}/>
-        <Route path="/detail/:id" element={isAuthenticated ? <Detail userData={userData}/> : <Loading/>} />
-        <Route path="/exchanges" element={isAuthenticated ? <Exchanges userData={userData}/> : <Loading/>} />
-        <Route path="/chats" element={isAuthenticated ? <Chats/> : <Loading/>} />
+
+        <Route path="/login" element={isAuthenticated ? (userData && <MyProfile userData={userData} />) : (isAuthenticatedAuth0 ? (user && <MyProfile userData={user.name}/>) : (<Login setAuth={setAuth} />))}/>
+
+        <Route path="/addProduct" element={userData ? (<AddProduct userData={userData} />)
+         : user ? (<AddProduct userData={user} />)
+         : (<Loading />)} />
+
+        <Route path="/register" element={isAuthenticated ? (userData && <MyProfile userData={userData}/>) : (<Register setAuth={setAuth}/>)}/>
+
+        <Route path="/detail/:id" element={userData ? <Detail userData={userData}/> : (user ? <Detail userData={user} /> : <Loading/>)} />
+
+        <Route path="/exchanges" element={userData ? (<Exchanges userData={userData}/>)
+        : user ? (<Exchanges userData={user}/>)
+        : <Loading/>} />
+
+        <Route path="/chats" element={<Chats/>} />
+
         <Route path="/login" element={<Login setAuth={setAuth}/>} />
+
         <Route path="/register" element={<Register/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
+
         <Route path="/resetpassword/:id" element={<ResetPassword/>} />
+
       </Routes>
     </>
   );
