@@ -39,10 +39,10 @@ const Avatar = ({userData, setAuth}) => {
     <br/>
     <div>
   {user && (
-    <button className={style.logout} onClick={loguotAuth0}>Salir Google</button>
+    <button className={style.logout} onClick={loguotAuth0}>Salir</button>
   )}
   {!user && userData && (
-    <button className={style.logout} onClick={logout}>Salir BaseDatos</button>
+    <button className={style.logout} onClick={logout}>Salir</button>
   )}
 </div>
 <PayModal isOpen={isModalOpen} userData={userData} user={user} onClose={closeModal} />
