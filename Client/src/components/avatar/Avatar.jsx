@@ -6,14 +6,16 @@ import avatar from '../../assets/avatar.jpg'
 import style from './Avatar.module.css'
 import PayModal from "../payModal/PayModal"
 import { useAuth0 } from "@auth0/auth0-react";
-const Avatar = ({userData, setAuth}) => {
-
+const Avatar = ({userData,setAuth}) => {
+console.log("avatar",userData)
+console.log("set de avatar",setAuth);
   const {user,logout:loguotAuth0} = useAuth0()
   
   const logout = () => {
     localStorage.removeItem("token");
     setAuth(false);
   };
+  console.log(logout);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -52,4 +54,3 @@ const Avatar = ({userData, setAuth}) => {
 };
 
 export default Avatar;
-

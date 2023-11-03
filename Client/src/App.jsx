@@ -38,8 +38,8 @@ const App = () => {
   }, []); */
 
 
-  //axios.defaults.baseURL = "http://localhost:3001/";
-  axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+  axios.defaults.baseURL = "http://localhost:3001/";
+  //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   //*Auth0
   const { user, isAuthenticated:isAuthenticatedAuth0}= useAuth0();//datos de BD Auht0
   const dispatch = useDispatch()//*
@@ -65,7 +65,7 @@ const filteredUsers = allUsers.filter((user) => user.email === userByGoogle.emai
     setIsAuthenticated(status);
     setUserData(user);
   };
-
+console.log("App",setAuth);
   if(filteredUsers){
     dispatch(createGoogleUser(userByGoogle))
   }//?despacha la funcion de crear un nuevo usuarios
@@ -94,6 +94,7 @@ const filteredUsers = allUsers.filter((user) => user.email === userByGoogle.emai
                   email: userDataResponse.data.email,
                   id: userDataResponse.data.id,
                   username: userDataResponse.data.username,
+
                 });
               })
               .catch((userDataError) => {
@@ -121,13 +122,13 @@ const filteredUsers = allUsers.filter((user) => user.email === userByGoogle.emai
       <Routes>
         <Route path="/" element={<Home/>} />
 
-        <Route path="/login" element={isAuthenticated ? (userData && <MyProfile userData={userData} />) : (isAuthenticatedAuth0 ? (user && <MyProfile userData={user.name}/>) : (<Login setAuth={setAuth} />))}/>
+        <Route path="/login" element={isAuthenticated ? (userData && <MyProfile userData={userData} setAuth={setAuth} />) : (isAuthenticatedAuth0 ? (user && <MyProfile userData={user.name} setAuth={setAuth}/>) : (<Login setAuth={setAuth} />))}/>
 
         <Route path="/addProduct" element={userData ? (<AddProduct userData={userData} />)
          : user ? (<AddProduct userData={user} />)
          : (<Loading />)} />
 
-        <Route path="/register" element={isAuthenticated ? (userData && <MyProfile userData={userData}/>) : (<Register setAuth={setAuth}/>)}/>
+        <Route path="/register" element={isAuthenticated ? (userData && <MyProfile userData={userData} setAuth={setAuth}/>) : (<Register setAuth={setAuth}/>)}/>
 
         <Route path="/detail/:id" element={userData ? <Detail userData={userData}/> : (user ? <Detail userData={user} /> : <Loading/>)} />
 
