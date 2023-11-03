@@ -5,36 +5,37 @@ import axios from "axios";
 
 const payModal = ({ userData, user, isOpen, onClose }) => {
 
-  let linkCompra = "";
-
-  const handlePremium = async () =>{
+  const handlePremium = async () => {
     try {
-      if(userData) {
-        const paymentData = {
+      let paymentData;
+  
+      if (userData) {
+        paymentData = {
           userId: userData.id,
           title: "Premium",
           quantity: 1,
           price: 1500,
           currency_id: "ARG",
-          description: "Usuario premium"
+          description: "Usuario premium",
         };
-  
-        const response = await axios.post("/plans/create-order", paymentData);
-        linkCompra = response.body.sandbox_init_point
-      } else{
-        const paymentData = {
+      } else {
+        paymentData = {
           userId: user.id,
           title: "Premium",
           quantity: 1,
           price: 1500,
           currency_id: "ARG",
-          description: "Usuario premium"
+          description: "Usuario premium",
         };
-
-        const response = await axios.post("/plans/create-order", paymentData);
-        linkCompra = response.body.sandbox_init_point
       }
-      
+  
+      const response = await axios.post("/plans/create-order", paymentData);
+  
+      if (response) {
+        window.location.href = response.data.response.body.init_point;
+      } else {
+        console.error("Init point not found in the response");
+      }
     } catch (error) {
       console.error("Error al realizar solicitud de compra", error);
     }
@@ -70,7 +71,6 @@ const payModal = ({ userData, user, isOpen, onClose }) => {
           <button className={style.pay} onClick={handlePremium}>Sé premium</button>
           <h6>Un pago de $100</h6>
         </div>
-        {linkCompra && linkCompra}
       </motion.div>
     )
   );
