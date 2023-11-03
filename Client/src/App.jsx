@@ -104,7 +104,7 @@ const App = () => {
         <Route path="/login" element={<Login setAuth={setAuth}/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
-        <Route path="/resetpassword" element={<ResetPassword/>} />
+        <Route path="/resetpassword/:id" element={<ResetPassword/>} />
       </Routes>
     </>
   );
