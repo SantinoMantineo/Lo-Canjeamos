@@ -445,7 +445,7 @@ const Register = ({setAuth}) => {
 
   return (
     <div className={style.container}>
-      <img src={Logo}/>
+      <img src={Logo} className={style.logo}/>
       <div className={style.title}>
         <h2>Registrate</h2>
       </div>
@@ -506,7 +506,7 @@ const Register = ({setAuth}) => {
               onChange={handleShowPassword}
               checked={showPassword}
             /> */}
-        <div>
+        <div className={style.fileInput}>
           <input
             type="file"
             accept="image/*"
@@ -515,11 +515,8 @@ const Register = ({setAuth}) => {
           />
           {input.image && (
             <div className={style.imagePreview}>
-              <img src={input.image} alt="Preview" style={{
-                width: '150px',
-                height: '150px'
-                }}/>
-              <button onClick={handleImageClear}>Eliminar</button>
+              <img src={input.image} alt="Preview" className={style.imgUser}/>
+              <button onClick={handleImageClear}>✖️</button>
             </div>
           )}
         </div>
