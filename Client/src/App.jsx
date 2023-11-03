@@ -57,7 +57,7 @@ const App = () => {
 const filteredUsers = allUsers.filter((user) => user.email === userByGoogle.email);//verifica mail en BD
 //*Area de auth0
 
-console.log(filteredUsers);
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userToken, setUserToken] = useState("");
   const [userData, setUserData] = useState(null);
@@ -123,7 +123,7 @@ console.log(filteredUsers);
       <Routes>
         <Route path="/" element={<Home/>} />
 
-        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData} />) : (<h2>CARGANDO...</h2>)) : (isAuthenticatedAuth0 ? (user ? (<MyProfile userData={user.name}/>) : (<h2>CARGANDO...</h2>)) : (<Login setAuth={setAuth} />))}/>
+        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData} setAuth={setAuth}/>) : (<h2>CARGANDO...</h2>)) : (isAuthenticatedAuth0 ? (user ? (<MyProfile userData={user.name} setAuth={setAuth}/>) : (<h2>CARGANDO...</h2>)) : (<Login setAuth={setAuth} />))}/>
 
 
         <Route path="/addProduct" element={userData ? (<AddProduct userData={userData} />)
