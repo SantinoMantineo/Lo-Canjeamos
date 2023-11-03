@@ -10,6 +10,7 @@ import style from "./MyProfile.module.css";
 
 
 const MyProfile = ({ userData, setAuth }) => {
+
   return (
     <>
       <Header banner1={Banner3} banner2={Banner4}></Header>

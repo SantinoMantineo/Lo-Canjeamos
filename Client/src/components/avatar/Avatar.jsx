@@ -14,6 +14,7 @@ const Avatar = ({ userData, setAuth }) => {
     setAuth(false);
   };
 
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -26,32 +27,32 @@ const Avatar = ({ userData, setAuth }) => {
 
   return (
     <>
-      <div className={style.avatar}>
-        <img src={(user && user.picture) || avatar}></img>
-        <h3>{userData ? userData.username : user && user.name}</h3>
-        <p>{userData.email || user.email}</p>
-        <div>⭐️⭐️⭐️⭐️⭐️</div>
-        <button className={style.premium} onClick={openModal}>
-          Sé Premium
-        </button>
-        <br />
-        <br />
-        <div>
-          {user && (
-            <button className={style.logout} onClick={loguotAuth0}>
-              Salir
-            </button>
-          )}
-          {!user && userData && (
-            <button className={style.logout} onClick={logout}>
-              Salir
-            </button>
-          )}
-        </div>
-        <PayModal isOpen={isModalOpen} onClose={closeModal} />
-      </div>
+
+    <div className={style.avatar}>
+    <img src={user && user.picture||avatar}></img>
+    <h3>{userData ? userData.username : (user && user.name)}</h3>
+    <p>{userData.email||user.email}</p>
+    <div>⭐️⭐️⭐️⭐️⭐️</div>
+    <button className={style.premium} onClick={openModal}>Sé Premium</button>
+    <br/>
+    <br/>
+    <div>
+  {user && (
+    <button className={style.logout} onClick={loguotAuth0}>Salir Google</button>
+  )}
+  {!user && userData && (
+    <button className={style.logout} onClick={logout}>Salir BaseDatos</button>
+  )}
+</div>
+<PayModal isOpen={isModalOpen} userData={userData} user={user} onClose={closeModal} />
+    </div>
+
     </>
   );
 };
 
+<<<<<<< HEAD
 export default Avatar;
+=======
+export default Avatar;
+>>>>>>> 762af37f13012e184fdeddceb0bee8402c507591
