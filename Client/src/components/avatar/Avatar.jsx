@@ -3,9 +3,12 @@
 import React from 'react'
 import avatar from '../../assets/avatar.jpg'
 import style from './Avatar.module.css'
-
+import { useAuth0 } from "@auth0/auth0-react";
 const Avatar = ({userData, setAuth}) => {
 
+  const {user,logout:loguotAuth0} = useAuth0()
+  console.log(user);
+  
   const logout = () => {
     localStorage.removeItem("token");
     setAuth(false);
@@ -14,14 +17,21 @@ const Avatar = ({userData, setAuth}) => {
   return (
     <>
     <div className={style.avatar}>
-    <img src={avatar}></img>
-    <h3>{userData.username}</h3>
-    <p>{userData.email}</p>
+    <img src={user.picture||avatar}></img>
+    <h3>{userData.username||user.name}</h3>
+    <p>{userData.email||user.email}</p>
     <div>⭐️⭐️⭐️⭐️⭐️</div>
     <button className={style.premium}>Sé Premium</button>
     <br/>
     <br/>
-    <button className={style.logout} onClick={logout}>Salir</button>
+    <div>
+  {user && (
+    <button className={style.logout} onClick={loguotAuth0}>SalirGoogle</button>
+  )}
+  {!user && userData && (
+    <button className={style.logout} onClick={logout}>SalirBaseDatos</button>
+  )}
+</div>
     </div>
     </>
   )
