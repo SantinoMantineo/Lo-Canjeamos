@@ -1,3 +1,7 @@
+.container {
+    display: grid;
+}
+
 .matchs {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -8,6 +12,7 @@
     margin-top: 20px;
     background-color: whitesmoke;
     transition: 300ms;
+    justify-self: center;
 }
 
 .matchs:hover {
@@ -23,6 +28,10 @@
 }
 
 .matchLogo {
+    display: grid;
+}
+
+.matchLogo img {
     justify-self: center;
     align-self: center;
     width: 30px;

@@ -37,8 +37,9 @@ const App = () => {
     }
   }, []); */
 
-  axios.defaults.baseURL = "http://localhost:3001/";
-  //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+
+  //axios.defaults.baseURL = "http://localhost:3001/";
+  axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   //*Auth0
   const { user, isAuthenticated:isAuthenticatedAuth0}= useAuth0();//datos de BD Auht0
   const dispatch = useDispatch()//*
@@ -55,7 +56,6 @@ const App = () => {
 
 const filteredUsers = allUsers.filter((user) => user.email === userByGoogle.email);//verifica mail en BD
 //*Area de auth0
-
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userToken, setUserToken] = useState("");
@@ -142,7 +142,7 @@ const filteredUsers = allUsers.filter((user) => user.email === userByGoogle.emai
         <Route path="/register" element={<Register/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
 
-        <Route path="/resetpassword" element={<ResetPassword/>} />
+        <Route path="/resetpassword/:id" element={<ResetPassword/>} />
 
       </Routes>
     </>

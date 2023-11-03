@@ -81,7 +81,7 @@ exports.createUser = async (user) => {
         await transporter.sendMail(registerMail(user))
         return {newUser, token};
       } catch (error) {
-        throw new Error(error);
+        throw new Error("Hubo un error al crear el usuario: " + error);
       }
     }
   }
@@ -157,11 +157,12 @@ exports.deleteUser = async (id) => {
 
 exports.forgotPassword = async (email) => {
   try{
-    const check = await User.findOne({where: {email}})
-    if(!check){
+    const usuario = await User.findOne({where: {email}})
+
+    if(!usuario){
         throw new Error("El usuario no existe")
     }
-    await transporter.sendMail(passwordForgot(email, check.id))
+    await transporter.sendMail(passwordForgot(email, usuario.id))
     return "El mail fue enviado correctamente";
 
   } catch (error) {

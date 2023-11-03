@@ -12,6 +12,17 @@
   z-index: 998;
 }
 
+.iconosFalse {
+  -webkit-filter: blur(0.7px);
+  -moz-filter: blur(0.7px);
+  -o-filter: blur(0.7px);
+  -ms-filter: blur(0.7px);
+  filter: blur(0.7px);
+  background-color: #ffe66d;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
 .navbar button {
   display: grid;
   justify-content: center;
@@ -60,7 +71,7 @@
   top: 0px;
   left: 0px;
   right: 0px;
-  grid-template-columns: 10fr 1fr 1fr ;
+  grid-template-columns: 10fr 1fr 1fr 1fr 1fr 1fr;
   gap: 0px;
   padding: 10px;
   background-color: #ffe66d;
