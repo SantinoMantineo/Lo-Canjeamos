@@ -148,13 +148,11 @@ const App = () => {
                   toggleDarkMode={toggleDarkMode}
                 />
               ) : (
-                <iframe
-                  src="https://giphy.com/embed/cEzKG6TRrTYKgKkK6E"
-                  width="200"
-                  height="200"
-                  frameBorder="0"
-                  allowFullScreen
-                ></iframe>
+                <div className="spinner">
+                  <div class="bounce1"></div>
+                  <div class="bounce2"></div>
+                  <div class="bounce3"></div>
+                </div>
               )
             ) : isAuthenticatedAuth0 ? (
               user ? (
@@ -164,13 +162,11 @@ const App = () => {
                   toggleDarkMode={toggleDarkMode}
                 />
               ) : (
-                <iframe
-                  src="https://giphy.com/embed/cEzKG6TRrTYKgKkK6E"
-                  width="200"
-                  height="200"
-                  frameBorder="0"
-                  allowFullScreen
-                ></iframe>
+                <div className="spinner">
+                  <div class="bounce1"></div>
+                  <div class="bounce2"></div>
+                  <div class="bounce3"></div>
+                </div>
               )
             ) : (
               <Login setAuth={setAuth} />
