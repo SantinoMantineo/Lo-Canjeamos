@@ -33,7 +33,7 @@ const App = () => {
 
     if (currentHour >= 21 || currentHour < 6) {
       setDarkMode(true);
-      document.body.style.backgroundColor = "rgb(45, 45, 45)";
+      document.body.style.backgroundColor = "rgb(25, 25, 25)";
       document.body.style.color = "grey";
     }
   }, []);
