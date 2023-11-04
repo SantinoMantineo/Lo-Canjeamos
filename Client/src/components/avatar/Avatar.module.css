@@ -31,6 +31,28 @@
   font-size: 14px;
 }
 
+.dark {
+  width: 90px;
+  background-color: black;
+  padding: 5px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  color: whitesmoke;
+  font-size: 14px;
+}
+
+.light {
+  width: 90px;
+  background-color: white;
+  padding: 5px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  color: black;
+  font-size: 14px;
+}
+
 .avatar .logout {
   background-color: #ff6b6b;
   padding: 5px;

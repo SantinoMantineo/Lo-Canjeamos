@@ -25,18 +25,32 @@ import { getAllUsers, createGoogleUser } from "../src/redux/actions";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const App = () => {
-
-  const [darkMode, setDarkMode] = useState(false);
+  const initialDarkMode = localStorage.getItem("darkMode") === "true";
+  const [darkMode, setDarkMode] = useState(initialDarkMode);
 
   useEffect(() => {
-    const currentHour = new Date().getHours();
+    if (darkMode) {
+      setDarkModeStyles(true);
+    } else {
+      setDarkModeStyles(false);
+    }
 
-    if (currentHour >= 21 || currentHour < 6) {
-      setDarkMode(true);
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  const setDarkModeStyles = (isDark) => {
+    if (isDark) {
       document.body.style.backgroundColor = "rgb(25, 25, 25)";
       document.body.style.color = "grey";
+    } else {
+      document.body.style.backgroundColor = "whitesmoke";
+      document.body.style.color = "grey";
     }
-  }, []);
+  };
 
   //axios.defaults.baseURL = "http://localhost:3001/";
   axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
@@ -132,13 +146,21 @@ const App = () => {
           element={
             isAuthenticated ? (
               userData ? (
-                <MyProfile userData={userData} setAuth={setAuth} />
+                <MyProfile
+                  userData={userData}
+                  setAuth={setAuth}
+                  toggleDarkMode={toggleDarkMode}
+                />
               ) : (
                 <h2>CARGANDO...</h2>
               )
             ) : isAuthenticatedAuth0 ? (
               user ? (
-                <MyProfile userData={user.name} setAuth={setAuth} />
+                <MyProfile
+                  userData={user.name}
+                  setAuth={setAuth}
+                  toggleDarkMode={toggleDarkMode}
+                />
               ) : (
                 <h2>CARGANDO...</h2>
               )
