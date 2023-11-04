@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import {motion} from 'framer-motion';
@@ -7,10 +9,12 @@ import Banner2 from "../../assets/banner2.jpg";
 import Modal from "../../components/modal/Modal.jsx"
 import style from "./AddProduct.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { validateDescription, validateTitle } from './validation'
 
 export default function AddProduct({ userData }) {
   const { id } = userData;
+  const navigate = useNavigate();
 
   //Configuración de la biblioteca para cargar imagenes.
   const thumbsContainer = {
@@ -148,7 +152,7 @@ export default function AddProduct({ userData }) {
     error = validateTitle(value);
   } else if (name === "description") {
     error = validateDescription(value);
-};
+}
 setErrors({ ...errors, [name]: error });
 };
 
@@ -263,6 +267,10 @@ setErrors({ ...errors, [name]: error });
 
       if (response) {
         setShowModal(true)
+        // redirige a login luego de 3 segundos
+        setTimeout(()=>{
+          navigate("/login");
+        }, 3000)
         // Reinicio de campos.
         setFiles([]);
         setSelectedCategory("");

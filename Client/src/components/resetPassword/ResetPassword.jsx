@@ -31,7 +31,7 @@ const ResetPassword = () => {
         ...error,
         passwordRepeat: validateRepeat(value, input.password),
       });
-  };
+  }
 }
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -65,12 +65,12 @@ const ResetPassword = () => {
   
 
   return (
-    <div className={`${style.container} ${style.bgColor}`}>
+    <div className={`${style.container} ${style.bgColor} ${style.fadeUp}`}>
       <form onSubmit={handleSubmit} className={style.form}>
-        <div className={style.titleContainer}>
-          <h1 className={style.title}>Subir Contraseña</h1>
+        <div className={style.textContainer}>
+          <h1 className={`${style.title} ${style.fontSemiBold}`}>Subir Contraseña</h1>
         </div>
-        <div className={style.inputContainer}>
+        <div className={`${style.inputContainer} ${style.flexCol}`}>
           <label className={style.label}>Nueva contraseña</label>
           <input
             type={showPassword ? "text" : "password"}
@@ -87,6 +87,7 @@ const ResetPassword = () => {
               placeholder="repetir contraseña"
               onChange={handleChange}
               value={input.passwordRepeat}
+              className={style.segundoInput}
             />
               {error.passwordRepeat && <span className={style.error}>{error.passwordRepeat}</span>}
             <input
@@ -94,21 +95,22 @@ const ResetPassword = () => {
               id="showPassword"
               onChange={handleShowPassword}
               checked={showPassword}
+            
             />
         </div>
         <div className={style.buttonContainer}>
           <button
             type="submit"
-            className={`${style.button} ${style.btnStone}`}
+            className={`${style.button} ${style.btnStone} ${style.btnHover}`}
             onClick={handleSubmit}
           >
             Enviar
           </button>
           
-          <span className={style.registerLink}> No tiene una cuenta?  <Link to='/register' 
-          className={style.textYellow}><button className={style.btnAqui}>Registrese </button></Link>
-          </span>
-
+          <div className={style.registerLink}>No tiene una cuenta?</div>
+             <Link to="/register" className={style.textYellow}>
+              <button className={style.btnAqui}>Registrese </button>
+            </Link>
         </div>
       </form>
     </div>
