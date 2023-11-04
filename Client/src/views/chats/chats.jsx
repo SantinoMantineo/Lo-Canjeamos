@@ -9,7 +9,7 @@ import { getAllChats } from "../../redux/actions";
 import img from "../../assets/avatar.jpg";
 import img2 from '../../assets/avatar2.png'
 import style from "./Chats.module.css";
-import style from "./Chats.module.css";
+/* import style from "./Chats.module.css"; */
 import Login from "../login/Login";
 
 const Chats = ({ userData }) => {
