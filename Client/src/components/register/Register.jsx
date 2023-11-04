@@ -4,7 +4,7 @@
 // import style from "./Register.module.css";
 // import { Link } from "react-router-dom";
 // import axios from "axios";
-// import { validateUsername, validateEmail, validatePassword, validateImagen, validateProvince, validateLocalidad } from "./validations";
+// import { validateUsername, validateEmail, validatePassword, validateImagen, validateProvince, validateLocalidad, validatePasswordRepeat } from "./validations";
 
 // const Register = ({setAuth}) => {
 
@@ -12,6 +12,12 @@
 //   const [localities, setLocalities] = useState([]);
 //   const [selectedProvince, setSelectedProvince] = useState("");
 //   const [ localidad, setSelectedLocalidad ] = useState("")
+
+//     // Constantes para Cloudinary.
+
+//     const preset_key = "postsimages";
+//     const cloud_name = "dlahgnpwp";
+//     const folderName = "usersProfilePic";
 
 //   const [errors, setErrors] = useState({
 //     username: null,
@@ -43,8 +49,7 @@
 //     setErrors({ ...errors, province: provinceError });
 
 //     fetch(
-//       `https://apis.datos.gob.ar/georef/api/localidades?provincia=${selectedProvince}&max=500`
-//     )
+//       `https://apis.datos.gob.ar/georef/api/localidades?provincia=${selectedProvince}&max=500`)
 //       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
 //       .then((json) => {
 //         setLocalities(json.localidades);
@@ -76,8 +81,12 @@
 //     username: "",
 //     password: "",
 //     email: "",
-//     image: ""
+//     image: "",
+//     imageFile: null
 //   });
+
+//   const [imageFile, setImageFile] = useState(null);
+
 
 //   const handleInputChange = (e) => {
 //     const { name, value } = e.target;
@@ -85,23 +94,48 @@
 //       ...input,
 //       [name]: value,
 //     });
-    
-//     // Realiza la validación y actualiza los errores
-//     if (name === "username") {
+
+//     if (name === 'username') {
 //       setErrors({ ...errors, username: validateUsername(value) });
-//     } else if (name === "email") {
+//     } else if (name === 'email') {
 //       setErrors({ ...errors, email: validateEmail(value) });
-//     } else if (name === "password") {
+//     } else if (name === 'password') {
 //       setErrors({ ...errors, password: validatePassword(value) });
-//     } else if (name === "image") {
+//     } else if (name === 'passwordRepeat') {
+//       setErrors({
+//         ...errors,
+//         passwordRepeat: validatePasswordRepeat(value, input.password),
+//       });
+//     } else if (name === 'image') {
 //       setErrors({ ...errors, image: validateImagen(value) });
 //     }
 //   };
 
-//     const [showPassword, setShowPassword] = useState(false);
+
+//   const [showPassword, setShowPassword] = useState(false);
     
 //   const handleShowPassword = () => {
 //     setShowPassword(!showPassword);
+//   };
+
+//   const handleFile = (event) => {
+//     const file = event.target.files[0];
+//     if (file) {
+//       const imageUrl = URL.createObjectURL(file);
+//       setInput({
+//         ...input,
+//         image: imageUrl,
+//       });
+//       setImageFile(file); 
+//     }
+//   };
+  
+//   const handleImageClear = () => {
+//     setInput({
+//       ...input,
+//       image: '',
+//     });
+//     setImageFile(null);
 //   };
 
 //   const handleSumbit = async (e) => {
@@ -111,6 +145,7 @@
 //       !input.username ||
 //       !input.email ||
 //       !input.password ||
+//       !input.passwordRepeat ||
 //       !input.image ||
 //       !selectedProvince ||
 //       !localidad
@@ -120,11 +155,34 @@
 //     }
 
 //     try {
+
+//       let secureUrl = ''; // Inicializa la URL de la imagen en blanco
+
+//       if (imageFile) {
+//         const formData = new FormData();
+//         formData.append('file', imageFile);
+//         formData.append('upload_preset', preset_key);
+//         formData.append('folder', folderName);
+  
+//         const responseImage = await axios
+//           .post(
+//             `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
+//             formData
+//           )
+//           .then((res) => res.data.secure_url)
+//           .catch((error) => {
+//             console.log('Error al subir la imagen a la nube: ' + error);
+//             throw error;
+//           });
+  
+//         secureUrl = responseImage;
+//       }
+
 //         let newUser = {
 //           username: input.username,
 //           password: input.password,
 //           email: input.email,
-//           image: input.image,
+//           image: secureUrl,
 //           ubication: `${selectedProvince}, ${localidad}`,
 //         }
 //       const response = await axios.post('/users/register', newUser)
@@ -149,7 +207,7 @@
 
 //   return (
 //     <div className={style.container}>
-//       <img src={Logo}/>
+//       <img src={Logo} className={style.logo}/>
 //       <div className={style.title}>
 //         <h2>Registrate</h2>
 //       </div>
@@ -164,7 +222,7 @@
 //               onChange={handleInputChange}
 //               value={input.username}
 //             />
-//              {errors.username && <span className="error">{errors.username}</span>}
+//              {errors.username && <span className={style.error}>{errors.username}</span>}
 //           </div>
 
 //           <div>
@@ -175,7 +233,7 @@
 //               onChange={handleInputChange}
 //               value={input.email}
 //             />
-//             {errors.email && <span className="error">{errors.email}</span>}
+//             {errors.email && <span className={style.error}>{errors.email}</span>}
 //           </div>
 
 //           <div>
@@ -186,20 +244,44 @@
 //               onChange={handleInputChange}
 //               value={input.password}
 //             />
-//             {errors.password && <span className="error">{errors.password}</span>}
+//             {/* <input
+//               type="checkbox"
+//               id="showPassword"
+//               onChange={handleShowPassword}
+//               checked={showPassword}
+//             /> */}
+//             {errors.password && <span className={style.error}>{errors.password}</span>}
 //           </div>
-
 //           <div>
 //             <input
-//               type="imag"
-//               name="image"
-//               placeholder="imagen de perfil"
+//               type={showPassword ? "text" : "password"}
+//               name="passwordRepeat"
+//               placeholder="repetir contraseña"
 //               onChange={handleInputChange}
-//               value={input.image}
+//               value={input.passwordRepeat}
 //             />
-//             {errors.image && <span className="error">{errors.image}</span>}
-//           </div>
-
+//             {errors.passwordRepeat && <span className={style.error}>{errors.passwordRepeat}</span>}
+//         </div>
+//             {/* <input
+//               type="checkbox"
+//               id="showPassword"
+//               onChange={handleShowPassword}
+//               checked={showPassword}
+//             /> */}
+//         <div className={style.fileInput}>
+//           <input
+//             type="file"
+//             accept="image/*"
+//             name="image"
+//             onChange={handleFile}
+//           />
+//           {input.image && (
+//             <div className={style.imagePreview}>
+//               <img src={input.image} alt="Preview" className={style.imgUser}/>
+//               <button onClick={handleImageClear}>✖️</button>
+//             </div>
+//           )}
+//         </div>
            
 //             <select onChange={handleProvinceChange}>
 //               <option value="Elige una provincia">provincia</option>
@@ -209,10 +291,8 @@
 //                 </option>
 //               ))}
 //             </select>
-//             {errors.province && <span className="error">{errors.province}</span>}
-           
-
-           
+//             {errors.province && <span className={style.error}>{errors.province}</span>}
+               
 //             <select id="selectLocalidades" onChange={handleLocalidadChange}>
 //               <option value="Elige una localidad">localidad</option>
 //               {sortedLocalities.map((locality) => (
@@ -221,11 +301,10 @@
 //                 </option>
 //               ))}
 //             </select>
-//             {errors.localidad && <span className="error">{errors.localidad}</span>}
+//             {errors.localidad && <span className={style.error}>{errors.localidad}</span>}
        
-
 //           <button className={isSubmitDisabled() ? `${style.register} ${style.buttonDisabled}` : style.register} disabled={isSubmitDisabled()} type="submit">
-//             Registrarse
+//             Enviar
 //           </button>
 //         </form>
 //       </div>
@@ -242,6 +321,7 @@ import style from "./Register.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { validateUsername, validateEmail, validatePassword, validateImagen, validateProvince, validateLocalidad, validatePasswordRepeat } from "./validations";
+import Swal from 'sweetalert2';
 
 const Register = ({setAuth}) => {
 
@@ -286,7 +366,8 @@ const Register = ({setAuth}) => {
     setErrors({ ...errors, province: provinceError });
 
     fetch(
-      `https://apis.datos.gob.ar/georef/api/localidades?provincia=${selectedProvince}&max=500`)
+      `https://apis.datos.gob.ar/georef/api/localidades?provincia=${selectedProvince}&max=500`
+    )
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then((json) => {
         setLocalities(json.localidades);
@@ -317,6 +398,7 @@ const Register = ({setAuth}) => {
   const [input, setInput] = useState({
     username: "",
     password: "",
+    repeatPassword: "",
     email: "",
     image: "",
     imageFile: null
@@ -338,11 +420,11 @@ const Register = ({setAuth}) => {
       setErrors({ ...errors, email: validateEmail(value) });
     } else if (name === 'password') {
       setErrors({ ...errors, password: validatePassword(value) });
-    } else if (name === 'passwordRepeat') {
+    } else if (name === 'repeatPassword') {
       setErrors({
         ...errors,
-        passwordRepeat: validatePasswordRepeat(value, input.password),
-      });
+        repeatPassword: validatePasswordRepeat(value, input.password),
+      });    
     } else if (name === 'image') {
       setErrors({ ...errors, image: validateImagen(value) });
     }
@@ -375,68 +457,84 @@ const Register = ({setAuth}) => {
     setImageFile(null);
   };
 
-  const handleSumbit = async (e) => {
-    e.preventDefault();
 
-    if (
-      !input.username ||
-      !input.email ||
-      !input.password ||
-      !input.passwordRepeat ||
-      !input.image ||
-      !selectedProvince ||
-      !localidad
-    ) {
-      alert('Complete todos los campos antes de enviar el formulario.');
-      return;
+
+  const handleSumbit = async (e) => {
+  e.preventDefault();
+
+  if (
+    !input.username ||
+    !input.email ||
+    !input.password ||
+    !input.repeatPassword ||
+    !input.image ||
+    !selectedProvince ||
+    !localidad
+  ) {
+    alert('Complete todos los campos antes de enviar el formulario.');
+    return;
+  }
+  setInput({
+    username: "",
+    password: "",
+    repeatPassword: "",
+    email: "",
+    image: "",
+    imageFile: null
+  })
+
+  try {
+    let secureUrl = '';
+
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append('file', imageFile);
+      formData.append('upload_preset', preset_key);
+      formData.append('folder', folderName);
+
+      const responseImage = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
+        formData
+      );
+
+      secureUrl = responseImage.data.secure_url;
     }
 
-    try {
+    let newUser = {
+      username: input.username,
+      password: input.password,
+      email: input.email,
+      image: secureUrl,
+      ubication: `${selectedProvince}, ${localidad}`,
+    };
 
-      let secureUrl = ''; // Inicializa la URL de la imagen en blanco
+    const response = await axios.post('/users/register', newUser);
 
-      if (imageFile) {
-        const formData = new FormData();
-        formData.append('file', imageFile);
-        formData.append('upload_preset', preset_key);
-        formData.append('folder', folderName);
-  
-        const responseImage = await axios
-          .post(
-            `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
-            formData
-          )
-          .then((res) => res.data.secure_url)
-          .catch((error) => {
-            console.log('Error al subir la imagen a la nube: ' + error);
-            throw error;
-          });
-  
-        secureUrl = responseImage;
-      }
+    if (response) {
+      await localStorage.setItem('token', response.data.token);
+      setAuth(true);
 
-        let newUser = {
-          username: input.username,
-          password: input.password,
-          email: input.email,
-          image: secureUrl,
-          ubication: `${selectedProvince}, ${localidad}`,
-        }
-      const response = await axios.post('/users/register', newUser)
-
-      if (response) {
-        // La solicitud se completó con éxito
-        await localStorage.setItem("token", response.data.token)
-        setAuth(true)
-      } else {
-        // Hubo un error en la solicitud
-        console.log('Hubo un error al crear el usuario.');
-      }
-    } catch (error) {
-      console.error('Error al enviar los datos al servidor:', error);
+      // Mostrar una alerta de éxito
+      Swal.fire({
+        icon: 'success',
+        title: 'Registro exitoso',
+        text: '¡Te has registrado exitosamente!',
+      });
+    } else {
       console.log('Hubo un error al crear el usuario.');
     }
+  } catch (error) {
+    console.error('Error al enviar los datos al servidor:', error);
+    console.log('Hubo un error al crear el usuario.');
+
+    // Mostrar una alerta de error
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al registrar',
+      text: 'Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.',
+    });
   }
+};
 
   function isSubmitDisabled() {
     return Object.values(errors).some((error) => error !== null);
@@ -455,7 +553,7 @@ const Register = ({setAuth}) => {
             <input
               type="text"
               name="username"
-              placeholder="nombre usuario"
+              placeholder="usuario"
               onChange={handleInputChange}
               value={input.username}
             />
@@ -490,14 +588,14 @@ const Register = ({setAuth}) => {
             {errors.password && <span className={style.error}>{errors.password}</span>}
           </div>
           <div>
-            <input
-              type={showPassword ? "text" : "password"}
-              name="passwordRepeat"
-              placeholder="repetir contraseña"
-              onChange={handleInputChange}
-              value={input.passwordRepeat}
-            />
-            {errors.passwordRepeat && <span className={style.error}>{errors.passwordRepeat}</span>}
+          <input
+            type="password"
+            name="repeatPassword"
+            placeholder="repetir contraseña"
+            onChange={handleInputChange}
+            value={input.repeatPassword} // Asegúrate de tener un valor inicial en el estado
+          />
+            {errors.repeatPassword && <span className={style.error}>{errors.repeatPassword}</span>}
         </div>
             {/* <input
               type="checkbox"
@@ -550,4 +648,3 @@ const Register = ({setAuth}) => {
 };
 
 export default Register;
-
