@@ -148,7 +148,13 @@ const App = () => {
                   toggleDarkMode={toggleDarkMode}
                 />
               ) : (
-                <h2>CARGANDO...</h2>
+                <iframe
+                  src="https://giphy.com/embed/cEzKG6TRrTYKgKkK6E"
+                  width="200"
+                  height="200"
+                  frameBorder="0"
+                  allowFullScreen
+                ></iframe>
               )
             ) : isAuthenticatedAuth0 ? (
               user ? (
@@ -158,7 +164,13 @@ const App = () => {
                   toggleDarkMode={toggleDarkMode}
                 />
               ) : (
-                <h2>CARGANDO...</h2>
+                <iframe
+                  src="https://giphy.com/embed/cEzKG6TRrTYKgKkK6E"
+                  width="200"
+                  height="200"
+                  frameBorder="0"
+                  allowFullScreen
+                ></iframe>
               )
             ) : (
               <Login setAuth={setAuth} />
