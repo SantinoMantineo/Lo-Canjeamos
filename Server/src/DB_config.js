@@ -5,15 +5,20 @@ const path = require("path");
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
 
-/* const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/locanjeamos`, {
-   logging: false,
-   native: false,
- });  */
 
-const sequelize = new Sequelize(DB_DEPLOY, {
+const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/locanjeamos`,
+  {
+    logging: false,
+    native: false,
+  }
+);
+
+
+/*const sequelize = new Sequelize(DB_DEPLOY, {
   logging: false,
   native: false,
-});
+});*/
+
 
 const basename = path.basename(__filename);
 
@@ -37,10 +42,41 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Post, User, Like } = sequelize.models;
+const { Post, User, Like, Message, Chat } = sequelize.models;
 
+// User - Post
 User.hasMany(Post);
 Post.belongsTo(User);
+
+// User - Chat
+User.belongsToMany(Chat, {
+  through: "UserChat", // Tabla intermedia que almacena la relación
+});
+Chat.belongsToMany(User, {
+  through: "UserChat",
+  foreignKey: "chatId",
+});
+Chat.belongsTo(User, {
+  as: "creator",
+  foreignKey: "creatorId",
+});
+
+// Chat - Message
+Chat.hasMany(Message, {
+  foreignKey: "chatId",
+});
+Message.belongsTo(Chat, {
+  foreignKey: "chatId",
+});
+
+// User - Message
+User.hasMany(Message, {
+  foreignKey: "senderId",
+  as: "sender", // Asegúrate de que el alias sea el mismo
+});
+Message.belongsTo(User, {
+  foreignKey: "senderId",
+});
 
 module.exports = {
   ...sequelize.models,
