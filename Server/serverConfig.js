@@ -12,7 +12,7 @@ const server = express();
 const serverIo = http.createServer(server);
 const socketServer = socketIo(serverIo, {
   cors: {
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'https://locanjeamos.com.ar'],
   },
 }); // Cambio de nombre a socketServer
 
@@ -42,10 +42,14 @@ server.use(express.json());
 server.use(cors());
 
 server.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // Cambia el valor a la URL de tu cliente React
-  res.header('Access-Control-Allow-Credentials', "true");
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  const allowedOrigins = ['http://localhost:5173', 'https://locanjeamos.com.ar']; // Lista de URLs permitidas
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', "true");
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  }
   next();
 });
 
