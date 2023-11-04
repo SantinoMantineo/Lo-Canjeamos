@@ -116,6 +116,7 @@ const App = () => {
                   email: userDataResponse.data.email,
                   id: userDataResponse.data.id,
                   username: userDataResponse.data.username,
+                  image: userDataResponse.data.image,
                 });
               })
               .catch((userDataError) => {
