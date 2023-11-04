@@ -24,9 +24,9 @@ const ForgotPassword = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     axios
-      .post("/forgot-password", { email: input.email }) // Pass email from input state
+      .post("/users/forgot-password", { email: input.email }) // Pass email from input state
       .then((res) => {
-        if (res.data.Status === "Success") {
+        if (res.data) {
           navigate("/login");
         }
       })

@@ -19,14 +19,14 @@ const Modal = () => {
     <>
       {modal && (
         <motion.div
-          initial={{
-            opacity: 0,
-            scale: 0.9,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1.1,
-          }}
+        initial={{
+          opacity: 0.5,
+          scale: 0.1,
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+        }}
           className={style.modal}
         >
           <div onClick={toggleModal} className={style.overlay}></div>

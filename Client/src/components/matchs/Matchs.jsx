@@ -18,23 +18,24 @@ const Matchs = ({ userData }) => {
   const chats = useSelector((state) => state.chats);
   const allPosts = useSelector((state) => state.allPostsCopy);
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllChats());
   }, [dispatch]);
 
-  console.log("Chats: ", chats);
+  /console.log("Chats: ", chats);
 
   const userId = userData.id;
 
-  /*   if (matches != 0) {
+ /* if (matches != 0) {
     console.log("Todos los matches: ", matches);
   }  */
 
   useEffect(() => {
     dispatch(getMatches(userId));
-    dispatch(getAllPosts()).then(() => setLoading(false)); // Configura loading en false cuando los datos hayan cargado
+    dispatch(getAllPosts()).then(() => setLoading(false));
   }, [dispatch]);
 
   const filteredMatches = matches.filter((match) => {
@@ -57,6 +58,7 @@ const Matchs = ({ userData }) => {
     console.log("Mis posts: ", myPosts);
   }
  */
+  
   // Filtra los posts cuyo id coincide con "anotherUserId" de los objetos en filteredMatches
   const anotherUserPosts = allPosts.filter((post) => {
     return filteredMatches.some((match) => {

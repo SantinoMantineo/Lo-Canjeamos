@@ -46,6 +46,20 @@ export function getUserById(id) {
   };
 }
 
+export function createGoogleUser(user) {//* 
+  console.log("actions entrega",user);
+  return async (dispatch) => {
+    const result = await axios.post(
+      "/users/registerGoogle",
+      user
+    );
+    dispatch({
+      type: CREATE_USER,
+      payload: result.data,
+    });
+  };
+}
+
 export function createUser(user) {
   return async (dispatch) => {
     const result = await axios.post("/users/register", user);
