@@ -9,6 +9,7 @@
 .avatar {
   display: grid;
   height: 300px;
+  margin-bottom: 50px;
 }
 
 .publications {
