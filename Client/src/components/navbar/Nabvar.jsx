@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "../../assets/locan.png";
 import smile from "../../assets/smile.gif";
 import style from "./Nabvar.module.css";
@@ -7,7 +6,8 @@ import style from "./Nabvar.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const NavBar = ({ isAuthenticated, setAuth, userData }) => {
-  const [activeTab, setActiveTab] = useState("home");
+  
+  const location = useLocation();
   const { isAuthenticated: isAuthenticatedAuth0, logout: loguotAuth0 } =
     useAuth0();
 
@@ -15,6 +15,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
     localStorage.removeItem("token");
     setAuth(false);
   };
+
   return (
     <div
       className={
@@ -36,8 +37,9 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
 
       <Link
         to="/"
-        onClick={() => setActiveTab("home")}
-        className={`${style.link} ${activeTab === "home" ? style.active : ""}`}
+        className={`${style.link} ${
+          location.pathname === "/" ? style.active : ""
+        }`}
       >
         <button className={style.iconos}>
           <img
@@ -53,9 +55,8 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
       {isAuthenticatedAuth0 || isAuthenticated ? (
         <Link
           to="/addProduct"
-          onClick={() => setActiveTab("addProduct")}
           className={`${style.link} ${
-            activeTab === "addProduct" ? style.active : ""
+            location.pathname === "/addProduct" ? style.active : ""
           }`}
         >
           <button className={style.iconos}>
@@ -85,9 +86,8 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
       {isAuthenticated || isAuthenticatedAuth0 ? (
         <Link
           to="exchanges"
-          onClick={() => setActiveTab("exchanges")}
           className={`${style.link} ${
-            activeTab === "exchanges" ? style.active : ""
+            location.pathname === "/exchanges" ? style.active : ""
           }`}
         >
           <button className={style.iconos}>
@@ -117,9 +117,8 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
       {isAuthenticated || isAuthenticatedAuth0 ? (
         <Link
           to="/chats"
-          onClick={() => setActiveTab("chats")}
           className={`${style.link} ${
-            activeTab === "chats" ? style.active : ""
+            location.pathname === "/chats" ? style.active : ""
           }`}
         >
           <button className={style.iconos}>
@@ -148,9 +147,8 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
 
       <Link
         to="/login"
-        onClick={() => setActiveTab("perfil")}
         className={`${style.link} ${
-          activeTab === "perfil" ? style.active : ""
+          location.pathname === "/login" ? style.active : ""
         }`}
       >
         {isAuthenticated || isAuthenticatedAuth0 ? (

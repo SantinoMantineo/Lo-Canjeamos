@@ -45,6 +45,7 @@ const Cards = ({ allPosts }) => {
   };
 
   const posts = allPosts.slice(-6);
+  const sortedPosts = posts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
   return (
     <>
@@ -64,8 +65,8 @@ const Cards = ({ allPosts }) => {
           <img src={fire} className={style.fire}></img>
         </div>
         <Slider {...settings}>
-          {posts &&
-            posts.map((post, index) => (
+          {sortedPosts &&
+            sortedPosts.map((post, index) => (
               <div key={index}>
                 <Card key={post.id} post={post} />
               </div>
