@@ -26,14 +26,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const App = () => {
   const initialDarkMode = localStorage.getItem("darkMode") === "true";
+
   const [darkMode, setDarkMode] = useState(initialDarkMode);
 
   useEffect(() => {
-    if (darkMode) {
-      setDarkModeStyles(true);
-    } else {
-      setDarkModeStyles(false);
-    }
+    setDarkModeStyles(darkMode);
 
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
@@ -60,7 +57,6 @@ const App = () => {
   const allUsers = useSelector((state) => state.allUsers); //*
 
   useEffect(() => {
-    //*
     dispatch(getAllUsers());
   }, [dispatch]);
 

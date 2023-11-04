@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import avatar from "../../assets/avatar.jpg";
 import style from "./Avatar.module.css";
 import PayModal from "../payModal/PayModal";
@@ -15,8 +15,9 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
+  const initialDarkMode = localStorage.getItem("darkMode") === "true";
+  const [isDarkMode, setIsDarkMode] = useState(initialDarkMode);
+  
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -26,8 +27,11 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
   };
 
   const handleThemeToggle = () => {
-    setIsDarkMode(!isDarkMode);
+    const updatedDarkMode = !isDarkMode;
+    setIsDarkMode(updatedDarkMode);
     toggleDarkMode();
+
+    localStorage.setItem("darkMode", updatedDarkMode);
   };
 
   return (
