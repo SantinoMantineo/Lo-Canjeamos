@@ -4,7 +4,7 @@ import { VitePWA } from "vite-plugin-pwa";
 
 const manifestForPlugIn = {
   registerType:'prompt',
-  includeAssests:['favicon.ico', "apple-touc-icon.png", "masked-icon.svg"],
+  includeAssests:['favicon.ico', "apple-touc-icon.png", "android-chrome-192x192.png", "android-chrome-512x512.png"],
   manifest:{
     name:"LoCanjeamos",
     short_name:"LoCanjeamos",
@@ -27,12 +27,6 @@ const manifestForPlugIn = {
       type:'image/png',
       purpose:'apple touch icon',
     },
-    {
-      src: '/maskable_icon.png',
-      sizes:'512x512',
-      type:'image/png',
-      purpose:'any maskable',
-    }
   ],
   theme_color:'#171717',
   background_color:'#f0e7db',
