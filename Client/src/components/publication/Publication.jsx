@@ -19,6 +19,7 @@ const Publication = ({ userData }) => {
   
   let userPosts = [];
   if(userData) { userPosts = allPosts.filter((post) => post.UserId === userData.id);}
+  const sortedPosts = userPosts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
   const handlePostClick = (postId, postImage) => {
     if (selectedPostId === postId) {
@@ -33,7 +34,7 @@ const Publication = ({ userData }) => {
 
   return (
     <>
-      {userPosts.map((post) => (
+      {sortedPosts.map((post) => (
         <div key={post.id} className={style.publication}>
           {post.image && (
             <img
