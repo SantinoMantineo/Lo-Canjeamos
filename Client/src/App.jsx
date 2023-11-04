@@ -41,7 +41,7 @@ const App = () => {
 
   const setDarkModeStyles = (isDark) => {
     if (isDark) {
-      document.body.style.backgroundColor = "rgb(25, 25, 25)";
+      document.body.style.backgroundColor = "rgb(25, 30, 35)";
       document.body.style.color = "grey";
     } else {
       document.body.style.backgroundColor = "whitesmoke";
