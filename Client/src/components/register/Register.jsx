@@ -280,8 +280,7 @@ const Register = ({setAuth}) => {
     setErrors({ ...errors, province: provinceError });
 
     fetch(
-      `https://apis.datos.gob.ar/georef/api/localidades?provincia=${selectedProvince}&max=500`
-    )
+      `https://apis.datos.gob.ar/georef/api/localidades?provincia=${selectedProvince}&max=500`)
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then((json) => {
         setLocalities(json.localidades);

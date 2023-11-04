@@ -16,8 +16,12 @@ import {
   UPDATE_POST,
   DELETE_POST,
   RESET_FILTERS,
+  CARGAR_HISTORIAL_MENSAJES,
+  ADD_MESSAGE_TO_HISTORY,
+  GET_ALL_MESSAGES,
+  GET_ALL_CHATS,
   GET_MATCHES,
-  SELECTED_POST
+  SELECTED_POST,
 } from "./actionTypes";
 
 const initialState = {
@@ -32,6 +36,8 @@ const initialState = {
   selectedPostToInteract: "",
   selectedPostImage: "",
   matches: [],
+  messageHistory: [],
+  chats: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -107,7 +113,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         selectedPostToInteract: action.payload.id,
         selectedPostImage: action.payload.image,
-      }
+      };
 
     case GET_POST_BY_CATEGORY:
     case GET_POST_BY_PROVINCE:
@@ -164,6 +170,31 @@ function rootReducer(state = initialState, action) {
         ...state,
         matches: action.payload,
       };
+
+    case CARGAR_HISTORIAL_MENSAJES:
+      return {
+        ...state,
+        messageHistory: action.payload,
+      };
+
+    case ADD_MESSAGE_TO_HISTORY:
+      return {
+        ...state,
+        messageHistory: [...state.messageHistory, action.payload],
+      };
+
+      
+      case GET_ALL_MESSAGES:
+        return {
+          ...state,
+          messageHistory: action.payload,
+        };
+        
+        case GET_ALL_CHATS:
+          return {
+            ...state,
+            chats: action.payload,
+          };
 
     case RESET_FILTERS:
       return {

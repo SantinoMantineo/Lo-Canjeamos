@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-// import { useState, useEffect } from 'react';
-// import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import AddProduct from "./views/addProduct/AddProduct";
 import Chats from "./views/chats/Chats";
@@ -18,7 +16,12 @@ import Loading from "./views/loading/loading";
 import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/resetPassword/ResetPassword";
 import axios from "axios";
+import io from "socket.io-client";
+
 import "./App.css";
+
+const socketServer = io("http://localhost:3001");
+
 const App = () => {
 
   /* const [darkMode, setDarkMode] = useState(false);
@@ -33,8 +36,8 @@ const App = () => {
     }
   }, []); */
 
-  //axios.defaults.baseURL = "http://localhost:3001/";
-  axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+  axios.defaults.baseURL = "http://localhost:3001/";
+  //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userToken, setUserToken] = useState("");
@@ -100,7 +103,8 @@ const App = () => {
         <Route path="/register" element={isAuthenticated ? (userData ? (<MyProfile userData={userData}/>) : (<Loading/>)) : (<Register setAuth={setAuth}/>)}/>
         <Route path="/detail/:id" element={userData ? <Detail userData={userData}/> : <Loading/>} />
         <Route path="/exchanges" element={userData ? <Exchanges userData={userData}/> : <Loading/>} />
-        <Route path="/chats" element={<Chats/>} />
+        <Route path="/chats/:chatId" element={userData ? <Chats userData={userData}/> : <Loading/>} />
+        <Route path="/chats" element={<Chats/>}/>
         <Route path="/login" element={<Login setAuth={setAuth}/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
@@ -110,4 +114,4 @@ const App = () => {
   );
 };
 
-export default App;
+export { socketServer, App };
