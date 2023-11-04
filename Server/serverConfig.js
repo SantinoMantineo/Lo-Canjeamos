@@ -12,7 +12,7 @@ const server = express();
 const serverIo = http.createServer(server);
 const socketServer = socketIo(serverIo, {
   cors: {
-    origin: ['http://localhost:5173', 'https://locanjeamos.com.ar'],
+    origin: ['http://localhost:5173', 'https://locanjeamos.com.ar', 'https://lo-canjeamos-production.up.railway.app'],
   },
 }); // Cambio de nombre a socketServer
 
@@ -42,7 +42,7 @@ server.use(express.json());
 server.use(cors());
 
 server.use(function (req, res, next) {
-  const allowedOrigins = ['http://localhost:5173', 'https://locanjeamos.com.ar']; // Lista de URLs permitidas
+  const allowedOrigins = ['http://localhost:5173', 'https://locanjeamos.com.ar', 'https://lo-canjeamos-production.up.railway.app']; // Lista de URLs permitidas
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
