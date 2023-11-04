@@ -8,13 +8,14 @@
 
 .avatar {
   display: grid;
-  height: 300px;
-  margin-bottom: 50px;
+  height: auto;
 }
 
 .publications {
   display: grid;
+  align-content: flex-start;
   width: 300px;
+  height:fit-content;
   box-shadow: 0px 5px 10px rgba(127, 126, 126, 0.3);
   border-radius: 10px;
   padding: 30px;

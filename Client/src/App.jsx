@@ -22,10 +22,8 @@ import io from "socket.io-client";
 
 import "./App.css";
 
-
 //const socketServer = io("http://localhost:3001");
 const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
-
 
 //Actions
 import { getAllUsers, createGoogleUser } from "../src/redux/actions";
@@ -145,16 +143,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
 
-        <Route
-          path="/login"
-          element={
-            isAuthenticated ? (
-              userData ? (
-                <MyProfile
-                  userData={userData}
-                  setAuth={setAuth}
-                  toggleDarkMode={toggleDarkMode}
-                />
+        <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData} setAuth={setAuth} toggleDarkMode={toggleDarkMode}/>
               ) : (
                 <div className="spinner">
                   <div class="bounce1"></div>
@@ -163,12 +152,7 @@ const App = () => {
                 </div>
               )
             ) : isAuthenticatedAuth0 ? (
-              user ? (
-                <MyProfile
-                  userData={user.name}
-                  setAuth={setAuth}
-                  toggleDarkMode={toggleDarkMode}
-                />
+              user ? (<MyProfile userData={user.name} setAuth={setAuth} toggleDarkMode={toggleDarkMode}/>
               ) : (
                 <div className="spinner">
                   <div class="bounce1"></div>
@@ -177,46 +161,21 @@ const App = () => {
                 </div>
               )
             ) : (
-              <Login setAuth={setAuth} />
-            )
-          }
-        />
+              <Login setAuth={setAuth} />)}/>
 
-        <Route path="/addProduct" element={userData ? (<AddProduct userData={userData} />) : user ? (<AddProduct userData={user} />) : (<Loading />)} />
+        <Route path="/addProduct" element={userData ? (<AddProduct userData={userData} />) : user ? (<AddProduct userData={user} />) : (<Loading />)}/>
 
-        <Route
-          path="/detail/:id"
-          element={
-            userData ? (
-              <Detail userData={userData} />
-            ) : user ? (
-              <Detail userData={user} />
-            ) : (
-              <Loading />
-            )
-          }
-        />
+        <Route path="/detail/:id" element={userData ? (<Detail userData={userData} />) : user ? (<Detail userData={user} />) : (<Loading />)}/>
 
-        <Route
-          path="/exchanges"
-          element={
-            userData ? (
-              <Exchanges userData={userData} />
-            ) : user ? (
-              <Exchanges userData={user} />
-            ) : (
-              <Loading />
-            )
-          }
-        />
+        <Route path="/exchanges" element={userData ? (<Exchanges userData={userData} />) : user ? (<Exchanges userData={user} />) : (<Loading />)}/>
 
-        <Route path="/exchanges" element={userData ? (<Exchanges userData={userData}/>) : user ? (<Exchanges userData={user}/>) : <Loading/>} />
+        <Route path="/exchanges" element={userData ? (<Exchanges userData={userData} />) : user ? (<Exchanges userData={user} />) : (<Loading />)}/>
 
-        <Route path="/chats/:chatId" element={userData ? <Chats userData={userData}/> : <Loading/>} />
+        <Route path="/chats/:chatId" element={userData ? <Chats userData={userData} /> : <Loading />}/>
 
-        <Route path="/register" element={<Register/>} />
-          
-        <Route path="/forgotpassword" element={<ForgotPassword/>} />
+        <Route path="/register" element={<Register />} />
+
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
 
         <Route path="/resetpassword/:id" element={<ResetPassword />} />
       </Routes>
@@ -225,4 +184,3 @@ const App = () => {
 };
 
 export { socketServer, App };
-
