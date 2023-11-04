@@ -4,7 +4,7 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 // import { useState, useEffect } from 'react';
 
-import AddProduct from "./views/addProduct/AddProduct";
+import AddProduct from "./views/addProduct/addProduct";
 import Chats from "./views/chats/Chats";
 import Exchanges from "./views/exchanges/Exchanges";
 import Home from "./views/home/Home";
@@ -14,7 +14,7 @@ import MyProfile from "./views/myProfile/myProfile";
 
 import Login from "./views/login/Login";
 import Register from "./components/register/Register";
-import Loading from "./views/loading/loading";
+import Loading from "./views/loading/Loading";
 import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/resetPassword/ResetPassword";
 import axios from "axios";
