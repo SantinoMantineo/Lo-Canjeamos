@@ -1,19 +1,14 @@
-const validation = ({username, password}) => {
-
-    let errors = {};
- 
+export const validateUser = (username) => {
     if(!username){
-     errors.username = 'Porfavor inserte un usuario valido'
+     return 'Porfavor inserte un usuario valido'
     }
- 
+    return null
+}
+export const validatePassw = (password) => {
     if(!password){
-     errors.password = 'Contraseña incorrecta'
+     return 'Complete con una contraseña correcta'
     }
-    // if(password.trim().length < 6){
-    //  errors.password = 'Your password requires at least 6 characters'
-    // }
- 
-    return errors
+    return null
  }
  
- export default validation;
+
