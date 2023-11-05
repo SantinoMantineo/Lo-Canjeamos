@@ -161,21 +161,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
 
-<<<<<<< HEAD
         <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData} setAuth={setAuth} toggleDarkMode={toggleDarkMode}/>
-=======
-        <Route
-          path="/login"
-          element={
-            isAuthenticated ? (
-              userData ? (
-                <MyProfile
-                  userData={userData}
-                  setAuth={setAuth}
-                  toggleDarkMode={toggleDarkMode}
-                  installApp={handleInstallPWA}
-                />
->>>>>>> b37f7f5 (test button)
               ) : (
                 <div className="spinner">
                   <div className="bounce1"></div>
