@@ -8,15 +8,28 @@
 
 .avatar {
   display: grid;
-  height: 300px;
+  height: auto;
 }
 
 .publications {
+  display: grid;
+  align-content: flex-start;
   width: 300px;
+  height: fit-content;
   box-shadow: 0px 5px 10px rgba(127, 126, 126, 0.3);
   border-radius: 10px;
   padding: 30px;
   justify-self: right;
+}
+
+.agregar {
+  background-color: #4ecdc4;
+  color: whitesmoke;
+  width: 90px;
+  font-size: 14px;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
 }
 
 .publications h3 {

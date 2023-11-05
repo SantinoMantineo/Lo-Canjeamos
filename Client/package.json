@@ -27,6 +27,7 @@
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.2",
     "styled-components": "^6.1.0",
+    "vite-plugin-pwa": "^0.16.7",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.9.0"
   },

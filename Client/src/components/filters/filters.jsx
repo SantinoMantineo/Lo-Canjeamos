@@ -23,7 +23,7 @@ const Filters = () => {
   const dispatch = useDispatch();
   const allPostsCopy = useSelector((state) => state.allPostsCopy);
   const selectedImage = useSelector((state) => state.selectedPostImage);
-
+  
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
@@ -131,8 +131,8 @@ const Filters = () => {
           <img
             width="24"
             height="24"
-            src="https://img.icons8.com/windows/32/trash.png"
-            alt="trash"
+            src="https://img.icons8.com/color/48/broom.png"
+            alt="broom"
           />
         </button>
       </motion.div>

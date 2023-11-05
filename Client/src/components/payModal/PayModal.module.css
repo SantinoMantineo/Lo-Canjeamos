@@ -13,7 +13,7 @@
 
 .modalcontent {
   display: grid;
-  background: whitesmoke;
+  background-color: whitesmoke;
   padding: 80px;
   padding-bottom: 10px;
   border-radius: 5px;
