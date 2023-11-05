@@ -12,6 +12,23 @@ import style from "./MyProfile.module.css";
 
 const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
 
+  const handleInstallPWA = () => {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        const installPrompt = event;
+
+        installPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('Usuario aceptó la instalación de la PWA');
+          } else {
+            console.log('Usuario canceló la instalación de la PWA');
+          }
+        });
+      });
+    }
+  };
+
   return (
     <>
       <Header banner1={Banner3} banner2={Banner4}></Header>
@@ -26,7 +43,7 @@ const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
       }}
       className={style.myProfile}>
         <div className={style.avatar}>
-          <Avatar userData={userData} setAuth={setAuth} toggleDarkMode={toggleDarkMode}/>
+          <Avatar userData={userData} setAuth={setAuth} toggleDarkMode={toggleDarkMode} instalApp={handleInstallPWA}/>
         </div>
         <div className={style.publications}>
           <h3>Publicaciones</h3>
