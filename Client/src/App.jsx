@@ -172,8 +172,8 @@ const App = () => {
 
         <Route path="/chats/:chatId" element={userData ? <Chats userData={userData} /> : <Loading />}/>
 
-        <Route path="/register" element={<Register />} />
-
+        <Route path="/register" element={isAuthenticated ? (userData && <MyProfile userData={userData} setAuth={setAuth}/>) : (<Register setAuth={setAuth}/>)}/>
+        
         <Route path="/forgotpassword" element={<ForgotPassword />} />
 
         <Route path="/resetpassword/:id" element={<ResetPassword />} />
