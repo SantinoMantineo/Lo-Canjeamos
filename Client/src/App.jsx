@@ -55,23 +55,6 @@ const App = () => {
     }
   };
 
-  const handleInstallPWA = () => {
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      window.addEventListener('beforeinstallprompt', (event) => {
-        event.preventDefault();
-        const installPrompt = event;
-
-        installPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('Usuario aceptó la instalación de la PWA');
-          } else {
-            console.log('Usuario canceló la instalación de la PWA');
-          }
-        });
-      });
-    }
-  };
-
   //axios.defaults.baseURL = "http://localhost:3001/";
   axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   //*Auth0
@@ -184,8 +167,6 @@ const App = () => {
         <Route path="/addProduct" element={userData ? (<AddProduct userData={userData} />) : user ? (<AddProduct userData={user} />) : (<Loading />)}/>
 
         <Route path="/detail/:id" element={userData ? (<Detail userData={userData} />) : user ? (<Detail userData={user} />) : (<Loading />)}/>
-
-        <Route path="/exchanges" element={userData ? (<Exchanges userData={userData} />) : user ? (<Exchanges userData={user} />) : (<Loading />)}/>
 
         <Route path="/exchanges" element={userData ? (<Exchanges userData={userData} />) : user ? (<Exchanges userData={user} />) : (<Loading />)}/>
 

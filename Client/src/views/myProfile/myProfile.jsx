@@ -10,7 +10,7 @@ import Banner4 from '../../assets/banner4.jpg'
 import style from "./MyProfile.module.css";
 
 
-const MyProfile = ({ userData, setAuth, toggleDarkMode, instalApp }) => {
+const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
 
   return (
     <>
@@ -26,7 +26,7 @@ const MyProfile = ({ userData, setAuth, toggleDarkMode, instalApp }) => {
       }}
       className={style.myProfile}>
         <div className={style.avatar}>
-          <Avatar userData={userData} setAuth={setAuth} toggleDarkMode={toggleDarkMode} instalApp={instalApp}/>
+          <Avatar userData={userData} setAuth={setAuth} toggleDarkMode={toggleDarkMode}/>
         </div>
         <div className={style.publications}>
           <h3>Publicaciones</h3>

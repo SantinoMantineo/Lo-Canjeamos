@@ -6,7 +6,7 @@ import avatar from "../../assets/avatar.jpg";
 import style from "./Avatar.module.css";
 import PayModal from "../payModal/PayModal";
 import { useAuth0 } from "@auth0/auth0-react";
-const Avatar = ({ userData, setAuth, toggleDarkMode, instalApp }) => {
+const Avatar = ({ userData, setAuth, toggleDarkMode}) => {
   const { user, logout: loguotAuth0 } = useAuth0();
 
   const logout = () => {
@@ -64,8 +64,6 @@ const Avatar = ({ userData, setAuth, toggleDarkMode, instalApp }) => {
               Salir
             </button>
           )}
-          <br></br>
-          <button onClick={instalApp}>Install</button>
         </div>
         <PayModal
           isOpen={isModalOpen}
