@@ -15,18 +15,32 @@ const Publication = ({ userData }) => {
     if (storedSelectedPostId) {
       setSelectedPostId(Number(storedSelectedPostId));
     }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.removeItem("selectedPostId");
+    });
+
+    return () => {
+      window.removeEventListener("beforeunload", () => {
+        localStorage.removeItem("selectedPostId");
+      });
+    };
   }, [dispatch]);
-  
+
   let userPosts = [];
-  if(userData) { userPosts = allPosts.filter((post) => post.UserId === userData.id);}
-  const sortedPosts = userPosts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  if (userData) {
+    userPosts = allPosts.filter((post) => post.UserId === userData.id);
+  }
+  const sortedPosts = userPosts.sort(
+    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+  );
 
   const handlePostClick = (postId, postImage) => {
     if (selectedPostId === postId) {
-      localStorage.removeItem("selectedPostId"); 
+      localStorage.removeItem("selectedPostId");
       setSelectedPostId(null);
     } else {
-      localStorage.setItem("selectedPostId", postId); 
+      localStorage.setItem("selectedPostId", postId);
       setSelectedPostId(postId);
       dispatch(selectedPost(postId, postImage));
     }

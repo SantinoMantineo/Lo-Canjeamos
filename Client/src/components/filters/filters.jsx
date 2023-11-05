@@ -23,7 +23,7 @@ const Filters = () => {
   const dispatch = useDispatch();
   const allPostsCopy = useSelector((state) => state.allPostsCopy);
   const selectedImage = useSelector((state) => state.selectedPostImage);
-
+  
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
