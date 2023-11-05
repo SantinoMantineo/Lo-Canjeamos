@@ -1,6 +1,19 @@
 {
   "name": "LoCanjeamos",
   "short_name": "LoCanjeamos",
+  "shortcuts": [
+    {
+      "name": "Agregar",
+      "description": "Agrega un producto",
+      "url": "https://locanjeamos.com.ar/#/addProduct",
+      "icons": [
+        {
+          "src": "/add.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -14,17 +27,24 @@
     },
     {
       "src": "/apple-touch-icon.png",
-      "sizes":"180x180",
-      "type":"image/png",
-      "purpose":"apple touch icon"
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "apple touch icon"
     },
     {
       "src": "/maskable_icon.png",
-      "sizes":"512x512",
-      "type":"image/png",
-      "purpose":"any maskable"
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/add.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
+
   "theme_color": "#ffe66d",
   "background_color": "#ffffff",
   "display": "standalone"

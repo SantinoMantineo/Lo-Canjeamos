@@ -48,13 +48,13 @@ const manifestForPlugIn = {
 
         description: "Agrega un producto",
 
-        url: "/addProduct",
+        url: "https://locanjeamos.com.ar/#/addProduct",
 
         icons: [
           {
             src: "/add.png",
 
-            size: "48x48",
+            sizes: "96x96",
           },
         ],
       },
