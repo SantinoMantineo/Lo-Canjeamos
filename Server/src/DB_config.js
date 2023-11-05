@@ -6,18 +6,18 @@ const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
 
 
-const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/locanjeamos`,
+/* const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/locanjeamos`,
   {
     logging: false,
     native: false,
   }
-);
+); */
 
 
-/*const sequelize = new Sequelize(DB_DEPLOY, {
+const sequelize = new Sequelize(DB_DEPLOY, {
   logging: false,
   native: false,
-});*/
+});
 
 
 const basename = path.basename(__filename);
@@ -50,7 +50,7 @@ Post.belongsTo(User);
 
 // User - Chat
 User.belongsToMany(Chat, {
-  through: "UserChat", // Tabla intermedia que almacena la relación
+  through: "UserChat",
 });
 Chat.belongsToMany(User, {
   through: "UserChat",
@@ -72,7 +72,7 @@ Message.belongsTo(Chat, {
 // User - Message
 User.hasMany(Message, {
   foreignKey: "senderId",
-  as: "sender", // Asegúrate de que el alias sea el mismo
+  as: "sender",
 });
 Message.belongsTo(User, {
   foreignKey: "senderId",
