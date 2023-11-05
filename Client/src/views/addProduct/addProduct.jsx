@@ -231,6 +231,10 @@ setErrors({ ...errors, [name]: error });
         selectedCategory === ""
       ) {
         alert("Todos los campos marcados con * son obligatorios");
+        setFormData({
+          ...formData,
+          disabled: false,
+        })  
         return;
       }
       setErrors(errors);
@@ -292,6 +296,10 @@ setErrors({ ...errors, [name]: error });
         console.log("Hubo un error al crear la publicación.");
       }
     } catch (error) {
+      setFormData({
+        ...formData,
+        disabled: false,
+      })
       console.error("Error al enviar los datos al servidor:", error);
       console.log("Hubo un error al crear la publicación.");
     }
