@@ -22,8 +22,8 @@ import io from "socket.io-client";
 
 import "./App.css";
 
-//const socketServer = io("http://localhost:3001");
-const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
+const socketServer = io("http://localhost:3001/");
+//const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
 
 //Actions
 import { getAllUsers, createGoogleUser } from "../src/redux/actions";
