@@ -28,15 +28,20 @@ const Detail = ({ userData }) => {
   
   
   const handleLikeClick = () => {
-    // Verificar si el usuario ya dio "like" a esta publicación para evitar doble clic
-    if (!liked) {
-      // Llamar a la acción de Redux para dar "like" a la publicación
-      dispatch(likePost(myUserId, likedPostId, myPostId, anotherUserId));
-
-      // Actualizar el estado local para reflejar el "like"
-      setLiked(true);
+    if (myPostId) {
+      // Verificar si el usuario ya dio "like" a esta publicación para evitar doble clic
+      if (!liked) {
+        // Llamar a la acción de Redux para dar "like" a la publicación
+        dispatch(likePost(myUserId, likedPostId, myPostId, anotherUserId));
+  
+        // Actualizar el estado local para reflejar el "like"
+        setLiked(true);
+      }
+    } else {
+      alert("Debes seleccionar una de tus publicaciones para intercambiar.");
     }
   };
+  
 
   const settings = {
     dots: true,
@@ -111,7 +116,7 @@ const Detail = ({ userData }) => {
           <Link to="/">
             <button className={style.back}>Volver</button>
           </Link>
-          <button className={style.match} onClick={handleLikeClick} disabled={liked}>Canjear</button>
+          <button className={style.match} onClick={handleLikeClick} disabled={liked || myUserId === anotherUserId}>Canjear</button>
         </div>
       </motion.div>
     </>
