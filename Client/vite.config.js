@@ -47,13 +47,13 @@ const manifestForPlugIn = {
 
         description: "Agrega un producto",
 
-        url: "locanjeamos.com.ar/addProduct",
+        url: "https://locanjeamos.com.ar/#/addProduct",
 
         icons: [
           {
-            src: "/add.svg",
+            src: "/add.png",
 
-            type: "image/svg+xml",
+            type: "image/png",
 
             purpose: "any",
           },
