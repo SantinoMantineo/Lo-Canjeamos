@@ -40,6 +40,7 @@ const initialState = {
   messageHistory: [],
   chats: [],
   likedPosts: [],
+  interacciones: {},
 };
 
 function rootReducer(state = initialState, action) {

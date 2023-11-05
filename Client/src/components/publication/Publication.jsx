@@ -39,6 +39,7 @@ const Publication = ({ userData }) => {
     if (selectedPostId === postId) {
       localStorage.removeItem("selectedPostId");
       setSelectedPostId(null);
+      dispatch(selectedPost(null, null));
     } else {
       localStorage.setItem("selectedPostId", postId);
       setSelectedPostId(postId);
