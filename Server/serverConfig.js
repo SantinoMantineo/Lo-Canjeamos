@@ -1,13 +1,13 @@
 const express = require("express");
-const { createServer } = require("https");
+const { createServer } = require("http");
 const { Server } = require("socket.io");
 
 const router = require("./src/routes/routes");
 const { Message } = require("./src/DB_config");
 
 const app = express();
-const httpsServer = createServer(app);
-const io = new Server(httpsServer, {
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
   cors: {
     origin: "*"
   },
@@ -55,4 +55,4 @@ app.use(function (req, res, next) {
 
 app.use(router);
 
-module.exports = httpsServer;
+module.exports = httpServer;
