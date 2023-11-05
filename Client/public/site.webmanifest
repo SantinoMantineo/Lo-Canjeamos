@@ -8,7 +8,18 @@
       "url": "https://locanjeamos.com.ar/#/addProduct",
       "icons": [
         {
-          "src": "/android-chrome-192x192.png",
+          "src": "add.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Mi perfil",
+      "description": "Tu perfil",
+      "url": "https://locanjeamos.com.ar/#/login",
+      "icons": [
+        {
+          "src": "user.png",
           "sizes": "192x192"
         }
       ]
