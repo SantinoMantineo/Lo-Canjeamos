@@ -21,6 +21,7 @@ import {
   GET_ALL_MESSAGES,
   GET_ALL_CHATS,
   GET_MATCHES,
+  LIKE_POST,
   SELECTED_POST,
 } from "./actionTypes";
 
@@ -38,6 +39,7 @@ const initialState = {
   matches: [],
   messageHistory: [],
   chats: [],
+  likedPosts: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -163,6 +165,13 @@ function rootReducer(state = initialState, action) {
         allPosts: state.allPosts.filter(
           (post) => post.id !== action.payload.id
         ),
+      };
+
+      case LIKE_POST:
+      return {
+        ...state,
+        likedPosts: [...state.likedPosts, action.payload.likedPostId],
+        
       };
 
     case GET_MATCHES:

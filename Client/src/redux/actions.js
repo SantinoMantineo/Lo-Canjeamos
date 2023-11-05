@@ -117,13 +117,17 @@ export const likePost = (myUserId, likedPostId, myPostId, anotherUserId) => {
         myUserId: myUserId,
         likedPostId: likedPostId,
         myPostId: myPostId,
-        anotherUserId,
-        anotherUserId,
+        anotherUserId: anotherUserId
       });
       const likedPost = response.data;
       dispatch({
         type: LIKE_POST,
-        payload: likedPost,
+        payload: {
+        myUserId: myUserId,
+        likedPostId: likedPostId,
+        myPostId: myPostId,
+        anotherUserId: anotherUserId
+        },
       });
     } catch (error) {
       console.error("Error al dar like a la publicación", error);

@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostById, likePost } from "../../redux/actions";
+import { getMatches, getPostById, likePost } from "../../redux/actions";
 import {motion} from 'framer-motion';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -18,13 +18,16 @@ const Detail = ({ userData }) => {
   const anotherUserId = post.User?.id
   const userName = post.User?.username
   const myPostId = useSelector((state) => state.selectedPostToInteract);
+  const matches = useSelector((state) => state.matches);
   
   
   useEffect(() => {
     dispatch(getPostById(id));
+    dispatch(getMatches())
   }, [id]);
   
   const [liked, setLiked] = useState(false)
+
   
   
   const handleLikeClick = () => {
