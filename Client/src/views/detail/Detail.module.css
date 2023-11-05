@@ -93,6 +93,12 @@
   padding: 5px;
 }
 
+.detail .match:disabled {
+  background-color: gray;
+  cursor: not-allowed; 
+  opacity: 0.6;        
+}
+
 @media (max-width: 768px) {
   .detail {
     width: 330px;

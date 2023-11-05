@@ -142,6 +142,7 @@ export default function AddProduct({ userData }) {
     image: null,
     ubication: "",
     category: "",
+    disabled: false,
   });
 
   const handleChange = (e) => {
@@ -185,6 +186,9 @@ setErrors({ ...errors, [name]: error });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setFormData({
+      ...formData,
+      disabled: true})
 
     // Subir imágenes a Cloudinary y obtener las URLs.
     const uploadPromises = files.map((file) => {
@@ -280,6 +284,7 @@ setErrors({ ...errors, [name]: error });
         setFormData({
           title: "",
           description: "",
+          disabled: false,
         });
       } else {
         // Hubo un error en la solicitud
@@ -316,8 +321,9 @@ setErrors({ ...errors, [name]: error });
                 value={formData.title}
                 onChange={handleChange}
                 placeholder='Inserte titulo'
+                disabled={formData.disabled}
               />
-              {errors.title && <div className="error-message">{errors.title}</div>}
+              {errors.title && <div className={style.errorMessage}>{errors.title}</div>}
             </label>
             <label>
               Descripción
@@ -328,8 +334,9 @@ setErrors({ ...errors, [name]: error });
                 onChange={handleChange}
                 value={formData.description}
                 placeholder='Inserte descripcion'
+                disabled={formData.disabled}
               />
-              {errors.description && <div className="error-message">{errors.description}</div>}
+              {errors.description && <div className={style.errorMessage}>{errors.description}</div>}
             </label>
             <label>
               Imagen*
@@ -338,6 +345,7 @@ setErrors({ ...errors, [name]: error });
                   className={style.dropzone}
                   {...getRootProps()}
                   onClick={(event) => event.stopPropagation()}
+                  disabled={formData.disabled}
                 >
                   <input {...getInputProps()} onChange={handleFile} />
                   {isDragActive
@@ -359,7 +367,7 @@ setErrors({ ...errors, [name]: error });
           </div>
           <div className={style.part2}>
             <label>Provincia*</label>
-            <select onChange={handleProvinceChange}>
+            <select onChange={handleProvinceChange} disabled={formData.disabled}>
               <option value='Elige una provincia'>Provincia</option>
               {sortedProvinces.map((province) => (
                 <option key={province.id} value={province.nombre}>
@@ -369,7 +377,7 @@ setErrors({ ...errors, [name]: error });
             </select>
             <span></span>
             <label>Localidad*</label>
-            <select id='selectLocalidades' onChange={handleLocalidadChange}>
+            <select id='selectLocalidades' onChange={handleLocalidadChange} disabled={formData.disabled}>
               <option value='Elige una localidad'>Localidad</option>
               {sortedLocalities.map((locality) => (
                 <option key={locality.id} value={locality.nombre}>
@@ -383,6 +391,7 @@ setErrors({ ...errors, [name]: error });
               name='category'
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
+              disabled={formData.disabled}
             >
               <option value='Elige una categoría'>Categoría</option>
               {categories.map((category, index) => (
@@ -394,9 +403,13 @@ setErrors({ ...errors, [name]: error });
             <span></span>
           </div>
         </form>
-        <button type='submit' onClick={handleSubmit} className={style.button}>
+        <button type='submit' onClick={handleSubmit} className={style.button} disabled={formData.disabled}>
           Crear
         </button>
+        {formData.disabled && <div className={style.loaderContainer}>
+          <span>Cargando publicación...</span>
+          <div className={style.loader}></div>
+        </div>}
         <h5 className={style.message}>Los campos con * son obligatorios</h5>
       </motion.div>
       {showModal && <Modal/>}

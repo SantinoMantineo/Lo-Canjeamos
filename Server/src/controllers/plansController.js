@@ -5,7 +5,7 @@ const mercadopago = require("mercadopago");
 
 mercadopago.configure({
     access_token: ACCESS_TOKEN
-})
+}) 
 
 exports.createOrder = async (paymentData) => {
         const { userId, title, description, price } = paymentData

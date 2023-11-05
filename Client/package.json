@@ -10,7 +10,6 @@
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },
-  "proxy": "http://localhost:3001",
   "dependencies": {
     "@auth0/auth0-react": "^2.2.2",
     "axios": "^1.5.1",

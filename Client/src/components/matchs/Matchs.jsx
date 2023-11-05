@@ -25,7 +25,7 @@ const Matchs = ({ userData }) => {
     dispatch(getAllChats());
   }, [dispatch]);
 
-  console.log("Chats: ", chats);
+  //console.log("Chats: ", chats);
 
   const userId = userData.id;
 

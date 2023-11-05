@@ -50,7 +50,7 @@ Post.belongsTo(User);
 
 // User - Chat
 User.belongsToMany(Chat, {
-  through: "UserChat", // Tabla intermedia que almacena la relación
+  through: "UserChat",
 });
 Chat.belongsToMany(User, {
   through: "UserChat",
@@ -72,7 +72,7 @@ Message.belongsTo(Chat, {
 // User - Message
 User.hasMany(Message, {
   foreignKey: "senderId",
-  as: "sender", // Asegúrate de que el alias sea el mismo
+  as: "sender",
 });
 Message.belongsTo(User, {
   foreignKey: "senderId",
