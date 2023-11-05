@@ -8,8 +8,8 @@
       "url": "https://locanjeamos.com.ar/#/addProduct",
       "icons": [
         {
-          "src": "/add.png",
-          "sizes": "96x96"
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192"
         }
       ]
     }

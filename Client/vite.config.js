@@ -42,23 +42,6 @@ const manifestForPlugIn = {
         purpose: "any maskable",
       },
     ],
-    shortcuts: [
-      {
-        name: "Agregar",
-
-        description: "Agrega un producto",
-
-        url: "https://locanjeamos.com.ar/#/addProduct",
-
-        icons: [
-          {
-            src: "/add.png",
-
-            sizes: "96x96",
-          },
-        ],
-      },
-    ],
     theme_color: "#ffe66d",
     background_color: "#f0e7db",
     display: "standalone",
