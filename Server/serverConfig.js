@@ -1,24 +1,21 @@
 const express = require("express");
-const http = require('http');
-const socketIo = require('socket.io');
+const { createServer } = require("https");
+const { Server } = require("socket.io");
+
 const router = require("./src/routes/routes");
 const { Message } = require("./src/DB_config");
 
-
-const morgan = require("morgan");
-const cors = require("cors");
-const mercadopago = require("mercadopago");
-const server = express();
-const serverIo = http.createServer(server);
-const socketServer = socketIo(serverIo, {
+const app = express();
+const httpsServer = createServer(app);
+const io = new Server(httpsServer, {
   cors: {
-    origin: ['http://localhost:5173', 'https://locanjeamos.com.ar', 'https://lo-canjeamos-production.up.railway.app'],
+    origin: "*"
   },
-}); // Cambio de nombre a socketServer
+});
 
-socketServer.on("connection", (socketServer) => {
-  // Escucha el evento "nuevo-mensaje" desde el cliente
-  socketServer.on("new-message", async (mensaje) => {
+io.on("connection", (socket) => {
+  console.log('Un cliente se ha conectado');
+  socket.on("new-message", async (mensaje) => {
     try {
       // Guarda el mensaje en la base de datos utilizando el modelo de mensajes
       const nuevoMensaje = await Message.create({
@@ -28,20 +25,23 @@ socketServer.on("connection", (socketServer) => {
         fechaEnvio: new Date(), // Fecha y hora actual
         // Otros campos del mensaje
       });
-
       // Notifica a todos los clientes (incluido el remitente) sobre el nuevo mensaje
-      socketServer.emit("live-message", nuevoMensaje); // Cambio de nombre a socketServer
+      socket.emit("new-message", nuevoMensaje);
     } catch (error) {
       console.error("Error al guardar el mensaje en la base de datos:", error);
     }
   });
 });
 
-server.use(morgan("dev"));
-server.use(express.json());
-server.use(cors());
+const morgan = require("morgan");
+const cors = require("cors");
+const mercadopago = require("mercadopago");
 
-server.use(function (req, res, next) {
+app.use(morgan("dev"));
+app.use(express.json());
+app.use(cors());
+
+app.use(function (req, res, next) {
   const allowedOrigins = ['http://localhost:5173', 'https://locanjeamos.com.ar', 'https://lo-canjeamos-production.up.railway.app']; // Lista de URLs permitidas
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
@@ -53,8 +53,6 @@ server.use(function (req, res, next) {
   next();
 });
 
+app.use(router);
 
-
-server.use(router);
-
-module.exports = serverIo;
+module.exports = httpsServer;
