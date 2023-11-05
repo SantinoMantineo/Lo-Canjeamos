@@ -10,7 +10,7 @@ const manifestForPlugIn = {
     "maskable_icon.png",
     "android-chrome-192x192.png",
     "android-chrome-512x512.png",
-    "add.png"
+    "add.png",
   ],
   manifest: {
     name: "LoCanjeamos",
@@ -48,15 +48,13 @@ const manifestForPlugIn = {
 
         description: "Agrega un producto",
 
-        url: "https://locanjeamos.com.ar/#/addProduct",
+        url: "/addProduct",
 
         icons: [
           {
             src: "/add.png",
 
-            type: "image/png",
-
-            purpose: "any",
+            size: "48x48",
           },
         ],
       },
