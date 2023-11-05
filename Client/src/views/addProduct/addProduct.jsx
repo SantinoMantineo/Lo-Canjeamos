@@ -120,6 +120,7 @@ export default function AddProduct({ userData }) {
     "Rodados con motor",
     "Rodados sin motor",
     "Cámaras y accesorios",
+    "Articulos deportivos",
     "Celulares",
     "Computadoras",
     "Audio y video",
