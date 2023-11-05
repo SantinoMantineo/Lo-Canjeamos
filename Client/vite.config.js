@@ -4,12 +4,13 @@ import { VitePWA } from "vite-plugin-pwa";
 
 const manifestForPlugIn = {
   registerType: "prompt",
-  includeAssests: [
+  includeAssets: [
     "favicon.ico",
     "apple-touc-icon.png",
     "maskable_icon.png",
     "android-chrome-192x192.png",
     "android-chrome-512x512.png",
+    "add.png"
   ],
   manifest: {
     name: "LoCanjeamos",
