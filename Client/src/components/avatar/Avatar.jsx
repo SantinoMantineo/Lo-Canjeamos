@@ -38,7 +38,7 @@ const Avatar = ({ userData, setAuth, toggleDarkMode}) => {
     <>
       <div className={style.avatar}>
         <img src={(user && user.picture) || (userData && userData.image)}></img>
-        <h3>{userData ? userData.username : user && user.name}</h3>
+        <h3>{userData.name || user.name}</h3>
         <p>{userData.email || user.email}</p>
         <div>⭐️⭐️⭐️⭐️⭐️</div>
         <button
