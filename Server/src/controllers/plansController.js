@@ -20,9 +20,9 @@ exports.createOrder = async (paymentData) => {
                 description: description,
             }],
             back_urls: {  // Corrected property name to 'back_urls'
-                failure: "http://localhost:3001/plans/failure",
-                pending: "http://localhost:3001/plans/pending",
-                success: "http://localhost:3001/plans/success"
+                failure: "https://lo-canjeamos-production.up.railway.app/login",
+                pending: "https://lo-canjeamos-production.up.railway.app/login",
+                success: "https://lo-canjeamos-production.up.railway.app/login"
             }
         }
 
