@@ -1,7 +1,9 @@
 .chat {
   display: grid;
-  min-width: 800px;
+
+  width: 800px;
   min-height: 800px;
+  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   border-radius: 10px;
   margin-bottom: 100px;
   border: 2px solid #ffe66d;
@@ -43,6 +45,7 @@
 }
 
 .avatar {
+  object-fit: cover;
   width: 60px;
   height: 60px;
   border: 3px solid #4ecdc4;
