@@ -59,9 +59,9 @@ const Matchs = ({ userData }) => {
   });
 
   /*  if (myPosts != 0) {
-      console.log("Mis posts: ", myPosts);
-    }
-    */
+    console.log("Mis posts: ", myPosts);
+  }
+ */
 
   // Filtra los posts cuyo id coincide con "anotherUserId" de los objetos en filteredMatches
   const anotherUserPosts = allPosts.filter((post) => {
@@ -152,9 +152,12 @@ const Matchs = ({ userData }) => {
               />
               {/* Otros detalles de tu post */}
             </div>
-            <div className={style.matchLogo}>
-              <img src={Logo} alt="logo" />
-            </div>
+            <button
+              onClick={() => handleStartChat(pair.anotherUserPost.UserId)}
+              className={style.goChats}
+            >
+              Ir al Chat
+            </button>
             {pair.anotherUserPost && (
               <div className={style.matchItem}>
                 <img
@@ -163,11 +166,6 @@ const Matchs = ({ userData }) => {
                   alt={`Matched User Post ${pair.anotherUserPost.id}`}
                 />
                 {/* Otros detalles del post del otro usuario */}
-                <button
-                  onClick={() => handleStartChat(pair.anotherUserPost.UserId)}
-                >
-                  Iniciar Chat
-                </button>
               </div>
             )}
           </div>
