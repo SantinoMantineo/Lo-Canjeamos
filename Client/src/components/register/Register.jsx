@@ -159,6 +159,10 @@ const Register = ({setAuth}) => {
     !localidad
   ) {
     alert('Complete todos los campos antes de enviar el formulario.');
+    setInput({
+      ...input,
+      disabled: false,
+    })
     return;
   }
 
@@ -213,6 +217,11 @@ const Register = ({setAuth}) => {
       title: 'Error al registrar',
       text: 'Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.',
     });
+    setInput({
+      ...input,
+      disabled: false,
+    })
+    return
   }
 
   setInput({
