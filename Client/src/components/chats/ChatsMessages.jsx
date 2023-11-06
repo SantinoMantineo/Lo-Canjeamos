@@ -7,6 +7,8 @@ import {
   getAllUsers,
 } from "../../redux/actions";
 import { socketServer } from "../../App";
+import avatar from "../../assets/avatar.jpg";
+import style from "./ChatsMessages.module.css";
 
 const ChatsMessages = ({ chatId, userData }) => {
   const dispatch = useDispatch();
@@ -27,7 +29,6 @@ const ChatsMessages = ({ chatId, userData }) => {
     };
   }, []);
 
-
   const sendMessage = () => {
     dispatch(sendAndCreateMessage(chatId, senderId, newMessage))
       .then((newMessage) => {
@@ -47,11 +48,10 @@ const ChatsMessages = ({ chatId, userData }) => {
 
   useEffect(() => {
     dispatch(messagesHistory(chatId));
-  
-    return () => {
-    };
+
+    return () => {};
   }, [counter]);
-  
+
   useEffect(() => {
     // Este efecto se ejecutará cuando cambie 'chatId'
     socketServer.on("live-message", (newMessage) => {
@@ -59,60 +59,80 @@ const ChatsMessages = ({ chatId, userData }) => {
         dispatch(addMessageToHistory(newMessage));
       }
     });
-  
+
     socketServer.emit("message-to-server", "Hi, server!");
-  
+
     return () => {
       // Realiza alguna limpieza si es necesario cuando se desmonta el componente o cuando cambian las dependencias
       socketServer.disconnect();
     };
   }, [chatId]);
-  
-//dispatch, chatId, senderId, messageHistory, allUsers
 
-// Buscar el username del otro usuario en allUsers
-useEffect(() => {
-  // Buscar el username del otro usuario en allUsers cuando cambie messageHistory
-  const otherUserId = messageHistory.find(
-    (message) => message.senderId !== senderId
-  )?.senderId;
+  //dispatch, chatId, senderId, messageHistory, allUsers
 
-  if (otherUserId) {
-    const otherUser = allUsers.find((user) => user.id === otherUserId);
-    if (otherUser) {
-      setOtherUsername(otherUser.username);
+  // Buscar el username del otro usuario en allUsers
+  useEffect(() => {
+    // Buscar el username del otro usuario en allUsers cuando cambie messageHistory
+    const otherUserId = messageHistory.find(
+      (message) => message.senderId !== senderId
+    )?.senderId;
+
+    if (otherUserId) {
+      const otherUser = allUsers.find((user) => user.id === otherUserId);
+      if (otherUser) {
+        setOtherUsername(otherUser.username);
+      }
+    } else {
+      // Si no se encuentra otro usuario, puedes establecer un valor predeterminado o manejarlo de otra manera apropiada.
+      setOtherUsername("Usuario Desconocido");
     }
-  } else {
-    // Si no se encuentra otro usuario, puedes establecer un valor predeterminado o manejarlo de otra manera apropiada.
-    setOtherUsername("Usuario Desconocido");
-  }
-}, [messageHistory, senderId, allUsers]);
+  }, [messageHistory, senderId, allUsers]);
 
   return (
-    <div>
-      <h1>Historial de Chat</h1>
+    <div className={style.chat}>
+      <div className={style.user}>
+        <img src={avatar} className={style.avatar}></img>
+        <h3>{otherUsername}</h3>
+      </div>
 
-      <ul>
-        {messageHistory.map((message) => (
-          <li key={message.id}>
-            {message.senderId === senderId ? (
-              <strong>{userData.username}: </strong>
-            ) : (
-              <strong>{otherUsername}: </strong>
-            )}
-            {message.content}
-          </li>
-        ))}
-      </ul>
+      <ul className={style.listMsg}>
+  {messageHistory.map((message) => (
+    <li key={message.id}>
+      <div className={style.messageWrapper}>
+        {message.senderId !== senderId && (
+          <div className={style.otherUserLabel}>
+            <p>{otherUsername}</p>
+          </div>
+        )}
+        <div className={message.senderId === senderId ? style.myMessage : style.otherMessage}>
+          {message.senderId === senderId && (
+            <div className={style.myUserLabel}>
+              <p>Yo</p>
+            </div>
+          )}
+          <h5>{message.content}</h5>
+        </div>
+      </div>
+    </li>
+  ))}
+</ul>
 
-      <div>
+
+      <div className={style.input}>
         <input
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Escribe tu mensaje..."
         />
-        <button onClick={sendMessage}>Enviar</button>
+        <button onClick={sendMessage} className={style.sendMessage}>
+          <img
+            width="24"
+            height="24"
+            src="https://img.icons8.com/fluency-systems-regular/48/sent--v1.png"
+            alt="sent--v1"
+          />
+        </button>
       </div>
     </div>
   );
