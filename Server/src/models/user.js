@@ -36,5 +36,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       defaultValue: "notPremium"
     },
+    origin: {
+      type: DataTypes.STRING
+    }
   });
 };

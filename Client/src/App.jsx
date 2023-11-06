@@ -62,27 +62,19 @@ const App = () => {
 
   const handleUserGoogle = async () => {
     if (isAuthenticatedAuth0) {
-      const userByGoogle = {
+      const newUser = {
         username: user.name,
         password: "123123",
         email: user.email,
         image: user.picture,
         ubication: `Buenos Aires, Palermo`,
+        origin: "google"
       };
-      // que pregunte si ya existe el usuario, si existe que haga la request a la ruta de loguin y que si no existe haga a register
 
-      try {
-        const userLog = {
-          email: userByGoogle.email
-        }
-        const existe = await axios.get("/users/logueado", {
-          params: userLog
-        });        
+      try {     
+          const response = await axios.post('/users/register', newUser);
 
-        if(!existe.data) {
-          const response = await axios.post('/users/register', userByGoogle);
           if (response) {
-            console.log("Register", response)
             await localStorage.setItem('token', response.data.token);
             setAuth(true);
   
@@ -90,23 +82,18 @@ const App = () => {
             Swal.fire({
               icon: 'success',
               title: 'Registro exitoso',
-              text: `¡Bienvenido ${userByGoogle.username}!`,
+              text: `¡Bienvenido ${newUser.username}!`,
             });
           } else {
-            console.log('Hubo un error al crear el usuario.');
-          }
-
-        } else {
-          const response = await axios.post("/users/login", userByGoogle);
+          const response = await axios.post("/users/login", newUser);
           if (response) {
-            console.log("Loguin", response)
             await localStorage.setItem('token', response.data.token);
             setAuth(true);
   
             // Mostrar una alerta de éxito
             Swal.fire({
               icon: 'success',
-              title: `Bienvenido devuelta ${userByGoogle.username}`,
+              title: `Bienvenido devuelta ${newUser.username}`,
               text: '¡Te has logueado exitosamente!',
             });
           } else {

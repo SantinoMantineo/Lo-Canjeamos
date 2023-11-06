@@ -185,6 +185,7 @@ const Register = ({setAuth}) => {
       email: input.email,
       image: secureUrl,
       ubication: `${selectedProvince}, ${localidad}`,
+      origin: "DB"
     };
 
     const response = await axios.post('/users/register', newUser);
