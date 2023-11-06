@@ -9,6 +9,7 @@ import {
 import { socketServer } from "../../App";
 import avatar from "../../assets/avatar.jpg";
 import style from "./ChatsMessages.module.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ChatsMessages = ({ chatId, userData }) => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const ChatsMessages = ({ chatId, userData }) => {
   const [newMessage, setNewMessage] = useState(""); // Estado para almacenar el mensaje a enviar
   const allUsers = useSelector((state) => state.allUsers);
   const [otherUsername, setOtherUsername] = useState(""); // Estado para almacenar el username del otro usuario
+  const [otherUserImage, setOtherUserImage] = useState("");//Estado para almacenar image del otro usuario
 
   const [counter, setCounter] = useState(0);
 
@@ -78,9 +80,10 @@ const ChatsMessages = ({ chatId, userData }) => {
     )?.senderId;
 
     if (otherUserId) {
-      const otherUser = allUsers.find((user) => user.id === otherUserId);
+      const otherUser = allUsers.find((user) => user.id === otherUserId); 
       if (otherUser) {
         setOtherUsername(otherUser.username);
+        setOtherUserImage(otherUser.image)
       }
     } else {
       // Si no se encuentra otro usuario, puedes establecer un valor predeterminado o manejarlo de otra manera apropiada.
@@ -91,7 +94,7 @@ const ChatsMessages = ({ chatId, userData }) => {
   return (
     <div className={style.chat}>
       <div className={style.user}>
-        <img src={avatar} className={style.avatar}></img>
+        <img src={otherUserImage} className={style.avatar}></img>
         <h3>{otherUsername}</h3>
       </div>
 
