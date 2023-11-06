@@ -19,6 +19,7 @@ import {
   GET_POST_BY_LOCALITY,
   LIKE_POST,
   GET_MATCHES,
+  UPDATE_FILTERED_MATCHES,
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
@@ -146,6 +147,13 @@ export const getMatches = (userId) => {
       console.error("Error al obtener los matches", error);
     }
   };
+};
+
+export const updateMatchedPairs = (matchedPairs) => {
+  return {
+    type: UPDATE_FILTERED_MATCHES,
+    payload: matchedPairs,
+  }
 };
 
 export const selectedPost = (postId, postImage) => {
