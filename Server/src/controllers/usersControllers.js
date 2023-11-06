@@ -30,8 +30,7 @@ exports.createGoogleUser = async (user) => {
       ubication:"Buenos Aires,Palermo",
       password:"contraseña",
       email: user.email, 
-      image: user.picture,
-      rol: "user",
+      image: user.picture
     });
 
     return createdUser;
