@@ -106,6 +106,24 @@ exports.getUserId = async (user) => {
   }
 }
 
+exports.userLogueado = async (username) => {
+  try {
+    const existe = await User.findAll({
+      where: {
+        username: user.username
+      }
+    });
+
+    if (existe) {
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    throw new Error("Error al iniciar sesión");
+  }
+}
+
 exports.updateUser = async (id, updatedData) => {
   try {
     const user = await User.findByPk(id);
