@@ -19,6 +19,7 @@ import {
   GET_POST_BY_LOCALITY,
   LIKE_POST,
   GET_MATCHES,
+  UPDATE_FILTERED_MATCHES,
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
@@ -117,13 +118,17 @@ export const likePost = (myUserId, likedPostId, myPostId, anotherUserId) => {
         myUserId: myUserId,
         likedPostId: likedPostId,
         myPostId: myPostId,
-        anotherUserId,
-        anotherUserId,
+        anotherUserId: anotherUserId
       });
       const likedPost = response.data;
       dispatch({
         type: LIKE_POST,
-        payload: likedPost,
+        payload: {
+        myUserId: myUserId,
+        likedPostId: likedPostId,
+        myPostId: myPostId,
+        anotherUserId: anotherUserId
+        },
       });
     } catch (error) {
       console.error("Error al dar like a la publicación", error);
@@ -142,6 +147,13 @@ export const getMatches = (userId) => {
       console.error("Error al obtener los matches", error);
     }
   };
+};
+
+export const updateMatchedPairs = (matchedPairs) => {
+  return {
+    type: UPDATE_FILTERED_MATCHES,
+    payload: matchedPairs,
+  }
 };
 
 export const selectedPost = (postId, postImage) => {
