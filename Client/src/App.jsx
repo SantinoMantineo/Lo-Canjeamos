@@ -55,8 +55,8 @@ const App = () => {
     }
   };
 
-  // axios.defaults.baseURL = "http://localhost:3001/";
-  axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+  axios.defaults.baseURL = "http://localhost:3001/";
+  // axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   //*Auth0
   const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
 
@@ -73,17 +73,16 @@ const App = () => {
 
       try {
         const userLog = {
-          username: userByGoogle.username
+          email: userByGoogle.email
         }
-        const estaLogueado = await axios.get("/users/logueado", {
+        const existe = await axios.get("/users/logueado", {
           params: userLog
         });        
 
-        if(!estaLogueado.data) {
+        if(!existe.data) {
           const response = await axios.post('/users/register', userByGoogle);
-
           if (response) {
-
+            console.log("Register", response)
             await localStorage.setItem('token', response.data.token);
             setAuth(true);
   
@@ -100,7 +99,7 @@ const App = () => {
         } else {
           const response = await axios.post("/users/login", userByGoogle);
           if (response) {
-            console.log("INICIO SESION")
+            console.log("Loguin", response)
             await localStorage.setItem('token', response.data.token);
             setAuth(true);
   

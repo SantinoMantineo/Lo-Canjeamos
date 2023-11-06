@@ -106,11 +106,11 @@ exports.getUserId = async (user) => {
   }
 }
 
-exports.userLogueado = async ({username}) => {
+exports.userLogueado = async ({email}) => {
   try {
       const user = await User.findOne({
         where: {
-          username: username,
+          email: email,
         },
       });
   
