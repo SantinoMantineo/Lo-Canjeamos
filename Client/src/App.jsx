@@ -70,22 +70,47 @@ const App = () => {
         ubication: `Buenos Aires, Palermo`,
       };
 
+      // que pregunte si ya existe el usuario, si existe que haga la request a la ruta de loguin y que si no existe haga a register
+        let loginUser = {
+          username: user.name,
+          password: "123123"
+      };
+
       try {
-        const response = await axios.post('/users/register', userByGoogle);
+        const estaLogueado = await axios.get("/users/logueado", userByGoogle.username);
+        if(!estaLogueado) {
+          const response = await axios.post('/users/register', userByGoogle);
+          if (response) {
+            await localStorage.setItem('token', response.data.token);
+            setAuth(true);
+  
+            // Mostrar una alerta de éxito
+            Swal.fire({
+              icon: 'success',
+              title: 'Registro exitoso',
+              text: '¡Te has registrado exitosamente!',
+            });
+          } else {
+            console.log('Hubo un error al crear el usuario.');
+          }
 
-        if (response) {
-          await localStorage.setItem('token', response.data.token);
-          setAuth(true);
-
-          // Mostrar una alerta de éxito
-          Swal.fire({
-            icon: 'success',
-            title: 'Registro exitoso',
-            text: '¡Te has registrado exitosamente!',
-          });
         } else {
-          console.log('Hubo un error al crear el usuario.');
+          const response = await axios.post("/users/login", loginUser);
+          if (response) {
+            await localStorage.setItem('token', response.data.token);
+            setAuth(true);
+  
+            // Mostrar una alerta de éxito
+            Swal.fire({
+              icon: 'success',
+              title: 'Registro exitoso',
+              text: '¡Te has registrado exitosamente!',
+            });
+          } else {
+            console.log('Hubo un error al crear el usuario.');
+          }
         }
+
       } catch (error) {
         console.log(error);
       }
