@@ -1,16 +1,17 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
+// eslint-disable react/prop-types */
 import React, { useState, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import {motion} from 'framer-motion';
 import Header from "../../components/header/Header";
 import Banner from "../../assets/banner1.jpg";
 import Banner2 from "../../assets/banner2.jpg";
-import Modal from "../../components/modal/Modal.jsx"
 import style from "./AddProduct.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { validateDescription, validateTitle } from './validation'
+import Swal from "sweetalert2"; 
+
 
 export default function AddProduct({ userData }) {
   const { id } = userData;
@@ -39,15 +40,19 @@ export default function AddProduct({ userData }) {
   const cloud_name = "dlahgnpwp";
   const folderName = "postimages";
 
-  const [showModal, setShowModal] = useState(false);
   const [files, setFiles] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [selectedIndices, setSelectedIndices] = useState([]);
   const [errors, setErrors] = useState({});
 
   const onDrop = useCallback((acceptedFiles) => {
+
     if (files.length + acceptedFiles.length > 3) {
-      alert("¡No puedes cargar más de 3 imágenes!");
+      Swal.fire({
+        title: "¡Límite de imágenes alcanzado!",
+        text: "No puedes cargar más de 3 imágenes.",
+        icon: "warning",
+      });
       return;
     }
 
@@ -163,7 +168,11 @@ setErrors({ ...errors, [name]: error });
     const selectedFiles = event.target.files;
 
     if (files.length + selectedFiles.length > 3) {
-      alert("¡Solo puedes subir un máximo de 3 imágenes!");
+      Swal.fire({
+        title: "¡Límite de imágenes alcanzado!",
+        text: "Solo puedes subir un máximo de 3 imágenes.",
+        icon: "warning",
+      });
       return;
     }
 
@@ -171,7 +180,7 @@ setErrors({ ...errors, [name]: error });
     setFiles(updatedFiles);
   };
 
-  const handleDeleteImage = (index) => {
+  const handleDeleteImage = (event, index) => {
     event.preventDefault();
 
     const updatedFiles = [...files];
@@ -187,9 +196,11 @@ setErrors({ ...errors, [name]: error });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     setFormData({
       ...formData,
-      disabled: true})
+      disabled: true
+    })
 
     // Subir imágenes a Cloudinary y obtener las URLs.
     const uploadPromises = files.map((file) => {
@@ -230,7 +241,11 @@ setErrors({ ...errors, [name]: error });
         localidad === "" ||
         selectedCategory === ""
       ) {
-        alert("Todos los campos marcados con * son obligatorios");
+        Swal.fire({
+          title: "Campos obligatorios",
+          text: "Todos los campos marcados con * son obligatorios.",
+          icon: "warning",
+        });
         setFormData({
           ...formData,
           disabled: false,
@@ -248,8 +263,13 @@ setErrors({ ...errors, [name]: error });
           }
           return `Hay un error en el campo ${key}`;
         });
-    
-        alert(errorMessage.join("\n"));
+      
+        Swal.fire({
+          title: "Errores en el formulario",
+          text: errorMessage.join("\n"),
+          icon: "warning",
+          iconColor: 'red'
+        });
         return;
       }
 
@@ -276,12 +296,16 @@ setErrors({ ...errors, [name]: error });
       );
 
       if (response) {
-        setShowModal(true)
-        // redirige a login luego de 3 segundos
-        setTimeout(()=>{
+        Swal.fire({
+          icon: "success",
+          title: ">🎉 ¡Hecho! 🎉",
+          html: '<p>Tu publicación ha sido creada correctamente. Puedes verla en tu perfil o visualizarla en el inicio.</p>',
+        });
+        setTimeout(() => {
           navigate("/login");
-        }, 3000)
-        // Reinicio de campos.
+          Swal.close()
+        }, 3500);
+
         setFiles([]);
         setSelectedCategory("");
         setSelectedLocalidad("");
@@ -292,7 +316,6 @@ setErrors({ ...errors, [name]: error });
           disabled: false,
         });
       } else {
-        // Hubo un error en la solicitud
         console.log("Hubo un error al crear la publicación.");
       }
     } catch (error) {
@@ -421,7 +444,6 @@ setErrors({ ...errors, [name]: error });
         </div>}
         <h5 className={style.message}>Los campos con * son obligatorios</h5>
       </motion.div>
-      {showModal && <Modal/>}
     </>
   );
 }
