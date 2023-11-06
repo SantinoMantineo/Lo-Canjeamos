@@ -73,4 +73,12 @@
     width: 240px;
     justify-self: center;
   }
+  
+  .dark {
+    padding-top: 3px;
+  }
+
+  .light {
+    padding-top: 3px;
+  }
 }
