@@ -270,6 +270,10 @@ setErrors({ ...errors, [name]: error });
           icon: "warning",
           iconColor: 'red'
         });
+        setFormData({
+          ...formData,
+          disabled: false,
+        })  
         return;
       }
 
