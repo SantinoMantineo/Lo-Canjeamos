@@ -106,19 +106,15 @@ exports.getUserId = async (user) => {
   }
 }
 
-exports.userLogueado = async (username) => {
+exports.userLogueado = async (userLog) => {
   try {
     const existe = await User.findAll({
       where: {
-        username: user.username
+        username: userLog.username
       }
     });
 
-    if (existe) {
-      return true
-    } else {
-      return false
-    }
+    return existe
   } catch (error) {
     throw new Error("Error al iniciar sesión");
   }

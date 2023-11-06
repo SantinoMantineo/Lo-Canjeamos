@@ -62,9 +62,9 @@ router.put("/:id", async (req, res) => {
 });
 
 router.get("/logueado", async (req, res) => {
-  const username = req.body;
+  const userLog = req.body;
   try {
-    const logueado = await userController.userLogueado(username);
+    const logueado = await userController.userLogueado(userLog);
     return res.status(200).json(logueado);
   } catch (error) {
     return res.status(404).json({ error: error.message });

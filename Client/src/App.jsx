@@ -55,7 +55,7 @@ const App = () => {
     }
   };
 
-  //axios.defaults.baseURL = "http://localhost:3001/";
+  // axios.defaults.baseURL = "http://localhost:3001/";
   axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   //*Auth0
   const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
@@ -77,8 +77,12 @@ const App = () => {
       };
 
       try {
-        const estaLogueado = await axios.get("/users/logueado", userByGoogle.username);
-        if(!estaLogueado) {
+        const userLog = {
+          username: userByGoogle.username
+        }
+        const estaLogueado = await axios.get("/users/logueado", userLog);
+
+        if(estaLogueado.length === 0) {
           const response = await axios.post('/users/register', userByGoogle);
           if (response) {
             await localStorage.setItem('token', response.data.token);
