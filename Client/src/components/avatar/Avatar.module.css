@@ -38,6 +38,7 @@
   height: 32px;
   background-color: black;
   padding: 5px;
+  padding-bottom: 3px;
   padding-top: 0px;
   margin-top: 15px;
   margin-bottom: 10px;
@@ -51,6 +52,7 @@
   height: 32px;
   background-color: white;
   padding: 5px;
+  padding-bottom: 3px;
   padding-top: 0px;
   margin-top: 15px;
   margin-bottom: 10px;
@@ -72,5 +74,13 @@
   .avatar {
     width: 240px;
     justify-self: center;
+  }
+  
+  .dark {
+    padding-top: 3px;
+  }
+
+  .light {
+    padding-top: 3px;
   }
 }
