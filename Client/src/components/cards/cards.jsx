@@ -44,7 +44,7 @@ const Cards = ({ allPosts }) => {
     ],
   };
 
-  const posts = allPosts.slice(-10);
+  const posts = allPosts.slice(-20);
   const sortedPosts = posts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
   return (

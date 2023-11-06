@@ -5,7 +5,7 @@ import style from './AllCards.module.css'
 
 const AllCards = ({ posts }) => {
 
-  const sortedPosts = posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const newPosts = posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   return (
     <>
@@ -20,8 +20,8 @@ const AllCards = ({ posts }) => {
         y: 0,
       }}
       className={style.allCards}>
-        {sortedPosts &&
-          sortedPosts.map((post, index) => (
+        {newPosts &&
+          newPosts.map((post, index) => (
             <div key={index} className={style.cards}>
               <Card key={post.id} post={post} />
             </div>
