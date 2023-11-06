@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recuperación de Contraseña</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -20,10 +23,10 @@
 
     .header {
       background-color: #ffe66d;
-      color: #333;
+      color: #fff;
       text-align: center;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
     }
 
     .content {
@@ -54,15 +57,12 @@
     <div class="header">
       <img src="https://res.cloudinary.com/dlahgnpwp/image/upload/v1698923277/emailAssets/mcchgfik3dasgc8s7m1l.png">
     </div>
-    <div class="content"> 
-      <b>🎉 ¡Felicitaciones por completar el formulario de registro! 🎉</b>
-      <p>Te invitamos a explorar todos los productos disponibles
-      que esperan a ser canjeados. ¿Tienes algo que ya no usas? ¡No lo tires!
-      Nuestra web es perfecta para que eso que ya no te interesa se convierta
-      en algo que sí te guste y lo mejor de todo... ¡Es gratis!</p>
-      <p>PSST... Puedes echarle un ojo a nuestro apartado premium, te dará
-      grandes beneficios a la hora de canjear tus productos.</p>
-      <a class="button" href="https://locanjeamos.com.ar/#/">Ir al Sitio</a>
+    <div class="content">
+      <h4>🔐 Cambio de contraseña 🔐</h4>
+      <p>Estimado Usuario,</p>
+      <p>Hemos recibido una solicitud para restablecer tu contraseña. Si no has hecho esta solicitud, puedes ignorar este mensaje.</p>
+      <p>Para restablecer tu contraseña, haz clic en el siguiente enlace:</p>
+      <a class="button" id="forgot-button" href="{{reset_password_link}}">Restablecer Contraseña</a>
     </div>
     <div class="footer">
       &copy; 2023 LoCanjeamos
