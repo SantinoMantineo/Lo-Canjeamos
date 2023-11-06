@@ -27,7 +27,7 @@ const Chats = ({ userData }) => {
   return (
     <>
     <div>
-        <h3>Tus chats: </h3>
+        {/* <h3>Tus chats: </h3>
       <div>
         <ul>
           {userChats && userChats.map((chat) => (
@@ -36,7 +36,7 @@ const Chats = ({ userData }) => {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
       <div>
         <ChatsMessages chatId={chatId} userData={userData}></ChatsMessages>
       </div>
