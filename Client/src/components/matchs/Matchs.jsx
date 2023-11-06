@@ -9,6 +9,7 @@ import {
   getMatches,
   createChat,
   getAllChats,
+  updateMatchedPairs,
 } from "../../redux/actions";
 
 const Matchs = ({ userData }) => {
@@ -17,6 +18,9 @@ const Matchs = ({ userData }) => {
   const matches = useSelector((state) => state.matches);
   const chats = useSelector((state) => state.chats);
   const allPosts = useSelector((state) => state.allPostsCopy);
+  const matchedPair = useSelector((state) => state.matches.matchedPairs); // Accede a filteredMatches desde el estado global
+  console.log(matchedPair);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -42,7 +46,7 @@ const Matchs = ({ userData }) => {
     return match.match.some((m) => m.myUserId === userId);
   });
 
-  /*   if (filteredMatches != 0) {
+ /*   if (filteredMatches != 0) {
     console.log("Mis matches: ", filteredMatches);
   } */
 
@@ -69,8 +73,8 @@ const Matchs = ({ userData }) => {
   });
 
   /*  if (anotherUserPosts != 0) {
-    console.log("Posts del otro: ", anotherUserPosts);
-  } */
+        console.log("Posts del otro: ", anotherUserPosts);
+      } */
 
   const matchedPairs = myPosts.flatMap((myPost) => {
     const matchingPairs = [];
@@ -100,6 +104,9 @@ const Matchs = ({ userData }) => {
     return matchingPairs;
   });
 
+  useEffect(() => {
+    dispatch(updateMatchedPairs(matchedPairs));
+  }, [matchedPairs, dispatch]);
   console.log("matches a renderizar: ", matchedPairs);
 
   function handleStartChat(anotherUserId) {

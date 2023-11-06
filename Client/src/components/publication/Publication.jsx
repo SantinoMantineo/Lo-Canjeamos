@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPosts, selectedPost } from "../../redux/actions";
+import { getAllPosts, selectedPost, deletePost } from "../../redux/actions";
 import style from "./Publication.module.css";
 import icon from "../../assets/iconChoosed.png";
 
@@ -9,6 +9,31 @@ const Publication = ({ userData }) => {
   const allPosts = useSelector((state) => state.allPosts);
   const [selectedPostId, setSelectedPostId] = useState(null);
 
+  
+  let userPosts = [];
+  if (userData) {
+    userPosts = allPosts.filter((post) => post.UserId === userData.id);
+  }
+  const sortedPosts = userPosts.sort(
+    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+    
+    const handlePostClick = (postId, postImage) => {
+      if (selectedPostId === postId) {
+      localStorage.removeItem("selectedPostId");
+      setSelectedPostId(null);
+      dispatch(selectedPost(null, null));
+    } else {
+      localStorage.setItem("selectedPostId", postId);
+      setSelectedPostId(postId);
+      dispatch(selectedPost(postId, postImage));
+    }
+  };
+  
+  const handlePostDelete = (postId) => {
+    dispatch(deletePost(postId))
+  }
+  
   useEffect(() => {
     dispatch(getAllPosts());
     const storedSelectedPostId = localStorage.getItem("selectedPostId");
@@ -25,34 +50,16 @@ const Publication = ({ userData }) => {
         localStorage.removeItem("selectedPostId");
       });
     };
-  }, [dispatch]);
+  }, [dispatch, handlePostDelete]);
 
-  let userPosts = [];
-  if (userData) {
-    userPosts = allPosts.filter((post) => post.UserId === userData.id);
-  }
-  const sortedPosts = userPosts.sort(
-    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-  );
-
-  const handlePostClick = (postId, postImage) => {
-    if (selectedPostId === postId) {
-      localStorage.removeItem("selectedPostId");
-      setSelectedPostId(null);
-    } else {
-      localStorage.setItem("selectedPostId", postId);
-      setSelectedPostId(postId);
-      dispatch(selectedPost(postId, postImage));
-    }
-  };
-
+  
   return (
     <>
       {sortedPosts.map((post) => (
         <div key={post.id} className={style.publication}>
           {post.image && (
             <img
-              src={post.image[0]}
+            src={post.image[0]}
               className={style.img}
               alt="Publication Image"
             />
@@ -75,7 +82,7 @@ const Publication = ({ userData }) => {
             )}
           </button>
 
-          <button className={style.trash}>
+          <button className={style.trash} onClick={() => handlePostDelete(post.id)}>
             <img
               width="24"
               height="24"

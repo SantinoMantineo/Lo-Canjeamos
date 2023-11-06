@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import style from "./ForgotPassword.module.css";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -27,6 +28,11 @@ const ForgotPassword = () => {
       .post("/users/forgot-password", { email: input.email }) // Pass email from input state
       .then((res) => {
         if (res.data) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Solicitud de recuperacion de contraseña',
+            text: '¡Hemos enviado un link a su correo!',
+          });
           navigate("/login");
         }
       })
