@@ -174,7 +174,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
         )}
       </Link>
 
-      {isAuthenticated ? 
+      {isAuthenticated || isAuthenticatedAuth0 ? 
         (
         <button className={style.logout} onClick={logout}>
           <img
