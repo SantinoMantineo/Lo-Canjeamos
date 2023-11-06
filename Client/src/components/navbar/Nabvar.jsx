@@ -8,8 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const NavBar = ({ isAuthenticated, setAuth, userData }) => {
   
   const location = useLocation();
-  const { isAuthenticated: isAuthenticatedAuth0, logout: loguotAuth0 } =
-    useAuth0();
+  const { user, isAuthenticated: isAuthenticatedAuth0, logout: loguotAuth0 } = useAuth0();
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -174,7 +173,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
         )}
       </Link>
 
-      {isAuthenticated ? (
+      {isAuthenticated ? (!user &&
         <button className={style.logout} onClick={logout}>
           <img
             width="24"
