@@ -65,7 +65,7 @@ const Detail = ({ userData }) => {
 
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.href = "http://localhost:5173/#/login";
+          window.location.href = "https://locanjeamos.com.ar/#/login";
           Swal.close();
         }
       });
