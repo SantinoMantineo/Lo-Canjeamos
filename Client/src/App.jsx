@@ -19,7 +19,7 @@ import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/resetPassword/ResetPassword";
 import axios from "axios";
 import io from "socket.io-client";
-
+import Swal from 'sweetalert2';
 import "./App.css";
 
 const socketServer = io("http://localhost:3001/");
@@ -58,26 +58,46 @@ const App = () => {
   axios.defaults.baseURL = "http://localhost:3001/";
   //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   //*Auth0
-  const { user, isAuthenticated: isAuthenticatedAuth0 } = useAuth0(); //datos de BD Auht0
-  const dispatch = useDispatch(); //*
-  const allUsers = useSelector((state) => state.allUsers); //*
+  const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
+
+  const handleUserGoogle = async () => {
+    if (isAuthenticatedAuth0) {
+      const userByGoogle = {
+        username: user.name,
+        password: "123123",
+        email: user.email,
+        image: user.picture,
+        ubication: `Buenos Aires, Palermo`,
+      };
+
+      try {
+        const response = await axios.post('/users/register', userByGoogle);
+
+        if (response) {
+          await localStorage.setItem('token', response.data.token);
+          setAuth(true);
+
+          // Mostrar una alerta de éxito
+          Swal.fire({
+            icon: 'success',
+            title: 'Registro exitoso',
+            text: '¡Te has registrado exitosamente!',
+          });
+        } else {
+          console.log('Hubo un error al crear el usuario.');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
 
   useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
+    if (!isLoading) {
+      handleUserGoogle();
+    }
+  }, [isAuthenticatedAuth0, isLoading]);
 
-  const maxId = allUsers.reduce(
-    (max, user) => (user.id > max ? user.id : max),
-    0
-  ); //busca cuantos user hay.//*
-  const nextId = maxId + 1; //*
-
-  const userByGoogle = { ...user, id: nextId }; //*
-
-  const filteredUsers = allUsers.filter(
-    (user) => user.email === userByGoogle.email
-  ); //verifica mail en BD
-  //*Area de auth0
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userToken, setUserToken] = useState("");
@@ -87,10 +107,6 @@ const App = () => {
     setIsAuthenticated(status);
     setUserData(user);
   };
-
-  if (!filteredUsers) {
-    dispatch(createGoogleUser(userByGoogle));
-  } //?despacha la funcion de crear un nuevo usuarios
 
   useEffect(() => {
     const token = localStorage.getItem("token");
