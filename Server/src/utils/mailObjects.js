@@ -36,7 +36,7 @@ const passwordForgot = (email, id) => {
   
   return {
     to: email,
-    subject: "Registro completado",
+    subject: "Recuperacion de contraseña",
     html: `
     <h2>Recupera tu contraseña</h2>
     <p>Hemos recibido una solicitud para restablecer tu contraseña. Si no has realizado esta solicitud, puedes ignorar este mensaje.</p>

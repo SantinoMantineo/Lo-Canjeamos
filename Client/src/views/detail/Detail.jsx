@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostById, likePost } from "../../redux/actions";
+import { getMatches, getPostById, likePost } from "../../redux/actions";
 import {motion} from 'framer-motion';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -18,30 +18,42 @@ const Detail = ({ userData }) => {
   const anotherUserId = post.User?.id
   const userName = post.User?.username
   const myPostId = useSelector((state) => state.selectedPostToInteract);
+  const [liked, setLiked] = useState(false)
+
+  const filteredMatches = useSelector((state) => state.matches).filter((match) => {
+    return match.match.some((m) => m.myPostId == myPostId && m.likedPostId == id);
+  });
+
+ console.log(filteredMatches);
+
+  const isMatched = filteredMatches.length > 0;
   
   
   useEffect(() => {
     dispatch(getPostById(id));
   }, [id]);
   
-  const [liked, setLiked] = useState(false)
+
+  useEffect(() => {
+    dispatch(getMatches());
+  }, [dispatch]);
   
   
   const handleLikeClick = () => {
     if (myPostId) {
-
-      if (!liked) {
-
-        dispatch(likePost(myUserId, likedPostId, myPostId, anotherUserId));
-
-        setLiked(true);
+        
+        if (!liked) {
+          if (!isMatched) {
+            dispatch(likePost(myUserId, likedPostId, myPostId, anotherUserId));
+            setLiked(true);
+          } 
+        }
         Swal.fire({
           title: "Solicitud de canje enviada",
           text: "Tu solicitud de canje ha sido enviada con éxito.",
           icon: "success",
           confirmButtonText: "Ok",
         });
-      }
     } else {
       Swal.fire({
         title: "Aviso",
@@ -57,9 +69,8 @@ const Detail = ({ userData }) => {
           Swal.close();
         }
       });
-    }
   };
-
+}
   const settings = {
     dots: true,
     infinite: true,
@@ -133,7 +144,7 @@ const Detail = ({ userData }) => {
           <Link to="/">
             <button className={style.back}>Volver</button>
           </Link>
-          <button className={style.match} onClick={handleLikeClick} disabled={liked || myUserId === anotherUserId}>Canjear</button>
+          <button className={style.match} onClick={handleLikeClick} disabled={liked || myUserId === anotherUserId || isMatched}>Canjear</button>
         </div>
       </motion.div>
     </>
