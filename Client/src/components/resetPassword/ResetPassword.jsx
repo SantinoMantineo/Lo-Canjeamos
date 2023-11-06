@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import style from "./ResetPassword.module.css"
 import axios from "axios";
 import { validatePassw, validateRepeat } from "./validate";
+import Swal from 'sweetalert2';
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -43,6 +44,11 @@ const ResetPassword = () => {
       .post(`/users/reset-password/${id}`, { password: input.password }) 
       .then((res) => {
         if (res.data) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Registro de nueva contraseña exitoso',
+            text: '¡Inicie sesion con su nueva contraseña!',
+          });
           navigate("/login");
         }
       })
