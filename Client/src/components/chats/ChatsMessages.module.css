@@ -94,6 +94,7 @@
 .myMessage h5 {
   display: grid;
   background-color: rgba(54, 166, 170, 0.6);
+  margin-bottom: 15px;
   font-size: 16px;
   color: whitesmoke;
   padding: 5px;
@@ -124,6 +125,7 @@
   padding: 5px;
   font-size: 16px;
   margin-left: 10px;
+  margin-bottom: 15px;
   padding-right: 15px;
   border-radius: 0px 10px 10px 10px;
   text-align: left;

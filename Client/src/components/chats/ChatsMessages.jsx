@@ -17,7 +17,6 @@ const ChatsMessages = ({ chatId, userData }) => {
   const [newMessage, setNewMessage] = useState(""); // Estado para almacenar el mensaje a enviar
   const allUsers = useSelector((state) => state.allUsers);
   const [otherUsername, setOtherUsername] = useState(""); // Estado para almacenar el username del otro usuario
-
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
