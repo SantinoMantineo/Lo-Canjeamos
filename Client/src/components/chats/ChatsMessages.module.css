@@ -1,11 +1,12 @@
 .chat {
   display: grid;
+
   width: 800px;
   min-height: 800px;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   border-radius: 10px;
-  background-image: url(../../assets/chatBackground.jpg);
   margin-bottom: 100px;
+  border: 2px solid #ffe66d;
 }
 
 .chat ul {
@@ -15,11 +16,12 @@
 .user {
   display: grid;
   position: fixed;
+  justify-self: center;
   top: 65px;
   width: 800px;
   grid-template-columns: 1fr 5fr;
-  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.9);
-  background-color: grey;
+  background-color: #ffe66d;
+  border: 2px solid #ffe66d;
 }
 
 .listMsg {
@@ -30,7 +32,6 @@
   display: grid;
   align-self: center;
   justify-self: left;
-  color: whitesmoke;
   text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -63,7 +64,8 @@
   justify-content: center;
   margin: 20px;
   margin-bottom: 0px;
-  background-color: gray;
+  background-color: #ffe66d;
+  border: 2px solid #ffe66d;
 }
 
 .chat input {
@@ -75,11 +77,9 @@
   border-radius: 5px;
   outline: none;
   border: none;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .sendMessage {
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   align-self: center;
   justify-self: left;
   border-radius: 50%;
@@ -97,9 +97,10 @@
 .myMessage h5 {
   display: grid;
   background-color: rgba(54, 166, 170, 0.6);
+  margin-bottom: 15px;
   font-size: 16px;
   color: whitesmoke;
-  padding: 2.5px;
+  padding: 5px;
   border-radius: 10px 0px 10px 10px;
   width: fit-content;
   justify-self: right;
@@ -108,7 +109,7 @@
 
 .myUserLabel {
   display: grid;
-  color: black;
+  color: grey;
   height: 40px;
 }
 .otherUserLabel {
@@ -116,7 +117,7 @@
   height: 40px;
   text-align: left;
   padding-left: 10px;
-  color: black;
+  color: grey;
 }
 
 .otherMessage h5 {
@@ -124,8 +125,10 @@
   background-color: rgba(162, 0, 255, 0.6);
   color: whitesmoke;
   padding-left: 5px;
+  padding: 5px;
   font-size: 16px;
   margin-left: 10px;
+  margin-bottom: 15px;
   padding-right: 15px;
   border-radius: 0px 10px 10px 10px;
   text-align: left;
@@ -134,7 +137,8 @@
 
 @media (max-width: 768px) {
   .chat {
-    width: 100%;
+    min-width: 350px;
+    border: none;
   }
 
   .chat input {
@@ -147,10 +151,12 @@
     border-radius: 0px;
     padding-right: 10px;
     padding-bottom: 0px;
+    border: none;
   }
 
   .user {
     width: 100%;
+    border: none;
   }
 
   .user {

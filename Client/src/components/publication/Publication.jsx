@@ -9,17 +9,16 @@ const Publication = ({ userData }) => {
   const allPosts = useSelector((state) => state.allPosts);
   const [selectedPostId, setSelectedPostId] = useState(null);
 
-  
   let userPosts = [];
   if (userData) {
     userPosts = allPosts.filter((post) => post.UserId === userData.id);
   }
   const sortedPosts = userPosts.sort(
     (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-    );
-    
-    const handlePostClick = (postId, postImage) => {
-      if (selectedPostId === postId) {
+  );
+
+  const handlePostClick = (postId, postImage) => {
+    if (selectedPostId === postId) {
       localStorage.removeItem("selectedPostId");
       setSelectedPostId(null);
       dispatch(selectedPost(null, null));
@@ -29,11 +28,11 @@ const Publication = ({ userData }) => {
       dispatch(selectedPost(postId, postImage));
     }
   };
-  
+
   const handlePostDelete = (postId) => {
-    dispatch(deletePost(postId))
-  }
-  
+    dispatch(deletePost(postId));
+  };
+
   useEffect(() => {
     dispatch(getAllPosts());
     const storedSelectedPostId = localStorage.getItem("selectedPostId");
@@ -52,14 +51,13 @@ const Publication = ({ userData }) => {
     };
   }, [dispatch, handlePostDelete]);
 
-  
   return (
     <>
       {sortedPosts.map((post) => (
         <div key={post.id} className={style.publication}>
           {post.image && (
             <img
-            src={post.image[0]}
+              src={post.image[0]}
               className={style.img}
               alt="Publication Image"
             />
@@ -76,13 +74,16 @@ const Publication = ({ userData }) => {
               <img
                 width="24"
                 height="24"
-                src="https://img.icons8.com/ios-glyphs/30/circled.png"
+                src="https://img.icons8.com/color/48/circled.png"
                 alt="circled"
               />
             )}
           </button>
 
-          <button className={style.trash} onClick={() => handlePostDelete(post.id)}>
+          <button
+            className={style.trash}
+            onClick={() => handlePostDelete(post.id)}
+          >
             <img
               width="24"
               height="24"

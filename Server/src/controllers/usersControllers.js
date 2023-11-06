@@ -22,23 +22,7 @@ exports.getAllUser = async () => {
     throw error;
   }
 };
-exports.createGoogleUser = async (user) => {
-  console.log("esto esta llegando",user);
-  try {
-    const createdUser = await User.create({
-      username: user.nickname,
-      ubication:"Buenos Aires,Palermo",
-      password:"contraseña",
-      email: user.email, 
-      image: user.picture
-    });
 
-    return createdUser;
-  } catch (error) {
-    console.error("Error al crear el usuario:", error);
-    throw error;
-  }
-};
 exports.createUser = async (user) => {
   if (
     !user.username ||
