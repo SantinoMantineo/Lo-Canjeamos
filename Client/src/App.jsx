@@ -69,22 +69,21 @@ const App = () => {
         image: user.picture,
         ubication: `Buenos Aires, Palermo`,
       };
-
       // que pregunte si ya existe el usuario, si existe que haga la request a la ruta de loguin y que si no existe haga a register
-        let loginUser = {
-          username: user.name,
-          password: "123123"
-      };
 
       try {
         const userLog = {
           username: userByGoogle.username
         }
-        const estaLogueado = await axios.get("/users/logueado", userLog);
+        const estaLogueado = await axios.get("/users/logueado", {
+          params: userLog
+        });        
 
-        if(estaLogueado.length === 0) {
+        if(!estaLogueado.data) {
           const response = await axios.post('/users/register', userByGoogle);
+
           if (response) {
+
             await localStorage.setItem('token', response.data.token);
             setAuth(true);
   
@@ -92,23 +91,24 @@ const App = () => {
             Swal.fire({
               icon: 'success',
               title: 'Registro exitoso',
-              text: '¡Te has registrado exitosamente!',
+              text: `¡Bienvenido ${userByGoogle.username}!`,
             });
           } else {
             console.log('Hubo un error al crear el usuario.');
           }
 
         } else {
-          const response = await axios.post("/users/login", loginUser);
+          const response = await axios.post("/users/login", userByGoogle);
           if (response) {
+            console.log("INICIO SESION")
             await localStorage.setItem('token', response.data.token);
             setAuth(true);
   
             // Mostrar una alerta de éxito
             Swal.fire({
               icon: 'success',
-              title: 'Registro exitoso',
-              text: '¡Te has registrado exitosamente!',
+              title: `Bienvenido devuelta ${userByGoogle.username}`,
+              text: '¡Te has logueado exitosamente!',
             });
           } else {
             console.log('Hubo un error al crear el usuario.');
