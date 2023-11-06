@@ -1,11 +1,10 @@
 .chat {
   display: grid;
-  width: 800px;
-  height: auto;
-  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+  min-width: 800px;
+  min-height: 800px;
   border-radius: 10px;
-  background-image: url(../../assets/chatBackground.jpg);
   margin-bottom: 100px;
+  border: 2px solid grey;
 }
 
 .chat ul {
@@ -15,11 +14,12 @@
 .user {
   display: grid;
   position: fixed;
+  justify-self: center;
   top: 65px;
   width: 800px;
   grid-template-columns: 1fr 5fr;
-  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.9);
   background-color: grey;
+  border: 2px solid grey;
 }
 
 .listMsg {
@@ -63,6 +63,7 @@
   margin: 20px;
   margin-bottom: 0px;
   background-color: gray;
+  border: 2px solid grey;
 }
 
 .chat input {
@@ -98,7 +99,7 @@
   background-color: rgba(54, 166, 170, 0.6);
   font-size: 16px;
   color: whitesmoke;
-  padding: 2.5px;
+  padding: 5px;
   border-radius: 10px 0px 10px 10px;
   width: fit-content;
   justify-self: right;
@@ -107,7 +108,7 @@
 
 .myUserLabel {
   display: grid;
-  color: black;
+  color: grey;
   height: 40px;
 }
 .otherUserLabel {
@@ -115,7 +116,7 @@
   height: 40px;
   text-align: left;
   padding-left: 10px;
-  color: black;
+  color: grey;
 }
 
 .otherMessage h5 {
@@ -123,6 +124,7 @@
   background-color: rgba(162, 0, 255, 0.6);
   color: whitesmoke;
   padding-left: 5px;
+  padding: 5px;
   font-size: 16px;
   margin-left: 10px;
   padding-right: 15px;
@@ -133,7 +135,8 @@
 
 @media (max-width: 768px) {
   .chat {
-    width: 100%;
+    min-width: 350px;
+    border: none;
   }
 
   .chat input {

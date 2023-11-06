@@ -96,27 +96,32 @@ const ChatsMessages = ({ chatId, userData }) => {
       </div>
 
       <ul className={style.listMsg}>
-  {messageHistory.map((message) => (
-    <li key={message.id}>
-      <div className={style.messageWrapper}>
-        {message.senderId !== senderId && (
-          <div className={style.otherUserLabel}>
-            <p>{otherUsername}</p>
-          </div>
-        )}
-        <div className={message.senderId === senderId ? style.myMessage : style.otherMessage}>
-          {message.senderId === senderId && (
-            <div className={style.myUserLabel}>
-              <p>Yo</p>
+        {messageHistory.map((message) => (
+          <li key={message.id}>
+            <div className={style.messageWrapper}>
+              {message.senderId !== senderId && (
+                <div className={style.otherUserLabel}>
+                  <p>{otherUsername}</p>
+                </div>
+              )}
+              <div
+                className={
+                  message.senderId === senderId
+                    ? style.myMessage
+                    : style.otherMessage
+                }
+              >
+                {message.senderId === senderId && (
+                  <div className={style.myUserLabel}>
+                    <p>Yo</p>
+                  </div>
+                )}
+                <h5>{message.content}</h5>
+              </div>
             </div>
-          )}
-          <h5>{message.content}</h5>
-        </div>
-      </div>
-    </li>
-  ))}
-</ul>
-
+          </li>
+        ))}
+      </ul>
 
       <div className={style.input}>
         <input
