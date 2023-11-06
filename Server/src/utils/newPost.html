@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicación Creada</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -20,10 +23,10 @@
 
     .header {
       background-color: #ffe66d;
-      color: #333;
+      color: #fff;
       text-align: center;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
     }
 
     .content {
@@ -54,18 +57,19 @@
     <div class="header">
       <img src="https://res.cloudinary.com/dlahgnpwp/image/upload/v1698923277/emailAssets/mcchgfik3dasgc8s7m1l.png">
     </div>
-    <div class="content"> 
-      <b>🎉 ¡Felicitaciones por completar el formulario de registro! 🎉</b>
-      <p>Te invitamos a explorar todos los productos disponibles
-      que esperan a ser canjeados. ¿Tienes algo que ya no usas? ¡No lo tires!
-      Nuestra web es perfecta para que eso que ya no te interesa se convierta
-      en algo que sí te guste y lo mejor de todo... ¡Es gratis!</p>
-      <p>PSST... Puedes echarle un ojo a nuestro apartado premium, te dará
-      grandes beneficios a la hora de canjear tus productos.</p>
-      <a class="button" href="https://locanjeamos.com.ar/#/">Ir al Sitio</a>
+    <div class="content">
+      <h4>🛒 Publicación Creada 🛒</h4>
+      <p>¡Felicidades por tu nueva publicación!</p>
+      <p>Tu publicación se ha creado exitosamente. Aquí tienes los detalles:</p>
+      <img src="{{image}}" alt="Imagen de tu publicación" style="width: 180px; height: auto;">
+      <p><b>Título:</b> {{title}}</p>
+      <p><b>Descripción:</b> {{description}}</p>
+      <p><b>Categoría:</b> {{category}}</p>
+      <p><b>Ubicación:</b> {{ubication}}</p>
+      <a class="button" href="{{link}}">Ver en el Perfil</a>
     </div>
     <div class="footer">
-      &copy; 2023 LoCanjeamos
+      &copy; 2023 Tu Empresa
     </div>
   </div>
 </body>
