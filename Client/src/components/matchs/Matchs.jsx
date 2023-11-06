@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../assets/favicon.png";
 import style from "./Matchs.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -117,7 +116,7 @@ const Matchs = ({ userData }) => {
         (chat.user1Id === anotherUserId && chat.user2Id === userId)
       );
     });
-
+  
     if (existingChat) {
       // Redirige al usuario a la vista del chat existente
       navigate(`/chats/${existingChat.id}`);
@@ -125,10 +124,16 @@ const Matchs = ({ userData }) => {
       // Si no existe un chat, crea uno
       createChat(userId, anotherUserId)
         .then((chat) => {
-          // Accede al chatId desde el chat creado
-          const chatId = chat.id;
-          // Redirige al usuario a la vista del chat recién creado
-          navigate(`/chats/${chatId}`);
+          console.log(chat.chatId)
+          // Asegúrate de que chat.id existe en la respuesta
+          if (chat) {
+            // Accede al chatId desde el chat creado
+            const chatId = chat.chatId;
+            // Redirige al usuario a la vista del chat recién creado
+            navigate(`/chats/${chatId}`);
+          } else {
+            console.error("Error: No se recibió el ID del chat en la respuesta");
+          }
         })
         .catch((error) => {
           console.error("Error al iniciar el chat:", error);
