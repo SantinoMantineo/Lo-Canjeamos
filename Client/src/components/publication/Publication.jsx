@@ -35,8 +35,6 @@ const Publication = ({ userData }) => {
     }
   };
 
-  const handlePostDelete = (postId) => {
-    dispatch(deletePost(postId));
   const handlePostDelete = async (postId) => {
     try {
       await dispatch(deletePost(postId)); // Espera a que se complete la eliminación en el servidor
@@ -46,7 +44,7 @@ const Publication = ({ userData }) => {
       console.error("Error al eliminar la publicación", error);
     }
   };
-}
+
 
   useEffect(() => {
     dispatch(getAllPosts());
@@ -62,7 +60,7 @@ const Publication = ({ userData }) => {
         localStorage.removeItem("selectedPostId");
       });
     };
-  }, [dispatch, handlePostDelete]);
+  }, [dispatch, ]);
 
   return (
     <>
