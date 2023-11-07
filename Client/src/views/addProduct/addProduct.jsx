@@ -122,24 +122,25 @@ export default function AddProduct({ userData }) {
   //Manejo de las categorías.
   const [selectedCategory, setSelectedCategory] = useState("");
   const categories = [
-    "Rodados con motor",
-    "Rodados sin motor",
-    "Cámaras y accesorios",
-    "Articulos deportivos",
-    "Celulares",
-    "Computadoras",
-    "Audio y video",
-    "Videojuegos",
+    "Alimentos",
     "Antiguedades",
+    "Arte y artesanías",
+    "Articulos deportivos",
+    "Audio y video",
+    "Cámaras y accesorios",
+    "Celulares",
+    "Computación",
     "Electrodomésticos",
     "Herramientas",
-    "Muebles y hogar",
-    "Arte y artesanías",
     "Instrumentos musicales",
-    "Alimentos",
     "Joyas y relojes",
+    "Muebles y hogar",
+    "Rodados con motor",
+    "Rodados sin motor",
     "Ropa e indumentaria",
+    "Servicios",
     "Varios",
+    "Videojuegos",
   ];
 
   const [formData, setFormData] = useState({
