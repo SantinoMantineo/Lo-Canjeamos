@@ -101,7 +101,7 @@ const App = () => {
           if (response) {
             console.log("Loguin", response)
             await localStorage.setItem('token', response.data.token);
-            setAuth(true);
+            setAuth(true, user);
   
             // Mostrar una alerta de éxito
             Swal.fire({
