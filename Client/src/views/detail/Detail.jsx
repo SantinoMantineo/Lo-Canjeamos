@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMatches, getPostById, likePost } from "../../redux/actions";
@@ -19,6 +19,7 @@ const Detail = ({ userData }) => {
   const userName = post.User?.username
   const myPostId = useSelector((state) => state.selectedPostToInteract);
   const [liked, setLiked] = useState(false)
+  const navigate = useNavigate();
 
   const filteredMatches = useSelector((state) => state.matches).filter((match) => {
     return match.match.some((m) => m.myPostId == myPostId && m.likedPostId == id);
@@ -69,7 +70,7 @@ const Detail = ({ userData }) => {
           Swal.close();
         }
       });
-  };
+  }
 }
   const settings = {
     dots: true,
@@ -92,7 +93,28 @@ const Detail = ({ userData }) => {
       },
     ],
   };
-
+  const allPosts = useSelector((state) => state.allPosts);
+  const handleNextClick = () => {
+    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+  
+    if (Array.isArray(allPosts) && allPosts.length > 0 && currentIndex !== -1 && currentIndex < allPosts.length - 1) {
+      const nextPostId = allPosts[currentIndex + 1].id;
+      navigate(`/detail/${nextPostId}`);
+    } else {
+      console.log("No hay publicaciones disponibles o ya estás en la última publicación");
+    }
+  };
+  
+  const handlePrevClick = () => {
+    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+  
+    if (Array.isArray(allPosts) && allPosts.length > 0 && currentIndex !== -1 && currentIndex > 0) {
+      const prevPostId = allPosts[currentIndex - 1].id;
+      navigate(`/detail/${prevPostId}`);
+    } else {
+      console.log("No hay publicaciones disponibles o ya estás en la primera publicación");
+    }
+  };
   return (
     <>
       <motion.div 
@@ -145,6 +167,16 @@ const Detail = ({ userData }) => {
             <button className={style.back}>Volver</button>
           </Link>
           <button className={style.match} onClick={handleLikeClick} disabled={liked || myUserId === anotherUserId || isMatched}>Canjear</button>
+        </div>
+
+        
+        <div className={style.navigationButtons}>
+          <button onClick={handlePrevClick} disabled={allPosts.length === 0 || allPosts.findIndex((p) => p.id === id) === 0}>
+            Anterior
+          </button>
+          <button onClick={handleNextClick} disabled={allPosts.length === 0 || allPosts.findIndex((p) => p.id === id) === allPosts.length - 1}>
+            Siguiente
+          </button>
         </div>
       </motion.div>
     </>
