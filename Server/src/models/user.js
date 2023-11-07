@@ -40,5 +40,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       defaultValue: "DB"
     }
+  },
+  {
+    paranoid: true,
+    deletedAt: 'Deshabilitado'
   });
 };
