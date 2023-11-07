@@ -26,7 +26,7 @@ const Chats = ({ userData }) => {
 
   return (
     <>
-      <div>
+      <div className={style.chats}>
         {/* <h3>Tus chats: </h3>
       <div>
         <ul>
@@ -37,7 +37,7 @@ const Chats = ({ userData }) => {
           ))}
         </ul>
       </div> */}
-        <div>
+        <div className={style.chatsMsg}>
           <ChatsMessages chatId={chatId} userData={userData}></ChatsMessages>
         </div>
       </div>
