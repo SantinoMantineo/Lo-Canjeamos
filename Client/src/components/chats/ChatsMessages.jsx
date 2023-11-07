@@ -98,7 +98,7 @@ const ChatsMessages = ({ chatId, userData }) => {
   useEffect(() => {
     messagesEndRef.current.scrollIntoView({
       behavior: "smooth",
-      block: "end", // Esto hace que el scroll sea hacia arriba
+      block: "end", 
     });
   }, [messageHistory]);
   
