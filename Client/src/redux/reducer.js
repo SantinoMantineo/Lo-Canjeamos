@@ -94,6 +94,28 @@ function rootReducer(state = initialState, action) {
         selectedPost: action.payload,
       };
 
+    case CREATE_POST:
+      return {
+        ...state,
+        allPosts: [...state.allPosts, action.payload],
+      };
+
+    case UPDATE_POST:
+      return {
+        ...state,
+        allPosts: state.allPosts.map((post) =>
+          post.id === action.payload.id ? action.payload : post
+        ),
+      };
+
+    case DELETE_POST:
+      return {
+        ...state,
+        allPosts: state.allPosts.filter(
+          (post) => post.id !== action.payload.id
+        ),
+      };
+
     case SELECT_PROVINCE:
       return {
         ...state,
@@ -148,33 +170,10 @@ function rootReducer(state = initialState, action) {
         allPosts: filteredPosts,
       };
 
-    case CREATE_POST:
-      return {
-        ...state,
-        allPosts: [...state.allPosts, action.payload],
-      };
-
-    case UPDATE_POST:
-      return {
-        ...state,
-        allPosts: state.allPosts.map((post) =>
-          post.id === action.payload.id ? action.payload : post
-        ),
-      };
-
-    case DELETE_POST:
-      return {
-        ...state,
-        allPosts: state.allPosts.filter(
-          (post) => post.id !== action.payload.id
-        ),
-      };
-
-      case LIKE_POST:
+    case LIKE_POST:
       return {
         ...state,
         likedPosts: [...state.likedPosts, action.payload.likedPostId],
-        
       };
 
     case GET_MATCHES:
@@ -183,11 +182,11 @@ function rootReducer(state = initialState, action) {
         matches: action.payload,
       };
 
-      case UPDATE_FILTERED_MATCHES:
-        return {
-          ...state,
-          matchedPairs: action.payload,
-        };
+    case UPDATE_FILTERED_MATCHES:
+      return {
+        ...state,
+        matchedPairs: action.payload,
+      };
 
     case CARGAR_HISTORIAL_MENSAJES:
       return {
@@ -201,18 +200,17 @@ function rootReducer(state = initialState, action) {
         messageHistory: [...state.messageHistory, action.payload],
       };
 
-      
-      case GET_ALL_MESSAGES:
-        return {
-          ...state,
-          messageHistory: action.payload,
-        };
-        
-        case GET_ALL_CHATS:
-          return {
-            ...state,
-            chats: action.payload,
-          };
+    case GET_ALL_MESSAGES:
+      return {
+        ...state,
+        messageHistory: action.payload,
+      };
+
+    case GET_ALL_CHATS:
+      return {
+        ...state,
+        chats: action.payload,
+      };
 
     case RESET_FILTERS:
       return {
