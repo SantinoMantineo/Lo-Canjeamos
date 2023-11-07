@@ -99,9 +99,8 @@ const App = () => {
         } else {
           const response = await axios.post("/users/login", userByGoogle);
           if (response) {
-            console.log("Loguin", response)
             await localStorage.setItem('token', response.data.token);
-            setAuth(true);
+            setAuth(true, response.data.usuario);
   
             // Mostrar una alerta de éxito
             Swal.fire({
