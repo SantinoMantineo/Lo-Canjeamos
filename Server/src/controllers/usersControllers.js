@@ -106,6 +106,20 @@ exports.getUserId = async (user) => {
   }
 }
 
+exports.userLogueado = async ({email}) => {
+  try {
+      const user = await User.findOne({
+        where: {
+          email: email,
+        },
+      });
+  
+      return user !== null;
+  } catch (error) {
+    throw new Error("Error al iniciar sesión");
+  }
+}
+
 exports.updateUser = async (id, updatedData) => {
   try {
     const user = await User.findByPk(id);

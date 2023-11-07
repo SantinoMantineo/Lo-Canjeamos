@@ -55,37 +55,52 @@ const App = () => {
     }
   };
 
-  //axios.defaults.baseURL = "http://localhost:3001/";
+  // axios.defaults.baseURL = "http://localhost:3001/";
   axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   //*Auth0
   const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
 
   const handleUserGoogle = async () => {
     if (isAuthenticatedAuth0) {
-      const userByGoogle = {
+      const newUser = {
         username: user.name,
         password: "123123",
         email: user.email,
         image: user.picture,
         ubication: `Buenos Aires, Palermo`,
+        origin: "google"
       };
 
-      try {
-        const response = await axios.post('/users/register', userByGoogle);
+      try {     
+          const response = await axios.post('/users/register', newUser);
 
-        if (response) {
-          await localStorage.setItem('token', response.data.token);
-          setAuth(true);
-
-          // Mostrar una alerta de éxito
-          Swal.fire({
-            icon: 'success',
-            title: 'Registro exitoso',
-            text: '¡Te has registrado exitosamente!',
-          });
-        } else {
-          console.log('Hubo un error al crear el usuario.');
+          if (response) {
+            await localStorage.setItem('token', response.data.token);
+            setAuth(true);
+  
+            // Mostrar una alerta de éxito
+            Swal.fire({
+              icon: 'success',
+              title: 'Registro exitoso',
+              text: `¡Bienvenido ${newUser.username}!`,
+            });
+          } else {
+          const response = await axios.post("/users/login", newUser);
+          if (response) {
+            await localStorage.setItem('token', response.data.token);
+            setAuth(true);
+  
+            // Mostrar una alerta de éxito
+            Swal.fire({
+              icon: 'success',
+              title: `Bienvenido devuelta ${newUser.username}`,
+              text: '¡Te has logueado exitosamente!',
+            });
+          } else {
+            console.log('Hubo un error al crear el usuario.');
+          }
         }
+
       } catch (error) {
         console.log(error);
       }

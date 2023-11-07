@@ -8,12 +8,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 const NavBar = ({ isAuthenticated, setAuth, userData }) => {
   
   const location = useLocation();
-  const { isAuthenticated: isAuthenticatedAuth0, logout: loguotAuth0 } =
-    useAuth0();
+  const { user, isAuthenticated: isAuthenticatedAuth0, logout: loguotAuth0 } = useAuth0();
 
   const logout = () => {
     localStorage.removeItem("token");
     setAuth(false);
+    loguotAuth0({ logoutParams: { returnTo: window.location.origin } })
   };
 
   return (
@@ -174,23 +174,9 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
         )}
       </Link>
 
-      {isAuthenticated ? (
+      {isAuthenticated || isAuthenticatedAuth0 ? 
+        (
         <button className={style.logout} onClick={logout}>
-          <img
-            width="24"
-            height="24"
-            src="https://img.icons8.com/fluency-systems-filled/48/exit.png"
-            alt="exit"
-          />
-          Salir
-        </button>
-      ) : isAuthenticatedAuth0 ? (
-        <button
-          className={style.logout}
-          onClick={() =>
-            loguotAuth0({ logoutParams: { returnTo: window.location.origin } })
-          }
-        >
           <img
             width="24"
             height="24"
