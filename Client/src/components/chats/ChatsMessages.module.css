@@ -23,7 +23,7 @@
 }
 
 .listMsg {
-  margin-top: 50px;
+  margin-top: 230px;
 }
 
 .user h3 {
@@ -142,6 +142,10 @@
 
   .chat input {
     width: 100%;
+  }
+
+  .listMsg {
+    margin-top: 170px;
   }
 
   .input {
