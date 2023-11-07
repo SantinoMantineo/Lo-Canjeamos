@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMatches, getPostById, likePost } from "../../redux/actions";
+import { getMatches, getPostById, likePost,clearDetail} from "../../redux/actions";
 import {motion} from 'framer-motion';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -23,6 +23,7 @@ const Detail = ({ userData }) => {
   const filteredMatches = useSelector((state) => state.matches).filter((match) => {
     return match.match.some((m) => m.myPostId == myPostId && m.likedPostId == id);
   });
+ 
 
  console.log(filteredMatches);
 
@@ -38,6 +39,11 @@ const Detail = ({ userData }) => {
     dispatch(getMatches());
   }, [dispatch]);
   
+ 
+  useEffect(()=>{
+    dispatch(getPostById(`${id}`));
+    return () => {dispatch(clearDetail())}//limpia el detail
+  },[])
   
   const handleLikeClick = () => {
     if (myPostId) {
