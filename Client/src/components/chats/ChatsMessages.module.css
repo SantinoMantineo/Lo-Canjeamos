@@ -97,13 +97,13 @@
   display: grid;
   background-color: rgba(54, 166, 170, 0.6);
   margin-bottom: 15px;
-  
   font-size: 16px;
   color: whitesmoke;
   padding: 5px;
   border-radius: 10px 0px 10px 10px;
   width: fit-content;
   justify-self: right;
+  text-align: justify;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
 }
 
@@ -132,7 +132,7 @@
   margin-bottom: 15px;
   padding-right: 15px;
   border-radius: 0px 10px 10px 10px;
-  text-align: left;
+  text-align: justify;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
 }
 
