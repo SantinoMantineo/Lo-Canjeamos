@@ -25,6 +25,7 @@ import {
   DELETE_POST,
   SELECTED_POST,
   RESET_FILTERS,
+  CLEAR_DETAIL,
 } from "./actionTypes";
 
 export function getAllUsers() {
@@ -133,6 +134,14 @@ export const likePost = (myUserId, likedPostId, myPostId, anotherUserId) => {
     } catch (error) {
       console.error("Error al dar like a la publicación", error);
     }
+  };
+};
+
+export const clearDetail = () => {
+  return async function (dispatch) {
+    return dispatch({
+      type: CLEAR_DETAIL,
+    });
   };
 };
 

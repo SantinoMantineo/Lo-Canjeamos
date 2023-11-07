@@ -24,6 +24,7 @@ import {
   UPDATE_FILTERED_MATCHES,
   LIKE_POST,
   SELECTED_POST,
+  CLEAR_DETAIL,
 } from "./actionTypes";
 
 const initialState = {
@@ -43,6 +44,7 @@ const initialState = {
   likedPosts: [],
   interacciones: {},
   matchedPairs: [],
+  postDetail:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -176,6 +178,12 @@ function rootReducer(state = initialState, action) {
         likedPosts: [...state.likedPosts, action.payload.likedPostId],
         
       };
+
+      case CLEAR_DETAIL:
+        return {
+            ...state,
+            postDetail:[]
+        }
 
     case GET_MATCHES:
       return {
