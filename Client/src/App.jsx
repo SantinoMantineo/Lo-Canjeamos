@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import AddProduct from "./views/addProduct/addProduct";
 import Chats from "./views/chats/Chats";
-import Exchanges from "./views/exchanges/Exchanges";
+import Exchanges from "./views/exchanges/exchanges";
 import Home from "./views/home/Home";
 import Detail from "./views/detail/Detail";
 import Navbar from "./components/navbar/Nabvar";
@@ -56,7 +56,7 @@ const App = () => {
   };
 
   axios.defaults.baseURL = "http://localhost:3001/";
-  //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+  // axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   //*Auth0
   const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
 

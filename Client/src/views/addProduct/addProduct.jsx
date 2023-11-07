@@ -309,7 +309,7 @@ setErrors({ ...errors, [name]: error });
         setTimeout(() => {
           navigate("/login");
           Swal.close()
-        }, 3500);
+        }, 1500);
 
         setFiles([]);
         setSelectedCategory("");
