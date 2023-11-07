@@ -136,9 +136,12 @@
     width: 250px;
   }
 
+  .container option {
+    text-align: left;
+  }
+
   .container select {
-    padding-right: 140px;
-    padding-left: 0px;
+    padding-left: 10px;
   }
 }
 
@@ -173,5 +176,7 @@
   animation-duration: 4s;
 }
 @keyframes l24 {
-  100% {transform: rotate(1turn)}
+  100% {
+    transform: rotate(1turn);
+  }
 }
