@@ -13,6 +13,15 @@ router.get("/allUsers", async (req, res) => {
   }
 });
 
+router.get("/allDisabledUsers", async (req, res) => {
+  try {
+    const response = await userController.getAllDisabled();
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(error.message)
+  }
+});
+
 router.post("/register", validInfo, async (req, res) => {
   const user = req.body;
   try {
@@ -104,6 +113,16 @@ router.post('/reset-password/:id', async (req, res) => {
   }catch (error){
     return res.status(400).json(error.message);
   };
-})
+});
+
+router.put("/restoreUser/:id", async (req, res) => {
+  const { id } = req.params
+  try {
+    const restoredUser = await userController.restoreUser(id);
+    return res.status(200).json({ message: restoredUser });
+  } catch (error) {
+    return res.status(400).json({ error: error.message })
+  }
+});
 
 module.exports = router;
