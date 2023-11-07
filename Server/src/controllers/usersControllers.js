@@ -71,6 +71,26 @@ exports.createUser = async (user) => {
 };
 
 exports.loginUser = async (user) => {
+  if(user.origin === "google"){
+    const usuarios = await User.findAll({
+      where: {
+        email: user.email
+      }
+    });
+
+    if (usuarios.length === 0) {
+      throw new Error("No existe ningún usuario con ese nombre");
+    }
+
+    try{
+      const usuario = usuarios[0]; // Acceder al primer usuario en el array
+      const token = jwtGenerator(usuario.id);
+      return {usuario, token };
+
+    } catch (error){
+      console.log(error)
+    }
+  } else {
   const usuarios = await User.findAll({
     where: {
       username: user.username
@@ -95,6 +115,7 @@ exports.loginUser = async (user) => {
       throw new Error("Error al iniciar sesión");
     }
   }
+}
 };
 
 exports.getUserId = async (user) => {

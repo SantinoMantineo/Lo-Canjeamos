@@ -68,6 +68,7 @@ const App = () => {
         email: user.email,
         image: user.picture,
         ubication: `Buenos Aires, Palermo`,
+        origin: "google"
       };
       // que pregunte si ya existe el usuario, si existe que haga la request a la ruta de loguin y que si no existe haga a register
 
@@ -82,7 +83,6 @@ const App = () => {
         if(!existe.data) {
           const response = await axios.post('/users/register', userByGoogle);
           if (response) {
-            console.log("Register", response)
             await localStorage.setItem('token', response.data.token);
             setAuth(true);
   
