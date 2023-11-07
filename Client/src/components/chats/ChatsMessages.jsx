@@ -19,12 +19,11 @@ const ChatsMessages = ({ chatId, userData }) => {
   const allUsers = useSelector((state) => state.allUsers);
   const [otherUsername, setOtherUsername] = useState(""); // Estado para almacenar el username del otro usuario
 
-  const [otherUserImage, setOtherUserImage] = useState("");//Estado para almacenar image del otro usuario
+  const [otherUserImage, setOtherUserImage] = useState(""); //Estado para almacenar image del otro usuario
 
   const [counter, setCounter] = useState(0);
 
   const messagesEndRef = useRef(null);
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -84,10 +83,10 @@ const ChatsMessages = ({ chatId, userData }) => {
     )?.senderId;
 
     if (otherUserId) {
-      const otherUser = allUsers.find((user) => user.id === otherUserId); 
+      const otherUser = allUsers.find((user) => user.id === otherUserId);
       if (otherUser) {
         setOtherUsername(otherUser.username);
-        setOtherUserImage(otherUser.image)
+        setOtherUserImage(otherUser.image);
       }
     } else {
       // Si no se encuentra otro usuario, puedes establecer un valor predeterminado o manejarlo de otra manera apropiada.
@@ -101,8 +100,13 @@ const ChatsMessages = ({ chatId, userData }) => {
       block: "end", // Esto hace que el scroll sea hacia arriba
     });
   }, [messageHistory]);
-  
-  
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
 
   return (
     <div className={style.chat}>
@@ -144,6 +148,7 @@ const ChatsMessages = ({ chatId, userData }) => {
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
+          onKeyDown={handleKeyPress}
           placeholder="Escribe tu mensaje..."
         />
         <button onClick={sendMessage} className={style.sendMessage}>
