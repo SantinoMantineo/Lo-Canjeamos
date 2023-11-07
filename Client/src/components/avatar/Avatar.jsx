@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useState, useEffect } from "react";
-import avatar from "../../assets/avatar.jpg";
 import style from "./Avatar.module.css";
 import PayModal from "../payModal/PayModal";
 import { useAuth0 } from "@auth0/auth0-react";

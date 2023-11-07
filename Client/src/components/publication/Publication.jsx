@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts, selectedPost, deletePost } from "../../redux/actions";
+
 import style from "./Publication.module.css";
 import icon from "../../assets/iconChoosed.png";
 
@@ -8,11 +9,16 @@ const Publication = ({ userData }) => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
   const [selectedPostId, setSelectedPostId] = useState(null);
+  const [userPosts, setUserPosts] = useState([]);
 
-  let userPosts = [];
-  if (userData) {
-    userPosts = allPosts.filter((post) => post.UserId === userData.id);
-  }
+  useEffect(() => {
+    // Filtrar los posts del usuario cuando cambie `userData` o `allPosts`
+    if (userData) {
+      const filteredUserPosts = allPosts.filter((post) => post.UserId === userData.id);
+      setUserPosts(filteredUserPosts); // Actualiza el estado local
+    }
+  }, [userData, allPosts]);
+
   const sortedPosts = userPosts.sort(
     (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
   );
@@ -31,7 +37,16 @@ const Publication = ({ userData }) => {
 
   const handlePostDelete = (postId) => {
     dispatch(deletePost(postId));
+  const handlePostDelete = async (postId) => {
+    try {
+      await dispatch(deletePost(postId)); // Espera a que se complete la eliminación en el servidor
+      const updatedPosts = userPosts.filter((post) => post.id !== postId);
+      setUserPosts(updatedPosts); // Actualiza el estado local
+    } catch (error) {
+      console.error("Error al eliminar la publicación", error);
+    }
   };
+}
 
   useEffect(() => {
     dispatch(getAllPosts());
@@ -39,11 +54,9 @@ const Publication = ({ userData }) => {
     if (storedSelectedPostId) {
       setSelectedPostId(Number(storedSelectedPostId));
     }
-
     window.addEventListener("beforeunload", () => {
       localStorage.removeItem("selectedPostId");
     });
-
     return () => {
       window.removeEventListener("beforeunload", () => {
         localStorage.removeItem("selectedPostId");
@@ -63,7 +76,6 @@ const Publication = ({ userData }) => {
             />
           )}
           {post.title && <h3>{post.title}</h3>}
-
           <button
             className={style.choose}
             onClick={() => handlePostClick(post.id, post.image[0])}
@@ -79,7 +91,6 @@ const Publication = ({ userData }) => {
               />
             )}
           </button>
-
           <button
             className={style.trash}
             onClick={() => handlePostDelete(post.id)}

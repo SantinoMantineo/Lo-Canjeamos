@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import AddProduct from "./views/addProduct/addProduct";
 import Chats from "./views/chats/Chats";
-import Exchanges from "./views/exchanges/Exchanges";
+import Exchanges from "./views/exchanges/exchanges";
 import Home from "./views/home/Home";
 import Detail from "./views/detail/Detail";
 import Navbar from "./components/navbar/Nabvar";
@@ -22,8 +22,8 @@ import io from "socket.io-client";
 import Swal from 'sweetalert2';
 import "./App.css";
 
-//const socketServer = io("http://localhost:3001/");
-const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
+const socketServer = io("http://localhost:3001/");
+//const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
 
 //Actions
 import { getAllUsers, createGoogleUser } from "../src/redux/actions";
