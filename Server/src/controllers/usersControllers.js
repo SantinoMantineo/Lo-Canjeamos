@@ -89,7 +89,7 @@ exports.loginUser = async (user) => {
         throw new Error("La contraseña es incorrecta");
       } else {
         const token = jwtGenerator(usuario.id);
-        return { token };
+        return {usuario, token };
       }
     } catch (error) {
       throw new Error("Error al iniciar sesión");
