@@ -3,12 +3,12 @@
   min-width: 800px;
   min-height: 800px;
   border-radius: 10px;
-  margin-bottom: 100px;
   border: 2px solid #ffe66d;
 }
 
 .chat ul {
   padding: 0px;
+  padding-bottom: 130px;
 }
 
 .user {
@@ -30,6 +30,7 @@
   display: grid;
   align-self: center;
   justify-self: left;
+  color: black;
   text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
