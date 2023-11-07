@@ -57,6 +57,7 @@ const App = () => {
 
   axios.defaults.baseURL = "http://localhost:3001/";
   //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+
   //*Auth0
   const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
 
