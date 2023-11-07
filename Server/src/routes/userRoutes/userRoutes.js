@@ -61,6 +61,17 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.get("/logueado", async (req, res) => {
+  const { email } = req.query;
+  try {
+    const logueado = await userController.userLogueado({ email });
+    return res.status(200).json(logueado);
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
+  }
+});
+
+
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {

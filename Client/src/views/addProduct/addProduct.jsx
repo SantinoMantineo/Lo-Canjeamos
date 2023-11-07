@@ -1,15 +1,21 @@
+/* eslint-disable no-unused-vars */
+// eslint-disable react/prop-types */
 import React, { useState, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import {motion} from 'framer-motion';
 import Header from "../../components/header/Header";
 import Banner from "../../assets/banner1.jpg";
 import Banner2 from "../../assets/banner2.jpg";
-import Modal from "../../components/modal/Modal.jsx"
 import style from "./AddProduct.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { validateDescription, validateTitle } from './validation'
+import Swal from "sweetalert2"; 
+
 
 export default function AddProduct({ userData }) {
   const { id } = userData;
+  const navigate = useNavigate();
 
   //Configuración de la biblioteca para cargar imagenes.
   const thumbsContainer = {
@@ -17,6 +23,7 @@ export default function AddProduct({ userData }) {
     flexDirection: "row",
     flexWrap: "wrap",
     marginTop: 15,
+    justifyContent: "center",
   };
 
   const img = {
@@ -33,15 +40,19 @@ export default function AddProduct({ userData }) {
   const cloud_name = "dlahgnpwp";
   const folderName = "postimages";
 
-  const [showModal, setShowModal] = useState(false);
   const [files, setFiles] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [selectedIndices, setSelectedIndices] = useState([]);
   const [errors, setErrors] = useState({});
 
   const onDrop = useCallback((acceptedFiles) => {
+
     if (files.length + acceptedFiles.length > 3) {
-      alert("¡No puedes cargar más de 3 imágenes!");
+      Swal.fire({
+        title: "¡Límite de imágenes alcanzado!",
+        text: "No puedes cargar más de 3 imágenes.",
+        icon: "warning",
+      });
       return;
     }
 
@@ -114,6 +125,7 @@ export default function AddProduct({ userData }) {
     "Rodados con motor",
     "Rodados sin motor",
     "Cámaras y accesorios",
+    "Articulos deportivos",
     "Celulares",
     "Computadoras",
     "Audio y video",
@@ -136,6 +148,7 @@ export default function AddProduct({ userData }) {
     image: null,
     ubication: "",
     category: "",
+    disabled: false,
   });
 
   const handleChange = (e) => {
@@ -147,7 +160,7 @@ export default function AddProduct({ userData }) {
     error = validateTitle(value);
   } else if (name === "description") {
     error = validateDescription(value);
-};
+}
 setErrors({ ...errors, [name]: error });
 };
 
@@ -155,7 +168,11 @@ setErrors({ ...errors, [name]: error });
     const selectedFiles = event.target.files;
 
     if (files.length + selectedFiles.length > 3) {
-      alert("¡Solo puedes subir un máximo de 3 imágenes!");
+      Swal.fire({
+        title: "¡Límite de imágenes alcanzado!",
+        text: "Solo puedes subir un máximo de 3 imágenes.",
+        icon: "warning",
+      });
       return;
     }
 
@@ -163,7 +180,7 @@ setErrors({ ...errors, [name]: error });
     setFiles(updatedFiles);
   };
 
-  const handleDeleteImage = (index) => {
+  const handleDeleteImage = (event, index) => {
     event.preventDefault();
 
     const updatedFiles = [...files];
@@ -179,6 +196,11 @@ setErrors({ ...errors, [name]: error });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    setFormData({
+      ...formData,
+      disabled: true
+    })
 
     // Subir imágenes a Cloudinary y obtener las URLs.
     const uploadPromises = files.map((file) => {
@@ -219,7 +241,15 @@ setErrors({ ...errors, [name]: error });
         localidad === "" ||
         selectedCategory === ""
       ) {
-        alert("Todos los campos marcados con * son obligatorios");
+        Swal.fire({
+          title: "Campos obligatorios",
+          text: "Todos los campos marcados con * son obligatorios.",
+          icon: "warning",
+        });
+        setFormData({
+          ...formData,
+          disabled: false,
+        })  
         return;
       }
       setErrors(errors);
@@ -233,8 +263,17 @@ setErrors({ ...errors, [name]: error });
           }
           return `Hay un error en el campo ${key}`;
         });
-    
-        alert(errorMessage.join("\n"));
+      
+        Swal.fire({
+          title: "Errores en el formulario",
+          text: errorMessage.join("\n"),
+          icon: "warning",
+          iconColor: 'red'
+        });
+        setFormData({
+          ...formData,
+          disabled: false,
+        })  
         return;
       }
 
@@ -261,8 +300,16 @@ setErrors({ ...errors, [name]: error });
       );
 
       if (response) {
-        setShowModal(true)
-        // Reinicio de campos.
+        Swal.fire({
+          icon: "success",
+          title: ">🎉 ¡Hecho! 🎉",
+          html: '<p>Tu publicación ha sido creada correctamente. Puedes verla en tu perfil o visualizarla en el inicio.</p>',
+        });
+        setTimeout(() => {
+          navigate("/login");
+          Swal.close()
+        }, 3500);
+
         setFiles([]);
         setSelectedCategory("");
         setSelectedLocalidad("");
@@ -270,12 +317,16 @@ setErrors({ ...errors, [name]: error });
         setFormData({
           title: "",
           description: "",
+          disabled: false,
         });
       } else {
-        // Hubo un error en la solicitud
         console.log("Hubo un error al crear la publicación.");
       }
     } catch (error) {
+      setFormData({
+        ...formData,
+        disabled: false,
+      })
       console.error("Error al enviar los datos al servidor:", error);
       console.log("Hubo un error al crear la publicación.");
     }
@@ -284,7 +335,16 @@ setErrors({ ...errors, [name]: error });
   return (
     <>
       <Header banner1={Banner} banner2={Banner2}></Header>
-      <div className={style.container}>
+      <motion.div
+      initial={{
+        opacity: 0,
+        scale: 0.8,
+      }}
+      animate={{
+        opacity: 1,
+        scale: 1,
+      }}
+      className={style.container}>
         <h3>Crear publicación</h3>
         <form className={style.create}>
           <div className={style.part1}>
@@ -297,8 +357,9 @@ setErrors({ ...errors, [name]: error });
                 value={formData.title}
                 onChange={handleChange}
                 placeholder='Inserte titulo'
+                disabled={formData.disabled}
               />
-              {errors.title && <div className="error-message">{errors.title}</div>}
+              {errors.title && <div className={style.errorMessage}>{errors.title}</div>}
             </label>
             <label>
               Descripción
@@ -309,16 +370,18 @@ setErrors({ ...errors, [name]: error });
                 onChange={handleChange}
                 value={formData.description}
                 placeholder='Inserte descripcion'
+                disabled={formData.disabled}
               />
-              {errors.description && <div className="error-message">{errors.description}</div>}
+              {errors.description && <div className={style.errorMessage}>{errors.description}</div>}
             </label>
             <label>
               Imagen*
               <section className={style.files}>
                 <div
-                  className='dropzone'
+                  className={style.dropzone}
                   {...getRootProps()}
                   onClick={(event) => event.stopPropagation()}
+                  disabled={formData.disabled}
                 >
                   <input {...getInputProps()} onChange={handleFile} />
                   {isDragActive
@@ -330,7 +393,7 @@ setErrors({ ...errors, [name]: error });
                     {files.map((file, index) => (
                       <div key={index}>
                       <img style={img} src={URL.createObjectURL(file)} alt={`Imagen ${index}`} />
-                      <button type="button" onClick={() => handleDeleteImage(index)}>╳</button>
+                      <button type="button" onClick={() => handleDeleteImage(index)}>✖️</button>
                     </div>
                     ))}
                   </div>
@@ -339,8 +402,8 @@ setErrors({ ...errors, [name]: error });
             </label>
           </div>
           <div className={style.part2}>
-            <label>Provincias*</label>
-            <select onChange={handleProvinceChange}>
+            <label>Provincia*</label>
+            <select onChange={handleProvinceChange} disabled={formData.disabled}>
               <option value='Elige una provincia'>Provincia</option>
               {sortedProvinces.map((province) => (
                 <option key={province.id} value={province.nombre}>
@@ -350,7 +413,7 @@ setErrors({ ...errors, [name]: error });
             </select>
             <span></span>
             <label>Localidad*</label>
-            <select id='selectLocalidades' onChange={handleLocalidadChange}>
+            <select id='selectLocalidades' onChange={handleLocalidadChange} disabled={formData.disabled}>
               <option value='Elige una localidad'>Localidad</option>
               {sortedLocalities.map((locality) => (
                 <option key={locality.id} value={locality.nombre}>
@@ -364,6 +427,7 @@ setErrors({ ...errors, [name]: error });
               name='category'
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
+              disabled={formData.disabled}
             >
               <option value='Elige una categoría'>Categoría</option>
               {categories.map((category, index) => (
@@ -375,12 +439,15 @@ setErrors({ ...errors, [name]: error });
             <span></span>
           </div>
         </form>
-        <button type='submit' onClick={handleSubmit} className={style.button}>
+        <button type='submit' onClick={handleSubmit} className={style.button} disabled={formData.disabled}>
           Crear
         </button>
+        {formData.disabled && <div className={style.loaderContainer}>
+          <span>Cargando publicación...</span>
+          <div className={style.loader}></div>
+        </div>}
         <h5 className={style.message}>Los campos con * son obligatorios</h5>
-      </div>
-      {showModal && <Modal/>}
+      </motion.div>
     </>
   );
 }

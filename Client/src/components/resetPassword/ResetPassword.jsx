@@ -5,7 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import style from "./ResetPassword.module.css"
 import axios from "axios";
-
+import { validatePassw, validateRepeat } from "./validate";
+import Swal from 'sweetalert2';
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -18,18 +19,36 @@ const ResetPassword = () => {
   // eslint-disable-next-line no-unused-vars
   
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setInput({
       ...input,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
-  };
-  
+    if (name === 'password') {
+      setError({ ...error, password: validatePassw(value) });
+    } 
+    else if (name === 'passwordRepeat') {
+      setError({
+        ...error,
+        passwordRepeat: validateRepeat(value, input.password),
+      });
+  }
+}
   const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .post(`/reset-password/${id}`, { password: input.password }) 
+
+    if (error.password || error.passwordRepeat) {
+      return;
+    }
+    await axios
+      .post(`/users/reset-password/${id}`, { password: input.password }) 
       .then((res) => {
-        if (res.data.Status === "Success") {
+        if (res.data) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Registro de nueva contraseña exitoso',
+            text: '¡Inicie sesion con su nueva contraseña!',
+          });
           navigate("/login");
         }
       })
@@ -43,38 +62,61 @@ const ResetPassword = () => {
     // setUser(user)
     // console.log(user)
   },[])
+  const [showPassword, setShowPassword] = useState(false);
+    
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   
 
   return (
-    <div className={`${style.container} ${style.bgColor}`}>
+    <div className={`${style.container} ${style.bgColor} ${style.fadeUp}`}>
       <form onSubmit={handleSubmit} className={style.form}>
-        <div className={style.titleContainer}>
-          <h1 className={style.title}>Subir Contraseña</h1>
+        <div className={style.textContainer}>
+          <h1 className={`${style.title} ${style.fontSemiBold}`}>Subir Contraseña</h1>
         </div>
-        <div className={style.inputContainer}>
+        <div className={`${style.inputContainer} ${style.flexCol}`}>
           <label className={style.label}>Nueva contraseña</label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
+            placeholder="contraseña"
             value={input.password}
             onChange={handleChange}
             className={style.input}
           />
+              {error.password && <span className={style.error}>{error.password}</span>}
+          <input
+              type={showPassword ? "text" : "password"}
+              name="passwordRepeat"
+              placeholder="repetir contraseña"
+              onChange={handleChange}
+              value={input.passwordRepeat}
+              className={style.segundoInput}
+            />
+              {error.passwordRepeat && <span className={style.error}>{error.passwordRepeat}</span>}
+            <input
+              type="checkbox"
+              id="showPassword"
+              onChange={handleShowPassword}
+              checked={showPassword}
+            
+            />
         </div>
         <div className={style.buttonContainer}>
           <button
             type="submit"
-            className={`${style.button} ${style.btnStone}`}
+            className={`${style.button} ${style.btnStone} ${style.btnHover}`}
             onClick={handleSubmit}
           >
             Enviar
           </button>
           
-          <span className={style.registerLink}> No tiene una cuenta?  <Link to='/register' 
-          className={style.textYellow}><button className={style.btnAqui}>Registrese </button></Link>
-          </span>
-
+          <div className={style.registerLink}>No tiene una cuenta?</div>
+             <Link to="/register" className={style.textYellow}>
+              <button className={style.btnAqui}>Registrese </button>
+            </Link>
         </div>
       </form>
     </div>

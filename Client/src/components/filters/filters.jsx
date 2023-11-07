@@ -12,6 +12,7 @@ import {
 } from "../../redux/actions";
 import style from "./Filters.module.css";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import imgBase from "../../assets/imgBase.jpg";
 
@@ -22,7 +23,7 @@ const Filters = () => {
   const dispatch = useDispatch();
   const allPostsCopy = useSelector((state) => state.allPostsCopy);
   const selectedImage = useSelector((state) => state.selectedPostImage);
-
+  
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
@@ -74,7 +75,17 @@ const Filters = () => {
 
   return (
     <>
-      <div className={style.filters}>
+      <motion.div
+        initial={{
+          opacity: 0,
+          scale: 0.8,
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+        }}
+        className={style.filters}
+      >
         <Link to="/login">
           {selectedImage ? (
             <img src={selectedImage} className={style.product} alt="Product" />
@@ -120,11 +131,11 @@ const Filters = () => {
           <img
             width="24"
             height="24"
-            src="https://img.icons8.com/windows/32/trash.png"
-            alt="trash"
+            src="https://img.icons8.com/color/48/broom.png"
+            alt="broom"
           />
         </button>
-      </div>
+      </motion.div>
     </>
   );
 };

@@ -6,6 +6,7 @@ import React from 'react'
 import style from './Login.module.css'
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2'; 
 
 import LoginButton from '../Auth0/LoginButton';
 
@@ -42,11 +43,37 @@ const Login = ({ setAuth, userData }) => {
       if (response.data && response.data.token) {
         const token = await localStorage.setItem("token", response.data.token);
         setAuth(true, userData); // Set auth to true and pass user data
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          }
+        });
+  
+        Toast.fire({
+          icon: 'success',
+          title: 'Login exitoso',
+        });
+
       } else {
         console.log("Hubo un error al iniciar sesión.");
         setErrors("Usuario o contraseña incorrectos")
       }
     } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        setErrors(`Error: ${error.response.data.message}`);
+      } else if (error.request) {
+        console.log(error.request);
+        setErrors('Error: No response received from server');
+      }
       console.error("Error al enviar los datos al servidor:", error);
       // console.log("Hubo un error al iniciar sesión.");
       setErrors("Usuario o contraseña incorrectos")

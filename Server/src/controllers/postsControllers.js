@@ -1,4 +1,6 @@
 const { Post, User } = require("../DB_config");
+const { transporter } = require("../config/mailer")
+const { postCreated } = require("../utils/mailObjects")
 
 exports.getAllPosts = async () => {
   try {
@@ -46,7 +48,8 @@ exports.getPostsByCategory = async (category) => {
 exports.createPost = async (postData) => {
   try {
     const newPost = await Post.create(postData);
-
+    const postUser = await User.findByPk(postData.UserId)
+    await transporter.sendMail(postCreated(postUser.email, postData))
     return newPost;
   } catch (error) {
     throw error;

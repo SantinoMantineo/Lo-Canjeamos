@@ -19,12 +19,13 @@
     "express-oauth2-jwt-bearer": "^1.6.0",
     "json-server": "^0.17.4",
     "jsonwebtoken": "^9.0.2",
-    "mercadopago": "^2.0.3",
+    "mercadopago": "^1.5.17",
     "morgan": "^1.10.0",
     "nodemailer": "^6.9.7",
     "nodemon": "^3.0.1",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.33.0"
+    "sequelize": "^6.33.0",
+    "socket.io": "^4.7.2"
   }
 }

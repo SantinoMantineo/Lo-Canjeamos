@@ -1,247 +1,10 @@
-// import Logo from '../../assets/locan.png'
-// import React from "react";
-// import { useState, useEffect } from "react";
-// import style from "./Register.module.css";
-// import { Link } from "react-router-dom";
-// import axios from "axios";
-// import { validateUsername, validateEmail, validatePassword, validateImagen, validateProvince, validateLocalidad } from "./validations";
-
-// const Register = ({setAuth}) => {
-
-//   const [provinces, setProvinces] = useState([]);
-//   const [localities, setLocalities] = useState([]);
-//   const [selectedProvince, setSelectedProvince] = useState("");
-//   const [ localidad, setSelectedLocalidad ] = useState("")
-
-//   const [errors, setErrors] = useState({
-//     username: null,
-//     password: null,
-//     email: null,
-//     image: null,
-//     province: null,
-//     localidad: null,
-//   });
-  
-//   useEffect(() => {
-//     fetch("https://apis.datos.gob.ar/georef/api/provincias")
-//       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
-//       .then((json) => {
-//         setProvinces(json.provincias);
-//       })
-//       .catch((error) => {
-//         console.error(
-//           `Error: ${error.status}: ${error.statusText || "Ocurrió un error"}`
-//         );
-//       });
-//   }, []);
-
-//   const handleProvinceChange = (e) => {
-//     const selectedProvince = e.target.value;
-//     setSelectedProvince(selectedProvince);
-
-//     const provinceError = validateProvince(selectedProvince);
-//     setErrors({ ...errors, province: provinceError });
-
-//     fetch(
-//       `https://apis.datos.gob.ar/georef/api/localidades?provincia=${selectedProvince}&max=500`
-//     )
-//       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
-//       .then((json) => {
-//         setLocalities(json.localidades);
-//       })
-//       .catch((error) => {
-//         console.error(
-//           `Error al obtener las localidades: ${error.status}: ${
-//             error.statusText || "Ocurrió un error"
-//           }`
-//         );
-//       });
-//   };
-//   const handleLocalidadChange = (e) => {
-//     const selectedLocalidad = e.target.value;
-//     setSelectedLocalidad(selectedLocalidad);
-
-//     const localidadError = validateLocalidad(selectedLocalidad);
-//     setErrors({ ...errors, localidad: localidadError });
-//   };
-//   const sortedProvinces = provinces.sort((a, b) => {
-//     return a.nombre.localeCompare(b.nombre);
-//   });
-
-//   const sortedLocalities = localities.sort((a, b) => {
-//     return a.nombre.localeCompare(b.nombre);
-//   });
-
-//   const [input, setInput] = useState({
-//     username: "",
-//     password: "",
-//     email: "",
-//     image: ""
-//   });
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setInput({
-//       ...input,
-//       [name]: value,
-//     });
-    
-//     // Realiza la validación y actualiza los errores
-//     if (name === "username") {
-//       setErrors({ ...errors, username: validateUsername(value) });
-//     } else if (name === "email") {
-//       setErrors({ ...errors, email: validateEmail(value) });
-//     } else if (name === "password") {
-//       setErrors({ ...errors, password: validatePassword(value) });
-//     } else if (name === "image") {
-//       setErrors({ ...errors, image: validateImagen(value) });
-//     }
-//   };
-
-//     const [showPassword, setShowPassword] = useState(false);
-    
-//   const handleShowPassword = () => {
-//     setShowPassword(!showPassword);
-//   };
-
-//   const handleSumbit = async (e) => {
-//     e.preventDefault();
-
-//     if (
-//       !input.username ||
-//       !input.email ||
-//       !input.password ||
-//       !input.image ||
-//       !selectedProvince ||
-//       !localidad
-//     ) {
-//       alert('Complete todos los campos antes de enviar el formulario.');
-//       return;
-//     }
-
-//     try {
-//         let newUser = {
-//           username: input.username,
-//           password: input.password,
-//           email: input.email,
-//           image: input.image,
-//           ubication: `${selectedProvince}, ${localidad}`,
-//         }
-//       const response = await axios.post('/users/register', newUser)
-
-//       if (response) {
-//         // La solicitud se completó con éxito
-//         await localStorage.setItem("token", response.data.token)
-//         setAuth(true)
-//       } else {
-//         // Hubo un error en la solicitud
-//         console.log('Hubo un error al crear el usuario.');
-//       }
-//     } catch (error) {
-//       console.error('Error al enviar los datos al servidor:', error);
-//       console.log('Hubo un error al crear el usuario.');
-//     }
-//   }
-
-//   function isSubmitDisabled() {
-//     return Object.values(errors).some((error) => error !== null);
-//   }
-
-//   return (
-//     <div className={style.container}>
-//       <img src={Logo}/>
-//       <div className={style.title}>
-//         <h2>Registrate</h2>
-//       </div>
-
-//       <div className={style.form}>
-//         <form onSubmit={handleSumbit}>
-//           <div>
-//             <input
-//               type="text"
-//               name="username"
-//               placeholder="nombre usuario"
-//               onChange={handleInputChange}
-//               value={input.username}
-//             />
-//              {errors.username && <span className="error">{errors.username}</span>}
-//           </div>
-
-//           <div>
-//             <input
-//               type="email"
-//               name="email"
-//               placeholder="email"
-//               onChange={handleInputChange}
-//               value={input.email}
-//             />
-//             {errors.email && <span className="error">{errors.email}</span>}
-//           </div>
-
-//           <div>
-//             <input
-//               type={showPassword ? "text" : "password"}
-//               name="password"
-//               placeholder="contraseña"
-//               onChange={handleInputChange}
-//               value={input.password}
-//             />
-//             {errors.password && <span className="error">{errors.password}</span>}
-//           </div>
-
-//           <div>
-//             <input
-//               type="imag"
-//               name="image"
-//               placeholder="imagen de perfil"
-//               onChange={handleInputChange}
-//               value={input.image}
-//             />
-//             {errors.image && <span className="error">{errors.image}</span>}
-//           </div>
-
-           
-//             <select onChange={handleProvinceChange}>
-//               <option value="Elige una provincia">provincia</option>
-//               {sortedProvinces.map((province) => (
-//                 <option key={province.id} value={province.nombre}>
-//                   {province.nombre}
-//                 </option>
-//               ))}
-//             </select>
-//             {errors.province && <span className="error">{errors.province}</span>}
-           
-
-           
-//             <select id="selectLocalidades" onChange={handleLocalidadChange}>
-//               <option value="Elige una localidad">localidad</option>
-//               {sortedLocalities.map((locality) => (
-//                 <option key={locality.id} value={locality.nombre}>
-//                   {locality.nombre}
-//                 </option>
-//               ))}
-//             </select>
-//             {errors.localidad && <span className="error">{errors.localidad}</span>}
-       
-
-//           <button className={isSubmitDisabled() ? `${style.register} ${style.buttonDisabled}` : style.register} disabled={isSubmitDisabled()} type="submit">
-//             Registrarse
-//           </button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Register;
-
 import Logo from '../../assets/locan.png'
 import React from "react";
 import { useState, useEffect } from "react";
 import style from "./Register.module.css";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { validateUsername, validateEmail, validatePassword, validateImagen, validateProvince, validateLocalidad, validatePasswordRepeat } from "./validations";
+import Swal from 'sweetalert2';
 
 const Register = ({setAuth}) => {
 
@@ -249,6 +12,12 @@ const Register = ({setAuth}) => {
   const [localities, setLocalities] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [ localidad, setSelectedLocalidad ] = useState("")
+
+    // Constantes para Cloudinary.
+
+    const preset_key = "postsimages";
+    const cloud_name = "dlahgnpwp";
+    const folderName = "usersProfilePic";
 
   const [errors, setErrors] = useState({
     username: null,
@@ -312,9 +81,15 @@ const Register = ({setAuth}) => {
   const [input, setInput] = useState({
     username: "",
     password: "",
+    repeatPassword: "",
     email: "",
-    image: ""
+    image: "",
+    imageFile: null,
+    disabled: false,
   });
+
+  const [imageFile, setImageFile] = useState(null);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -329,11 +104,11 @@ const Register = ({setAuth}) => {
       setErrors({ ...errors, email: validateEmail(value) });
     } else if (name === 'password') {
       setErrors({ ...errors, password: validatePassword(value) });
-    } else if (name === 'passwordRepeat') {
+    } else if (name === 'repeatPassword') {
       setErrors({
         ...errors,
-        passwordRepeat: validatePasswordRepeat(value, input.password),
-      });
+        repeatPassword: validatePasswordRepeat(value, input.password),
+      });    
     } else if (name === 'image') {
       setErrors({ ...errors, image: validateImagen(value) });
     }
@@ -346,45 +121,119 @@ const Register = ({setAuth}) => {
     setShowPassword(!showPassword);
   };
 
-  const handleSumbit = async (e) => {
-    e.preventDefault();
+  const handleFile = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setInput({
+        ...input,
+        image: imageUrl,
+      });
+      setImageFile(file); 
+    }
+  };
+  
+  const handleImageClear = () => {
+    setInput({
+      ...input,
+      image: '',
+    });
+    setImageFile(null);
+  };
 
-    if (
-      !input.username ||
-      !input.email ||
-      !input.password ||
-      !input.passwordRepeat ||
-      !input.image ||
-      !selectedProvince ||
-      !localidad
-    ) {
-      alert('Complete todos los campos antes de enviar el formulario.');
-      return;
+
+
+  const handleSumbit = async (e) => {
+  e.preventDefault();
+  setInput({
+    ...input,
+    disabled: true})
+
+  if (
+    !input.username ||
+    !input.email ||
+    !input.password ||
+    !input.repeatPassword ||
+    !input.image ||
+    !selectedProvince ||
+    !localidad
+  ) {
+    alert('Complete todos los campos antes de enviar el formulario.');
+    setInput({
+      ...input,
+      disabled: false,
+    })
+    return;
+  }
+
+  try {
+    let secureUrl = '';
+
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append('file', imageFile);
+      formData.append('upload_preset', preset_key);
+      formData.append('folder', folderName);
+
+      const responseImage = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`,
+        formData
+      );
+
+      secureUrl = responseImage.data.secure_url;
     }
 
-    try {
-        let newUser = {
-          username: input.username,
-          password: input.password,
-          email: input.email,
-          image: input.image,
-          ubication: `${selectedProvince}, ${localidad}`,
-        }
-      const response = await axios.post('/users/register', newUser)
+    let newUser = {
+      username: input.username,
+      password: input.password,
+      email: input.email,
+      image: secureUrl,
+      ubication: `${selectedProvince}, ${localidad}`,
+      origin: "DB"
+    };
 
-      if (response) {
-        // La solicitud se completó con éxito
-        await localStorage.setItem("token", response.data.token)
-        setAuth(true)
-      } else {
-        // Hubo un error en la solicitud
-        console.log('Hubo un error al crear el usuario.');
-      }
-    } catch (error) {
-      console.error('Error al enviar los datos al servidor:', error);
+    const response = await axios.post('/users/register', newUser);
+
+    if (response) {
+      await localStorage.setItem('token', response.data.token);
+      setAuth(true);
+
+      // Mostrar una alerta de éxito
+      Swal.fire({
+        icon: 'success',
+        title: 'Registro exitoso',
+        text: '¡Te has registrado exitosamente!',
+      });
+    } else {
       console.log('Hubo un error al crear el usuario.');
     }
+  } catch (error) {
+    console.error('Error al enviar los datos al servidor:', error);
+    console.log('Hubo un error al crear el usuario.');
+
+    // Mostrar una alerta de error
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al registrar',
+      text: 'Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.',
+    });
+    setInput({
+      ...input,
+      disabled: false,
+    })
+    return
   }
+
+  setInput({
+    username: "",
+    password: "",
+    repeatPassword: "",
+    email: "",
+    image: "",
+    imageFile: null,
+    disabled: false,
+  })
+};
 
   function isSubmitDisabled() {
     return Object.values(errors).some((error) => error !== null);
@@ -392,7 +241,7 @@ const Register = ({setAuth}) => {
 
   return (
     <div className={style.container}>
-      <img src={Logo}/>
+      <img src={Logo} className={style.logo}/>
       <div className={style.title}>
         <h2>Registrate</h2>
       </div>
@@ -403,9 +252,10 @@ const Register = ({setAuth}) => {
             <input
               type="text"
               name="username"
-              placeholder="nombre usuario"
+              placeholder="usuario"
               onChange={handleInputChange}
               value={input.username}
+              disabled={input.disabled}
             />
              {errors.username && <span className={style.error}>{errors.username}</span>}
           </div>
@@ -417,6 +267,7 @@ const Register = ({setAuth}) => {
               placeholder="email"
               onChange={handleInputChange}
               value={input.email}
+              disabled={input.disabled}
             />
             {errors.email && <span className={style.error}>{errors.email}</span>}
           </div>
@@ -428,6 +279,7 @@ const Register = ({setAuth}) => {
               placeholder="contraseña"
               onChange={handleInputChange}
               value={input.password}
+              disabled={input.disabled}
             />
             {/* <input
               type="checkbox"
@@ -438,14 +290,15 @@ const Register = ({setAuth}) => {
             {errors.password && <span className={style.error}>{errors.password}</span>}
           </div>
           <div>
-            <input
-              type={showPassword ? "text" : "password"}
-              name="passwordRepeat"
-              placeholder="repetir contraseña"
-              onChange={handleInputChange}
-              value={input.passwordRepeat}
-            />
-            {errors.passwordRepeat && <span className={style.error}>{errors.passwordRepeat}</span>}
+          <input
+            type="password"
+            name="repeatPassword"
+            placeholder="repetir contraseña"
+            onChange={handleInputChange}
+            value={input.repeatPassword} // Asegúrate de tener un valor inicial en el estado
+            disabled={input.disabled}
+          />
+            {errors.repeatPassword && <span className={style.error}>{errors.repeatPassword}</span>}
         </div>
             {/* <input
               type="checkbox"
@@ -453,18 +306,22 @@ const Register = ({setAuth}) => {
               onChange={handleShowPassword}
               checked={showPassword}
             /> */}
-          <div>
-            <input
-              type="imag"
-              name="image"
-              placeholder="imagen de perfil"
-              onChange={handleInputChange}
-              value={input.image}
-            />
-            {errors.image && <span className={style.error}>{errors.image}</span>}
-          </div>
+        <div className={style.fileInput} disabled={input.disabled}>
+          <input
+            type="file"
+            accept="image/*"
+            name="image"
+            onChange={handleFile}
+          />
+          {input.image && (
+            <div className={style.imagePreview}>
+              <img src={input.image} alt="Preview" className={style.imgUser}/>
+              <button onClick={handleImageClear}>✖️</button>
+            </div>
+          )}
+        </div>
            
-            <select onChange={handleProvinceChange}>
+            <select onChange={handleProvinceChange} disabled={input.disabled}>
               <option value="Elige una provincia">provincia</option>
               {sortedProvinces.map((province) => (
                 <option key={province.id} value={province.nombre}>
@@ -474,7 +331,7 @@ const Register = ({setAuth}) => {
             </select>
             {errors.province && <span className={style.error}>{errors.province}</span>}
                
-            <select id="selectLocalidades" onChange={handleLocalidadChange}>
+            <select id="selectLocalidades" onChange={handleLocalidadChange} disabled={input.disabled}>
               <option value="Elige una localidad">localidad</option>
               {sortedLocalities.map((locality) => (
                 <option key={locality.id} value={locality.nombre}>
@@ -487,6 +344,10 @@ const Register = ({setAuth}) => {
           <button className={isSubmitDisabled() ? `${style.register} ${style.buttonDisabled}` : style.register} disabled={isSubmitDisabled()} type="submit">
             Enviar
           </button>
+          {input.disabled && <div className={style.loaderContainer}>
+            <span>Creando usuario...</span>
+            <div className={style.loader}></div>
+          </div>}
         </form>
       </div>
     </div>
@@ -494,4 +355,3 @@ const Register = ({setAuth}) => {
 };
 
 export default Register;
-

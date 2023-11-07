@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import style from "./Card.module.css";
 
@@ -9,7 +10,21 @@ const Card = ({ post }) => {
     <>
       <Link to={`detail/${id}`}>
         <div className={style.card}>
-          {<img src={image[0]} className={style.img} alt={title} />}
+          {
+            <motion.img
+              initial={{
+                scale: 0.2,
+                borderRadius: 100,
+              }}
+              animate={{
+                scale: 1,
+                borderRadius: 10,
+              }}
+              src={image[0]}
+              className={style.img}
+              alt={title}
+            />
+          }
           <h6>📍{ubication}</h6>
           <p>{title}</p>
         </div>

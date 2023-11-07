@@ -1,13 +1,13 @@
 .publication {
   display: grid;
-  width: 300px;
+  width: 250px;
+  height: 65px;
   grid-template-columns: 1fr 2fr 1fr 0.5fr;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   border-radius: 10px;
   padding: 10px;
   margin-top: 20px;
-
-  transition: 300ms;
+  justify-self: center;
 }
 
 .img {
@@ -19,7 +19,11 @@
 }
 
 .publication h3 {
-  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  padding-left: 5px;
   font-size: 12px;
   align-self: center;
   color: rgb(45, 45, 45);

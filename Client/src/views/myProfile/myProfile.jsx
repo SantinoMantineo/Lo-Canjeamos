@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import {Link} from 'react-router-dom';
+import {motion} from 'framer-motion';
 import Avatar from "../../components/avatar/Avatar";
 import Publication from "../../components/publication/Publication";
 import Header from "../../components/header/Header";
@@ -8,19 +10,32 @@ import Banner4 from '../../assets/banner4.jpg'
 import style from "./MyProfile.module.css";
 
 
-const MyProfile = ({ userData, setAuth }) => {
+const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
+
   return (
     <>
       <Header banner1={Banner3} banner2={Banner4}></Header>
-      <div className={style.myProfile}>
+      <motion.div
+      initial={{
+        opacity: 0,
+        y: 50,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      className={style.myProfile}>
         <div className={style.avatar}>
-          <Avatar userData={userData} setAuth={setAuth}/>
+          <Avatar userData={userData} setAuth={setAuth} toggleDarkMode={toggleDarkMode}/>
         </div>
         <div className={style.publications}>
           <h3>Publicaciones</h3>
+          <Link to="/addProduct">
+          <button className={style.agregar}>Agregar</button>
+          </Link>
           <Publication userData={userData}></Publication>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

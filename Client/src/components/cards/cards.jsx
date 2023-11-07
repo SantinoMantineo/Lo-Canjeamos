@@ -1,13 +1,13 @@
 import React from "react";
 import Card from "../card/Card";
+import { motion } from "framer-motion";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import fire from '../../assets/fire.gif'
+import fire from "../../assets/fire.gif";
 import style from "./Cards.module.css";
 
 const Cards = ({ allPosts }) => {
-  
   const settings = {
     autoplay: true,
     dots: true,
@@ -44,20 +44,35 @@ const Cards = ({ allPosts }) => {
     ],
   };
 
-  const posts = allPosts.slice(-6);
+  const posts = allPosts.slice(-10);
+  const sortedPosts = posts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
   return (
     <>
-        <div className={style.cards}>
-          <div><span>Lo más destacado</span> <img src={fire} className={style.fire}></img></div>
-          <Slider {...settings}>
-          {posts && posts.map((post, index) => (
-            <div key={index}>
-              <Card key={post.id} post={post} />
-            </div>
-          ))}
-          </Slider>
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 50,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        className={style.cards}
+      >
+        <div>
+          <span>Lo más destacado</span>{" "}
+          <img src={fire} className={style.fire}></img>
         </div>
+        <Slider {...settings}>
+          {sortedPosts &&
+            sortedPosts.map((post, index) => (
+              <div key={index}>
+                <Card key={post.id} post={post} />
+              </div>
+            ))}
+        </Slider>
+      </motion.div>
     </>
   );
 };

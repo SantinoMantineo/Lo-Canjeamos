@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import style from "./ForgotPassword.module.css";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -24,9 +25,14 @@ const ForgotPassword = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     axios
-      .post("/forgot-password", { email: input.email }) // Pass email from input state
+      .post("/users/forgot-password", { email: input.email }) // Pass email from input state
       .then((res) => {
-        if (res.data.Status === "Success") {
+        if (res.data) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Solicitud de recuperacion de contraseña',
+            text: '¡Hemos enviado un link a su correo!',
+          });
           navigate("/login");
         }
       })
@@ -62,13 +68,11 @@ const ForgotPassword = () => {
           >
             Enviar
           </button>
-          <span className={style.registerLink}>
-            {" "}
-            No tiene una cuenta?{" "}
+          <div className={style.registerLink}>No tiene una cuenta?</div>
             <Link to="/register" className={style.textYellow}>
               <button className={style.btnAqui}>Registrese </button>
             </Link>
-          </span>
+          
         </div>
       </form>
     </div>

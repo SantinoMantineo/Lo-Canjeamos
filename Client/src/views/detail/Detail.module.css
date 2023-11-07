@@ -47,6 +47,7 @@
 }
 
 .detail span {
+  font-size: 14px;
   width: 305px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -90,6 +91,12 @@
   color: whitesmoke;
   font-size: 14px;
   padding: 5px;
+}
+
+.detail .match:disabled {
+  background-color: gray;
+  cursor: not-allowed; 
+  opacity: 0.6;        
 }
 
 @media (max-width: 768px) {

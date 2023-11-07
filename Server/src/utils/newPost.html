@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicación Creada</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff3b9;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      background-color: #ffe66d;
+      color: #fff;
+      text-align: center;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    .content {
+      padding: 20px;
+      text-align: center;
+      background-color: #f1f1f1;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    .button {
+      display: inline-block;
+      background-color: #ffe66d;
+      color: #333;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://res.cloudinary.com/dlahgnpwp/image/upload/v1698923277/emailAssets/mcchgfik3dasgc8s7m1l.png">
+    </div>
+    <div class="content">
+      <h4>🛒 Publicación Creada 🛒</h4>
+      <p>¡Felicidades por tu nueva publicación!</p>
+      <p>Tu publicación se ha creado exitosamente. Aquí tienes los detalles:</p>
+      <img src="{{image}}" alt="Imagen de tu publicación" style="width: 180px; height: auto;">
+      <p><b>Título:</b> {{title}}</p>
+      <p><b>Descripción:</b> {{description}}</p>
+      <p><b>Categoría:</b> {{category}}</p>
+      <p><b>Ubicación:</b> {{ubication}}</p>
+      <a class="button" href="{{link}}">Ver en el Perfil</a>
+    </div>
+    <div class="footer">
+      &copy; 2023 Tu Empresa
+    </div>
+  </div>
+</body>
+</html>
