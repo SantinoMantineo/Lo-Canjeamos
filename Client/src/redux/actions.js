@@ -47,13 +47,11 @@ export function getUserById(id) {
   };
 }
 
-export function createGoogleUser(user) {//* 
-  console.log("actions entrega",user);
+export function createGoogleUser(user) {
+  //*
+  console.log("actions entrega", user);
   return async (dispatch) => {
-    const result = await axios.post(
-      "/users/registerGoogle",
-      user
-    );
+    const result = await axios.post("/users/registerGoogle", user);
     dispatch({
       type: CREATE_USER,
       payload: result.data,
@@ -118,16 +116,16 @@ export const likePost = (myUserId, likedPostId, myPostId, anotherUserId) => {
         myUserId: myUserId,
         likedPostId: likedPostId,
         myPostId: myPostId,
-        anotherUserId: anotherUserId
+        anotherUserId: anotherUserId,
       });
       const likedPost = response.data;
       dispatch({
         type: LIKE_POST,
         payload: {
-        myUserId: myUserId,
-        likedPostId: likedPostId,
-        myPostId: myPostId,
-        anotherUserId: anotherUserId
+          myUserId: myUserId,
+          likedPostId: likedPostId,
+          myPostId: myPostId,
+          anotherUserId: anotherUserId,
         },
       });
     } catch (error) {
@@ -153,7 +151,7 @@ export const updateMatchedPairs = (matchedPairs) => {
   return {
     type: UPDATE_FILTERED_MATCHES,
     payload: matchedPairs,
-  }
+  };
 };
 
 export const selectedPost = (postId, postImage) => {
@@ -250,7 +248,7 @@ export function messagesHistory(chatId) {
 
       dispatch({
         type: CARGAR_HISTORIAL_MENSAJES,
-        payload: response.data
+        payload: response.data,
       });
     } catch (error) {
       console.error("Error al cargar el historial de mensajes:", error);

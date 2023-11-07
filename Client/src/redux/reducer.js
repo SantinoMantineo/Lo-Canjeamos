@@ -170,11 +170,10 @@ function rootReducer(state = initialState, action) {
         ),
       };
 
-      case LIKE_POST:
+    case LIKE_POST:
       return {
         ...state,
         likedPosts: [...state.likedPosts, action.payload.likedPostId],
-        
       };
 
     case GET_MATCHES:
@@ -183,11 +182,11 @@ function rootReducer(state = initialState, action) {
         matches: action.payload,
       };
 
-      case UPDATE_FILTERED_MATCHES:
-        return {
-          ...state,
-          matchedPairs: action.payload,
-        };
+    case UPDATE_FILTERED_MATCHES:
+      return {
+        ...state,
+        matchedPairs: action.payload,
+      };
 
     case CARGAR_HISTORIAL_MENSAJES:
       return {
@@ -201,18 +200,17 @@ function rootReducer(state = initialState, action) {
         messageHistory: [...state.messageHistory, action.payload],
       };
 
-      
-      case GET_ALL_MESSAGES:
-        return {
-          ...state,
-          messageHistory: action.payload,
-        };
-        
-        case GET_ALL_CHATS:
-          return {
-            ...state,
-            chats: action.payload,
-          };
+    case GET_ALL_MESSAGES:
+      return {
+        ...state,
+        messageHistory: action.payload,
+      };
+
+    case GET_ALL_CHATS:
+      return {
+        ...state,
+        chats: action.payload,
+      };
 
     case RESET_FILTERS:
       return {

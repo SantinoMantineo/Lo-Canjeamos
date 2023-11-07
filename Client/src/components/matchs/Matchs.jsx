@@ -18,8 +18,6 @@ const Matchs = ({ userData }) => {
   const matches = useSelector((state) => state.matches);
   const chats = useSelector((state) => state.chats);
   const allPosts = useSelector((state) => state.allPostsCopy);
-  const matchedPair = useSelector((state) => state.matches.matchedPairs); // Accede a filteredMatches desde el estado global
-  console.log(matchedPair);
 
   const dispatch = useDispatch();
 
@@ -29,13 +27,7 @@ const Matchs = ({ userData }) => {
     dispatch(getAllChats());
   }, [dispatch]);
 
-  //console.log("Chats: ", chats);
-
   const userId = userData.id;
-
-  /* if (matches != 0) {
-    console.log("Todos los matches: ", matches);
-  }  */
 
   useEffect(() => {
     dispatch(getMatches(userId));
@@ -46,10 +38,6 @@ const Matchs = ({ userData }) => {
     return match.match.some((m) => m.myUserId === userId);
   });
 
- /*   if (filteredMatches != 0) {
-    console.log("Mis matches: ", filteredMatches);
-  } */
-
   const myPosts = allPosts.filter((post) => {
     return filteredMatches.some((match) => {
       return match.match.some(
@@ -57,11 +45,6 @@ const Matchs = ({ userData }) => {
       );
     });
   });
-
-  /*  if (myPosts != 0) {
-    console.log("Mis posts: ", myPosts);
-  }
- */
 
   // Filtra los posts cuyo id coincide con "anotherUserId" de los objetos en filteredMatches
   const anotherUserPosts = allPosts.filter((post) => {
@@ -71,10 +54,6 @@ const Matchs = ({ userData }) => {
       );
     });
   });
-
-  /*  if (anotherUserPosts != 0) {
-        console.log("Posts del otro: ", anotherUserPosts);
-      } */
 
   const matchedPairs = myPosts.flatMap((myPost) => {
     const matchingPairs = [];
@@ -107,7 +86,6 @@ const Matchs = ({ userData }) => {
   useEffect(() => {
     dispatch(updateMatchedPairs(matchedPairs));
   }, [matchedPairs, dispatch]);
-  console.log("matches a renderizar: ", matchedPairs);
 
   function handleStartChat(anotherUserId) {
     // Verifica si ya existe un chat entre los usuarios actual y anotherUserId

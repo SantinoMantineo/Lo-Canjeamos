@@ -1,6 +1,5 @@
 import React from "react";
 import {motion} from 'framer-motion';
-import Publication from "../../components/publication/Publication";
 import style from "./Exchanges.module.css";
 import Matchs from "../../components/matchs/Matchs";
 import Header from "../../components/header/Header";
