@@ -115,11 +115,11 @@ router.post('/reset-password/:id', async (req, res) => {
   };
 });
 
-router.put("/restoreUser/:id", async (req, res) => {
+router.put('/restoreUser/:id', async (req, res) => {
   const { id } = req.params
   try {
     const restoredUser = await userController.restoreUser(id);
-    return res.status(200).json({ message: restoredUser });
+    return res.status(200).json({restoredUser});
   } catch (error) {
     return res.status(400).json({ error: error.message })
   }

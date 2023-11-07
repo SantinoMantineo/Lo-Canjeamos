@@ -222,7 +222,7 @@ exports.resetPassword = async (id, newPassword) => {
 
 exports.restoreUser = async (id) => {
   try {
-    const userDisabled = await User.findByPk(id)
+    const userDisabled = await User.findByPk(id, {paranoid:false})
 
     if(!userDisabled) {
       throw new Error("El usuario que intenta restaurar no se encuentra.")
@@ -231,6 +231,6 @@ exports.restoreUser = async (id) => {
     await userDisabled.restore()
     return "El usuario ha sido restaurado con éxito."
   } catch (error) {
-    throw "Hubo un problema al restaurar el usuario: " + error;
+    throw (error)
   }
 };
