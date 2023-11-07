@@ -7,7 +7,6 @@ import {
   getAllUsers,
 } from "../../redux/actions";
 import { socketServer } from "../../App";
-import avatar from "../../assets/avatar.jpg";
 import style from "./ChatsMessages.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
 
