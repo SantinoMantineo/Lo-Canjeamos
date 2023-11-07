@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   messagesHistory,
@@ -22,6 +22,9 @@ const ChatsMessages = ({ chatId, userData }) => {
   const [otherUserImage, setOtherUserImage] = useState("");//Estado para almacenar image del otro usuario
 
   const [counter, setCounter] = useState(0);
+
+  const messagesEndRef = useRef(null);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -92,6 +95,21 @@ const ChatsMessages = ({ chatId, userData }) => {
     }
   }, [messageHistory, senderId, allUsers]);
 
+  useEffect(() => {
+    messagesEndRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end", 
+    });
+  }, [messageHistory]);
+  
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
   return (
     <div className={style.chat}>
       <div className={style.user}>
@@ -99,7 +117,7 @@ const ChatsMessages = ({ chatId, userData }) => {
         <h3>{otherUsername}</h3>
       </div>
 
-      <ul className={style.listMsg}>
+      <ul className={style.listMsg} ref={messagesEndRef}>
         {messageHistory.map((message) => (
           <li key={message.id}>
             <div className={style.messageWrapper}>
@@ -132,6 +150,7 @@ const ChatsMessages = ({ chatId, userData }) => {
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Escribe tu mensaje..."
         />
         <button onClick={sendMessage} className={style.sendMessage}>
