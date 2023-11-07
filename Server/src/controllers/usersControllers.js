@@ -23,6 +23,18 @@ exports.getAllUser = async () => {
   }
 };
 
+exports.getAllDisabled = async () => {
+  try {
+    const disabledUsers = await User.findAll({
+      where: {paranoid: false}
+    })
+
+    return disabledUsers
+  } catch (error) {
+    throw "Ocurrió un error al traer los usuarios: " + error;
+  }
+};
+
 exports.createUser = async (user) => {
   if (
     !user.username ||
@@ -205,5 +217,20 @@ exports.resetPassword = async (id, newPassword) => {
   } catch (error) {
     console.error(error);
   throw new Error("No se pudo actualizar la contraseña", error);
+  }
+};
+
+exports.restoreUser = async (id) => {
+  try {
+    const userDisabled = await User.findByPk(id)
+
+    if(!userDisabled) {
+      throw new Error("El usuario que intenta restaurar no se encuentra.")
+    }
+    
+    await userDisabled.restore()
+    return "El usuario ha sido restaurado con éxito."
+  } catch (error) {
+    throw "Hubo un problema al restaurar el usuario: " + error;
   }
 };
