@@ -1,9 +1,11 @@
 .container {
   display: grid;
+  width: 250px;
+  
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   border-radius: 10px;
   margin-top: 20px;
-  width: 250px;
+  transition: 300ms;
   justify-self: center;
 }
 

@@ -7,7 +7,7 @@ const jwtGenerator = require("../utils/jwtGenerator")
 const nodemailer = require('nodemailer')
 const { ADMIN_USERS } = process.env;
 
-/* const adminList = ADMIN_USERS.split(", ") */
+const adminList = ADMIN_USERS.split(", ")
 
 exports.getAllUser = async () => {
   try {
