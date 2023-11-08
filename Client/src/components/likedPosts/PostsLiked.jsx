@@ -1,40 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllLikes, getAllPosts } from "../../redux/actions";
+import { getAllLikes, getAllPosts, likedPosts } from "../../redux/actions";
 
 const PostsLiked = ({ userData }) => {
   const userId = userData.id;
   const dispatch = useDispatch();
-  const allLikes = useSelector((state) => state.allLikes);
-  const allPosts = useSelector((state) => state.allPosts);
-  const [likedPostsData, setLikedPostsData] = useState([]);
+  const likedPostss = useSelector((state) => state.likedPosts);
+
+  // Agrega un estado local para controlar si los datos están cargados
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(getAllLikes());
-    dispatch(getAllPosts());
-  }, [dispatch]);
+    const fetchData = async () => {
+      await dispatch(getAllLikes());
+      await dispatch(getAllPosts());
+      await dispatch(likedPosts(userId));
+      // Marca que los datos están cargados una vez que las acciones se completen
+      setDataLoaded(true);
+    };
 
-  // Filtra los likes del usuario
-  const userLikes = allLikes.filter((like) => like.myUserId === userId);
+    fetchData();
+  }, [dispatch, userId]);
 
-  // Busca y almacena los datos de las publicaciones que le gustan al usuario
-  useEffect(() => {
-    const likedPosts = userLikes.map((like) => {
-      const likedPostId = like.likedPostId;
-      const likedPost = allPosts.find((post) => post.id === likedPostId);
-      return likedPost;
-    });
+  // Si los datos aún no están cargados, muestra un mensaje de carga
+  if (!dataLoaded) {
+    return <div>Cargando...</div>;
+  }
 
-    setLikedPostsData(likedPosts);
-  }, [dispatch]);
-
-  console.log("userLikes: ", userLikes);
-  console.log("likedPostsData: ", likedPostsData);
-
+  // Una vez que los datos están cargados, muestra la lista de likedPosts
   return (
     <div>
       <ul>
-        {likedPostsData.map((likedPost) => (
+        {likedPostss.map((likedPost) => (
           <li key={likedPost.id}>
             {/* Renderiza la información de la publicación correspondiente */}
             <h3>{likedPost.title}</h3>
