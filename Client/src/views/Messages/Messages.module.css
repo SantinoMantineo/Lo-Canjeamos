@@ -22,7 +22,7 @@
   align-self: center;
   margin-left: 10px;
   border-radius: 50%;
-  border: 3px solid grey;
+  border: 3px solid #4ecdc4;
 }
 
 .list h4 {
@@ -48,12 +48,14 @@
 }
 
 @media (max-width: 768px) {
-    .messages {
-        width: 300px;
-        box-shadow: none;
-    }
+  .messages {
+    width: 350px;
+    box-shadow: none;
+    justify-self: center;
+    padding: 0px;
+  }
 
-    .list h4 {
-        margin-left: 10px;
-    }
+  .list h4 {
+    margin-left: 10px;
+  }
 }
