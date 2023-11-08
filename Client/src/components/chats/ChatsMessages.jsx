@@ -105,12 +105,15 @@ const ChatsMessages = ({ chatId, userData }) => {
 
 useEffect(() => {
   if (hasNewMessage) {
-    
     messagesEndRef.current.scrollIntoView({
       behavior: "smooth",
       block: "end",
-      
     });
+
+    // Reinicia el estado después de desplazar el scroll
+    setHasNewMessage(false);
+  }
+}, [hasNewMessage]);
 
     // Reinicia el estado después de desplazar el scroll
     setHasNewMessage(false);
