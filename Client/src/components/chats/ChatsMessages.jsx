@@ -5,26 +5,25 @@ import {
   sendAndCreateMessage,
   addMessageToHistory,
   getAllUsers,
+  getAllChats,
 } from "../../redux/actions";
 import { socketServer } from "../../App";
 import style from "./ChatsMessages.module.css";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const ChatsMessages = ({ chatId, userData }) => {
   const dispatch = useDispatch();
   const senderId = userData.id;
   const messageHistory = useSelector((state) => state.messageHistory);
-  const [newMessage, setNewMessage] = useState(""); // Estado para almacenar el mensaje a enviar
+  const chats = useSelector((state) => state.chats)
   const allUsers = useSelector((state) => state.allUsers);
-  const [otherUsername, setOtherUsername] = useState(""); // Estado para almacenar el username del otro usuario
 
-  const [otherUserImage, setOtherUserImage] = useState("");//Estado para almacenar image del otro usuario
-
+  const [newMessage, setNewMessage] = useState("");
+  const [otherUsername, setOtherUsername] = useState("");
+  const [otherUserImage, setOtherUserImage] = useState("");
   const [counter, setCounter] = useState(0);
 
   const messagesEndRef = useRef(null);
-
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCounter((prevCounter) => prevCounter + 1);
@@ -37,6 +36,7 @@ const ChatsMessages = ({ chatId, userData }) => {
   const sendMessage = () => {
     dispatch(sendAndCreateMessage(chatId, senderId, newMessage))
       .then((newMessage) => {
+        socketServer.emit("new-message", newMessage)
         console.log("Mensaje creado:", newMessage);
       })
       .catch((error) => {
@@ -59,7 +59,7 @@ const ChatsMessages = ({ chatId, userData }) => {
 
   useEffect(() => {
     // Este efecto se ejecutará cuando cambie 'chatId'
-    socketServer.on("live-message", (newMessage) => {
+    socketServer.on("new-message", (newMessage) => {
       if (newMessage.chatId === chatId) {
         dispatch(addMessageToHistory(newMessage));
       }
@@ -77,22 +77,23 @@ const ChatsMessages = ({ chatId, userData }) => {
 
   // Buscar el username del otro usuario en allUsers
   useEffect(() => {
-    // Buscar el username del otro usuario en allUsers cuando cambie messageHistory
-    const otherUserId = messageHistory.find(
-      (message) => message.senderId !== senderId
-    )?.senderId;
+    if (chats.length > 0) {
+      // Realiza la búsqueda del username del otro usuario en allUsers
+      const chat = chats.find((chat) => chat.id == chatId);
+      const otherUserId = chat.user2Id;
 
-    if (otherUserId) {
-      const otherUser = allUsers.find((user) => user.id === otherUserId); 
-      if (otherUser) {
-        setOtherUsername(otherUser.username);
-        setOtherUserImage(otherUser.image)
+      if (otherUserId) {
+        const otherUser = allUsers.find((user) => user.id === otherUserId);
+        if (otherUser) {
+          setOtherUsername(otherUser.username);
+          setOtherUserImage(otherUser.image);
+        }
+      } else {
+        // Si no se encuentra otro usuario, puedes establecer un valor predeterminado o manejarlo de otra manera apropiada.
+        setOtherUsername("Usuario Desconocido");
       }
-    } else {
-      // Si no se encuentra otro usuario, puedes establecer un valor predeterminado o manejarlo de otra manera apropiada.
-      setOtherUsername("Usuario Desconocido");
     }
-  }, [messageHistory, senderId, allUsers]);
+  }, [chats, chatId, allUsers]);
 
   useEffect(() => {
     messagesEndRef.current.scrollIntoView({

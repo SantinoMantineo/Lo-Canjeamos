@@ -174,34 +174,31 @@ function rootReducer(state = initialState, action) {
         ),
       };
 
-      case GET_ALL_LIKES:
-        return {
-          ...state,
-          allLikes: action.payload,
-        };
+    case GET_ALL_LIKES:
+      return {
+        ...state,
+        allLikes: action.payload,
+      };
 
-        case LIKED_POSTS:
-          const userId = action.payload;
-        
-          // Filtrar los likes cuya propiedad myUserId sea igual a userId
-          const filteredLikes = state.allLikes.filter((like) => like.myUserId === userId);
-        
-          // Obtener los IDs de los posts que coinciden con los likedPostId de los likes filtrados
-          const likedPostIds = filteredLikes.map((like) => like.likedPostId);
-        
-          // Filtrar los posts que tienen un ID que coincide con los likedPostIds
-          const likedPosts = state.allPosts.filter((post) => likedPostIds.includes(post.id));
-        
-          return {
-            ...state,
-            likedPosts: likedPosts,
-          };
+    case LIKED_POSTS:
+      const userId = action.payload;
+      const filteredLikes = state.allLikes.filter(
+        (like) => like.myUserId === userId
+      );
+      const likedPostIds = filteredLikes.map((like) => like.likedPostId);
+      const likedPosts = state.allPosts.filter((post) =>
+        likedPostIds.includes(post.id)
+      );
+      return {
+        ...state,
+        likedPosts: likedPosts,
+      };
 
-      case CLEAR_DETAIL:
-        return {
-            ...state,
-            postDetail:[]
-        }
+    case CLEAR_DETAIL:
+      return {
+        ...state,
+        postDetail: [],
+      };
 
     case GET_MATCHES:
       return {
@@ -209,11 +206,11 @@ function rootReducer(state = initialState, action) {
         matches: action.payload,
       };
 
-      case UPDATE_FILTERED_MATCHES:
-        return {
-          ...state,
-          matchedPairs: action.payload,
-        };
+    case UPDATE_FILTERED_MATCHES:
+      return {
+        ...state,
+        matchedPairs: action.payload,
+      };
 
     case CARGAR_HISTORIAL_MENSAJES:
       return {
@@ -227,18 +224,17 @@ function rootReducer(state = initialState, action) {
         messageHistory: [...state.messageHistory, action.payload],
       };
 
-      
-      case GET_ALL_MESSAGES:
-        return {
-          ...state,
-          messageHistory: action.payload,
-        };
-        
-        case GET_ALL_CHATS:
-          return {
-            ...state,
-            chats: action.payload,
-          };
+    case GET_ALL_MESSAGES:
+      return {
+        ...state,
+        messageHistory: action.payload,
+      };
+
+    case GET_ALL_CHATS:
+      return {
+        ...state,
+        chats: action.payload,
+      };
 
     case RESET_FILTERS:
       return {
