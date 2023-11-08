@@ -22,7 +22,7 @@ import {
   GET_ALL_CHATS,
   GET_MATCHES,
   UPDATE_FILTERED_MATCHES,
-  LIKE_POST,
+  LIKED_POSTS,
   GET_ALL_LIKES,
   SELECTED_POST,
   CLEAR_DETAIL,
@@ -41,6 +41,7 @@ const initialState = {
   selectedPostImage: "",
   matches: [],
   allLikes: [],
+  likedPosts: [],
   messageHistory: [],
   chats: [],
   interacciones: {},
@@ -178,6 +179,23 @@ function rootReducer(state = initialState, action) {
           ...state,
           allLikes: action.payload,
         };
+
+        case LIKED_POSTS:
+          const userId = action.payload;
+        
+          // Filtrar los likes cuya propiedad myUserId sea igual a userId
+          const filteredLikes = state.allLikes.filter((like) => like.myUserId === userId);
+        
+          // Obtener los IDs de los posts que coinciden con los likedPostId de los likes filtrados
+          const likedPostIds = filteredLikes.map((like) => like.likedPostId);
+        
+          // Filtrar los posts que tienen un ID que coincide con los likedPostIds
+          const likedPosts = state.allPosts.filter((post) => likedPostIds.includes(post.id));
+        
+          return {
+            ...state,
+            likedPosts: likedPosts,
+          };
 
       case CLEAR_DETAIL:
         return {

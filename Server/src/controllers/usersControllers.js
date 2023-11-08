@@ -1,9 +1,13 @@
 const { Post, User } = require("../DB_config");
+require("dotenv").config();
 const bcrypt = require('bcrypt');
 const { transporter } = require("../config/mailer")
 const { registerMail, passwordForgot} = require("../utils/mailObjects")
 const jwtGenerator = require("../utils/jwtGenerator")
 const nodemailer = require('nodemailer')
+const { ADMIN_USERS } = process.env;
+
+/* const adminList = ADMIN_USERS.split(", ") */
 
 exports.getAllUser = async () => {
   try {
@@ -71,6 +75,19 @@ exports.createUser = async (user) => {
         const password = user.password;
         const bcryptPassword = await bcrypt.hash(password, salt);
 
+        if(adminList.includes(user.email)){
+          const newUser = await User.create({
+            username: user.username,
+            email: user.email,
+            password: bcryptPassword,
+            image: user.image,
+            ubication: user.ubication,
+            rol: "admin"
+          });
+          const token = jwtGenerator(newUser.id)
+          await transporter.sendMail(registerMail(user))
+          return {newUser, token};
+        } else {
         const newUser = await User.create({
           username: user.username,
           email: user.email,
@@ -78,10 +95,11 @@ exports.createUser = async (user) => {
           image: user.image,
           ubication: user.ubication,
         });
-
         const token = jwtGenerator(newUser.id)
         await transporter.sendMail(registerMail(user))
         return {newUser, token};
+      }
+
       } catch (error) {
         throw new Error("Hubo un error al crear el usuario: " + error);
       }
