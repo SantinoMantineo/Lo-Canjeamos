@@ -134,12 +134,7 @@ const Matchs = ({ userData }) => {
               />
               {/* Otros detalles de tu post */}
             </div>
-            <button
-              onClick={() => handleStartChat(pair.anotherUserPost.UserId)}
-              className={style.goChats}
-            >
-              Ir al Chat
-            </button>
+            
             {pair.anotherUserPost && (
               <div className={style.matchItem}>
                 <img
@@ -150,6 +145,12 @@ const Matchs = ({ userData }) => {
                 {/* Otros detalles del post del otro usuario */}
               </div>
             )}
+            <button
+              onClick={() => handleStartChat(pair.anotherUserPost.UserId)}
+              className={style.goChats}
+            >
+              Chat
+            </button>
           </div>
         ))
       )}
