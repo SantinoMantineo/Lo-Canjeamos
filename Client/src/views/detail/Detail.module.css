@@ -17,7 +17,12 @@
   border-radius: 10px;
 }
 
-.detail img {
+.arrow {
+  width: 10px;
+  height: 10px;
+}
+
+.img {
   width: 280px;
   height: 360px;
   border-radius: 10px;
@@ -68,25 +73,22 @@
 
 .navigationButtons {
   display: grid;
+  justify-self: center;
+  align-self: center;
   grid-template-columns: 1fr 1fr;
 }
 
 .navigationButtons button {
   justify-self: center;
-  margin-bottom: 30px;
-  margin-top: 30px;
-  background-color: grey;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: rgba(128, 128, 128, 0.5);
   width: 30px;
   height: 30px;
   color: whitesmoke;
   font-size: 14px;
   padding: 5px;
   border-radius: 50%;
-}
-
-.navigationButtons img {
-  width: 10px;
-  height: 10px;
 }
 
 .buttons {
@@ -125,17 +127,22 @@
 @media (max-width: 768px) {
   .detail {
     width: 330px;
-    margin-bottom: 100px;
     grid-template-columns: 1fr;
+    margin-bottom: 0px;
   }
 
   .carousel {
     width: 250px;
+    padding-bottom: 30px;
   }
 
-  .detail img {
+  .img {
     width: 250px;
     height: 300px;
+  }
+
+  .buttons {
+    padding-bottom: 60px;
   }
 
   .detail h4 {
@@ -150,5 +157,18 @@
     width: 255px;
     padding-top: 5px;
     padding-bottom: 5px;
+  }
+
+  .info {
+    padding-top: 20px;
+    padding-bottom: 35px;
+    margin-top: 0px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+  }
+
+  .navigationButtons button {
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
