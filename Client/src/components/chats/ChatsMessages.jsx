@@ -14,16 +14,17 @@ const ChatsMessages = ({ chatId, userData }) => {
   const dispatch = useDispatch();
   const senderId = userData.id;
   const messageHistory = useSelector((state) => state.messageHistory);
-  const chats = useSelector((state) => state.chats);
+  const chats = useSelector((state) => state.chats)
   const allUsers = useSelector((state) => state.allUsers);
 
   const [newMessage, setNewMessage] = useState("");
   const [otherUsername, setOtherUsername] = useState("");
   const [otherUserImage, setOtherUserImage] = useState("");
   const [counter, setCounter] = useState(0);
+  const [hasNewMessage, setHasNewMessage] = useState(false);
 
   const messagesEndRef = useRef(null);
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCounter((prevCounter) => prevCounter + 1);
@@ -35,20 +36,21 @@ const ChatsMessages = ({ chatId, userData }) => {
 
   const sendMessage = () => {
     dispatch(sendAndCreateMessage(chatId, senderId, newMessage))
-      .then((newMessage) => {
-        socketServer.emit("new-message", newMessage);
-        console.log("Mensaje creado:", newMessage);
-      })
-      .catch((error) => {
-        console.error("Error al crear y guardar el mensaje:", error);
-        throw error;
-      });
-
+    .then((newMessage) => {
+      socketServer.emit("new-message", newMessage);
+      setHasNewMessage(true); // Indica que se ha agregado un nuevo mensaje
+      console.log("Mensaje creado:", newMessage);
+    })
+    .catch((error) => {
+      console.error("Error al crear y guardar el mensaje:", error);
+      throw error;
+    });
     setNewMessage("");
   };
 
   useEffect(() => {
     dispatch(getAllUsers());
+    
   }, [dispatch]);
 
   useEffect(() => {
@@ -78,13 +80,14 @@ const ChatsMessages = ({ chatId, userData }) => {
   // Buscar el username del otro usuario en allUsers
   useEffect(() => {
     if (chats.length > 0) {
+      window.scrollTo(0, document.body.scrollHeight);
       // Realiza la búsqueda del username del otro usuario en allUsers
       const chat = chats.find((chat) => chat.id == chatId);
-      let otherUserId;
-      if (senderId == chat.user1Id) {
+      let otherUserId
+      if (senderId == chat.user1Id){
         otherUserId = chat.user2Id;
-      } else if (senderId != chat.user1Id) {
-        otherUserId = chat.user1Id;
+      }else if (senderId != chat.user1Id){
+        otherUserId = chat.user1Id
       }
 
       if (otherUserId) {
@@ -100,19 +103,26 @@ const ChatsMessages = ({ chatId, userData }) => {
     }
   }, [chats, chatId, allUsers]);
 
-  useEffect(() => {
+useEffect(() => {
+  if (hasNewMessage) {
+    
     messagesEndRef.current.scrollIntoView({
       behavior: "smooth",
       block: "end",
+      
     });
-  }, [messageHistory]);
+
+    // Reinicia el estado después de desplazar el scroll
+    setHasNewMessage(false);
+  }
+}, [hasNewMessage]);
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
-  };
+  }
 
   return (
     <div className={style.chat}>
@@ -170,4 +180,4 @@ const ChatsMessages = ({ chatId, userData }) => {
   );
 };
 
-export default ChatsMessages;
+export default ChatsMessages
