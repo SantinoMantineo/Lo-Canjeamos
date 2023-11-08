@@ -3,8 +3,7 @@
   min-width: 800px;
   min-height: 800px;
   border-radius: 10px;
-  border: 2px solid #ffe66d;
-}
+ }
 
 .chat ul {
   padding: 0px;
@@ -19,7 +18,7 @@
   width: 800px;
   grid-template-columns: 1fr 5fr;
   background-color: #ffe66d;
-  border: 2px solid #ffe66d;
+  border-radius: 0px 0px 15px 15px;
 }
 
 .listMsg {
@@ -30,6 +29,7 @@
   display: grid;
   align-self: center;
   justify-self: left;
+  margin-left: 10px;
   color: black;
   text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 }
@@ -64,7 +64,7 @@
   margin: 20px;
   margin-bottom: 0px;
   background-color: #ffe66d;
-  border: 2px solid #ffe66d;
+  border-radius: 15px 15px 0px 0px ;
 }
 
 .chat input {
