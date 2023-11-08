@@ -80,7 +80,12 @@ const ChatsMessages = ({ chatId, userData }) => {
     if (chats.length > 0) {
       // Realiza la búsqueda del username del otro usuario en allUsers
       const chat = chats.find((chat) => chat.id == chatId);
-      const otherUserId = chat.user2Id;
+      let otherUserId
+      if (senderId == chat.user1Id){
+        otherUserId = chat.user2Id;
+      }else if (senderId != chat.user1Id){
+        otherUserId = chat.user1Id
+      }
 
       if (otherUserId) {
         const otherUser = allUsers.find((user) => user.id === otherUserId);
