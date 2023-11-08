@@ -14,7 +14,7 @@ const ChatsMessages = ({ chatId, userData }) => {
   const dispatch = useDispatch();
   const senderId = userData.id;
   const messageHistory = useSelector((state) => state.messageHistory);
-  const chats = useSelector((state) => state.chats)
+  const chats = useSelector((state) => state.chats);
   const allUsers = useSelector((state) => state.allUsers);
 
   const [newMessage, setNewMessage] = useState("");
@@ -23,7 +23,7 @@ const ChatsMessages = ({ chatId, userData }) => {
   const [counter, setCounter] = useState(0);
 
   const messagesEndRef = useRef(null);
-  
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCounter((prevCounter) => prevCounter + 1);
@@ -36,7 +36,7 @@ const ChatsMessages = ({ chatId, userData }) => {
   const sendMessage = () => {
     dispatch(sendAndCreateMessage(chatId, senderId, newMessage))
       .then((newMessage) => {
-        socketServer.emit("new-message", newMessage)
+        socketServer.emit("new-message", newMessage);
         console.log("Mensaje creado:", newMessage);
       })
       .catch((error) => {
@@ -80,7 +80,12 @@ const ChatsMessages = ({ chatId, userData }) => {
     if (chats.length > 0) {
       // Realiza la búsqueda del username del otro usuario en allUsers
       const chat = chats.find((chat) => chat.id == chatId);
-      const otherUserId = chat.user2Id;
+      let otherUserId;
+      if (senderId == chat.user1Id) {
+        otherUserId = chat.user2Id;
+      } else if (senderId != chat.user1Id) {
+        otherUserId = chat.user1Id;
+      }
 
       if (otherUserId) {
         const otherUser = allUsers.find((user) => user.id === otherUserId);
@@ -98,17 +103,16 @@ const ChatsMessages = ({ chatId, userData }) => {
   useEffect(() => {
     messagesEndRef.current.scrollIntoView({
       behavior: "smooth",
-      block: "end", 
+      block: "end",
     });
   }, [messageHistory]);
-  
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
-  }
+  };
 
   return (
     <div className={style.chat}>
