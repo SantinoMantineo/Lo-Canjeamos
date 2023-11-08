@@ -18,6 +18,7 @@ import {
   GET_POST_BY_PROVINCE,
   GET_POST_BY_LOCALITY,
   LIKE_POST,
+  LIKED_POSTS,
   GET_ALL_LIKES,
   GET_MATCHES,
   UPDATE_FILTERED_MATCHES,
@@ -135,6 +136,13 @@ export const likePost = (myUserId, likedPostId, myPostId, anotherUserId) => {
     }
   };
 };
+
+export function likedPosts(userId) {
+  return {
+    type: LIKED_POSTS,
+    payload: userId,
+  };
+}
 
 export function getAllLikes() {
   return async function (dispatch) {
