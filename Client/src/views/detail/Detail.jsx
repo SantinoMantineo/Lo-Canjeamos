@@ -81,10 +81,14 @@ const Detail = ({ userData }) => {
         cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.href = "https://locanjeamos.com.ar/#/login";
+          const isLocalhost = window.location.hostname === 'localhost';
+          const redirectURL = isLocalhost
+            ? 'http://localhost:5173/#/login'
+            : 'https://locanjeamos.com.ar/#/login';
+          window.location.href = redirectURL;
           Swal.close();
-        }
-      });
+          }
+        });
     }
   };
   const settings = {
