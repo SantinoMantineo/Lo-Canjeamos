@@ -1,7 +1,7 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMatches, getPostById, likePost,clearDetail} from "../../redux/actions";
+import { getMatches, getPostById, likePost,clearDetail, getAllLikes} from "../../redux/actions";
 import {motion} from 'framer-motion';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -18,6 +18,7 @@ const Detail = ({ userData }) => {
   const anotherUserId = post.User?.id
   const userName = post.User?.username
   const myPostId = useSelector((state) => state.selectedPostToInteract);
+  const allLikes = useSelector((state) => state.allLikes);
   const [liked, setLiked] = useState(false)
   const navigate = useNavigate();
 
@@ -26,7 +27,9 @@ const Detail = ({ userData }) => {
   });
  
 
- console.log(filteredMatches);
+   // Comprueba si likedPostId está en la lista de likedPosts
+   const isPostLiked = allLikes.some((like) => like.myPostId == myPostId && like.likedPostId == id)
+   
 
   const isMatched = filteredMatches.length > 0;
   
@@ -38,6 +41,7 @@ const Detail = ({ userData }) => {
 
   useEffect(() => {
     dispatch(getMatches());
+    dispatch(getAllLikes())
   }, [dispatch]);
   
  
@@ -172,7 +176,7 @@ const Detail = ({ userData }) => {
           <Link to="/">
             <button className={style.back}>Volver</button>
           </Link>
-          <button className={style.match} onClick={handleLikeClick} disabled={liked || myUserId === anotherUserId || isMatched}>Canjear</button>
+          <button className={style.match} onClick={handleLikeClick} disabled={liked || myUserId === anotherUserId || isMatched || isPostLiked}>Canjear</button>
         </div>
 
         

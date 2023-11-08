@@ -23,9 +23,5 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    isMatch: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
   });
 };
