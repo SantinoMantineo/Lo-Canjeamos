@@ -181,7 +181,6 @@ setErrors({ ...errors, [name]: error });
   };
 
   const handleDeleteImage = (event, index) => {
-    event.preventDefault();
 
     const updatedFiles = [...files];
     updatedFiles.splice(index, 1); // Eliminar el archivo del estado
