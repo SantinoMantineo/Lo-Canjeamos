@@ -224,3 +224,5 @@ const Detail = ({ userData }) => {
 };
 
 export default Detail;
+
+//
