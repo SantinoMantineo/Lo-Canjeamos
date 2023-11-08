@@ -149,7 +149,7 @@ const Matchs = ({ userData }) => {
               onClick={() => handleStartChat(pair.anotherUserPost.UserId)}
               className={style.goChats}
             >
-              Ir al Chat
+              Chat
             </button>
           </div>
         ))

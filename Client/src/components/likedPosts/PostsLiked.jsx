@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllLikes, getAllPosts, likedPosts } from "../../redux/actions";
-import style from './PostsLiked.module.css';
+import style from "./PostsLiked.module.css";
 
 const PostsLiked = ({ userData }) => {
   const userId = userData.id;
@@ -28,20 +28,18 @@ const PostsLiked = ({ userData }) => {
     return <div>Cargando...</div>;
   }
 
-  // Una vez que los datos están cargados, muestra la lista de likedPosts
   return (
-    <div className={style.container}>
-      <ul>
-        {likedPostss.map((likedPost) => (
-          <li key={likedPost.id}>
-            {/* Renderiza la información de la publicación correspondiente */}
-            
+    <div className={style.containerP}>
+      {likedPostss.map((likedPost) => (
+        <div className={style.likes} key={likedPost.id}>
+          <div className={style.like}>
             <img src={likedPost.image} alt={likedPost.title} />
-            <h4>{likedPost.title}</h4>
-            {/* Puedes mostrar otros detalles de la publicación si es necesario */}
-          </li>
-        ))}
-      </ul>
+            <div>
+              <h4>{likedPost.title}</h4>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

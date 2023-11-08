@@ -1,15 +1,27 @@
-.container {
+.containerP {
   display: grid;
-  width: 250px;
   
+}
+
+.like {
+  display: grid;
+  justify-self: center;
+  grid-template-columns: 1fr 2fr;
+  width: 250px;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   border-radius: 10px;
   margin-top: 20px;
-  transition: 300ms;
+  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.likes {
+  display: grid;
   justify-self: center;
 }
 
-.container ul {
+.containerP ul {
   display: grid;
   justify-self: center;
   list-style: none;
@@ -17,23 +29,25 @@
   margin: 0px;
 }
 
-.container li {
+.containerP li {
   display: grid;
   align-self: center;
   grid-template-columns: 1fr 2fr;
 }
 
-.container h3 {
+.containerP h3 {
   align-self: center;
 }
 
-.container h4 {
+.containerP h4 {
+  text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.container img {
+.containerP img {
+  justify-self: center;
   width: 60px;
   height: 60px;
   border-radius: 50%;
