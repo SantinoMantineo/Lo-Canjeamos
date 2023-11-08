@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import AddProduct from "./views/addProduct/addProduct";
 import Chats from "./views/chats/Chats";
+import Messages from "./views/Messages/Messages";
 import Exchanges from "./views/exchanges/exchanges";
 import Home from "./views/home/Home";
 import Detail from "./views/detail/Detail";
@@ -220,6 +221,8 @@ const App = () => {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
 
         <Route path="/resetpassword/:id" element={<ResetPassword />} />
+
+        <Route path="/messages" element={userData && <Messages userData={userData} />} />
       </Routes>
     </>
   );
