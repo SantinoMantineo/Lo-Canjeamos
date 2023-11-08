@@ -21,6 +21,8 @@ export const RESET_FILTERS = "RESET_FILTERS"
 
 export const LIKE_POST = "LIKE_POST"
 export const GET_ALL_LIKES = "GET_ALL_LIKES"
+export const LIKED_POSTS = "LIKED_POSTS"
+
 export const GET_MATCHES = "GET_MATCHES"
 export const UPDATE_FILTERED_MATCHES = "UPDATE_FILTERED_MATCHES"
 
