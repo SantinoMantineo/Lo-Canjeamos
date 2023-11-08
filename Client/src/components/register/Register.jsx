@@ -158,14 +158,17 @@ const Register = ({setAuth}) => {
     !selectedProvince ||
     !localidad
   ) {
-    alert('Complete todos los campos antes de enviar el formulario.');
+    Swal.fire({
+      icon: 'info',
+      title: 'Campos incompletos',
+      text: 'Todos los campos son obligatorios para completar el registro',
+    });
     setInput({
       ...input,
       disabled: false,
-    })
+    });
     return;
   }
-
   try {
     let secureUrl = '';
 
@@ -211,28 +214,43 @@ const Register = ({setAuth}) => {
     console.error('Error al enviar los datos al servidor:', error);
     console.log('Hubo un error al crear el usuario.');
 
-    // Mostrar una alerta de error
-    Swal.fire({
-      icon: 'error',
-      title: 'Error al registrar',
-      text: 'Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.',
-    });
+    if (error.response && error.response.data === 'El email ya se encuentra registrado') {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Email en uso',
+        text: 'El correo electrónico ya está en uso. Por favor, elige otro.',
+      });
+    } else if (error.response && error.response.data === 'El nombre de usuario ya se encuentra registrado') {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Nombre de usuario en uso',
+        text: 'El nombre de usuario ya está en uso. Por favor, elige otro.',
+      });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        iconColor: 'red',
+        title: 'Error al registrar',
+        text: 'Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.',
+      });
+    }
+
     setInput({
       ...input,
       disabled: false,
-    })
-    return
+    });
+    return;
   }
 
   setInput({
-    username: "",
-    password: "",
-    repeatPassword: "",
-    email: "",
-    image: "",
+    username: '',
+    password: '',
+    repeatPassword: '',
+    email: '',
+    image: '',
     imageFile: null,
     disabled: false,
-  })
+  });
 };
 
   function isSubmitDisabled() {

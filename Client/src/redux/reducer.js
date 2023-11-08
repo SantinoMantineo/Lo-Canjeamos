@@ -23,6 +23,7 @@ import {
   GET_MATCHES,
   UPDATE_FILTERED_MATCHES,
   LIKE_POST,
+  GET_ALL_LIKES,
   SELECTED_POST,
   CLEAR_DETAIL,
 } from "./actionTypes";
@@ -39,9 +40,9 @@ const initialState = {
   selectedPostToInteract: "",
   selectedPostImage: "",
   matches: [],
+  allLikes: [],
   messageHistory: [],
   chats: [],
-  likedPosts: [],
   interacciones: {},
   matchedPairs: [],
   postDetail:[],
@@ -172,12 +173,11 @@ function rootReducer(state = initialState, action) {
         ),
       };
 
-      case LIKE_POST:
-      return {
-        ...state,
-        likedPosts: [...state.likedPosts, action.payload.likedPostId],
-        
-      };
+      case GET_ALL_LIKES:
+        return {
+          ...state,
+          allLikes: action.payload,
+        };
 
       case CLEAR_DETAIL:
         return {
