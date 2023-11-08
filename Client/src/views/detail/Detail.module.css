@@ -4,7 +4,6 @@
   grid-template-rows: 1fr;
   justify-self: center;
   width: 800px;
-  max-height: 100vw;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   border-radius: 10px;
   margin-top: 30px;
@@ -160,15 +159,8 @@
   }
 
   .info {
-    padding-top: 20px;
     padding-bottom: 35px;
     margin-top: 0px;
     border-radius: 10px;
-    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
-  }
-
-  .navigationButtons button {
-    margin-top: 20px;
-    margin-bottom: 20px;
   }
 }

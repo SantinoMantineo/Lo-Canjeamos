@@ -185,6 +185,7 @@ const Detail = ({ userData }) => {
           <span>Descripción:</span>
           {post && post.description && <h4>{post.description}</h4>}
         </div>
+
         <div className={style.navigationButtons}>
           <button
             onClick={handlePrevClick}
