@@ -16,19 +16,18 @@ router.post('/create-order', async(req, res) =>{
 })
 
 router.get('/success', async(req, res) =>{
+    console.log(req.body)
     try{
         await plansController.successfullPurchase(purchaseUserId);
-        return res.status(200)
+        return res.send("Success")
     } catch(error){
         return res.status(400).json(error.message)
     }
 })
 
-router.get('/failedPurchase', async(req, res) =>{
+router.get('/failed', async(req, res) =>{
     try{
-        // hacer que nos lleve a una ruta con un cartel en la pagina
-        console.log("La compra fallo")
-        return res.status(400)
+        return res.sebd("Failure")
     } catch(error){
         return res.status(400).json(error.message)
     }
@@ -36,9 +35,18 @@ router.get('/failedPurchase', async(req, res) =>{
 
 router.get('/pending', async(req, res) =>{
     try{
-        // hacer que nos lleve a una ruta con un cartel en la pagina
-        console.log("La compra esta en estado pendiente")
-        return res.status(200)
+        return res.send("Pending")
+    } catch(error){
+        return res.status(400).json(error.message)
+    }
+})
+
+router.post('/webhook', async(req, res) =>{
+    const data = req.query
+
+    try{
+        const response = await plansController.webhook(data);
+        return res.json(response); 
     } catch(error){
         return res.status(400).json(error.message)
     }

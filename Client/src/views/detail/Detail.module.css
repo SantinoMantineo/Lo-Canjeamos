@@ -4,6 +4,7 @@
   grid-template-rows: 1fr;
   justify-self: center;
   width: 800px;
+  max-height: 100vw;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   border-radius: 10px;
   margin-top: 30px;
@@ -12,14 +13,13 @@
 
 .carousel {
   justify-self: center;
-  width: 300px;
+  width: 280px;
   border-radius: 10px;
-  
 }
 
 .detail img {
-  width: 300px;
-  height: 400px;
+  width: 280px;
+  height: 360px;
   border-radius: 10px;
   object-fit: cover;
 }
@@ -66,6 +66,24 @@
   margin-top: 30px;
 }
 
+.navigationButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.navigationButtons button {
+  justify-self: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  background-color: grey;
+  width: 30px;
+  height: 30px;
+  color: whitesmoke;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 50%;
+}
+
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -95,8 +113,8 @@
 
 .detail .match:disabled {
   background-color: gray;
-  cursor: not-allowed; 
-  opacity: 0.6;        
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 @media (max-width: 768px) {

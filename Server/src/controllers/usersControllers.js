@@ -55,9 +55,16 @@ exports.createUser = async (user) => {
         username: user.username
       }
     });
-    if (existEmail.length !== 0 || existUsername.length !== 0) {
-      throw new Error("El email o usuario ya están en uso, prueba uno diferente.");
-    } else {
+    if (existEmail.length !== 0) {
+      throw new Error("El email ya se encuentra registrado");
+    } 
+    else if (existUsername.length !== 0) {
+      throw new Error("El nombre de usuario ya se encuentra registrado");
+    } 
+    // if (existEmail.length !== 0 && existUsername.length !== 0) {
+    //   throw new Error("El email y usuario ya están en uso, prueba uno diferente.");
+    // }
+    else {
       try {
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
