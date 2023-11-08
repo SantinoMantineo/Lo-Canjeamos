@@ -18,6 +18,7 @@ import {
   GET_POST_BY_PROVINCE,
   GET_POST_BY_LOCALITY,
   LIKE_POST,
+  GET_ALL_LIKES,
   GET_MATCHES,
   UPDATE_FILTERED_MATCHES,
   CREATE_POST,
@@ -119,23 +120,32 @@ export const likePost = (myUserId, likedPostId, myPostId, anotherUserId) => {
         myUserId: myUserId,
         likedPostId: likedPostId,
         myPostId: myPostId,
-        anotherUserId: anotherUserId
+        anotherUserId: anotherUserId,
       });
-      const likedPost = response.data;
+      const likedPost = response.data.like;
       dispatch({
         type: LIKE_POST,
-        payload: {
-        myUserId: myUserId,
-        likedPostId: likedPostId,
-        myPostId: myPostId,
-        anotherUserId: anotherUserId
-        },
+        payload: likedPost,
       });
+
+      // Almacenar el estado liked en el almacenamiento local
+      localStorage.setItem(`likedStatus_${likedPostId}`, 'true');
     } catch (error) {
       console.error("Error al dar like a la publicación", error);
     }
   };
 };
+
+export function getAllLikes() {
+  return async function (dispatch) {
+    const response = await axios("/likes/allLikes");
+    return dispatch({
+      type: GET_ALL_LIKES,
+      payload: response.data,
+    });
+  };
+}
+
 
 export const clearDetail = () => {
   return async function (dispatch) {
