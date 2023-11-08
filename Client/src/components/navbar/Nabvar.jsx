@@ -115,9 +115,9 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
 
       {isAuthenticated || isAuthenticatedAuth0 ? (
         <Link
-          to="/chats"
+          to="/messages"
           className={`${style.link} ${
-            location.pathname === "/chats" ? style.active : ""
+            location.pathname === "/messages" ? style.active : ""
           }`}
         >
           <button className={style.iconos}>
@@ -131,7 +131,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
           </button>
         </Link>
       ) : (
-        <Link to="/chats">
+        <Link to="/messages">
           <button className={style.iconosFalse}>
             <img
               width="24"

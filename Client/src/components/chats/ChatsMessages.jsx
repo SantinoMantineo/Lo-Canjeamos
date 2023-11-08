@@ -79,6 +79,7 @@ const ChatsMessages = ({ chatId, userData }) => {
   // Buscar el username del otro usuario en allUsers
   useEffect(() => {
     if (chats.length > 0) {
+      window.scrollTo(0, document.body.scrollHeight);
       // Realiza la búsqueda del username del otro usuario en allUsers
       const chat = chats.find((chat) => chat.id == chatId);
       let otherUserId
@@ -101,17 +102,17 @@ const ChatsMessages = ({ chatId, userData }) => {
     }
   }, [chats, chatId, allUsers]);
 
-  useEffect(() => {
-    if (hasNewMessage) {
-      messagesEndRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
-  
-      // Reinicia el estado después de desplazar el scroll
-      setHasNewMessage(false);
-    }
-  }, [hasNewMessage]);
+useEffect(() => {
+  if (hasNewMessage) {
+    messagesEndRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+
+    // Reinicia el estado después de desplazar el scroll
+    setHasNewMessage(false);
+  }
+}, [hasNewMessage]);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
