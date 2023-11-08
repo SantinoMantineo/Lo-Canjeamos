@@ -9,12 +9,21 @@ router.post('/', async (req, res) => {
     const result = await likeController.createLike(myUserId, likedPostId, myPostId, anotherUserId);
     
     if (result) {
-      return res.status(201).json({ message: 'Like registrado con éxito' });
+      return res.status(201).json({ message: 'Like registrado con éxito', like: result });
     } else {
       return res.status(400).json({ error: 'Error al registrar el like' });
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/allLikes", async (req, res) => {
+  try {
+    const likes = await likeController.getAllLikes();
+    return res.status(200).json(likes);
+  } catch (error) {
+    return res.status(400).json(error.message);
   }
 });
 
