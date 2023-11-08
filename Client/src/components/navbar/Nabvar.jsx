@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import Logo from "../../assets/locan.png";
-import smile from "../../assets/smile.gif";
 import style from "./Nabvar.module.css";
 //Auth0
 import { useAuth0 } from "@auth0/auth0-react";
