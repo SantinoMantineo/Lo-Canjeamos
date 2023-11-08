@@ -21,6 +21,7 @@ const ChatsMessages = ({ chatId, userData }) => {
   const [otherUsername, setOtherUsername] = useState("");
   const [otherUserImage, setOtherUserImage] = useState("");
   const [counter, setCounter] = useState(0);
+  const [hasNewMessage, setHasNewMessage] = useState(false);
 
   const messagesEndRef = useRef(null);
 
@@ -35,14 +36,16 @@ const ChatsMessages = ({ chatId, userData }) => {
 
   const sendMessage = () => {
     dispatch(sendAndCreateMessage(chatId, senderId, newMessage))
-      .then((newMessage) => {
-        socketServer.emit("new-message", newMessage);
-        console.log("Mensaje creado:", newMessage);
-      })
-      .catch((error) => {
-        console.error("Error al crear y guardar el mensaje:", error);
-        throw error;
-      });
+
+    .then((newMessage) => {
+      socketServer.emit("new-message", newMessage);
+      setHasNewMessage(true); // Indica que se ha agregado un nuevo mensaje
+      console.log("Mensaje creado:", newMessage);
+    })
+    .catch((error) => {
+      console.error("Error al crear y guardar el mensaje:", error);
+      throw error;
+    });
 
     setNewMessage("");
   };
@@ -80,11 +83,13 @@ const ChatsMessages = ({ chatId, userData }) => {
     if (chats.length > 0) {
       // Realiza la búsqueda del username del otro usuario en allUsers
       const chat = chats.find((chat) => chat.id == chatId);
-      let otherUserId;
-      if (senderId == chat.user1Id) {
+
+      let otherUserId
+      if (senderId == chat.user1Id){
         otherUserId = chat.user2Id;
-      } else if (senderId != chat.user1Id) {
-        otherUserId = chat.user1Id;
+      }else if (senderId != chat.user1Id){
+        otherUserId = chat.user1Id
+
       }
 
       if (otherUserId) {
@@ -101,11 +106,17 @@ const ChatsMessages = ({ chatId, userData }) => {
   }, [chats, chatId, allUsers]);
 
   useEffect(() => {
-    messagesEndRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-    });
-  }, [messageHistory]);
+    if (hasNewMessage) {
+      messagesEndRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+  
+      // Reinicia el estado después de desplazar el scroll
+      setHasNewMessage(false);
+    }
+  }, [hasNewMessage]);
+
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
