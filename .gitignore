@@ -4,3 +4,4 @@
 
 # Ignorar el archivo .env en el directorio del servidor
 /Server/.env
+/Server/ngrok.exe
