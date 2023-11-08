@@ -193,7 +193,12 @@ const Detail = ({ userData }) => {
               allPosts.findIndex((p) => p.id === id) === 0
             }
           >
-            ←
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/ios-filled/50/back.png"
+              alt="back"
+            />
           </button>
           <button
             onClick={handleNextClick}
@@ -202,7 +207,12 @@ const Detail = ({ userData }) => {
               allPosts.findIndex((p) => p.id === id) === allPosts.length - 1
             }
           >
-            →
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/ios-filled/50/forward.png"
+              alt="forward"
+            />
           </button>
         </div>
 
