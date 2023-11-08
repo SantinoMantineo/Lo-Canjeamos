@@ -84,6 +84,11 @@
   border-radius: 50%;
 }
 
+.navigationButtons img {
+  width: 10px;
+  height: 10px;
+}
+
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
