@@ -14,7 +14,6 @@
   justify-self: center;
   width: 300px;
   border-radius: 10px;
-  
 }
 
 .detail img {
@@ -66,6 +65,24 @@
   margin-top: 30px;
 }
 
+.navigationButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.navigationButtons button {
+  justify-self: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  background-color: grey;
+  width: 30px;
+  height: 30px;
+  color: whitesmoke;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 50%;
+}
+
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -95,8 +112,8 @@
 
 .detail .match:disabled {
   background-color: gray;
-  cursor: not-allowed; 
-  opacity: 0.6;        
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 @media (max-width: 768px) {
