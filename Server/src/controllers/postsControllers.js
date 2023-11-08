@@ -14,6 +14,18 @@ exports.getAllPosts = async () => {
   }
 };
 
+exports.getAllDisabled = async () => {
+  try {
+    const disabledPosts = await Post.findAll({
+      where: {paranoid: false}
+    })
+
+    return disabledPosts
+  } catch (error) {
+    throw "Ocurrió un error al traer las publicaciones: " + error;
+  }
+};
+
 exports.getPostById = async (id) => {
   try {
     const postById = await Post.findByPk(id, {
@@ -104,3 +116,18 @@ exports.getPostsByLocality = async (localidad) => {
   });
   return localityFilter;
 }
+
+exports.restorePost = async (id) => {
+  try {
+    const postDisabled = await Post.findByPk(id, {paranoid:false})
+
+    if(!postDisabled) {
+      throw new Error("La publicacion que intenta restaurar no se encuentra.")
+    }
+    
+    await postDisabled.restore()
+    return "La publicacion ha sido restaurado con éxito."
+  } catch (error) {
+    throw (error)
+  }
+};

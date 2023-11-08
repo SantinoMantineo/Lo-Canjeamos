@@ -35,7 +35,7 @@ const PostsLiked = ({ userData }) => {
           <li key={likedPost.id}>
             {/* Renderiza la información de la publicación correspondiente */}
             <h3>{likedPost.title}</h3>
-            <img src={likedPost.image} alt={likedPost.title} />
+            <img src={likedPost.image[0]} alt={likedPost.title} />
             {/* Puedes mostrar otros detalles de la publicación si es necesario */}
           </li>
         ))}
