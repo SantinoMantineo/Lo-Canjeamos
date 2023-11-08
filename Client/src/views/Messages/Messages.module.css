@@ -1,0 +1,59 @@
+.messages {
+  display: grid;
+  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+  border-radius: 10px;
+  padding: 30px;
+  width: 500px;
+}
+
+.list {
+  display: grid;
+  margin-top: 20px;
+  grid-template-columns: 1fr 4fr;
+  box-shadow: 0px 5px 10px rgba(124, 124, 124, 0.3);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.list img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  align-self: center;
+  margin-left: 10px;
+  border-radius: 50%;
+  border: 3px solid grey;
+}
+
+.list h4 {
+  text-align: left;
+}
+
+.list:active {
+  animation-name: push;
+  animation-duration: 1000ms;
+  animation-iteration-count: 1;
+}
+
+@keyframes push {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 0.8;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+@media (max-width: 768px) {
+    .messages {
+        width: 300px;
+        box-shadow: none;
+    }
+
+    .list h4 {
+        margin-left: 10px;
+    }
+}
