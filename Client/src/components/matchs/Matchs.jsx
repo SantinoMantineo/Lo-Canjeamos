@@ -149,7 +149,23 @@ const Matchs = ({ userData }) => {
               onClick={() => handleStartChat(pair.anotherUserPost.UserId)}
               className={style.goChats}
             >
-              Chat
+              <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
+              alt="Chat"
+            />
+            </button>
+            <button
+              
+              className={style.goChats}
+            >
+              <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
+              alt="Usuario"
+            />
             </button>
           </div>
         ))

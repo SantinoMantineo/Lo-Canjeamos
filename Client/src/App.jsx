@@ -12,6 +12,7 @@ import Home from "./views/home/Home";
 import Detail from "./views/detail/Detail";
 import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/myProfile";
+import AdminDash from './views/adminDash/AdminDash';
 
 import Login from "./views/login/Login";
 import Register from "./components/register/Register";
@@ -23,8 +24,8 @@ import io from "socket.io-client";
 import Swal from 'sweetalert2';
 import "./App.css";
 
-const socketServer = io("http://localhost:3001/");
-//const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
+//const socketServer = io("http://localhost:3001/");
+const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
 
 //Actions
 import { getAllUsers, createGoogleUser } from "../src/redux/actions";
@@ -56,8 +57,8 @@ const App = () => {
     }
   };
 
-  axios.defaults.baseURL = "http://localhost:3001/";
-  //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+  //axios.defaults.baseURL = "http://localhost:3001/";
+  axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   //*Auth0
   const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
 
@@ -223,6 +224,8 @@ const App = () => {
         <Route path="/resetpassword/:id" element={<ResetPassword />} />
 
         <Route path="/messages" element={userData && <Messages userData={userData} />} />
+
+        <Route path="/admin" element={<AdminDash></AdminDash>} />
       </Routes>
     </>
   );

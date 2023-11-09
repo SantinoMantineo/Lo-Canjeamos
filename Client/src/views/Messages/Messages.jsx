@@ -22,7 +22,7 @@ const Messages = ({ userData }) => {
 
   return (
     <div className={style.messages}>
-      <h3>Tus mensajes</h3>
+      <h3>Conversaciones</h3>
       {chats.map((chat) => {
         if (chat.user1Id === userId || chat.user2Id === userId) {
           const otherUserId = chat.user1Id === userId ? chat.user2Id : chat.user1Id;
