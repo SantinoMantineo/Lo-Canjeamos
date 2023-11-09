@@ -27,7 +27,7 @@ const PostsLiked = ({ userData }) => {
   if (!dataLoaded) {
     return <div>Cargando...</div>;
   }
-
+console.log(likedPostss)
   return (
     <div className={style.containerP}>
       {likedPostss.map((likedPost) => (

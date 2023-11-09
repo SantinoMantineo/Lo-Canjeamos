@@ -27,4 +27,14 @@ router.get("/allLikes", async (req, res) => {
   }
 });
 
+router.get("/getLikesRecibidos", async (req, res) => {
+  const myUserId = req.query.myUserId;
+  try{
+    const likes = await likeController.getLikesRecibidos(myUserId);
+    return res.status(200).json(likes);
+  } catch(error){
+    return res.status(400).json(error.message);
+  }
+})
+
 module.exports = router;

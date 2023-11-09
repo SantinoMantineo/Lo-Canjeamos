@@ -1,0 +1,56 @@
+.containerP {
+    display: grid;
+    
+  }
+  
+  .like {
+    display: grid;
+    justify-self: center;
+    grid-template-columns: 1fr 2fr;
+    width: 250px;
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .likes {
+    display: grid;
+    justify-self: center;
+  }
+  
+  .containerP ul {
+    display: grid;
+    justify-self: center;
+    list-style: none;
+    padding: 10px;
+    margin: 0px;
+  }
+  
+  .containerP li {
+    display: grid;
+    align-self: center;
+    grid-template-columns: 1fr 2fr;
+  }
+  
+  .containerP h3 {
+    align-self: center;
+  }
+  
+  .containerP h4 {
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .containerP img {
+    justify-self: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid grey;
+  }
+  
