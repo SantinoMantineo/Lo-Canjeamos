@@ -12,6 +12,7 @@ import Home from "./views/home/Home";
 import Detail from "./views/detail/Detail";
 import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/myProfile";
+import AdminDash from './views/adminDash/AdminDash';
 
 import Login from "./views/login/Login";
 import Register from "./components/register/Register";
@@ -223,6 +224,8 @@ const App = () => {
         <Route path="/resetpassword/:id" element={<ResetPassword />} />
 
         <Route path="/messages" element={userData && <Messages userData={userData} />} />
+
+        <Route path="/admin" element={<AdminDash></AdminDash>} />
       </Routes>
     </>
   );
