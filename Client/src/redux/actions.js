@@ -1,15 +1,18 @@
 import axios from "axios";
 import {
   GET_ALL_USERS,
+  GET_ALL_DISABLED_USERS,
   GET_USER_BY_ID,
   CREATE_USER,
   UPDATE_USER,
   DELETE_USER,
+  RESTORE_USER,
   CARGAR_HISTORIAL_MENSAJES,
   ADD_MESSAGE_TO_HISTORY,
   GET_ALL_MESSAGES,
   GET_ALL_CHATS,
   GET_ALL_POSTS,
+  GET_ALL_DISABLED_POSTS,
   GET_POST_BY_ID,
   SELECT_CATEGORY,
   SELECT_LOCALITY,
@@ -25,6 +28,7 @@ import {
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
+  RESTORE_POST,
   SELECTED_POST,
   RESET_FILTERS,
   CLEAR_DETAIL,
@@ -35,6 +39,16 @@ export function getAllUsers() {
     const response = await axios("/users/allUsers");
     return dispatch({
       type: GET_ALL_USERS,
+      payload: response.data,
+    });
+  };
+}
+
+export function getAllDisabledUsers() {
+  return async function (dispatch) {
+    const response = await axios.get("/users/allDisabledUsers");
+    return dispatch({
+      type: GET_ALL_DISABLED_USERS,
       payload: response.data,
     });
   };
@@ -94,11 +108,31 @@ export function deleteUser(id) {
   };
 }
 
+export function restoreUser(id) {
+  return async (dispatch) => {
+    const result = await axios.put(`/users/restoreUser/${id}`);
+    dispatch({
+      type: RESTORE_USER,
+      payload: result.data,
+    });
+  };
+}
+
 export function getAllPosts() {
   return async function (dispatch) {
     const response = await axios("/posts");
     return dispatch({
       type: GET_ALL_POSTS,
+      payload: response.data,
+    });
+  };
+}
+
+export function getAllDisabledPosts() {
+  return async function (dispatch) {
+    const response = await axios.get("/posts/allDisabledPosts");
+    return dispatch({
+      type: GET_ALL_DISABLED_POSTS,
       payload: response.data,
     });
   };
@@ -263,6 +297,17 @@ export function deletePost(id) {
     });
   };
 }
+
+export function restorePost(id) {
+  return async (dispatch) => {
+    const result = await axios.put(`/posts/restorePost/${id}`);
+    dispatch({
+      type: RESTORE_POST,
+      payload: result.data,
+    });
+  };
+}
+
 export function resetFilters() {
   return {
     type: RESET_FILTERS,

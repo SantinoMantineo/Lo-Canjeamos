@@ -254,7 +254,7 @@ exports.restoreUser = async (id) => {
     }
     
     await userDisabled.restore()
-    return "El usuario ha sido restaurado con éxito."
+    return userDisabled;
   } catch (error) {
     throw (error)
   }
