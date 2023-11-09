@@ -26,9 +26,29 @@ const getAllLikes = async () => {
     throw error;
   }
 };
+const getLikesRecibidos = async (myUserId) => {
+  try {
+    const likesRecibidos = await Like.findAll({
+      where: {
+        anotherUserId: myUserId,
+      },
+    });
 
+    const posts = [];
+
+    const likes = likesRecibidos.forEach((post)=>{
+      posts.push(post.myPostId)
+    })
+
+    
+    return posts;
+  } catch (error) {
+    throw new Error('Error al dar obtener likes recibidos: ' + error.message);
+  }
+};
 
 module.exports = {
   createLike,
-  getAllLikes
+  getAllLikes,
+  getLikesRecibidos
 };

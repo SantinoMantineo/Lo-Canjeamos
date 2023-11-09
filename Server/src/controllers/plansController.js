@@ -27,7 +27,7 @@ exports.createOrder = async (paymentData) => {
                 pending: "http://localhost:5173/#/",
                 success: "http://localhost:5173/#/login"
             },
-            notification_url: "https://970a-201-190-251-186.ngrok.io/plans/webhook"
+            notification_url: "https://5947-201-190-251-186.ngrok.io/plans/webhook"
         }
 
         const response = await mercadopago.preferences.create(preference);

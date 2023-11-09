@@ -103,7 +103,7 @@ const ChatsMessages = ({ chatId, userData }) => {
     }
   }, [chats, chatId, allUsers]);
 
-useEffect(() => {
+/* useEffect(() => {
   if (hasNewMessage) {
     messagesEndRef.current.scrollIntoView({
       behavior: "smooth",
@@ -113,7 +113,14 @@ useEffect(() => {
     // Reinicia el estado después de desplazar el scroll
     setHasNewMessage(false);
   }
-}, [hasNewMessage]);
+}, [hasNewMessage]); */
+
+useEffect(() => {
+  messagesEndRef.current.scrollIntoView({
+    behavior: "smooth",
+    block: "end", 
+  });
+}, [messageHistory]);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
