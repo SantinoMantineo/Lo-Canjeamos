@@ -5,26 +5,26 @@ import {
   sendAndCreateMessage,
   addMessageToHistory,
   getAllUsers,
+  getAllChats,
 } from "../../redux/actions";
 import { socketServer } from "../../App";
 import style from "./ChatsMessages.module.css";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const ChatsMessages = ({ chatId, userData }) => {
   const dispatch = useDispatch();
   const senderId = userData.id;
   const messageHistory = useSelector((state) => state.messageHistory);
-  const [newMessage, setNewMessage] = useState(""); // Estado para almacenar el mensaje a enviar
+  const chats = useSelector((state) => state.chats)
   const allUsers = useSelector((state) => state.allUsers);
-  const [otherUsername, setOtherUsername] = useState(""); // Estado para almacenar el username del otro usuario
 
-  const [otherUserImage, setOtherUserImage] = useState("");//Estado para almacenar image del otro usuario
-
+  const [newMessage, setNewMessage] = useState("");
+  const [otherUsername, setOtherUsername] = useState("");
+  const [otherUserImage, setOtherUserImage] = useState("");
   const [counter, setCounter] = useState(0);
+  const [hasNewMessage, setHasNewMessage] = useState(false);
 
   const messagesEndRef = useRef(null);
-
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCounter((prevCounter) => prevCounter + 1);
@@ -36,19 +36,21 @@ const ChatsMessages = ({ chatId, userData }) => {
 
   const sendMessage = () => {
     dispatch(sendAndCreateMessage(chatId, senderId, newMessage))
-      .then((newMessage) => {
-        console.log("Mensaje creado:", newMessage);
-      })
-      .catch((error) => {
-        console.error("Error al crear y guardar el mensaje:", error);
-        throw error;
-      });
-
+    .then((newMessage) => {
+      socketServer.emit("new-message", newMessage);
+      setHasNewMessage(true); // Indica que se ha agregado un nuevo mensaje
+      console.log("Mensaje creado:", newMessage);
+    })
+    .catch((error) => {
+      console.error("Error al crear y guardar el mensaje:", error);
+      throw error;
+    });
     setNewMessage("");
   };
 
   useEffect(() => {
     dispatch(getAllUsers());
+    
   }, [dispatch]);
 
   useEffect(() => {
@@ -59,7 +61,7 @@ const ChatsMessages = ({ chatId, userData }) => {
 
   useEffect(() => {
     // Este efecto se ejecutará cuando cambie 'chatId'
-    socketServer.on("live-message", (newMessage) => {
+    socketServer.on("new-message", (newMessage) => {
       if (newMessage.chatId === chatId) {
         dispatch(addMessageToHistory(newMessage));
       }
@@ -77,30 +79,41 @@ const ChatsMessages = ({ chatId, userData }) => {
 
   // Buscar el username del otro usuario en allUsers
   useEffect(() => {
-    // Buscar el username del otro usuario en allUsers cuando cambie messageHistory
-    const otherUserId = messageHistory.find(
-      (message) => message.senderId !== senderId
-    )?.senderId;
-
-    if (otherUserId) {
-      const otherUser = allUsers.find((user) => user.id === otherUserId); 
-      if (otherUser) {
-        setOtherUsername(otherUser.username);
-        setOtherUserImage(otherUser.image)
+    if (chats.length > 0) {
+      window.scrollTo(0, document.body.scrollHeight);
+      // Realiza la búsqueda del username del otro usuario en allUsers
+      const chat = chats.find((chat) => chat.id == chatId);
+      let otherUserId
+      if (senderId == chat.user1Id){
+        otherUserId = chat.user2Id;
+      }else if (senderId != chat.user1Id){
+        otherUserId = chat.user1Id
       }
-    } else {
-      // Si no se encuentra otro usuario, puedes establecer un valor predeterminado o manejarlo de otra manera apropiada.
-      setOtherUsername("Usuario Desconocido");
-    }
-  }, [messageHistory, senderId, allUsers]);
 
-  useEffect(() => {
+      if (otherUserId) {
+        const otherUser = allUsers.find((user) => user.id === otherUserId);
+        if (otherUser) {
+          setOtherUsername(otherUser.username);
+          setOtherUserImage(otherUser.image);
+        }
+      } else {
+        // Si no se encuentra otro usuario, puedes establecer un valor predeterminado o manejarlo de otra manera apropiada.
+        setOtherUsername("Usuario Desconocido");
+      }
+    }
+  }, [chats, chatId, allUsers]);
+
+useEffect(() => {
+  if (hasNewMessage) {
     messagesEndRef.current.scrollIntoView({
       behavior: "smooth",
-      block: "end", 
+      block: "end",
     });
-  }, [messageHistory]);
-  
+
+    // Reinicia el estado después de desplazar el scroll
+    setHasNewMessage(false);
+  }
+}, [hasNewMessage]);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -165,4 +178,4 @@ const ChatsMessages = ({ chatId, userData }) => {
   );
 };
 
-export default ChatsMessages;
+export default ChatsMessages

@@ -12,6 +12,15 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/allDisabledPosts", async (req, res) => {
+  try {
+    const response = await postsController.getAllDisabled();
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(error.message)
+  }
+});
+
 router.get("/categories/:category", async (req, res) => {
   const { category } = req.params;
 
@@ -93,5 +102,16 @@ router.delete("/:id", async (req, res) => {
       .json({ error: "There was an error deleting the post" });
   }
 });
+
+router.put('/restorePost/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const restoredPost = await postsController.restorePost(id);
+    return res.status(200).json({restoredPost});
+  } catch (error) {
+    return res.status(400).json({ error: error.message })
+  }
+});
+
 
 module.exports = router;

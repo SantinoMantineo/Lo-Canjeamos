@@ -113,7 +113,7 @@ const Detail = ({ userData }) => {
     ],
   };
   const allPosts = useSelector((state) => state.allPosts);
-  const handleNextClick = () => {
+  const  handlePrevClick = () => {
     const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
 
     if (
@@ -126,25 +126,25 @@ const Detail = ({ userData }) => {
       navigate(`/detail/${nextPostId}`);
     } else {
       console.log(
-        "No hay publicaciones disponibles o ya estás en la última publicación"
-      );
-    }
-  };
-
-  const handlePrevClick = () => {
-    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
-
-    if (
-      Array.isArray(allPosts) &&
-      allPosts.length > 0 &&
-      currentIndex !== -1 &&
-      currentIndex > 0
-    ) {
-      const prevPostId = allPosts[currentIndex - 1].id;
-      navigate(`/detail/${prevPostId}`);
-    } else {
-      console.log(
         "No hay publicaciones disponibles o ya estás en la primera publicación"
+        );
+      }
+    };
+    
+    const handleNextClick = () => {
+      const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+      
+      if (
+        Array.isArray(allPosts) &&
+        allPosts.length > 0 &&
+        currentIndex !== -1 &&
+        currentIndex > 0
+        ) {
+          const prevPostId = allPosts[currentIndex - 1].id;
+          navigate(`/detail/${prevPostId}`);
+        } else {
+          console.log(
+        "No hay publicaciones disponibles o ya estás en la última publicación"
       );
     }
   };
@@ -166,17 +166,17 @@ const Detail = ({ userData }) => {
           <Slider {...settings}>
             {post && post.image && post.image[0] && (
               <div>
-                <img src={post.image[0]} alt="Image 1" />
+                <img src={post.image[0]} alt="Image 1" className={style.img} />
               </div>
             )}
             {post && post.image && post.image[1] && (
               <div>
-                <img src={post.image[1]} alt="Image 2" />
+                <img src={post.image[1]} alt="Image 2" className={style.img} />
               </div>
             )}
             {post && post.image && post.image[2] && (
               <div>
-                <img src={post.image[2]} alt="Image 3" />
+                <img src={post.image[2]} alt="Image 3" className={style.img} />
               </div>
             )}
           </Slider>
@@ -193,6 +193,7 @@ const Detail = ({ userData }) => {
           <span>Descripción:</span>
           {post && post.description && <h4>{post.description}</h4>}
         </div>
+
         <div className={style.navigationButtons}>
           <button
             onClick={handlePrevClick}
@@ -201,7 +202,13 @@ const Detail = ({ userData }) => {
               allPosts.findIndex((p) => p.id === id) === 0
             }
           >
-            ←
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/ios-filled/50/back.png"
+              alt="back"
+              className={style.arrow}
+            />
           </button>
           <button
             onClick={handleNextClick}
@@ -210,7 +217,13 @@ const Detail = ({ userData }) => {
               allPosts.findIndex((p) => p.id === id) === allPosts.length - 1
             }
           >
-            →
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/ios-filled/50/forward.png"
+              alt="forward"
+              className={style.arrow}
+            />
           </button>
         </div>
 

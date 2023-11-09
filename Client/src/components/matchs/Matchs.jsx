@@ -80,7 +80,7 @@ const Matchs = ({ userData }) => {
   useEffect(() => {
     dispatch(updateMatchedPairs(matchedPairs));
   }, [matchedPairs, dispatch]);
-  console.log("matches a renderizar: ", matchedPairs);
+  
   function handleStartChat(anotherUserId) {
     // Verifica si ya existe un chat entre los usuarios actual y anotherUserId
     const existingChat = chats.find((chat) => {
@@ -101,7 +101,7 @@ const Matchs = ({ userData }) => {
           const chatId = chat.id;
           // Redirige al usuario a la vista del chat recién creado
           navigate(`/chats/${chatId}`);
-          console.log(chat.chatId)
+         
           // Asegúrate de que chat.id existe en la respuesta
           if (chat) {
             // Accede al chatId desde el chat creado
@@ -134,12 +134,7 @@ const Matchs = ({ userData }) => {
               />
               {/* Otros detalles de tu post */}
             </div>
-            <button
-              onClick={() => handleStartChat(pair.anotherUserPost.UserId)}
-              className={style.goChats}
-            >
-              Ir al Chat
-            </button>
+            
             {pair.anotherUserPost && (
               <div className={style.matchItem}>
                 <img
@@ -150,6 +145,12 @@ const Matchs = ({ userData }) => {
                 {/* Otros detalles del post del otro usuario */}
               </div>
             )}
+            <button
+              onClick={() => handleStartChat(pair.anotherUserPost.UserId)}
+              className={style.goChats}
+            >
+              Chat
+            </button>
           </div>
         ))
       )}

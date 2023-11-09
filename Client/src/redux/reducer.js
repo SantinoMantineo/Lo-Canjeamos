@@ -1,10 +1,13 @@
 import {
   GET_ALL_USERS,
+  GET_ALL_DISABLED_USERS,
   GET_USER_BY_ID,
   CREATE_USER,
   UPDATE_USER,
   DELETE_USER,
+  RESTORE_USER,
   GET_ALL_POSTS,
+  GET_ALL_DISABLED_POSTS,
   GET_POST_BY_ID,
   SELECT_CATEGORY,
   SELECT_LOCALITY,
@@ -15,6 +18,7 @@ import {
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
+  RESTORE_POST,
   RESET_FILTERS,
   CARGAR_HISTORIAL_MENSAJES,
   ADD_MESSAGE_TO_HISTORY,
@@ -30,9 +34,11 @@ import {
 
 const initialState = {
   allUsers: [],
+  allDisabledUsers: [],
   selectedUser: "",
   allPosts: [],
   allPostsCopy: [],
+  allDisabledPosts: [],
   selectedPost: "",
   selectedProvince: "",
   selectedLocality: "",
@@ -55,6 +61,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsers: action.payload,
+      };
+
+    case GET_ALL_DISABLED_USERS:
+      return {
+        ...state,
+        allDisabledUsers: action.payload,
       };
 
     case GET_USER_BY_ID:
@@ -85,11 +97,35 @@ function rootReducer(state = initialState, action) {
         ),
       };
 
+      case RESTORE_USER: {
+        const { id } = action.payload;
+        const allUsers = [...state.allUsers];
+      
+        const insertIndex = allUsers.findIndex((user) => user.id > id);
+      
+        if (insertIndex === -1) {
+          allUsers.push(action.payload);
+        } else {
+          allUsers.splice(insertIndex, 0, action.payload);
+        }
+      
+        return {
+          ...state,
+          allUsers,
+        };
+      }
+
     case GET_ALL_POSTS:
       return {
         ...state,
         allPosts: action.payload,
         allPostsCopy: action.payload,
+      };
+
+    case GET_ALL_DISABLED_POSTS:
+      return {
+        ...state,
+        allDisabledPosts: action.payload,
       };
 
     case GET_POST_BY_ID:
@@ -174,34 +210,49 @@ function rootReducer(state = initialState, action) {
         ),
       };
 
-      case GET_ALL_LIKES:
-        return {
-          ...state,
-          allLikes: action.payload,
-        };
+    case RESTORE_POST: {
+      const { id } = action.payload;
+      const allPosts = [...state.allPosts];
 
-        case LIKED_POSTS:
-          const userId = action.payload;
-        
-          // Filtrar los likes cuya propiedad myUserId sea igual a userId
-          const filteredLikes = state.allLikes.filter((like) => like.myUserId === userId);
-        
-          // Obtener los IDs de los posts que coinciden con los likedPostId de los likes filtrados
-          const likedPostIds = filteredLikes.map((like) => like.likedPostId);
-        
-          // Filtrar los posts que tienen un ID que coincide con los likedPostIds
-          const likedPosts = state.allPosts.filter((post) => likedPostIds.includes(post.id));
-        
-          return {
-            ...state,
-            likedPosts: likedPosts,
-          };
+      const insertIndex = allPosts.findIndex((post) => post.id > id);
 
-      case CLEAR_DETAIL:
-        return {
-            ...state,
-            postDetail:[]
-        }
+      if (insertIndex === -1) {
+        allPosts.push(action.payload);
+      } else {
+        allPosts.splice(insertIndex, 0, action.payload);
+      }
+    
+      return {
+        ...state,
+        allPosts,
+      };
+    }
+
+    case GET_ALL_LIKES:
+      return {
+        ...state,
+        allLikes: action.payload,
+      };
+
+    case LIKED_POSTS:
+      const userId = action.payload;
+      const filteredLikes = state.allLikes.filter(
+        (like) => like.myUserId === userId
+      );
+      const likedPostIds = filteredLikes.map((like) => like.likedPostId);
+      const likedPosts = state.allPosts.filter((post) =>
+        likedPostIds.includes(post.id)
+      );
+      return {
+        ...state,
+        likedPosts: likedPosts,
+      };
+
+    case CLEAR_DETAIL:
+      return {
+        ...state,
+        postDetail: [],
+      };
 
     case GET_MATCHES:
       return {
@@ -209,11 +260,11 @@ function rootReducer(state = initialState, action) {
         matches: action.payload,
       };
 
-      case UPDATE_FILTERED_MATCHES:
-        return {
-          ...state,
-          matchedPairs: action.payload,
-        };
+    case UPDATE_FILTERED_MATCHES:
+      return {
+        ...state,
+        matchedPairs: action.payload,
+      };
 
     case CARGAR_HISTORIAL_MENSAJES:
       return {
@@ -227,18 +278,17 @@ function rootReducer(state = initialState, action) {
         messageHistory: [...state.messageHistory, action.payload],
       };
 
-      
-      case GET_ALL_MESSAGES:
-        return {
-          ...state,
-          messageHistory: action.payload,
-        };
-        
-        case GET_ALL_CHATS:
-          return {
-            ...state,
-            chats: action.payload,
-          };
+    case GET_ALL_MESSAGES:
+      return {
+        ...state,
+        messageHistory: action.payload,
+      };
+
+    case GET_ALL_CHATS:
+      return {
+        ...state,
+        chats: action.payload,
+      };
 
     case RESET_FILTERS:
       return {
