@@ -141,7 +141,7 @@ exports.restorePost = async (id) => {
     }
     
     await postDisabled.restore()
-    return "La publicacion ha sido restaurado con éxito."
+    return postDisabled;
   } catch (error) {
     throw (error)
   }
