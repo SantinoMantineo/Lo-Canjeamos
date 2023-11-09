@@ -158,6 +158,7 @@ exports.loginUser = async (user) => {
 exports.getUserId = async (user) => {
   try {
     const userId = await User.findByPk(user)
+
     return userId;
   } catch (error) {
     throw new Error("Error al iniciar sesión");
@@ -254,7 +255,7 @@ exports.restoreUser = async (id) => {
     }
     
     await userDisabled.restore()
-    return "El usuario ha sido restaurado con éxito."
+    return userDisabled;
   } catch (error) {
     throw (error)
   }
