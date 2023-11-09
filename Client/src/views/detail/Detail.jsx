@@ -113,7 +113,7 @@ const Detail = ({ userData }) => {
     ],
   };
   const allPosts = useSelector((state) => state.allPosts);
-  const handleNextClick = () => {
+  const  handlePrevClick = () => {
     const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
 
     if (
@@ -126,25 +126,25 @@ const Detail = ({ userData }) => {
       navigate(`/detail/${nextPostId}`);
     } else {
       console.log(
-        "No hay publicaciones disponibles o ya estás en la última publicación"
-      );
-    }
-  };
-
-  const handlePrevClick = () => {
-    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
-
-    if (
-      Array.isArray(allPosts) &&
-      allPosts.length > 0 &&
-      currentIndex !== -1 &&
-      currentIndex > 0
-    ) {
-      const prevPostId = allPosts[currentIndex - 1].id;
-      navigate(`/detail/${prevPostId}`);
-    } else {
-      console.log(
         "No hay publicaciones disponibles o ya estás en la primera publicación"
+        );
+      }
+    };
+    
+    const handleNextClick = () => {
+      const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+      
+      if (
+        Array.isArray(allPosts) &&
+        allPosts.length > 0 &&
+        currentIndex !== -1 &&
+        currentIndex > 0
+        ) {
+          const prevPostId = allPosts[currentIndex - 1].id;
+          navigate(`/detail/${prevPostId}`);
+        } else {
+          console.log(
+        "No hay publicaciones disponibles o ya estás en la última publicación"
       );
     }
   };
