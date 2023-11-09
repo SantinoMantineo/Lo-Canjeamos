@@ -59,10 +59,24 @@ exports.getPostsByCategory = async (category) => {
 
 exports.createPost = async (postData) => {
   try {
-    const newPost = await Post.create(postData);
-    const postUser = await User.findByPk(postData.UserId)
-    await transporter.sendMail(postCreated(postUser.email, postData))
-    return newPost;
+    const premium = await Post.findAll({
+      where: {
+        UserId: postData.UserId,
+        Deshabilitado: null
+      }
+    });
+
+    const usuario = await User.findByPk(postData.UserId);
+
+
+    if(premium.length && usuario.plan != "premium") {
+      throw new Error("Solo los usuarios premium pueden tener mas de una publicacion a la vez!")      // Mate aca esta la linea que tira el error si no sos premium y queres crear mas de una publicacion
+    } else if(!premium.length){
+      const newPost = await Post.create(postData);
+      const postUser = await User.findByPk(postData.UserId)
+      await transporter.sendMail(postCreated(postUser.email, postData))
+      return newPost;
+    }
   } catch (error) {
     throw error;
   }
@@ -90,9 +104,10 @@ exports.deletePost = async (id) => {
 
     if (!post) {
       throw new Error("Post not found");
+    } else {
+      await post.destroy();
     }
 
-    await post.destroy();
 
     return true;
   } catch (error) {
