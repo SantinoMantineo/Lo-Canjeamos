@@ -23,7 +23,7 @@ const Exchanges = ({ userData }) => {
         },
         params: { id: userData.id },
       });
-      console.log(usuario)
+
       if (usuario.data.plan === "premium") {
         setPremium(true);
       }
