@@ -25,7 +25,6 @@ import Swal from 'sweetalert2';
 import "./App.css";
 
 const socketServer = io("http://localhost:3001/");
-
 //const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
 
 
