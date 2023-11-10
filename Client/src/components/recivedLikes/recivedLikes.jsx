@@ -8,7 +8,6 @@ const RecivedLikes = ({ userData }) => {
   const userId = userData.id;
   const dispatch = useDispatch();
   const likedPosts = useSelector((state) => state.likedPosts);
-  const [renderedPostIDs, setRenderedPostIDs] = useState(new Set());
 
   // Use useState to manage the array of posts
   const [arrayPost, setArrayPost] = useState([]);
@@ -52,6 +51,8 @@ const RecivedLikes = ({ userData }) => {
 
   console.log(arrayPost);
 
+  const [renderedPostIDs, setRenderedPostIDs] = useState(new Set());
+
   return (
     <div className={style.containerP}>
       {arrayPost &&
@@ -61,7 +62,8 @@ const RecivedLikes = ({ userData }) => {
           .reverse()
           .map((posteo, index) => {
             if (!renderedPostIDs.has(posteo.id)) {
-              renderedPostIDs.add(posteo.id);
+              // Si el ID del post no ha sido renderizado todavía, lo renderizamos.
+              renderedPostIDs.add(posteo.id); // Agregamos el ID al conjunto de IDs renderizados.
 
               return (
                 <div
@@ -90,7 +92,7 @@ const RecivedLikes = ({ userData }) => {
                 </div>
               );
             }
-            return null;
+            return null; 
           })}
     </div>
   );
