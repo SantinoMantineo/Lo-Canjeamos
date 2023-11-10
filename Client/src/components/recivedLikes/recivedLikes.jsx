@@ -1,11 +1,30 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getPostById } from "../../redux/actions";
 import style from "./recivedLikes.module.css";
+import axios from "axios"; // Import axios
 
 const RecivedLikes = ({ userData }) => {
+  const userId = userData.id;
+  const dispatch = useDispatch();
+  const likedPosts = useSelector((state) => state.likedPosts);
+
+  // Use useState to manage the array of posts
   const [arrayPost, setArrayPost] = useState([]);
+
+  // Agrega un estado local para controlar si los datos están cargados
   const [dataLoaded, setDataLoaded] = useState(false);
-  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getPosts();
+      // Marca que los datos están cargados una vez que las acciones se completen
+      setDataLoaded(true);
+    };
+
+    fetchData();
+  }, [dispatch, userId]);
+
   const getPosts = async () => {
     try {
       const response = await axios.get("/likes/getLikesRecibidos", {
@@ -15,44 +34,40 @@ const RecivedLikes = ({ userData }) => {
       });
 
       if (response) {
-        let posteos = [];
-        // Cambiado el forEach por un map
-        posteos = await Promise.all(response.data.map(async (id) => {
-          const post = await axios.get(`/posts/${id}`);
-          return post.data; // Devuelve directamente el objeto de datos
-        }));
-        return posteos;
+        // Utiliza Promise.all para esperar a que todas las solicitudes se completen
+        const postRequests = response.data.map(async (id) => {
+          const post = await axios.get("/posts/", {
+            params: {
+              id: id,
+            },
+          });
+          return post.data; // Accede a la propiedad data
+        });
+
+        const posteos = await Promise.all(postRequests);
+
+        setArrayPost(posteos[0]);
       }
     } catch (error) {
       console.error("Error al enviar los datos al servidor:", error);
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const posteos = await getPosts();
-      setArrayPost(posteos);
-    };
+  console.log(arrayPost)
 
-    fetchData();
-    setDataLoaded(true);
-  }, [userData.id]);
-
-  if (!dataLoaded) {
-    return <div>Cargando...</div>;
-  }
   return (
     <div className={style.containerP}>
-      {arrayPost.map((posteo) => (
-        <div className={style.likes} key={posteo.id}>
-          <div className={style.like}>
-            <img src={posteo.image[0]} alt={posteo.title} />
-            <div>
-              <h4>{posteo.title}</h4>
+      {arrayPost && arrayPost.length > 0 && <h5>{`< por >`}</h5>}
+      {arrayPost
+        .slice()
+        .reverse()
+        .map((posteo) => (
+          <div className={style.likes} key={posteo.id}>
+            <div className={style.like}>
+              <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

@@ -1,53 +1,76 @@
 .exchanges {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-top: 20px;
-    margin-bottom: 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 20px;
 }
 
-.exchangesPremium{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 30px;
-    margin-top: 20px;
-    margin-bottom: 100px;
+.exchangesPremium {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  margin-top: 20px;
 }
 
 .likes {
-    display: grid;
-    justify-content: center;
-    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
-    border-radius: 10px;
-    padding: 30px;
-    height: fit-content;
+  display: grid;
+  justify-content: center;
+  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+  border-radius: 10px;
+  padding: 30px;
+  height: fit-content;
 }
 
 .likes h3 {
-    margin: 0;
-    color: grey;
+  font-size: 16px;
+  margin: 0;
+  color: grey;
 }
 
 .matchs {
-    display: grid;
-    justify-content: center;
-    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
-    border-radius: 10px;
-    padding: 30px;
-    height: fit-content;
+  display: grid;
+  justify-content: center;
+  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+  border-radius: 10px;
+  padding: 30px;
+  height: fit-content;
 }
 
 .matchs h3 {
-    color: grey;
-    margin: 0;
+  font-size: 16px;
+  color: grey;
+  margin: 0;
+}
+
+.requests {
+  display: grid;
+  justify-content: center;
+  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+  border: 2px solid goldenrod;
+  border-radius: 10px;
+  padding: 30px;
+  height: fit-content;
+}
+
+.requests h3 {
+  font-size: 16px;
+  color: grey;
+  margin: 0;
+}
+
+@media (max-width: 1280px) {
+  .exchangesPremium {
+    grid-template-columns: 1fr;
+    margin-bottom: 100px;
+  }
 }
 
 @media (max-width: 768px) {
-    .exchanges {
-        grid-template-columns: 1fr;
-    }
+  .exchanges {
+    grid-template-columns: 1fr;
+  }
 
-    .likes {
-        margin-bottom: 100px;
-    }
+  .requests {
+    margin-bottom: 100px;
+  }
 }

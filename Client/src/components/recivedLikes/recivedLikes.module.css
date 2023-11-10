@@ -1,13 +1,22 @@
 .containerP {
     display: grid;
-    
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+
+  .containerP h5 {
+    position: absolute;
+    justify-self: center;
+    align-self: center;
+    margin: 0px;
+    margin-top: 20px;
+    font-size: 16px;
   }
   
   .like {
     display: grid;
     justify-self: center;
-    grid-template-columns: 1fr 2fr;
-    width: 250px;
+    width: 80px;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
     border-radius: 10px;
     margin-top: 20px;
