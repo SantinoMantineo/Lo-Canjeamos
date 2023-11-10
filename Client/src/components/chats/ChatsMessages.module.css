@@ -45,6 +45,7 @@
 
 .avatar {
   object-fit: cover;
+  justify-self: center;
   width: 60px;
   height: 60px;
   border: 3px solid #4ecdc4;
