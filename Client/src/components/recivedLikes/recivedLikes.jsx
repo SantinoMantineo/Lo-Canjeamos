@@ -54,11 +54,11 @@ const RecivedLikes = ({ userData }) => {
       {arrayPost &&
         arrayPost.length > 0 &&
         arrayPost.map((posteo, index) => (
-          <React.Fragment key={posteo.id}>
+          <React.Fragment key={`${posteo.id}_${index}`}>
             <div className={style.likes}>
               <div className={style.like}>
                 <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
-                <p>{(index % 2 === 0) ? <p>Tú: {posteo.title}</p> : posteo.title}</p>
+                <p>{(index % 2 === 0) ? `Tú: ${posteo.title}` : posteo.title}</p>
               </div>
             </div>
             {index === 1 || index % 2 === 0 && (
