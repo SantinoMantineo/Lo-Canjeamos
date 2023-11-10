@@ -53,9 +53,11 @@ const RecivedLikes = ({ userData }) => {
     }
   };
 
+  console.log(arrayPost)
+
   return (
     <div className={style.containerP}>
-      {arrayPost && arrayPost.length > 0 && <h5>por</h5>}
+      {arrayPost && arrayPost.length > 0 && <h5>{`< por >`}</h5>}
       {arrayPost
         .slice()
         .reverse()
