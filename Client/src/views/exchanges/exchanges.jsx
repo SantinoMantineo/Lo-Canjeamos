@@ -35,6 +35,7 @@ const Exchanges = ({ userData }) => {
 
   useEffect(() => {
     premium();
+    setPremium(true)      // ESTA LINEA ESTA DE PRUEBA HASTA QUE SE ARREGLE EL PREMIUM
   }, []);
 
   return (

@@ -62,14 +62,12 @@ const payModal = ({ userData, user, isOpen, onClose }) => {
           </button>
 
           <h2>¡Sé Premium!</h2>
-          <p>💛 Publicá hasta 20 artículos 💛</p>
+          <p>💛 Publica todos los articulos que quieras! 💛</p>
 
           <p>👀 Mirá quien quiere canjear con vos 👀</p>
 
-          <p>🚀 Posicioná mejor tus publicaciones 🚀</p>
-
           <button className={style.pay} onClick={handlePremium}>Sé premium</button>
-          <h6>Un pago de $100</h6>
+          <h6>Un pago de $1500 ARS</h6>
         </div>
       </motion.div>
     )
