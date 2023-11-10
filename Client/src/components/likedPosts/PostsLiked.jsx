@@ -33,7 +33,7 @@ const PostsLiked = ({ userData }) => {
       {likedPostss.map((likedPost) => (
         <div className={style.likes} key={likedPost.id}>
           <div className={style.like}>
-            <img src={likedPost.image} alt={likedPost.title} />
+            <img src={likedPost.image[0]} alt={likedPost.title} />
             <div>
               <h4>{likedPost.title}</h4>
             </div>

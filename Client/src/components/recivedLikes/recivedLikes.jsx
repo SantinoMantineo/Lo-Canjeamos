@@ -8,6 +8,7 @@ const RecivedLikes = ({ userData }) => {
   const userId = userData.id;
   const dispatch = useDispatch();
   const likedPosts = useSelector((state) => state.likedPosts);
+  const [renderedPostIDs, setRenderedPostIDs] = useState(new Set());
 
   // Use useState to manage the array of posts
   const [arrayPost, setArrayPost] = useState([]);
@@ -48,36 +49,51 @@ const RecivedLikes = ({ userData }) => {
       console.error("Error al enviar los datos al servidor:", error);
     }
   };
-  console.log(arrayPost)
+
+  console.log(arrayPost);
+
   return (
     <div className={style.containerP}>
       {arrayPost &&
         arrayPost.length > 0 &&
-        arrayPost.map((posteo, index) => (
-          <div
-            className={index === 0 ? style.firstLike : style.likes}
-            key={posteo.id}
-          >
-            {index === 0 ? (
-              <div className={style.like}>
-                <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
-                <p>Tú: {posteo.title}</p>
-              </div>
-            ) : (
-              <div className={style.like}>
-                <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
-                <p>{posteo.title}</p>
-              </div>
-            )}
-  
-            {index === 0 ? <p className={style.label}>↑ - ↓</p> : null}
-          </div>
-        ))}
+        arrayPost
+          .slice()
+          .reverse()
+          .map((posteo, index) => {
+            if (!renderedPostIDs.has(posteo.id)) {
+              renderedPostIDs.add(posteo.id);
+
+              return (
+                <div
+                  className={index === 0 ? style.firstLike : style.likes}
+                  key={posteo.id}
+                >
+                  {index === 0 ? (
+                    <div className={style.like}>
+                      <img
+                        src={posteo.image && posteo.image[0]}
+                        alt={posteo.title}
+                      />
+                      <p>Tú: {posteo.title}</p>
+                    </div>
+                  ) : (
+                    <div className={style.like}>
+                      <img
+                        src={posteo.image && posteo.image[0]}
+                        alt={posteo.title}
+                      />
+                      <p>{posteo.title}</p>
+                    </div>
+                  )}
+
+                  {index === 0 ? <p className={style.label}>↑ - ↓</p> : null}
+                </div>
+              );
+            }
+            return null;
+          })}
     </div>
   );
-  
-  
-  
 };
 
 export default RecivedLikes;
