@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {Link} from 'react-router-dom';
 import {motion} from 'framer-motion';
 import Avatar from "../../components/avatar/Avatar";
@@ -11,6 +11,31 @@ import style from "./MyProfile.module.css";
 
 
 const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
+
+  const [isPremium, setPremium] = useState(false);
+
+  const premium = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const usuario = await axios.get("/users/userId", {
+        headers: {
+          token: token,
+        },
+        params: { id: userData.id },
+      });
+
+      if (usuario.data.plan === "premium") {
+        setPremium(true);
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario:", error);
+    }
+  };
+
+  useEffect(() => {
+    premium();
+    setPremium(true)      // ESTA LINEA ESTA DE PRUEBA HASTA QUE SE ARREGLE EL PREMIUM
+  }, []);
 
   return (
     <>
@@ -28,7 +53,7 @@ const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
         <div className={style.avatar}>
           <Avatar userData={userData} setAuth={setAuth} toggleDarkMode={toggleDarkMode}/>
         </div>
-        <div className={style.publications}>
+        <div className={isPremium ? style.publicationsPremium : style.publications}>
           <h3>Publicaciones</h3>
           <Link to="/addProduct">
           <button className={style.agregar}>Agregar</button>

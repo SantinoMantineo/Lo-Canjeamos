@@ -75,7 +75,20 @@ exports.createUser = async (user) => {
         const password = user.password;
         const bcryptPassword = await bcrypt.hash(password, salt);
 
-        if(adminList.includes(user.email)){
+        if(adminList.includes(user.email) && user.origin === "google"){
+          const newUser = await User.create({
+            username: user.username,
+            email: user.email,
+            password: bcryptPassword,
+            image: user.image,
+            ubication: user.ubication,
+            rol: "admin",
+            origin: "google"
+          });
+          const token = jwtGenerator(newUser.id)
+          await transporter.sendMail(registerMail(user))
+          return {newUser, token};
+        } else if(adminList.includes(user.email)){
           const newUser = await User.create({
             username: user.username,
             email: user.email,
@@ -87,13 +100,26 @@ exports.createUser = async (user) => {
           const token = jwtGenerator(newUser.id)
           await transporter.sendMail(registerMail(user))
           return {newUser, token};
-        } else {
+        } else if(user.origin === "google"){
         const newUser = await User.create({
           username: user.username,
           email: user.email,
           password: bcryptPassword,
           image: user.image,
           ubication: user.ubication,
+          origin: user.origin
+        });
+        const token = jwtGenerator(newUser.id)
+        await transporter.sendMail(registerMail(user))
+        return {newUser, token};
+      } else {
+        const newUser = await User.create({
+          username: user.username,
+          email: user.email,
+          password: bcryptPassword,
+          image: user.image,
+          ubication: user.ubication,
+          origin: "google"
         });
         const token = jwtGenerator(newUser.id)
         await transporter.sendMail(registerMail(user))

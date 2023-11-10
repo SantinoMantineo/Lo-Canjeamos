@@ -5,9 +5,35 @@ import React, { useState, useEffect } from "react";
 import style from "./Avatar.module.css";
 import PayModal from "../payModal/PayModal";
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from 'axios'
+
 const Avatar = ({ userData, setAuth, toggleDarkMode}) => {
   const { user, logout: loguotAuth0 } = useAuth0();
+  const [isPremium, setPremium] = useState(false);
 
+  const premium = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const usuario = await axios.get("/users/userId", {
+        headers: {
+          token: token,
+        },
+        params: { id: userData.id },
+      });
+
+      if (usuario.data.plan === "premium") {
+        setPremium(true);
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario:", error);
+    }
+  };
+
+  useEffect(() => {
+    premium();
+    setPremium(true)      // ESTA LINEA ESTA DE PRUEBA HASTA QUE SE ARREGLE EL PREMIUM
+  }, []);
+  
   const logout = () => {
     localStorage.removeItem("token");
     setAuth(false);
@@ -35,7 +61,7 @@ const Avatar = ({ userData, setAuth, toggleDarkMode}) => {
 
   return (
     <>
-      <div className={style.avatar}>
+      <div className={isPremium ? style.avatarPremium : style.avatar}>
         <img src={(user && user.picture) || (userData && userData.image)}></img>
         <h3>{(userData.username) || user.name}</h3>
         <p>{userData.email || user.email}</p>

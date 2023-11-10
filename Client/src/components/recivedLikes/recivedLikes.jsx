@@ -4,7 +4,8 @@ import style from "./recivedLikes.module.css";
 
 const RecivedLikes = ({ userData }) => {
   const [arrayPost, setArrayPost] = useState([]);
-
+  const [dataLoaded, setDataLoaded] = useState(false);
+  
   const getPosts = async () => {
     try {
       const response = await axios.get("/likes/getLikesRecibidos", {
@@ -34,10 +35,12 @@ const RecivedLikes = ({ userData }) => {
     };
 
     fetchData();
+    setDataLoaded(true);
   }, [userData.id]);
 
-  console.log("Miraaa", arrayPost);
-
+  if (!dataLoaded) {
+    return <div>Cargando...</div>;
+  }
   return (
     <div className={style.containerP}>
       {arrayPost.map((posteo) => (

@@ -13,7 +13,6 @@ import axios from "axios";
 
 const Exchanges = ({ userData }) => {
   const [isPremium, setPremium] = useState(false);
-  const dispatch = useDispatch();
 
   const premium = async () => {
     try {
