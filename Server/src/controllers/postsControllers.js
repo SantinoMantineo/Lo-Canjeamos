@@ -59,7 +59,7 @@ exports.getPostsByCategory = async (category) => {
 
 exports.createPost = async (postData) => {
   try {
-    const premium = await Post.findAll({
+    const posteos = await Post.findAll({
       where: {
         UserId: postData.UserId,
         Deshabilitado: null
@@ -68,10 +68,9 @@ exports.createPost = async (postData) => {
 
     const usuario = await User.findByPk(postData.UserId);
 
-
-    if(premium.length >= 4 && usuario.plan != "premium") {
+    if(posteos.length > 3 && usuario.plan != "premium") {
       throw new Error("Solo los usuarios premium pueden tener mas de una publicacion a la vez!")      // Mate aca esta la linea que tira el error si no sos premium y queres crear mas de una publicacion
-    } else if(!premium.length){
+    } else if(posteos.length <= 3){
       const newPost = await Post.create(postData);
       const postUser = await User.findByPk(postData.UserId)
       await transporter.sendMail(postCreated(postUser.email, postData))
