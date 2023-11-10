@@ -1,6 +1,7 @@
 import {
   GET_ALL_USERS,
   GET_ALL_DISABLED_USERS,
+  GET_ALL_EXISTING_USERS,
   GET_USER_BY_ID,
   CREATE_USER,
   UPDATE_USER,
@@ -8,6 +9,7 @@ import {
   RESTORE_USER,
   GET_ALL_POSTS,
   GET_ALL_DISABLED_POSTS,
+  GET_ALL_EXISTING_POSTS,
   GET_POST_BY_ID,
   SELECT_CATEGORY,
   SELECT_LOCALITY,
@@ -34,11 +36,13 @@ import {
 
 const initialState = {
   allUsers: [],
+  allExistingUsers: [],
   allDisabledUsers: [],
   selectedUser: "",
   allPosts: [],
   allPostsCopy: [],
   allDisabledPosts: [],
+  allExistingPosts: [],
   selectedPost: "",
   selectedProvince: "",
   selectedLocality: "",
@@ -61,12 +65,19 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsers: action.payload,
+        allUsersCopy: action.payload,
       };
 
     case GET_ALL_DISABLED_USERS:
       return {
         ...state,
         allDisabledUsers: action.payload,
+      };
+
+    case GET_ALL_EXISTING_USERS:
+      return {
+        ...state,
+        allExistingUsers: action.payload,
       };
 
     case GET_USER_BY_ID:
@@ -106,7 +117,11 @@ function rootReducer(state = initialState, action) {
         if (insertIndex === -1) {
           allUsers.push(action.payload);
         } else {
-          allUsers.splice(insertIndex, 0, action.payload);
+          if (insertIndex === 0) {
+            allUsers.unshift(action.payload);
+          } else {
+            allUsers.splice(insertIndex, 0, action.payload);
+          }
         }
       
         return {
@@ -126,6 +141,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allDisabledPosts: action.payload,
+      };
+
+    case GET_ALL_EXISTING_POSTS:
+      return {
+        ...state,
+        allExistingPosts: action.payload,
       };
 
     case GET_POST_BY_ID:
@@ -210,23 +231,27 @@ function rootReducer(state = initialState, action) {
         ),
       };
 
-    case RESTORE_POST: {
-      const { id } = action.payload;
-      const allPosts = [...state.allPosts];
-
-      const insertIndex = allPosts.findIndex((post) => post.id > id);
-
-      if (insertIndex === -1) {
-        allPosts.push(action.payload);
-      } else {
-        allPosts.splice(insertIndex, 0, action.payload);
+      case RESTORE_POST: {
+        const { id } = action.payload;
+        const allPosts = [...state.allPosts];
+      
+        const insertIndex = allPosts.findIndex((user) => user.id > id);
+      
+        if (insertIndex === -1) {
+          allPosts.push(action.payload);
+        } else {
+          if (insertIndex === 0) {
+            allPosts.unshift(action.payload);
+          } else {
+            allPosts.splice(insertIndex, 0, action.payload);
+          }
+        }
+      
+        return {
+          ...state,
+          allPosts,
+        };
       }
-    
-      return {
-        ...state,
-        allPosts,
-      };
-    }
 
     case GET_ALL_LIKES:
       return {

@@ -1,7 +1,60 @@
-import React from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllExistingUsers, getAllExistingPosts, deleteUser, restoreUser, deletePost, restorePost } from "../../redux/actions";
 import style from "./AdminDash.module.css";
 
 const AdminDash = () => {
+  const dispatch = useDispatch();
+  const allUsers = useSelector((state) => state.allExistingUsers);
+  const allPosts = useSelector((state) => state.allExistingPosts);
+
+  console.log(allUsers);
+
+  useEffect(() => {
+    dispatch(getAllExistingUsers());
+    dispatch(getAllExistingPosts());
+  }, [dispatch]);
+
+  const handleDisableUser = async (id) => {
+    try {
+      dispatch(deleteUser(id))
+      alert("⛔ Usuario Deshabilitado ⛔")
+      dispatch(getAllExistingUsers());
+    } catch (error) {
+      console.error("Hubo un problema al deshabilitar el usuario: ", error)
+    }
+  };
+
+  const handleRestoreUser = async (id) => {
+    try {
+      dispatch(restoreUser(id))
+      alert("✅ Usuario Reactivado ✅");
+      dispatch(getAllExistingUsers());
+    } catch (error) {
+      console.error("Hubo un problema al reactivar el usuario: ", error)
+    }
+  };
+
+  const handleDisablePost = async (id) => {
+    try {
+      dispatch(deletePost(id))
+      alert("⛔ Publicacion Deshabilitada ⛔")
+      dispatch(getAllExistingPosts());
+    } catch (error) {
+      console.error("Hubo un problema al deshabilitar la publicacion: ", error)
+    }
+  };
+
+  const handleRestorePost = async (id) => {
+    try {
+      dispatch(restorePost(id))
+      alert("✅ Publicacion Reactivada ✅");
+      dispatch(getAllExistingPosts());
+    } catch (error) {
+      console.error("Hubo un problema al reactivar la publicacion: ", error)
+    }
+  };
+
   return (
     <>
       <h3>Admin Panel</h3>
@@ -57,14 +110,59 @@ const AdminDash = () => {
       <div className={style.bottomContainer}>
         <div className={style.column1}>
           <div className={style.uList}>
-            <h4>maxi@mail.com</h4>
-            <h4>ejemplo@mail.com</h4>
+            {allUsers.map((user) => (
+              <div key={user.id} className={style.element}>
+                <h4>{user.username}</h4>
+                {user.plan === "premium" && <img
+            width="36"
+            height="36"
+            src="https://img.icons8.com/color/48/guarantee.png"
+            alt="guarantee"
+            className={style.logo}
+          />}
+                <button onClick={() => handleDisableUser(user.id)} disabled={user.Deshabilitado}>
+                  <img
+                    width="20"
+                    height="20"
+                    src="https://img.icons8.com/fluency/48/cancel-2.png"
+                    alt="Desactivar"
+                  />
+                </button>
+                <button onClick={() => handleRestoreUser(user.id)} disabled={!user.Deshabilitado}>
+                  <img
+                    width="20"
+                    height="20"
+                    src="https://img.icons8.com/color/48/ok--v1.png"
+                    alt="Reactivar"
+                  />
+                </button>
+              </div>
+            ))}
           </div>
         </div>
         <div className={style.column2}>
           <div className={style.pList}>
-            <h4>Pava Electrica</h4>
-            <h4>Sillon Antiguo</h4>
+          {allPosts.map((post) => (
+            <div key={post.id}>
+              <h4>{post.title}</h4>
+              <button onClick={() => handleDisablePost(post.id)} disabled={post.Deshabilitado}>
+                  <img
+                    width="20"
+                    height="20"
+                    src="https://img.icons8.com/fluency/48/cancel-2.png"
+                    alt="Desactivar"
+                  />
+                </button>
+                <button onClick={() => handleRestorePost(post.id)} disabled={!post.Deshabilitado}>
+                  <img
+                    width="20"
+                    height="20"
+                    src="https://img.icons8.com/color/48/ok--v1.png"
+                    alt="Reactivar"
+                  />
+                </button>
+            </div>
+            ))}
           </div>
         </div>
       </div>
