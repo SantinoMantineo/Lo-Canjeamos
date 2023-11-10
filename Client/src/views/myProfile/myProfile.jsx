@@ -52,7 +52,7 @@ const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
         <div className={style.avatar}>
           <Avatar userData={userData} setAuth={setAuth} toggleDarkMode={toggleDarkMode}/>
         </div>
-        <div className={isPremium ? style.publicationsPremium : style.publications}>
+        <div className={style.publications}>
           <h3>Publicaciones</h3>
           <Link to="/addProduct">
           <button className={style.agregar}>Agregar</button>

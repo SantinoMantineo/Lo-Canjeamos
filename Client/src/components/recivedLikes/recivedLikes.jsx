@@ -36,23 +36,19 @@ const RecivedLikes = ({ userData }) => {
       if (response) {
         // Utiliza Promise.all para esperar a que todas las solicitudes se completen
         const postRequests = response.data.map(async (id) => {
-          const post = await axios.get("/posts/", {
-            params: {
-              id: id,
-            },
-          });
+          const post = await axios.get(`/posts/${id}`);
           return post.data; // Accede a la propiedad data
         });
 
         const posteos = await Promise.all(postRequests);
 
-        setArrayPost(posteos[0]);
+        setArrayPost(posteos);
       }
     } catch (error) {
       console.error("Error al enviar los datos al servidor:", error);
     }
   };
-
+  console.log(arrayPost)
   return (
     <div className={style.containerP}>
       {arrayPost &&
