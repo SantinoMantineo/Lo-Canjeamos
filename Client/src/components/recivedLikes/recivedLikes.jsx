@@ -47,8 +47,6 @@ const RecivedLikes = ({ userData }) => {
     }
   };
 
-  console.log(arrayPost);
-
   return (
     <div className={style.containerP}>
       {arrayPost &&
