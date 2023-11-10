@@ -1,18 +1,21 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { socketServer } from "../../App";
 import {
   messagesHistory,
   sendAndCreateMessage,
   addMessageToHistory,
   getAllUsers,
-  getAllChats,
 } from "../../redux/actions";
-import { socketServer } from "../../App";
+
 import style from "./ChatsMessages.module.css";
+
 
 const ChatsMessages = ({ chatId, userData }) => {
   const dispatch = useDispatch();
+  const messagesEndRef = useRef(null);
   const senderId = userData.id;
+
   const messageHistory = useSelector((state) => state.messageHistory);
   const chats = useSelector((state) => state.chats)
   const allUsers = useSelector((state) => state.allUsers);
@@ -23,7 +26,6 @@ const ChatsMessages = ({ chatId, userData }) => {
   const [counter, setCounter] = useState(0);
   const [hasNewMessage, setHasNewMessage] = useState(false);
 
-  const messagesEndRef = useRef(null);
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,6 +35,15 @@ const ChatsMessages = ({ chatId, userData }) => {
       clearInterval(interval);
     };
   }, []);
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(messagesHistory(chatId));
+    return () => {};
+  }, [counter]);
 
   const sendMessage = () => {
     dispatch(sendAndCreateMessage(chatId, senderId, newMessage))
@@ -47,17 +58,6 @@ const ChatsMessages = ({ chatId, userData }) => {
     });
     setNewMessage("");
   };
-
-  useEffect(() => {
-    dispatch(getAllUsers());
-    
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(messagesHistory(chatId));
-
-    return () => {};
-  }, [counter]);
 
   useEffect(() => {
     // Este efecto se ejecutará cuando cambie 'chatId'

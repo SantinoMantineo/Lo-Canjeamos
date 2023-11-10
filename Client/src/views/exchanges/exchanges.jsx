@@ -12,7 +12,7 @@ import { getUserById } from "../../redux/actions";
 import axios from "axios";
 
 const Exchanges = ({ userData }) => {
-  const [isPremium, setPremium] = useState(true);
+  const [isPremium, setPremium] = useState(false);
 
   const premium = async () => {
     try {
@@ -23,7 +23,7 @@ const Exchanges = ({ userData }) => {
         },
         params: { id: userData.id },
       });
-
+      console.log(usuario)
       if (usuario.data.plan === "premium") {
         setPremium(true);
       }
@@ -35,7 +35,7 @@ const Exchanges = ({ userData }) => {
   useEffect(() => {
     premium();
   }, []);
-  
+
   return (
     <>
       <Header banner1={Banner3} banner2={Banner4}></Header>
@@ -58,12 +58,15 @@ const Exchanges = ({ userData }) => {
           <h3>Mis intentos de canje</h3>
           <PostsLiked userData={userData}></PostsLiked>
         </div>
-        {isPremium && (
+        {isPremium ? (
           <div className={style.requests}>
             <h3>Pedidos de canje recibidos</h3>
             <RecivedLikes userData={userData}></RecivedLikes>
           </div>
-        )}
+        ) : <div className={style.requests}>
+        <h3>Pedidos de canje recibidos</h3>
+       <h3>Para acceder a esta funcionalidad debes ser premium...</h3>
+      </div>}
       </motion.div>
     </>
   );
