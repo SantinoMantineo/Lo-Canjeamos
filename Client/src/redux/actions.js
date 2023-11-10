@@ -357,19 +357,19 @@ export function addMessageToHistory(newMessage) {
 
 //CREAR CHAT
 export function createChat(userId, anotherUserId) {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios.post("/chats/create", {
-        userId,
-        anotherUserId,
-      });
-      const chatData = response.data; // Obtén los datos del chat recién creado
-      resolve(chatData); // Resuelve la promesa con los datos del chat
-    } catch (error) {
+  return (dispatch) => {
+    axios.post("/chats/create", {
+      userId,
+      anotherUserId,
+    })
+    .then(response => {
+      const chatData = response.data;
+
+    })
+    .catch(error => {
       console.error("Error al crear el chat:", error);
-      reject(error); // Rechaza la promesa en caso de error
-    }
-  });
+    });
+  };
 }
 
 export function getAllChats() {

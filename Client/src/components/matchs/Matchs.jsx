@@ -58,12 +58,13 @@ const Matchs = ({ userData }) => {
         if (
           m.myUserId !== userId &&
           (m.myPostId === myPost.id || m.likedPostId === myPost.id)
-        ) {
-          if (!matchedPostIds.has(m.myPostId)) {
-            matchedPostIds.add(m.myPostId);
+          ) {
+            if (!matchedPostIds.has(m.myPostId)) {
+              matchedPostIds.add(m.myPostId);
             matchingPairs.push({
               myPost,
               anotherUserPost: allPosts.find((post) => post.id === m.myPostId),
+              anotherUserId: m.myUserId,
             });
           }
         }
@@ -71,45 +72,35 @@ const Matchs = ({ userData }) => {
     });
     return matchingPairs;
   });
-
+  
   useEffect(() => {
-    const createChatSequentially = async (pairs, index = 0, updatedChats = []) => {
-      if (index < pairs.length) {
-        const pair = pairs[index];
-        const existingChat = chats.find((chat) => {
-          return (
-            (chat.user1Id === userId && chat.user2Id === pair.anotherUserPost.UserId) ||
-            (chat.user1Id === pair.anotherUserPost.UserId && chat.user2Id === userId)
-          );
-        });
+    // Al detectar nuevos matches, crea el chat automáticamente
+    const newChatPairs = [];
+    matchedPairs.forEach((pair) => {
+      const existingChat = chats.find((chat) => {
+        return (
+          (chat.user1Id === userId && chat.user2Id === pair.anotherUserId) ||
+          (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
+        );
+      });
   
-        if (!existingChat) {
-          try {
-            const chat = await createChat(userId, pair.anotherUserPost.UserId);
-            updatedChats.push(chat);
-          } catch (error) {
-            console.error("Error al iniciar el chat:", error);
-          }
-        }
-  
-        // Llamada recursiva para procesar el siguiente par
-        await createChatSequentially(pairs, index + 1, updatedChats);
-      } else {
-        // Todas las creaciones de chat han sido procesadas, actualiza el estado
-        if (updatedChats.length > 0) {
-          const mergedChats = [...chats, ...updatedChats];
-          dispatch(updateMatchedPairs(matchedPairs, mergedChats));
-        }
+      // Si no hay un chat existente, acumula la pareja para crear uno nuevo
+      if (!existingChat) {
+        newChatPairs.push(pair);
       }
-    };
+    });
   
-    // Inicia el proceso de creación secuencial
-    createChatSequentially(matchedPairs);
-  }, [matchedPairs, chats, dispatch, userId]);
+    console.log("matchedPairs:", matchedPairs);
+    console.log("newChatPairs:", newChatPairs);
   
+    // Crea los chats automáticamente para las parejas acumuladas
+    newChatPairs.forEach((pair) => {
+      dispatch(createChat(userId, pair.anotherUserId));
+    });
+  }, [dispatch]);
   
 
-  function handleStartChat(anotherUserId) {
+  function handleGoChat(anotherUserId) {
     const existingChat = chats.find((chat) => {
       return (
         (chat.user1Id === userId && chat.user2Id === anotherUserId) ||
@@ -149,7 +140,7 @@ const Matchs = ({ userData }) => {
               </div>
             )}
             <button
-              onClick={() => handleStartChat(pair.anotherUserPost.UserId)}
+              onClick={() => handleGoChat(pair.anotherUserPost.UserId)}
               className={style.goChats}
             >
               Chat
