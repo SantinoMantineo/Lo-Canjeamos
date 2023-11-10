@@ -73,16 +73,22 @@ const Matchs = ({ userData }) => {
   });
 
   useEffect(() => {
-    const createChatSequentially = async (pairs, index = 0, updatedChats = []) => {
+    const createChatSequentially = async (
+      pairs,
+      index = 0,
+      updatedChats = []
+    ) => {
       if (index < pairs.length) {
         const pair = pairs[index];
         const existingChat = chats.find((chat) => {
           return (
-            (chat.user1Id === userId && chat.user2Id === pair.anotherUserPost.UserId) ||
-            (chat.user1Id === pair.anotherUserPost.UserId && chat.user2Id === userId)
+            (chat.user1Id === userId &&
+              chat.user2Id === pair.anotherUserPost.UserId) ||
+            (chat.user1Id === pair.anotherUserPost.UserId &&
+              chat.user2Id === userId)
           );
         });
-  
+
         if (!existingChat) {
           try {
             const chat = await createChat(userId, pair.anotherUserPost.UserId);
@@ -91,7 +97,7 @@ const Matchs = ({ userData }) => {
             console.error("Error al iniciar el chat:", error);
           }
         }
-  
+
         // Llamada recursiva para procesar el siguiente par
         await createChatSequentially(pairs, index + 1, updatedChats);
       } else {
@@ -102,12 +108,10 @@ const Matchs = ({ userData }) => {
         }
       }
     };
-  
+
     // Inicia el proceso de creación secuencial
     createChatSequentially(matchedPairs);
   }, [matchedPairs, chats, dispatch, userId]);
-  
-  
 
   function handleStartChat(anotherUserId) {
     const existingChat = chats.find((chat) => {
@@ -120,7 +124,9 @@ const Matchs = ({ userData }) => {
     if (existingChat) {
       navigate(`/chats/${existingChat.id}`);
     } else {
-      console.error("Error: No se debería llegar aquí. La creación de chats debería manejarse automáticamente.");
+      console.error(
+        "Error: No se debería llegar aquí. La creación de chats debería manejarse automáticamente."
+      );
     }
   }
 
@@ -152,7 +158,23 @@ const Matchs = ({ userData }) => {
               onClick={() => handleStartChat(pair.anotherUserPost.UserId)}
               className={style.goChats}
             >
-              Chat
+              <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
+                alt="Chat"
+              />
+            </button>
+            <button
+              
+              className={style.goChats}
+            >
+              <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
+              alt="Usuario"
+            />
             </button>
           </div>
         ))

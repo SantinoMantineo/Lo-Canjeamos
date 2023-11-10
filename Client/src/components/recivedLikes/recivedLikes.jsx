@@ -53,23 +53,35 @@ const RecivedLikes = ({ userData }) => {
     }
   };
 
-  console.log(arrayPost)
-
   return (
     <div className={style.containerP}>
-      {arrayPost && arrayPost.length > 0 && <h5>{`< por >`}</h5>}
-      {arrayPost
-        .slice()
-        .reverse()
-        .map((posteo) => (
-          <div className={style.likes} key={posteo.id}>
-            <div className={style.like}>
-              <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
-            </div>
+      {arrayPost &&
+        arrayPost.length > 0 &&
+        arrayPost.map((posteo, index) => (
+          <div
+            className={index === 0 ? style.firstLike : style.likes}
+            key={posteo.id}
+          >
+            {index === 0 ? (
+              <div className={style.like}>
+                <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
+                <p>Tú: {posteo.title}</p>
+              </div>
+            ) : (
+              <div className={style.like}>
+                <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
+                <p>{posteo.title}</p>
+              </div>
+            )}
+  
+            {index === 0 ? <p className={style.label}>↑ - ↓</p> : null}
           </div>
         ))}
     </div>
   );
+  
+  
+  
 };
 
 export default RecivedLikes;
