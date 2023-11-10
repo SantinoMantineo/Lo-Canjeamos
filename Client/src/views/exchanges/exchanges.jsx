@@ -33,11 +33,6 @@ const Exchanges = ({ userData }) => {
     }
   };
 
-  useEffect(() => {
-    premium();
-    setPremium(true)      // ESTA LINEA ESTA DE PRUEBA HASTA QUE SE ARREGLE EL PREMIUM
-  }, []);
-
   return (
     <>
       <Header banner1={Banner3} banner2={Banner4}></Header>
