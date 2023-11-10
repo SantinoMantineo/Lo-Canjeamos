@@ -72,6 +72,7 @@ const Matchs = ({ userData }) => {
     });
     return matchingPairs;
   });
+
   
   useEffect(() => {
     // Al detectar nuevos matches, crea el chat automáticamente
@@ -98,7 +99,7 @@ const Matchs = ({ userData }) => {
       dispatch(createChat(userId, pair.anotherUserId));
     });
   }, [dispatch]);
-  
+
 
   function handleGoChat(anotherUserId) {
     const existingChat = chats.find((chat) => {
@@ -111,7 +112,9 @@ const Matchs = ({ userData }) => {
     if (existingChat) {
       navigate(`/chats/${existingChat.id}`);
     } else {
-      console.error("Error: No se debería llegar aquí. La creación de chats debería manejarse automáticamente.");
+      console.error(
+        "Error: No se debería llegar aquí. La creación de chats debería manejarse automáticamente."
+      );
     }
   }
 
@@ -143,7 +146,23 @@ const Matchs = ({ userData }) => {
               onClick={() => handleGoChat(pair.anotherUserPost.UserId)}
               className={style.goChats}
             >
-              Chat
+              <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
+                alt="Chat"
+              />
+            </button>
+            <button
+              
+              className={style.goChats}
+            >
+              <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
+              alt="Usuario"
+            />
             </button>
           </div>
         ))

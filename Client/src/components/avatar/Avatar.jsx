@@ -5,9 +5,9 @@ import React, { useState, useEffect } from "react";
 import style from "./Avatar.module.css";
 import PayModal from "../payModal/PayModal";
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from 'axios'
+import axios from "axios";
 
-const Avatar = ({ userData, setAuth, toggleDarkMode}) => {
+const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
   const { user, logout: loguotAuth0 } = useAuth0();
   const [isPremium, setPremium] = useState(false);
 
@@ -31,9 +31,8 @@ const Avatar = ({ userData, setAuth, toggleDarkMode}) => {
 
   useEffect(() => {
     premium();
-    setPremium(true)      // ESTA LINEA ESTA DE PRUEBA HASTA QUE SE ARREGLE EL PREMIUM
   }, []);
-  
+
   const logout = () => {
     localStorage.removeItem("token");
     setAuth(false);
@@ -42,7 +41,7 @@ const Avatar = ({ userData, setAuth, toggleDarkMode}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const initialDarkMode = localStorage.getItem("darkMode") === "true";
   const [isDarkMode, setIsDarkMode] = useState(initialDarkMode);
-  
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -62,8 +61,20 @@ const Avatar = ({ userData, setAuth, toggleDarkMode}) => {
   return (
     <>
       <div className={isPremium ? style.avatarPremium : style.avatar}>
-        <img src={(user && user.picture) || (userData && userData.image)}></img>
-        <h3>{(userData.username) || user.name}</h3>
+        <img
+          src={(user && user.picture) || (userData && userData.image)}
+          className={style.photo}
+        ></img>
+        {isPremium && (
+          <img
+            width="36"
+            height="36"
+            src="https://img.icons8.com/color/48/guarantee.png"
+            alt="guarantee"
+            className={style.logo}
+          />
+        )}
+        <h3>{userData.username || user.name}</h3>
         <p>{userData.email || user.email}</p>
         <div>⭐️⭐️⭐️⭐️⭐️</div>
         <button

@@ -13,7 +13,6 @@ import axios from "axios";
 
 const Exchanges = ({ userData }) => {
   const [isPremium, setPremium] = useState(true);
-  const dispatch = useDispatch();
 
   const premium = async () => {
     try {
@@ -33,6 +32,10 @@ const Exchanges = ({ userData }) => {
     }
   };
 
+  useEffect(() => {
+    premium();
+  }, []);
+  
   return (
     <>
       <Header banner1={Banner3} banner2={Banner4}></Header>

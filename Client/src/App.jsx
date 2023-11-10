@@ -25,7 +25,9 @@ import Swal from 'sweetalert2';
 import "./App.css";
 
 const socketServer = io("http://localhost:3001/");
+
 //const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
+
 
 //Actions
 import { getAllUsers, createGoogleUser } from "../src/redux/actions";
@@ -59,6 +61,7 @@ const App = () => {
 
   axios.defaults.baseURL = "http://localhost:3001/";
    //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+
   //*Auth0
   const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
 
