@@ -20,7 +20,7 @@ const Card = ({ post }) => {
                 scale: 1,
                 borderRadius: 10,
               }}
-              src={image[0]}
+              src={image && image.length > 0 ? image[0] : ""}
               className={style.img}
               alt={title}
             />

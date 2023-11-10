@@ -26,6 +26,19 @@ exports.getAllDisabled = async () => {
   }
 };
 
+exports.getAllExisting = async () => {
+  try {
+    const existingPosts = await Post.findAll({
+      paranoid: false,
+      order: [['id', 'ASC']],
+    })
+
+    return existingPosts
+  } catch (error) {
+    throw "Ocurrió un error al traer las publicaciones: " + error;
+  }
+};
+
 exports.getPostById = async (id) => {
   try {
     const postById = await Post.findByPk(id, {
@@ -69,7 +82,8 @@ exports.createPost = async (postData) => {
     const usuario = await User.findByPk(postData.UserId);
 
     if(posteos.length > 3 && usuario.plan != "premium") {
-      throw new Error("Solo los usuarios premium pueden tener mas de una publicacion a la vez!")      // Mate aca esta la linea que tira el error si no sos premium y queres crear mas de una publicacion
+      throw new Error("Solo los usuarios premium pueden tener mas de una publicacion a la vez!")
+      
     } else if(posteos.length <= 3){
       const newPost = await Post.create(postData);
       const postUser = await User.findByPk(postData.UserId)
@@ -77,8 +91,9 @@ exports.createPost = async (postData) => {
       return newPost;
     }
   } catch (error) {
-    throw error;
-  }
+    throw new Error(error.message);
+    // throw error;
+    }
 };
 
 exports.updatePost = async (id, updatedData) => {

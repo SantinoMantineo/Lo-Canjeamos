@@ -21,6 +21,15 @@ router.get("/allDisabledPosts", async (req, res) => {
   }
 });
 
+router.get("/allExistingPosts", async (req, res) => {
+  try {
+    const response = await postsController.getAllExisting();
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(error.message)
+  }
+});
+
 router.get("/categories/:category", async (req, res) => {
   const { category } = req.params;
 
