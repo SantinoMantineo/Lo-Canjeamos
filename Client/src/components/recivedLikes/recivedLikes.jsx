@@ -33,41 +33,39 @@ const RecivedLikes = ({ userData }) => {
         },
       });
 
-      if(response){
-        let posteos = [];
-        response.data.forEach( async (id) => {
-            const post = await axios.get("/posts/", {
-              params: {
-                id: id
-              }
-            });
-            posteos.push(post)
-        })
+      if (response) {
+        // Utiliza Promise.all para esperar a que todas las solicitudes se completen
+        const postRequests = response.data.map(async (id) => {
+          const post = await axios.get("/posts/", {
+            params: {
+              id: id,
+            },
+          });
+          return post.data; // Accede a la propiedad data
+        });
 
-        setArrayPost(posteos)
+        const posteos = await Promise.all(postRequests);
+
+        setArrayPost(posteos[0]);
       }
     } catch (error) {
       console.error("Error al enviar los datos al servidor:", error);
     }
   };
 
-  if (!dataLoaded) {
-    return <div>Cargando...</div>;
-  }
-
-  console.log(arrayPost)
   return (
     <div className={style.containerP}>
-      {arrayPost.map((posteo) => (
-        <div className={style.likes} key={posteo.id}>
-          <div className={style.like}>
-          <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
-            <div>
-              <h4>{posteo.title}</h4>
+      {arrayPost && arrayPost.length > 0 && <h5>por</h5>}
+      {arrayPost
+        .slice()
+        .reverse()
+        .map((posteo) => (
+          <div className={style.likes} key={posteo.id}>
+            <div className={style.like}>
+              <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };
