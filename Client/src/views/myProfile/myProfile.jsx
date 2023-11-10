@@ -8,7 +8,7 @@ import Header from "../../components/header/Header";
 import Banner3 from '../../assets/banner3.jpg'
 import Banner4 from '../../assets/banner4.jpg'
 import style from "./MyProfile.module.css";
-
+import axios from 'axios'
 
 const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
 
@@ -34,7 +34,6 @@ const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
 
   useEffect(() => {
     premium();
-    setPremium(true)      // ESTA LINEA ESTA DE PRUEBA HASTA QUE SE ARREGLE EL PREMIUM
   }, []);
 
   return (

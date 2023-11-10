@@ -31,7 +31,6 @@ const Avatar = ({ userData, setAuth, toggleDarkMode}) => {
 
   useEffect(() => {
     premium();
-    setPremium(true)      // ESTA LINEA ESTA DE PRUEBA HASTA QUE SE ARREGLE EL PREMIUM
   }, []);
   
   const logout = () => {
