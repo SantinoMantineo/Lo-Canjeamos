@@ -72,33 +72,34 @@ const Matchs = ({ userData }) => {
     });
     return matchingPairs;
   });
-
   
   useEffect(() => {
-    // Al detectar nuevos matches, crea el chat automáticamente
-    const newChatPairs = [];
-    matchedPairs.forEach((pair) => {
-      const existingChat = chats.find((chat) => {
-        return (
-          (chat.user1Id === userId && chat.user2Id === pair.anotherUserId) ||
-          (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
-        );
+    const createChatsForPairs = async () => {
+      // Al detectar nuevos matches, crea el chat automáticamente
+      const newChatPairs = [];
+      matchedPairs.forEach((pair) => {
+        const existingChat = chats.find((chat) => {
+          return (
+            (chat.user1Id === userId && chat.user2Id === pair.anotherUserId) ||
+            (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
+          );
+        });
+  
+        // Si no hay un chat existente, acumula la pareja para crear uno nuevo
+        if (!existingChat) {
+          newChatPairs.push(pair);
+        }
       });
   
-      // Si no hay un chat existente, acumula la pareja para crear uno nuevo
-      if (!existingChat) {
-        newChatPairs.push(pair);
+      // Crea los chats automáticamente para las parejas acumuladas
+      for (const pair of newChatPairs) {
+        await dispatch(createChat(userId, pair.anotherUserId));
       }
-    });
+    };
   
-    console.log("matchedPairs:", matchedPairs);
-    console.log("newChatPairs:", newChatPairs);
+    createChatsForPairs();
+  }, [loading]);
   
-    // Crea los chats automáticamente para las parejas acumuladas
-    newChatPairs.forEach((pair) => {
-      dispatch(createChat(userId, pair.anotherUserId));
-    });
-  }, [dispatch]);
 
 
   function handleGoChat(anotherUserId) {
