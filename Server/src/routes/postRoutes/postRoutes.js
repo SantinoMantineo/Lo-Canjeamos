@@ -54,7 +54,6 @@ router.get("/localidad/:localidad", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  console.log("MIAU", id)
   try {
     const postById = await postsController.getPostById(id);
     return res.status(200).json(postById);

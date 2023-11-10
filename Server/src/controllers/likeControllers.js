@@ -35,12 +35,11 @@ const getLikesRecibidos = async (myUserId) => {
     });
 
     const posts = [];
-
+    
     const likes = likesRecibidos.forEach((post)=>{
-      posts.push(post.myPostId)
+      posts.push(post.myPostId, post.likedPostId)
     })
 
-    
     return posts;
   } catch (error) {
     throw new Error('Error al dar obtener likes recibidos: ' + error.message);
