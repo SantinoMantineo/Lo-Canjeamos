@@ -17,7 +17,7 @@ const Matchs = ({ userData }) => {
   const chats = useSelector((state) => state.chats);
   const allPosts = useSelector((state) => state.allPostsCopy);
   const userId = userData.id;
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,27 +42,23 @@ const Matchs = ({ userData }) => {
     });
   });
 
-  // Filtra los posts cuyo id coincide con "anotherUserId" de los objetos en filteredMatches
   const anotherUserPosts = allPosts.filter((post) => {
     return filteredMatches.some((match) => {
       return match.match.some(
-        (m) => m.anotherUserId != userId && m.likedPostId === post.id
+        (m) => m.anotherUserId !== userId && m.likedPostId === post.id
       );
     });
   });
 
   const matchedPairs = myPosts.flatMap((myPost) => {
     const matchingPairs = [];
-    // Creamos un conjunto para realizar un seguimiento de los IDs de los posts con los que ya hemos hecho match
     const matchedPostIds = new Set();
     filteredMatches.forEach((match) => {
       match.match.forEach((m) => {
-        // Verificamos que el match sea con otro usuario y que el post coincida con el tuyo
         if (
           m.myUserId !== userId &&
           (m.myPostId === myPost.id || m.likedPostId === myPost.id)
         ) {
-          // Verificamos que el post con el que hacemos match no se haya incluido previamente
           if (!matchedPostIds.has(m.myPostId)) {
             matchedPostIds.add(m.myPostId);
             matchingPairs.push({
@@ -76,13 +72,44 @@ const Matchs = ({ userData }) => {
     return matchingPairs;
   });
 
-
   useEffect(() => {
-    dispatch(updateMatchedPairs(matchedPairs));
-  }, [matchedPairs, dispatch]);
+    const createChatSequentially = async (pairs, index = 0, updatedChats = []) => {
+      if (index < pairs.length) {
+        const pair = pairs[index];
+        const existingChat = chats.find((chat) => {
+          return (
+            (chat.user1Id === userId && chat.user2Id === pair.anotherUserPost.UserId) ||
+            (chat.user1Id === pair.anotherUserPost.UserId && chat.user2Id === userId)
+          );
+        });
   
+        if (!existingChat) {
+          try {
+            const chat = await createChat(userId, pair.anotherUserPost.UserId);
+            updatedChats.push(chat);
+          } catch (error) {
+            console.error("Error al iniciar el chat:", error);
+          }
+        }
+  
+        // Llamada recursiva para procesar el siguiente par
+        await createChatSequentially(pairs, index + 1, updatedChats);
+      } else {
+        // Todas las creaciones de chat han sido procesadas, actualiza el estado
+        if (updatedChats.length > 0) {
+          const mergedChats = [...chats, ...updatedChats];
+          dispatch(updateMatchedPairs(matchedPairs, mergedChats));
+        }
+      }
+    };
+  
+    // Inicia el proceso de creación secuencial
+    createChatSequentially(matchedPairs);
+  }, [matchedPairs, chats, dispatch, userId]);
+  
+  
+
   function handleStartChat(anotherUserId) {
-    // Verifica si ya existe un chat entre los usuarios actual y anotherUserId
     const existingChat = chats.find((chat) => {
       return (
         (chat.user1Id === userId && chat.user2Id === anotherUserId) ||
@@ -91,31 +118,9 @@ const Matchs = ({ userData }) => {
     });
 
     if (existingChat) {
-      // Redirige al usuario a la vista del chat existente
       navigate(`/chats/${existingChat.id}`);
     } else {
-      // Si no existe un chat, crea uno
-      createChat(userId, anotherUserId)
-        .then((chat) => {
-          // Accede al chatId desde el chat creado
-          const chatId = chat.id;
-          // Redirige al usuario a la vista del chat recién creado
-          navigate(`/chats/${chatId}`);
-         
-          // Asegúrate de que chat.id existe en la respuesta
-          if (chat) {
-            // Accede al chatId desde el chat creado
-            const chatId = chat.chatId;
-            // Redirige al usuario a la vista del chat recién creado
-            navigate(`/chats/${chatId}`);
-          } else {
-            console.error("Error: No se recibió el ID del chat en la respuesta");
-          }
-        })
-        .catch((error) => {
-          console.error("Error al iniciar el chat:", error);
-          // Puedes manejar el error de otra manera si es necesario
-        });
+      console.error("Error: No se debería llegar aquí. La creación de chats debería manejarse automáticamente.");
     }
   }
 
@@ -132,9 +137,8 @@ const Matchs = ({ userData }) => {
                 src={pair.myPost.image[0]}
                 alt={`My Post ${pair.myPost.id}`}
               />
-              {/* Otros detalles de tu post */}
             </div>
-            
+
             {pair.anotherUserPost && (
               <div className={style.matchItem}>
                 <img
@@ -142,30 +146,13 @@ const Matchs = ({ userData }) => {
                   src={pair.anotherUserPost.image[0]}
                   alt={`Matched User Post ${pair.anotherUserPost.id}`}
                 />
-                {/* Otros detalles del post del otro usuario */}
               </div>
             )}
             <button
               onClick={() => handleStartChat(pair.anotherUserPost.UserId)}
               className={style.goChats}
             >
-              <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
-              alt="Chat"
-            />
-            </button>
-            <button
-              
-              className={style.goChats}
-            >
-              <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
-              alt="Usuario"
-            />
+              Chat
             </button>
           </div>
         ))
