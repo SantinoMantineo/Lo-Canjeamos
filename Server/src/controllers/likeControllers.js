@@ -37,7 +37,7 @@ const getLikesRecibidos = async (myUserId) => {
     const posts = [];
     
     const likes = likesRecibidos.forEach((post)=>{
-      posts.push(post.myPostId, post.likedPostId)
+      posts.push(post.likedPostId, post.myPostId)
     })
 
     return posts;
