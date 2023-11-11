@@ -2,8 +2,14 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getMatches, getPostById, likePost,clearDetail, getAllLikes} from "../../redux/actions";
-import {motion} from 'framer-motion';
+import {
+  getMatches,
+  getPostById,
+  likePost,
+  clearDetail,
+  getAllLikes,
+} from "../../redux/actions";
+import { motion } from "framer-motion";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -22,7 +28,7 @@ const Detail = ({ userData }) => {
   const myPostId = useSelector((state) => state.selectedPostToInteract);
 
   const allLikes = useSelector((state) => state.allLikes);
-  const [liked, setLiked] = useState(false)
+  const [liked, setLiked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,10 +40,10 @@ const Detail = ({ userData }) => {
     }
   );
 
-
-   // Comprueba si likedPostId está en la lista de likedPosts
-   const isPostLiked = allLikes.some((like) => like.myPostId == myPostId && like.likedPostId == id)
-
+  // Comprueba si likedPostId está en la lista de likedPosts
+  const isPostLiked = allLikes.some(
+    (like) => like.myPostId == myPostId && like.likedPostId == id
+  );
 
   const isMatched = filteredMatches.length > 0;
 
@@ -47,7 +53,7 @@ const Detail = ({ userData }) => {
 
   useEffect(() => {
     dispatch(getMatches());
-    dispatch(getAllLikes())
+    dispatch(getAllLikes());
   }, [dispatch]);
 
   useEffect(() => {
@@ -81,14 +87,14 @@ const Detail = ({ userData }) => {
         cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
-          const isLocalhost = window.location.hostname === 'localhost';
+          const isLocalhost = window.location.hostname === "localhost";
           const redirectURL = isLocalhost
-            ? 'http://localhost:5173/#/login'
-            : 'https://locanjeamos.com.ar/#/login';
+            ? "http://localhost:5173/#/login"
+            : "https://locanjeamos.com.ar/#/login";
           window.location.href = redirectURL;
           Swal.close();
-          }
-        });
+        }
+      });
     }
   };
   const settings = {
@@ -113,7 +119,7 @@ const Detail = ({ userData }) => {
     ],
   };
   const allPosts = useSelector((state) => state.allPosts);
-  const  handlePrevClick = () => {
+  const handlePrevClick = () => {
     const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
 
     if (
@@ -127,27 +133,32 @@ const Detail = ({ userData }) => {
     } else {
       console.log(
         "No hay publicaciones disponibles o ya estás en la primera publicación"
-        );
-      }
-    };
-    
-    const handleNextClick = () => {
-      const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
-      
-      if (
-        Array.isArray(allPosts) &&
-        allPosts.length > 0 &&
-        currentIndex !== -1 &&
-        currentIndex > 0
-        ) {
-          const prevPostId = allPosts[currentIndex - 1].id;
-          navigate(`/detail/${prevPostId}`);
-        } else {
-          console.log(
+      );
+    }
+  };
+
+  const handleNextClick = () => {
+    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+
+    if (
+      Array.isArray(allPosts) &&
+      allPosts.length > 0 &&
+      currentIndex !== -1 &&
+      currentIndex > 0
+    ) {
+      const prevPostId = allPosts[currentIndex - 1].id;
+      navigate(`/detail/${prevPostId}`);
+    } else {
+      console.log(
         "No hay publicaciones disponibles o ya estás en la última publicación"
       );
     }
   };
+
+  const handleGoBack = () => {
+    window.history.back(); // Navega hacia atrás en el historial del navegador
+  };
+
   return (
     <>
       <motion.div
@@ -228,15 +239,20 @@ const Detail = ({ userData }) => {
         </div>
 
         <div className={style.buttons}>
-          <Link to="/">
-            <button className={style.back}>Volver</button>
-          </Link>
+          <button className={style.back} onClick={handleGoBack}>
+            Volver
+          </button>
 
-          <button className={style.match} onClick={handleLikeClick} disabled={liked || myUserId === anotherUserId || isMatched || isPostLiked}>Canjear</button>
+          <button
+            className={style.match}
+            onClick={handleLikeClick}
+            disabled={
+              liked || myUserId === anotherUserId || isMatched || isPostLiked
+            }
+          >
+            Canjear
+          </button>
         </div>
-
-        
-     
       </motion.div>
     </>
   );
