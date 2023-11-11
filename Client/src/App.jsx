@@ -24,12 +24,6 @@ import io from "socket.io-client";
 import Swal from 'sweetalert2';
 import "./App.css";
 
-useEffect(() => {
-  OneSignal.init({
-    appId: "bd442249-142f-4367-9f32-0d10df4a3be1"
-  });
-},[])
-
 //const socketServer = io("http://localhost:3001/");
 const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
 
@@ -63,6 +57,12 @@ const App = () => {
       document.body.style.color = "grey";
     }
   };
+
+  useEffect(() => {
+    OneSignal.init({
+      appId: "bd442249-142f-4367-9f32-0d10df4a3be1"
+    });
+  },[])
 
   //axios.defaults.baseURL = "http://localhost:3001/";
   axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
