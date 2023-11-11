@@ -2,6 +2,11 @@
     display: grid;
   }
 
+  .containerP a {
+    color: grey;
+    justify-self: left;
+  }
+
   .containerP h5 {
     position: absolute;
     justify-self: center;

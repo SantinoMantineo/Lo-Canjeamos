@@ -8,6 +8,7 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
   
   const location = useLocation();
   const { user, isAuthenticated: isAuthenticatedAuth0, logout: loguotAuth0 } = useAuth0();
+  
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -152,13 +153,8 @@ const NavBar = ({ isAuthenticated, setAuth, userData }) => {
       >
         {isAuthenticated || isAuthenticatedAuth0 ? (
           <button className={style.iconos}>
-            <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
-              alt="Usuario"
-            />
-            Perfil
+            <img src={(user && user.picture) || (userData && userData.image)} width="24" height="24" className={style.avatar}></img>
+            {(user && user.name) || (userData && userData.username)}
           </button>
         ) : (
           <button className={style.iconos}>

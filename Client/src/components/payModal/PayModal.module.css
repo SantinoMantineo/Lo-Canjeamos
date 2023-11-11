@@ -50,7 +50,7 @@
 
 .close {
   margin-top: -100px;
-  margin-right: -400px;
+  margin-right: -430px;
   color: red;
 }
 
@@ -66,8 +66,8 @@
   }
 
   .close {
-    margin-right: -270px;
-    margin-top: -20px;
+    margin-right: -285px;
+    margin-top: -15px;
   }
 
   .modalcontent p {

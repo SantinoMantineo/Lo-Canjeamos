@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./recivedLikes.module.css";
 import axios from "axios"; // Import axios
@@ -53,16 +54,20 @@ const RecivedLikes = ({ userData }) => {
         arrayPost.length > 0 &&
         arrayPost.map((posteo, index) => (
           <React.Fragment key={`${posteo.id}_${index}`}>
-            <div className={style.likes}>
+            <div className={index % 2 === 0 ? style.firstLike : style.likes}>
               <div className={style.like}>
                 <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
-                <p>{(index % 2 === 0) ? `Tú: ${posteo.title}` : posteo.title}</p>
+                {index % 2 === 0 ? (
+                  <p>{`Tú: ${posteo.title}`}</p>
+                ) : (
+                  <Link to={`/detail/${posteo.id}`}>
+                    <p>{posteo.title}</p>
+                  </Link>
+                )}
               </div>
             </div>
-            {index === 1 || index % 2 === 0 && (
-              // Renderizar flechas entre cada par de publicaciones
-              <p className={style.label}>↑ - ↓</p>
-            )}
+            {index === 1 ||
+              (index % 2 === 0 && <p className={style.label}>por:</p>)}
           </React.Fragment>
         ))}
     </div>
