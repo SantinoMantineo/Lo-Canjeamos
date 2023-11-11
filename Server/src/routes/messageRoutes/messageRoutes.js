@@ -30,9 +30,9 @@ router.get("/:chatId", async (req, res) => {
 
   router.post("/:chatId", async (req, res) => {
     const { chatId } = req.params;
-    const { senderId, content } = req.body; // Asegúrate de que estos datos se envíen en el cuerpo de la solicitud
+    const { userId, content } = req.body; // Asegúrate de que estos datos se envíen en el cuerpo de la solicitud
     try {
-      const newMessage = await messageController.createMessage(chatId, senderId, content);
+      const newMessage = await messageController.createMessage(chatId, userId, content);
 
       return res.status(201).json(newMessage);
     } catch (error) {

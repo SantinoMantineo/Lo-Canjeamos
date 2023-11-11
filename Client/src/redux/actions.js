@@ -9,8 +9,8 @@ import {
   DELETE_USER,
   RESTORE_USER,
   CARGAR_HISTORIAL_MENSAJES,
-  ADD_MESSAGE_TO_HISTORY,
   GET_ALL_MESSAGES,
+  OTHER_USER_DATA,
   GET_ALL_CHATS,
   GET_ALL_POSTS,
   GET_ALL_DISABLED_POSTS,
@@ -193,6 +193,16 @@ export const likePost = (myUserId, likedPostId, myPostId, anotherUserId) => {
   };
 };
 
+export function saveOtherUserData(otherUserName, otherUserImage) {
+  return {
+    type: OTHER_USER_DATA,
+    payload: {
+      otherUserImage,
+      otherUserName
+    }
+  }
+}
+
 export function likedPosts(userId) {
   return {
     type: LIKED_POSTS,
@@ -339,9 +349,7 @@ export function resetFilters() {
 export function messagesHistory(chatId) {
   return async (dispatch) => {
     try {
-      // Realiza una solicitud al servidor para obtener el historial de mensajes
       const response = await axios.get(`/messages/${chatId}`);
-
       dispatch({
         type: CARGAR_HISTORIAL_MENSAJES,
         payload: response.data
@@ -352,28 +360,17 @@ export function messagesHistory(chatId) {
   };
 }
 
-export function sendAndCreateMessage(chatId, senderId, content) {
-  return async (dispatch) => {
+export function createMessage(chatId, userId, content) {
+  return async () => {
     try {
-      const response = await axios.post(`/messages/${chatId}`, {
-        senderId,
-        content,
+      await axios.post(`/messages/${chatId}`, {
+        chatId,
+        userId,
+        content, 
       });
-
-      // Si la creación y el guardado del mensaje son exitosos, puedes realizar otras acciones aquí si es necesario.
-
-      return response.data; // Puedes retornar el mensaje creado si lo necesitas en tu aplicación.
     } catch (error) {
-      console.error("Error al crear y guardar el mensaje:", error);
-      throw error;
+      console.error("Error al crear el mensaje:", error);
     }
-  };
-}
-
-export function addMessageToHistory(newMessage) {
-  return {
-    type: ADD_MESSAGE_TO_HISTORY,
-    payload: newMessage,
   };
 }
 

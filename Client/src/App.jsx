@@ -20,13 +20,11 @@ import Loading from "./views/loading/Loading";
 import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/resetPassword/ResetPassword";
 import axios from "axios";
-import io from "socket.io-client";
 import Swal from 'sweetalert2';
 import "./App.css";
 
 //const socketServer = io("http://localhost:3001/");
 const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
-
 
 //Actions
 import { getAllUsers, createGoogleUser } from "../src/redux/actions";
@@ -233,4 +231,4 @@ const App = () => {
   );
 };
 
-export { socketServer, App };
+export default App;
