@@ -120,3 +120,7 @@
     padding-left: 10px;
     border-radius: 5px;
 }
+
+button:disabled img{
+  filter: grayscale(100%);
+}

@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   GET_ALL_USERS,
   GET_ALL_DISABLED_USERS,
+  GET_ALL_EXISTING_USERS,
   GET_USER_BY_ID,
   CREATE_USER,
   UPDATE_USER,
@@ -13,6 +14,7 @@ import {
   GET_ALL_CHATS,
   GET_ALL_POSTS,
   GET_ALL_DISABLED_POSTS,
+  GET_ALL_EXISTING_POSTS,
   GET_POST_BY_ID,
   SELECT_CATEGORY,
   SELECT_LOCALITY,
@@ -49,6 +51,16 @@ export function getAllDisabledUsers() {
     const response = await axios.get("/users/allDisabledUsers");
     return dispatch({
       type: GET_ALL_DISABLED_USERS,
+      payload: response.data,
+    });
+  };
+}
+
+export function getAllExistingUsers() {
+  return async function (dispatch) {
+    const response = await axios.get("/users/allExistingUsers");
+    return dispatch({
+      type: GET_ALL_EXISTING_USERS,
       payload: response.data,
     });
   };
@@ -133,6 +145,16 @@ export function getAllDisabledPosts() {
     const response = await axios.get("/posts/allDisabledPosts");
     return dispatch({
       type: GET_ALL_DISABLED_POSTS,
+      payload: response.data,
+    });
+  };
+}
+
+export function getAllExistingPosts() {
+  return async function (dispatch) {
+    const response = await axios.get("/posts/allExistingPosts");
+    return dispatch({
+      type: GET_ALL_EXISTING_POSTS,
       payload: response.data,
     });
   };

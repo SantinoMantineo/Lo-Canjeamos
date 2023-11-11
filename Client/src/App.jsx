@@ -24,8 +24,6 @@ import Swal from 'sweetalert2';
 import "./App.css";
 
 
-
-
 //Actions
 import { getAllUsers, createGoogleUser } from "../src/redux/actions";
 //Auht0

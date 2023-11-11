@@ -39,6 +39,19 @@ exports.getAllDisabled = async () => {
   }
 };
 
+exports.getAllExisting = async () => {
+  try {
+    const existingUsers = await User.findAll({
+      paranoid: false,
+      order: [['id', 'ASC']],
+    })
+
+    return existingUsers
+  } catch (error) {
+    throw "Ocurrió un error al traer los usuarios: " + error;
+  }
+};
+
 exports.createUser = async (user) => {
   if (
     !user.username ||

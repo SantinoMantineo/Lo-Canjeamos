@@ -1,6 +1,6 @@
 .exchanges {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 30px;
   margin-top: 20px;
 }
@@ -57,6 +57,21 @@
   font-size: 16px;
   color: grey;
   margin: 0;
+}
+
+.alert {
+  display: grid;
+  margin-top: 20px;
+  width: 250px;
+  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+  border-radius: 10px;
+  padding: 25px;
+}
+
+.alert h3 {
+  font-size: 12px;
+  margin: 0px;
+  padding: 0px;
 }
 
 @media (max-width: 1280px) {
