@@ -5,8 +5,23 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="theme-color" content="#ffe66d" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-site-verification" content="W7_WJPGNegT93h-iyS5TFW-otCrn05g_5vVf9bcHUY0" />
+    <meta
+      name="google-site-verification"
+      content="W7_WJPGNegT93h-iyS5TFW-otCrn05g_5vVf9bcHUY0"
+    />
     <title>loCanjeamos?</title>
+    <script
+      src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+      defer
+    ></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(function (OneSignal) {
+        OneSignal.init({
+          appId: "bd442249-142f-4367-9f32-0d10df4a3be1",
+        });
+      });
+    </script>
   </head>
   <!-- Google tag (gtag.js) -->
   <script
@@ -21,15 +36,6 @@
     gtag("js", new Date());
 
     gtag("config", "G-KFTXZW5CWX");
-  </script>
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(function(OneSignal) {
-      OneSignal.init({
-        appId: "bd442249-142f-4367-9f32-0d10df4a3be1",
-      });
-    });
   </script>
   <body>
     <div id="root"></div>
