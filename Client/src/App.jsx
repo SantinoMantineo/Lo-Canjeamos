@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import OneSignal from 'react-onesignal';
 
 
 import AddProduct from "./views/addProduct/addProduct";
@@ -22,6 +23,12 @@ import axios from "axios";
 import io from "socket.io-client";
 import Swal from 'sweetalert2';
 import "./App.css";
+
+useEffect(() => {
+  OneSignal.init({
+    appId: "bd442249-142f-4367-9f32-0d10df4a3be1"
+  });
+},[])
 
 //const socketServer = io("http://localhost:3001/");
 const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
