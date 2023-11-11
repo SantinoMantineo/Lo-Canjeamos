@@ -6,7 +6,7 @@ import ChatsMessages from "../../components/chats/ChatsMessages";
 import { getAllChats } from "../../redux/actions";
 
 import style from "./Chats.module.css";
-import Login from "../login/Login";
+
 
 const Chats = ({ userData }) => {
   const dispatch = useDispatch();
