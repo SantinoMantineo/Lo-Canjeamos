@@ -84,8 +84,8 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
           {isDarkMode ? "Dark 🌘" : "Light ☀️"}
         </button>
         <br></br>
-        <button className={style.premium} onClick={openModal}>
-          Sé Premium
+        <button className={style.premium} onClick={openModal} disabled={isPremium}>
+          {isPremium ? "!Gracias!" : "Sé premium"}
         </button>
         <br />
         <br />
