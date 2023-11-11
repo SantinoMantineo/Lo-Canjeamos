@@ -187,7 +187,7 @@ const App = () => {
 
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} />
+      <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} userData={userData}/>
       <Routes>
         <Route path="/" element={<Home />} />
 
