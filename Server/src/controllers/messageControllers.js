@@ -25,11 +25,11 @@ exports.getMessages = async (chatId) => {
     }
   };
 
-  exports.createMessage = async (chatId, senderId, content) => {
+  exports.createMessage = async (chatId, userId, content) => {
     try {
       const newMessage = await Message.create({
         chatId,
-        senderId,
+        userId,
         content,
       });
   

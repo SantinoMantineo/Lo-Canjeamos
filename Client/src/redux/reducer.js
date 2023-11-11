@@ -21,7 +21,7 @@ import {
   RESTORE_POST,
   RESET_FILTERS,
   CARGAR_HISTORIAL_MENSAJES,
-  ADD_MESSAGE_TO_HISTORY,
+  OTHER_USER_DATA,
   GET_ALL_MESSAGES,
   GET_ALL_CHATS,
   GET_MATCHES,
@@ -35,6 +35,8 @@ import {
 const initialState = {
   allUsers: [],
   allDisabledUsers: [],
+  otherUserName: "",
+  otherUserImage: "",
   selectedUser: "",
   allPosts: [],
   allPostsCopy: [],
@@ -127,6 +129,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         allDisabledPosts: action.payload,
       };
+
+    case OTHER_USER_DATA:
+      return {
+        ...state,
+        otherUserName: action.payload.otherUserName,
+        otherUserImage: action.payload.otherUserImage
+      }
 
     case GET_POST_BY_ID:
       return {
@@ -270,12 +279,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         messageHistory: action.payload,
-      };
-
-    case ADD_MESSAGE_TO_HISTORY:
-      return {
-        ...state,
-        messageHistory: [...state.messageHistory, action.payload],
       };
 
     case GET_ALL_MESSAGES:
