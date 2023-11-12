@@ -305,7 +305,6 @@ setErrors({ ...errors, [name]: error });
           html: '<p>Tu publicación ha sido creada correctamente. Puedes verla en tu perfil o visualizarla en el inicio.</p>',
         });
         setTimeout(() => {
-          navigate("/login");
           Swal.close()
         }, 1500);
 
