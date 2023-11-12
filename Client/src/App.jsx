@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import OneSignal from 'react-onesignal';
 
 import AddProduct from "./views/addProduct/addProduct";
 import Chats from "./views/chats/Chats";
@@ -56,11 +57,14 @@ const App = () => {
     }
   };
 
- /*  useEffect(() => {
+  useEffect(() => {
     OneSignal.init({
-      appId: "bd442249-142f-4367-9f32-0d10df4a3be1"
+      appId: 'bd442249-142f-4367-9f32-0d10df4a3be1', 
+      notifyButton: {
+        enable: true,
+      },
     });
-  },[]) */
+  }, []);
 
   //axios.defaults.baseURL = "http://localhost:3001/";
   axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
