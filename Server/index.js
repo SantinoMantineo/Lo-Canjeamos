@@ -3,7 +3,7 @@ const { conn } = require("./src/DB_config");
 
 const PORT = process.env.PORT || 3001;
 
-conn.sync({ force: true })
+conn.sync({ force: flase })
   .then(async () => {
     httpServer.listen(PORT, async () => {
       console.log(`Server listening on port ${PORT}`);
