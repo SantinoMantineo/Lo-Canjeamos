@@ -1,82 +1,110 @@
+import io from "socket.io-client";
+import axios from "axios";
+
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { socketServer } from "../../App";
-import {
-  messagesHistory,
-  sendAndCreateMessage,
-  addMessageToHistory,
-  getAllUsers,
-} from "../../redux/actions";
+import { createMessage, getAllChats, getAllUsers, saveOtherUserData } from "../../redux/actions";
 
 import style from "./ChatsMessages.module.css";
-
 
 const ChatsMessages = ({ chatId, userData }) => {
   const dispatch = useDispatch();
   const messagesEndRef = useRef(null);
   const senderId = userData.id;
+  const userId = userData.id
 
-  const messageHistory = useSelector((state) => state.messageHistory);
-  const chats = useSelector((state) => state.chats)
+  const socketServer = io("http://localhost:3001/", {
+    query: { chatId },
+  });
+
+/*   const socketServer = io("https://lo-canjeamos-production.up.railway.app/", {
+    query: { chatId },
+  }); */
+
+  const chats = useSelector((state) => state.chats);
   const allUsers = useSelector((state) => state.allUsers);
+  const otherUsername = useSelector((state) => state.otherUserName);
+  const otherUserImage = useSelector((state) => state.otherUserImage);
 
   const [newMessage, setNewMessage] = useState("");
-  const [otherUsername, setOtherUsername] = useState("");
-  const [otherUserImage, setOtherUserImage] = useState("");
-  const [counter, setCounter] = useState(0);
-  const [hasNewMessage, setHasNewMessage] = useState(false);
+  const [messageHistory, setMessageHistory] = useState([]);
 
-  
+  //Traer historial de mensajes de la base de datos y cargarla en el estado local
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCounter((prevCounter) => prevCounter + 1);
-    }, 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(messagesHistory(chatId));
-    return () => {};
-  }, [counter]);
-
-  const sendMessage = () => {
-    dispatch(sendAndCreateMessage(chatId, senderId, newMessage))
-    .then((newMessage) => {
-      socketServer.emit("new-message", newMessage);
-      setHasNewMessage(true); // Indica que se ha agregado un nuevo mensaje
-      console.log("Mensaje creado:", newMessage);
-    })
-    .catch((error) => {
-      console.error("Error al crear y guardar el mensaje:", error);
-      throw error;
-    });
-    setNewMessage("");
-  };
-
-  useEffect(() => {
-    // Este efecto se ejecutará cuando cambie 'chatId'
-    socketServer.on("new-message", (newMessage) => {
-      if (newMessage.chatId === chatId) {
-        dispatch(addMessageToHistory(newMessage));
+    const fetchMessageHistory = async () => {
+      try {
+        const response = await axios(`/messages/${chatId}`);
+        setMessageHistory(response.data);
+      } catch (error) {
+        console.error("Error fetching message history:", error);
       }
-    });
-
-    socketServer.emit("message-to-server", "Hi, server!");
-
-    return () => {
-      // Realiza alguna limpieza si es necesario cuando se desmonta el componente o cuando cambian las dependencias
-      socketServer.disconnect();
     };
+    fetchMessageHistory();
   }, [chatId]);
 
-  //dispatch, chatId, senderId, messageHistory, allUsers
+  const handleInputChange = (event) => {
+    setNewMessage(event.target.value);
+  };
 
+//Mandar info al servidor y guardar mensaje en base de datos
+  const sendMessage = async () => {
+    if (!newMessage.trim()) {
+      return;
+    }
+
+    const messageData = {
+      userId: senderId,
+      chatId: chatId,
+      content: newMessage,
+    };
+    socketServer.emit("chat message", messageData);
+    await dispatch(createMessage(chatId, userId, newMessage));
+    setNewMessage("");
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+  
+
+// Recibir info del servidor
+useEffect(() => {
+  socketServer.emit("joinRoom", chatId);
+
+  socketServer.on("chat message", (messageData) => {
+    const { userId, chatId: receivedChatId, content } = messageData;
+
+    if (receivedChatId === chatId) {
+      const position = userId == senderId ? "myMessage" : "otherMessage";
+      setMessageHistory((prevMessages) => [
+        ...prevMessages,
+        { content, position, userId },
+      ]);
+      setTimeout(() => {
+        messagesEndRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      }, 100); // Puedes ajustar el tiempo según sea necesario
+    }
+  });
+  return () => {
+    socketServer.off("chat message");
+  };
+}, [chatId]);
+
+
+//Rellenar lista de usuarios
+  useEffect(() => {
+    dispatch(getAllUsers());
+    dispatch(getAllChats())
+  }, [dispatch]);
+
+// Buscar el username del otro usuario en la lista de usuarios
   // Buscar el username del otro usuario en allUsers
   useEffect(() => {
     if (chats.length > 0) {
@@ -93,41 +121,13 @@ const ChatsMessages = ({ chatId, userData }) => {
       if (otherUserId) {
         const otherUser = allUsers.find((user) => user.id === otherUserId);
         if (otherUser) {
-          setOtherUsername(otherUser.username);
-          setOtherUserImage(otherUser.image);
+         const otherUserName = otherUser.username
+         const otherUserImage = otherUser.image
+       dispatch(saveOtherUserData(otherUserName, otherUserImage))
         }
-      } else {
-        // Si no se encuentra otro usuario, puedes establecer un valor predeterminado o manejarlo de otra manera apropiada.
-        setOtherUsername("Usuario Desconocido");
       }
     }
   }, [chats, chatId, allUsers]);
-
-/* useEffect(() => {
-  if (hasNewMessage) {
-    messagesEndRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-    });
-
-    // Reinicia el estado después de desplazar el scroll
-    setHasNewMessage(false);
-  }
-}, [hasNewMessage]); */
-
-useEffect(() => {
-  messagesEndRef.current.scrollIntoView({
-    behavior: "smooth",
-    block: "end", 
-  });
-}, [messageHistory]);
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  }
 
   return (
     <div className={style.chat}>
@@ -137,39 +137,39 @@ useEffect(() => {
       </div>
 
       <ul className={style.listMsg} ref={messagesEndRef}>
-        {messageHistory.map((message) => (
-          <li key={message.id}>
-            <div className={style.messageWrapper}>
-              {message.senderId !== senderId && (
-                <div className={style.otherUserLabel}>
-                  <p>{otherUsername}</p>
-                </div>
-              )}
-              <div
-                className={
-                  message.senderId === senderId
-                    ? style.myMessage
-                    : style.otherMessage
-                }
-              >
-                {message.senderId === senderId && (
-                  <div className={style.myUserLabel}>
-                    <p>Yo</p>
-                  </div>
-                )}
-                <h5>{message.content}</h5>
-              </div>
+  {messageHistory.map((msg, index) => (
+    <li key={index}>
+      <div className={style.messageWreapper}>
+        {msg.userId !== senderId && (
+          <div className={style.otherUserLabel}>
+            <p>{otherUsername}</p>
+          </div>
+        )}
+        <div
+          className={
+            msg.userId === senderId
+              ? style.myMessage
+              : style.otherMessage
+          }
+        >
+          {msg.userId === senderId && (
+            <div className={style.myUserLabel}>
+              <p>Yo</p>
             </div>
-          </li>
-        ))}
-      </ul>
+          )}
+          <h5>{msg.content}</h5>
+        </div>
+      </div>
+    </li>
+  ))}
+</ul>
 
       <div className={style.input}>
         <input
           type="text"
           value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
           onKeyDown={handleKeyDown}
+          onChange={handleInputChange}
           placeholder="Escribe tu mensaje..."
         />
         <button onClick={sendMessage} className={style.sendMessage}>
@@ -185,4 +185,4 @@ useEffect(() => {
   );
 };
 
-export default ChatsMessages
+export default ChatsMessages;

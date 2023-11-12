@@ -1,4 +1,8 @@
 /* eslint-disable no-unused-vars */
+import axios from "axios";
+import Swal from 'sweetalert2';
+
+import { useAuth0 } from "@auth0/auth0-react";
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import OneSignal from 'react-onesignal';
@@ -12,25 +16,16 @@ import Detail from "./views/detail/Detail";
 import Navbar from "./components/navbar/Nabvar";
 import MyProfile from "./views/myProfile/myProfile";
 import AdminDash from './views/adminDash/AdminDash';
-
 import Login from "./views/login/Login";
 import Register from "./components/register/Register";
 import Loading from "./views/loading/Loading";
 import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/resetPassword/ResetPassword";
-import axios from "axios";
-import io from "socket.io-client";
-import Swal from 'sweetalert2';
+
 import "./App.css";
 
-//const socketServer = io("http://localhost:3001/");
-const socketServer = io("https://lo-canjeamos-production.up.railway.app/");
 
 
-//Actions
-import { getAllUsers, createGoogleUser } from "../src/redux/actions";
-//Auht0
-import { useAuth0 } from "@auth0/auth0-react";
 
 const App = () => {
   const initialDarkMode = localStorage.getItem("darkMode") === "true";
@@ -39,7 +34,6 @@ const App = () => {
 
   useEffect(() => {
     setDarkModeStyles(darkMode);
-
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
 
@@ -85,7 +79,6 @@ const App = () => {
         origin: "google"
       };
       // que pregunte si ya existe el usuario, si existe que haga la request a la ruta de loguin y que si no existe haga a register
-
       try {
         const userLog = {
           email: userByGoogle.email
@@ -243,4 +236,4 @@ const App = () => {
   );
 };
 
-export { socketServer, App };
+export default App;
