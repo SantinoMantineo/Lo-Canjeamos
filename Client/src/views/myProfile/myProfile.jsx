@@ -38,7 +38,7 @@ const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
 
   const userName = userData.username;
 
-  OneSignal.User.addAlias("user", userName );
+  OneSignal.User.addTag("name", userName);
 
   return (
     <>
