@@ -36,6 +36,14 @@ const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
     premium();
   }, []);
 
+  const nombreUsuario = userData.username
+
+  OneSignal.push(function() {
+    OneSignal.sendTag("nombre_de_usuario", nombreUsuario, function(tagsSent) {
+      console.log("Tag de nombre de usuario establecido con éxito:", tagsSent);
+    });
+  });
+
   return (
     <>
       <Header banner1={Banner3} banner2={Banner4}></Header>
