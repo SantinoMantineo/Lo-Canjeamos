@@ -8,6 +8,8 @@ import icon from "../../assets/iconChoosed.png";
 const Publication = ({ userData }) => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
+  const matches = useSelector((state) => state.matches)
+  console.log(matches);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
 
@@ -40,6 +42,16 @@ const Publication = ({ userData }) => {
       await dispatch(deletePost(postId)); // Espera a que se complete la eliminación en el servidor
       const updatedPosts = userPosts.filter((post) => post.id !== postId);
       setUserPosts(updatedPosts); // Actualiza el estado local
+      const matchesToDelete = matches.filter((match) =>
+      match.match.some((m) => m.myPostId == postId || m.likedPostId == postId)
+    );
+    matchesToDelete.forEach((match) => {
+      match.match.forEach((m) => {
+        if (m.myPostId === postId || m.likedPostId === postId) {
+          dispatch(deleteMatch(match.id, m.id)); // Utiliza la acción deleteMatch con los IDs correspondientes
+        }
+      });
+    });
     } catch (error) {
       console.error("Error al eliminar la publicación", error);
     }

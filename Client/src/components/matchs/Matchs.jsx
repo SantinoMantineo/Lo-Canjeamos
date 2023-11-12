@@ -58,20 +58,30 @@ const Matchs = ({ userData }) => {
         if (
           m.myUserId !== userId &&
           (m.myPostId === myPost.id || m.likedPostId === myPost.id)
-          ) {
-            if (!matchedPostIds.has(m.myPostId)) {
-              matchedPostIds.add(m.myPostId);
-            matchingPairs.push({
-              myPost,
-              anotherUserPost: allPosts.find((post) => post.id === m.myPostId),
-              anotherUserId: m.myUserId,
-            });
+        ) {
+          if (!matchedPostIds.has(m.myPostId)) {
+            matchedPostIds.add(m.myPostId);
+            const anotherUserPost = allPosts.find((post) => post.id === m.myPostId);
+  
+            // Verificar si anotherUserPost no es undefined antes de agregar a matchingPairs
+            if (anotherUserPost !== undefined) {
+              matchingPairs.push({
+                myPost,
+                anotherUserPost,
+                anotherUserId: m.myUserId,
+              });
+            }
           }
         }
       });
     });
     return matchingPairs;
   });
+  
+
+  useEffect(() => {
+    dispatch(updateMatchedPairs(matchedPairs))
+  })
   
   useEffect(() => {
     const createChatsForPairs = async () => {

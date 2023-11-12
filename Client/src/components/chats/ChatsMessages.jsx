@@ -69,6 +69,7 @@ const ChatsMessages = ({ chatId, userData }) => {
       sendMessage();
     }
   };
+  
 
 // Recibir info del servidor
 useEffect(() => {
@@ -83,13 +84,14 @@ useEffect(() => {
         ...prevMessages,
         { content, position, userId },
       ]);
-      messagesEndRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
+      setTimeout(() => {
+        messagesEndRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      }, 100); // Puedes ajustar el tiempo según sea necesario
     }
   });
-
   return () => {
     socketServer.off("chat message");
   };
