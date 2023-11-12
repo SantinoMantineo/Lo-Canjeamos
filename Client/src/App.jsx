@@ -57,6 +57,8 @@ const App = () => {
     }
   };
 
+  //onesignal push notifications
+
   useEffect(() => {
     OneSignal.init({
       appId: 'bd442249-142f-4367-9f32-0d10df4a3be1', 
