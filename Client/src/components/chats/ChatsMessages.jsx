@@ -3,7 +3,12 @@ import axios from "axios";
 
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createMessage, getAllChats, getAllUsers, saveOtherUserData } from "../../redux/actions";
+import {
+  createMessage,
+  getAllChats,
+  getAllUsers,
+  saveOtherUserData,
+} from "../../redux/actions";
 
 import style from "./ChatsMessages.module.css";
 
@@ -11,15 +16,15 @@ const ChatsMessages = ({ chatId, userData }) => {
   const dispatch = useDispatch();
   const messagesEndRef = useRef(null);
   const senderId = userData.id;
-  const userId = userData.id
+  const userId = userData.id;
 
-  const socketServer = io("http://localhost:3001/", {
-    query: { chatId },
-  });
-
-/*   const socketServer = io("https://lo-canjeamos-production.up.railway.app/", {
+  /* const socketServer = io("http://localhost:3001/", {
     query: { chatId },
   }); */
+
+  const socketServer = io("https://lo-canjeamos-production.up.railway.app/", {
+    query: { chatId },
+  });
 
   const chats = useSelector((state) => state.chats);
   const allUsers = useSelector((state) => state.allUsers);
@@ -46,7 +51,7 @@ const ChatsMessages = ({ chatId, userData }) => {
     setNewMessage(event.target.value);
   };
 
-//Mandar info al servidor y guardar mensaje en base de datos
+  //Mandar info al servidor y guardar mensaje en base de datos
   const sendMessage = async () => {
     if (!newMessage.trim()) {
       return;
@@ -69,61 +74,59 @@ const ChatsMessages = ({ chatId, userData }) => {
       sendMessage();
     }
   };
-  
 
-// Recibir info del servidor
-useEffect(() => {
-  socketServer.emit("joinRoom", chatId);
+  // Recibir info del servidor
+  useEffect(() => {
+    socketServer.emit("joinRoom", chatId);
 
-  socketServer.on("chat message", (messageData) => {
-    const { userId, chatId: receivedChatId, content } = messageData;
+    socketServer.on("chat message", (messageData) => {
+      const { userId, chatId: receivedChatId, content } = messageData;
 
-    if (receivedChatId === chatId) {
-      const position = userId == senderId ? "myMessage" : "otherMessage";
-      setMessageHistory((prevMessages) => [
-        ...prevMessages,
-        { content, position, userId },
-      ]);
-      setTimeout(() => {
-        messagesEndRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "end",
-        });
-      }, 100); // Puedes ajustar el tiempo según sea necesario
-    }
-  });
-  return () => {
-    socketServer.off("chat message");
-  };
-}, [chatId]);
+      if (receivedChatId === chatId) {
+        const position = userId == senderId ? "myMessage" : "otherMessage";
+        setMessageHistory((prevMessages) => [
+          ...prevMessages,
+          { content, position, userId },
+        ]);
+        setTimeout(() => {
+          messagesEndRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+          });
+        }, 100); // Puedes ajustar el tiempo según sea necesario
+      }
+    });
+    return () => {
+      socketServer.off("chat message");
+    };
+  }, [chatId]);
 
-
-//Rellenar lista de usuarios
+  //Rellenar lista de usuarios
   useEffect(() => {
     dispatch(getAllUsers());
-    dispatch(getAllChats())
+    dispatch(getAllChats());
   }, [dispatch]);
 
-// Buscar el username del otro usuario en la lista de usuarios
+  // Buscar el username del otro usuario en la lista de usuarios
   // Buscar el username del otro usuario en allUsers
   useEffect(() => {
     if (chats.length > 0) {
       window.scrollTo(0, document.body.scrollHeight);
       // Realiza la búsqueda del username del otro usuario en allUsers
       const chat = chats.find((chat) => chat.id == chatId);
-      let otherUserId
-      if (senderId == chat.user1Id){
+      let otherUserId;
+      if (senderId == chat.user1Id) {
         otherUserId = chat.user2Id;
-      }else if (senderId != chat.user1Id){
-        otherUserId = chat.user1Id
+      } else if (senderId != chat.user1Id) {
+        otherUserId = chat.user1Id;
       }
 
       if (otherUserId) {
         const otherUser = allUsers.find((user) => user.id === otherUserId);
         if (otherUser) {
-         const otherUserName = otherUser.username
-         const otherUserImage = otherUser.image
-       dispatch(saveOtherUserData(otherUserName, otherUserImage))
+          const otherUserName = otherUser.username;
+          const otherUserImage = otherUser.image;
+          dispatch(saveOtherUserData(otherUserName, otherUserImage));
         }
       }
     }
@@ -137,32 +140,30 @@ useEffect(() => {
       </div>
 
       <ul className={style.listMsg} ref={messagesEndRef}>
-  {messageHistory.map((msg, index) => (
-    <li key={index}>
-      <div className={style.messageWreapper}>
-        {msg.userId !== senderId && (
-          <div className={style.otherUserLabel}>
-            <p>{otherUsername}</p>
-          </div>
-        )}
-        <div
-          className={
-            msg.userId === senderId
-              ? style.myMessage
-              : style.otherMessage
-          }
-        >
-          {msg.userId === senderId && (
-            <div className={style.myUserLabel}>
-              <p>Yo</p>
+        {messageHistory.map((msg, index) => (
+          <li key={index}>
+            <div className={style.messageWreapper}>
+              {msg.userId !== senderId && (
+                <div className={style.otherUserLabel}>
+                  <p>{otherUsername}</p>
+                </div>
+              )}
+              <div
+                className={
+                  msg.userId === senderId ? style.myMessage : style.otherMessage
+                }
+              >
+                {msg.userId === senderId && (
+                  <div className={style.myUserLabel}>
+                    <p>Yo</p>
+                  </div>
+                )}
+                <h5>{msg.content}</h5>
+              </div>
             </div>
-          )}
-          <h5>{msg.content}</h5>
-        </div>
-      </div>
-    </li>
-  ))}
-</ul>
+          </li>
+        ))}
+      </ul>
 
       <div className={style.input}>
         <input
