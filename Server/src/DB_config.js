@@ -5,17 +5,17 @@ const path = require("path");
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
 
-/* const sequelize = new Sequelize(  `postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/locanjeamos`,
+const sequelize = new Sequelize(`postgres:${DB_USER}:${DB_PASSWORD}@${DB_HOST}/locanjeamos`,
   {
     logging: false,
     native: false,
   }
-); */
+);
 
-const sequelize = new Sequelize(DB_DEPLOY, {
+/* const sequelize = new Sequelize(DB_DEPLOY, {
   logging: false,
   native: false,
-});
+}); */
 
 const basename = path.basename(__filename);
 
@@ -39,7 +39,7 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Post, User, Like, Message, Chat } = sequelize.models;
+const { Post, User, Like, Message, Chat, Review } = sequelize.models;
 
 // User - Post
 User.hasMany(Post);
@@ -75,7 +75,17 @@ Message.belongsTo(User, {
   foreignKey: "senderId",
 });
 
+User.hasMany(Review, {
+  foreignKey: 'userId' 
+});
+
+Review.belongsTo(User, {
+  as: 'reviewer',
+  foreignKey: 'reviewedUserId' 
+});
+
 module.exports = {
   ...sequelize.models,
   conn: sequelize,
 };
+

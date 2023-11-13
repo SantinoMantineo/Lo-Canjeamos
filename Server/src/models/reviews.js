@@ -7,6 +7,12 @@ module.exports = (sequelize) => {
             primaryKey: true,
             autoIncrement: true,
         },
+        userId: {
+            type: DataTypes.INTEGER,
+        },
+        reviewedUserId: {
+            type: DataTypes.INTEGER,
+        },
         rating: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -16,14 +22,5 @@ module.exports = (sequelize) => {
               max: 5,
             },
           },
-        
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        message: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-        },
     });
 };

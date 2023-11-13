@@ -62,16 +62,12 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
   const sendNot = () => {
     if (isPremium) {
       OneSignal.User.addTag("subscription:", "premium");
-      console.log("isPremium");
-    } if (!isPremium) {
-      OneSignal.User.addTag("subscription:", "notPremium");
-      console.log("notPremium");
     }
-    OneSignal.User.addAlias("Name", userData.unsername || user.name);
-    console.log("Name", userData.unsername || user.name);
+    if (!isPremium) {
+      OneSignal.User.addTag("subscription:", "notPremium");
+    }
+    OneSignal.User.addAlias("Name", userData && userData.username);
   };
-
-  console.log(OneSignal);
 
   sendNot();
 
@@ -93,7 +89,15 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
         )}
         <h3>{userData.username || user.name}</h3>
         <p>{userData.email || user.email}</p>
-        <div>⭐️⭐️⭐️⭐️⭐️</div>
+        {userData.averageRating ? (
+          <div>
+            {Array.from({ length: userData.averageRating }, (_, index) => (
+              <span key={index}>⭐️</span>
+            ))}
+          </div>
+        ) : (
+          <h3>Todavia nadie te a calificado</h3>
+        )}
         <button
           className={isDarkMode ? style.dark : style.light}
           onClick={handleThemeToggle}
@@ -101,7 +105,11 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
           {isDarkMode ? "Dark 🌘" : "Light ☀️"}
         </button>
         <br></br>
-        <button className={style.premium} onClick={openModal} disabled={isPremium}>
+        <button
+          className={style.premium}
+          onClick={openModal}
+          disabled={isPremium}
+        >
           {isPremium ? "!Gracias!" : "Sé premium"}
         </button>
         <br />
