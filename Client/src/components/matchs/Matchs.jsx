@@ -168,8 +168,8 @@ const Matchs = ({ userData}) => {
                 alt="Chat"
               />
             </button>
-            <button className={style.goChats}>
-            onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}
+            <button className={style.goChats} onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}>
+           
               <img
                 width="24"
                 height="24"
