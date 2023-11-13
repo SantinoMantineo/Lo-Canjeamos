@@ -16,6 +16,7 @@ import {
   GET_ALL_MESSAGES,
   OTHER_USER_DATA,
   GET_ALL_CHATS,
+  CHAT_CREATED,
   GET_ALL_POSTS,
   GET_ALL_DISABLED_POSTS,
   GET_ALL_EXISTING_POSTS,
@@ -431,18 +432,23 @@ export function createMessage(chatId, userId, content) {
 
 //CREAR CHAT
 export function createChat(userId, anotherUserId) {
-  return (dispatch) => {
-    axios.post("/chats/create", {
+  return async (dispatch) => {
+    try {
+    const chatId = await axios.post("/chats/create", {
       userId,
       anotherUserId,
     })
-    .then(response => {
-      const chatData = response.data;
-
-    })
-    .catch(error => {
-      console.error("Error al crear el chat:", error);
+    dispatch({
+      type: CHAT_CREATED,
+      payload: { chatId: chatId.data, user1Id: userId, user2Id: anotherUserId },
     });
+
+    return chatId.data
+
+  }catch (error) {
+      console.error("Error al crear el chat:", error);
+      throw error
+    }
   };
 }
 

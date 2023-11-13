@@ -33,6 +33,7 @@ import {
   OTHER_USER_DATA,
   GET_ALL_MESSAGES,
   GET_ALL_CHATS,
+  CHAT_CREATED,
   GET_MATCHES,
   UPDATE_FILTERED_MATCHES,
   LIKED_POSTS,
@@ -435,6 +436,20 @@ function rootReducer(state = initialState, action) {
         ...state,
         chats: action.payload,
       };
+
+case CHAT_CREATED:
+  return {
+    ...state,
+    chats: [
+      ...state.chats,
+      {
+        id: action.payload.chatId.chatId,
+        user1Id: action.payload.user1Id,
+        user2Id: action.payload.user2Id
+      },
+    ],
+  };
+
 
     case RESET_FILTERS:
       return {
