@@ -89,7 +89,11 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
         )}
         <h3>{userData.username || user.name}</h3>
         <p>{userData.email || user.email}</p>
-        <div>⭐️⭐️⭐️⭐️⭐️</div>
+        <div>
+        {userData.review && userData.review.map((_, index) => (
+          <span key={index}>⭐️</span>
+        ))}
+      </div>
         <button
           className={isDarkMode ? style.dark : style.light}
           onClick={handleThemeToggle}
