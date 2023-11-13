@@ -63,7 +63,7 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
     if (isPremium) {
       OneSignal.User.addTag("subscription:", "premium");
       console.log("isPremium");
-    } else {
+    } if (!isPremium) {
       OneSignal.User.addTag("subscription:", "notPremium");
       console.log("notPremium");
     }
