@@ -11,7 +11,7 @@ import {
 
 import style from "./Matchs.module.css";
 
-const Matchs = ({ userData }) => {
+const Matchs = ({ userData}) => {
   const [loading, setLoading] = useState(true);
   const matches = useSelector((state) => state.matches);
   const chats = useSelector((state) => state.chats);
