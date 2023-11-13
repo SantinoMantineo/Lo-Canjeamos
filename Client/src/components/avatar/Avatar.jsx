@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useState, useEffect } from "react";
+import OneSignal from "react-onesignal";
 import style from "./Avatar.module.css";
 import PayModal from "../payModal/PayModal";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -57,6 +58,18 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
 
     localStorage.setItem("darkMode", updatedDarkMode);
   };
+
+  const sendNot = () => {
+    if (isPremium) {
+      OneSignal.User.addTag("subscription:", "premium");
+      console.log("isPremium");
+    } else {
+      OneSignal.User.addTag("subscription:", "notPremium");
+      console.log("notPremium");
+    }
+  };
+
+  sendNot();
 
   return (
     <>

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import OneSignal from "react-onesignal";
+/* import OneSignal from "react-onesignal"; */
 import Avatar from "../../components/avatar/Avatar";
 import Publication from "../../components/publication/Publication";
 import Header from "../../components/header/Header";
@@ -36,9 +36,9 @@ const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
     premium();
   }, []);
 
-  const userName = userData.username;
+  /* const userName = userData.username;
 
-  OneSignal.User.addTag("name", userName);
+  OneSignal.User.addTag("name", userName); */
 
   return (
     <>
