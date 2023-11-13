@@ -235,7 +235,7 @@ const App = () => {
         <Route path="/messages" element={userData && <Messages userData={userData} />} />
 
         <Route path="/admin" element={<AdminDash></AdminDash>} />
-        <Route path="/UserProfile/:userId" element={<UserProfile></UserProfile>} />
+        <Route path="/UserProfile/:userId" element={<UserProfile id={userData}></UserProfile>} />
       </Routes>
     </>
   );

@@ -89,11 +89,14 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
         )}
         <h3>{userData.username || user.name}</h3>
         <p>{userData.email || user.email}</p>
+        {userData.averageRating ?         
         <div>
-        {userData.review && userData.review.map((_, index) => (
-          <span key={index}>⭐️</span>
-        ))}
-      </div>
+          {Array.from({ length: userData.averageRating }, (_, index) => (
+            <span key={index}>⭐️</span>
+          ))}
+        </div> :
+        <h3>Todavia nadie te a calificado</h3>
+        }
         <button
           className={isDarkMode ? style.dark : style.light}
           onClick={handleThemeToggle}

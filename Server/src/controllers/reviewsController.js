@@ -2,17 +2,15 @@ const { Review, User, conn } = require("../DB_config");
 
 const createReview = async (req, res) => {
     try {
-        const { userId, reviewedUserId, rating, title, message } = req.body;
+        const { userId, reviewedUserId, rating} = req.body;
 
         const newReview = await Review.create({
-            userId,
-            reviewedUserId,
-            rating,
-            title,
-            message,
+            userId: userId,
+            reviewedUserId: reviewedUserId,
+            rating: rating
         });
 
-        res.status(201).json(newReview);
+        if(newReview) res.status(201)
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error al crear la reseña", error: error.message });
@@ -45,23 +43,25 @@ const getReviewById = async (req, res) => {
 const getAverageRatingByUser = async (req, res) => {
     try {
         const userId = req.params.userId;
-
-        const result = await Review.findOne({
-            attributes: [
-                [conn.fn("AVG", conn.col("rating")), "averageRating"],
-            ],
+        
+        const result = await Review.findAll({
             where: {
-                userId: userId,
+                reviewedUserId: userId,
             },
         });
 
-        if (!result || !result.dataValues.averageRating) {
+        if (!result || result.length === 0) {
             res.status(404).json({ message: "No se encontraron reseñas para este usuario" });
             return;
         }
 
-        const averageRating = parseInt(result.dataValues.averageRating);
+        let promedio = result.map(element => element.rating);
 
+        const totalRating = promedio.reduce((sum, rating) => sum + rating, 0);
+        const promedioFinal = totalRating / promedio.length;
+
+        const averageRating = parseInt(promedioFinal)
+        // Actualiza la propiedad averageRating del usuario en la base de datos
         await User.update({ averageRating }, {
             where: {
                 id: userId,
@@ -69,7 +69,6 @@ const getAverageRatingByUser = async (req, res) => {
         });
 
         res.json({ averageRating });
-
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error al calcular el promedio de calificaciones", error: error.message });
