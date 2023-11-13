@@ -37,4 +37,23 @@ router.get("/getLikesRecibidos", async (req, res) => {
   }
 })
 
+router.delete("/:likeId", async (req, res) => {
+  try{
+  const { likeId } = req.params;
+
+  const deletedLike = await likeController.removeLike(likeId)
+
+  if (deletedLike) {
+    return res.status(200).json(deletedLike);
+  } else {
+    return res.status(404).json("Like not found");
+  }
+} catch (error) {
+  return res
+    .status(500)
+    .json({ error: "There was an error deleting the Like" });
+}
+});
+
+
 module.exports = router;
