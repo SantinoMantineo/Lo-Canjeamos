@@ -15,6 +15,7 @@ const Matchs = ({ userData}) => {
   const [loading, setLoading] = useState(true);
   const matches = useSelector((state) => state.matches);
   const chats = useSelector((state) => state.chats);
+  console.log(chats);
   const allPosts = useSelector((state) => state.allPostsCopy);
   const userId = userData.id;
 
@@ -87,25 +88,27 @@ const Matchs = ({ userData}) => {
     const createChatsForPairs = async () => {
       // Al detectar nuevos matches, crea el chat automáticamente
       const newChatPairs = [];
-      matchedPairs.forEach((pair) => {
+    
+      for (const pair of matchedPairs) {
         const existingChat = chats.find((chat) => {
           return (
             (chat.user1Id === userId && chat.user2Id === pair.anotherUserId) ||
             (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
           );
         });
-  
+    
         // Si no hay un chat existente, acumula la pareja para crear uno nuevo
         if (!existingChat) {
           newChatPairs.push(pair);
+          // Espera a que se cree el chat antes de continuar
+          await dispatch(createChat(userId, pair.anotherUserId));
         }
-      });
-  
-      // Crea los chats automáticamente para las parejas acumuladas
-      for (const pair of newChatPairs) {
-        await dispatch(createChat(userId, pair.anotherUserId));
-      }
+      };
+    
+      // ...resto del código
     };
+    
+    
   
     createChatsForPairs();
   }, [loading]);

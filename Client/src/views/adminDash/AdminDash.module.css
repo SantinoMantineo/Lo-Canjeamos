@@ -121,6 +121,18 @@
     border-radius: 5px;
 }
 
+/* Los estilos de 'element' los agregó Agus, borrar o modificar cuando sea necesario. */
+
+.element {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+.element span {
+  width: fit-content;
+}
+
 button:disabled img{
   filter: grayscale(100%);
 }
