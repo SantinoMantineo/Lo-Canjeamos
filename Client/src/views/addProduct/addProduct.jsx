@@ -311,12 +311,6 @@ setErrors({ ...errors, [name]: error });
               : 'https://locanjeamos.com.ar/#/login';
           }
         });
-<<<<<<< HEAD
-        setTimeout(() => {
-          Swal.close()
-        }, 1500);
-=======
->>>>>>> 33ca66fe947bfc7a6bd3e87d83fddf1dc6c44ad6
 
         setFiles([]);
         setSelectedCategory("");
