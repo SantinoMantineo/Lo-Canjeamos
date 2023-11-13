@@ -26,7 +26,7 @@ const UserProfile = ({id}) => {
     };
 
     fetchUserData();
-  }, [userId, userData]);
+  }, [userId, rating]);
 
   const handleRating = async (value) => {
     try{
@@ -40,15 +40,15 @@ const UserProfile = ({id}) => {
       if(newRating){
         const response = await axios.get(`/reviews/averageRating/${userId}`)
         if(response){
-          setUserData(response.data)
+          userData.averageRating = response.data.averageRating
         }
       }
+
     } catch (error) {
       console.log(error)
+    } finally {
+      handleResetRatingClick()
     }
-
-    // Aquí puedes realizar una solicitud al backend para almacenar la calificación
-    // axios.post("/api/rating", { userId: userId, rating: value });
   };
 
   const handleRatingClick = () => {
