@@ -3,18 +3,26 @@ import {
   GET_ALL_USERS,
   GET_ALL_DISABLED_USERS,
   GET_ALL_EXISTING_USERS,
+  SORT_USER_BY_ID,
+  SORT_USER_BY_PLAN,
+  SORT_USER_BY_STATUS,
   GET_USER_BY_ID,
   CREATE_USER,
   UPDATE_USER,
   DELETE_USER,
   RESTORE_USER,
+  RESET_USERS_FILTER,
   CARGAR_HISTORIAL_MENSAJES,
   GET_ALL_MESSAGES,
   OTHER_USER_DATA,
   GET_ALL_CHATS,
+  CHAT_CREATED,
   GET_ALL_POSTS,
   GET_ALL_DISABLED_POSTS,
   GET_ALL_EXISTING_POSTS,
+  SORT_POSTS_BY_ID,
+  SORT_POSTS_BY_STATUS,
+  RESET_POSTS_FILTER,
   GET_POST_BY_ID,
   SELECT_CATEGORY,
   SELECT_LOCALITY,
@@ -77,7 +85,29 @@ export function getUserById(id) {
   };
 }
 
+export const sortUsersByID = (order) => {
+  return {
+    type: SORT_USER_BY_ID,
+    payload: order,
+  };
+};
+
+export const sortUsersByPlan = (plan) => {
+  return {
+    type: SORT_USER_BY_PLAN,
+    payload: plan,
+  };
+};
+
+export const sortUsersByStatus = (status) => {
+  return {
+    type: SORT_USER_BY_STATUS,
+    payload: status,
+  };
+};
+
 export function createGoogleUser(user) {
+
   console.log("actions entrega",user);
   return async (dispatch) => {
     const result = await axios.post(
@@ -118,6 +148,12 @@ export function deleteUser(id) {
       type: DELETE_USER,
       payload: result.data,
     });
+  };
+}
+
+export function resetUsersFilter() {
+  return {
+    type: RESET_USERS_FILTER,
   };
 }
 
@@ -341,6 +377,26 @@ export function restorePost(id) {
   };
 }
 
+export const sortPostsByID = (order) => {
+  return {
+    type: SORT_POSTS_BY_ID,
+    payload: order,
+  };
+};
+
+export const sortPostsByStatus = (status) => {
+  return {
+    type: SORT_POSTS_BY_STATUS,
+    payload: status,
+  };
+};
+
+export function resetPostsFilter() {
+  return {
+    type: RESET_POSTS_FILTER,
+  };
+}
+
 export function resetFilters() {
   return {
     type: RESET_FILTERS,
@@ -377,18 +433,23 @@ export function createMessage(chatId, userId, content) {
 
 //CREAR CHAT
 export function createChat(userId, anotherUserId) {
-  return (dispatch) => {
-    axios.post("/chats/create", {
+  return async (dispatch) => {
+    try {
+    const chatId = await axios.post("/chats/create", {
       userId,
       anotherUserId,
     })
-    .then(response => {
-      const chatData = response.data;
-
-    })
-    .catch(error => {
-      console.error("Error al crear el chat:", error);
+    dispatch({
+      type: CHAT_CREATED,
+      payload: { chatId: chatId.data, user1Id: userId, user2Id: anotherUserId },
     });
+
+    return chatId.data
+
+  }catch (error) {
+      console.error("Error al crear el chat:", error);
+      throw error
+    }
   };
 }
 
