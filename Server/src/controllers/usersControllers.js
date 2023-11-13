@@ -299,3 +299,13 @@ exports.restoreUser = async (id) => {
     throw (error)
   }
 };
+
+exports.getAnotherUser= async (id) => {
+  try {
+    const userId = await User.findByPk(id)
+
+    return userId;
+  } catch (error) {
+    throw new Error("Error al iniciar sesión");
+  }
+}

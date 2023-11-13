@@ -132,6 +132,10 @@ const Matchs = ({ userData}) => {
     }
   }
 
+  function handleGoProfile(anotherUserId) {
+      navigate(`/UserProfile/${anotherUserId}`);
+  }
+
   return (
     <div className={style.container}>
       {loading ? (
@@ -168,7 +172,7 @@ const Matchs = ({ userData}) => {
               />
             </button>
             <button
-              
+              onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}
               className={style.goChats}
             >
               <img
