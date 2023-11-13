@@ -87,6 +87,7 @@
   gap: 30px;
   margin-top: 30px;
   justify-self: center;
+  margin-bottom: 100px;
 }
 
 .column1 {
@@ -95,6 +96,10 @@
   height: auto;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   border-radius: 10px;
+}
+
+.column1 img {
+  justify-self: center;
 }
 
 .column1 h4 {
@@ -124,8 +129,8 @@
 /* Los estilos de 'element' los agregó Agus, borrar o modificar cuando sea necesario. */
 
 .element {
-  display: flex;
-  justify-content:space-between;
+  display: grid;
+  grid-template-columns: 2fr 5fr 1fr 1fr 1fr 1fr;
   align-items: center;
 }
 

@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
+import OneSignal from 'react-onesignal';
 
 import AddProduct from "./views/addProduct/addProduct";
 import Chats from "./views/chats/Chats";
@@ -52,10 +52,19 @@ const App = () => {
     }
   };
 
+  //onesignal push notifications
 
-  axios.defaults.baseURL = "http://localhost:3001/";
-  //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+  useEffect(() => {
+    OneSignal.init({
+      appId: 'bd442249-142f-4367-9f32-0d10df4a3be1', 
+      notifyButton: {
+        enable: true,
+      },
+    });
+  }, [])
 
+  //axios.defaults.baseURL = "http://localhost:3001/";
+  axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
 
   //*Auth0
   const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
