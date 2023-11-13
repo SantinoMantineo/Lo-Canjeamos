@@ -1,4 +1,4 @@
-const { Review, User } = require("../DB_config");
+const { Review, User, conn } = require("../DB_config");
 
 const createReview = async (req, res) => {
     try {
@@ -19,35 +19,68 @@ const createReview = async (req, res) => {
     }
 };
 
-//  const listReviews = async(req, res) => {
-//     try {
-//       const reviews = await Review.findAll();
-//       return res.json(reviews);
-//     } catch (error) {
-//       return res.status(500).json({ error: 'Error al obtener las reviews.' });
-//     }
-//   }
+const allReviews = async (req, res) => {
+    try {
+        const reviews = await Review.findAll();
+        res.json(reviews);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener las reviews.' });
+    }
+};
 
-// const getReviewById = async (req, res) => {
-//     const reviewId = req.params.id;
-//     try {
-//       const review = await Review.findByPk(reviewId);
-//       if (!review) {
-//         return res.status(404).json({ error: 'Review no encontrada.' });
-//       }
-//       return res.json(review);
-//     } catch (error) {
-//       return res.status(500).json({ error: 'Error al obtener la review.' });
-//     }
-//   }
+const getReviewById = async (req, res) => {
+    const reviewId = req.params.id;
+    try {
+        const review = await Review.findByPk(reviewId);
 
+        if (!review) {
+        res.status(404).json({ error: 'Review no encontrada.' });
+        }
+        res.json(review);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener la review.' });
+    }
+};
 
-// module.exports = {
-//     createReview,
-//     listReviews,
-//     getReviewById,
-//   };
+const getAverageRatingByUser = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+
+        const result = await Review.findOne({
+            attributes: [
+                [conn.fn("AVG", conn.col("rating")), "averageRating"],
+            ],
+            where: {
+                userId: userId,
+            },
+        });
+
+        if (!result || !result.dataValues.averageRating) {
+            res.status(404).json({ message: "No se encontraron reseñas para este usuario" });
+            return;
+        }
+
+        const averageRating = parseInt(result.dataValues.averageRating);
+
+        await User.update({ averageRating }, {
+            where: {
+                id: userId,
+            },
+        });
+
+        res.json({ averageRating });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al calcular el promedio de calificaciones", error: error.message });
+    }
+};
+
 
 module.exports = {
-    createReview
+    createReview,
+    allReviews,
+    getReviewById,
+    getAverageRatingByUser
 }
+
