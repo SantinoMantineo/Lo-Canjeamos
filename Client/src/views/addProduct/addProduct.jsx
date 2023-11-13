@@ -303,11 +303,14 @@ setErrors({ ...errors, [name]: error });
           icon: "success",
           title: ">🎉 ¡Hecho! 🎉",
           html: '<p>Tu publicación ha sido creada correctamente. Puedes verla en tu perfil o visualizarla en el inicio.</p>',
+          allowOutsideClick: false
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = response
+              ? 'http://localhost:5173/#/login'
+              : 'https://locanjeamos.com.ar/#/login';
+          }
         });
-        setTimeout(() => {
-          navigate("/login");
-          Swal.close()
-        }, 1500);
 
         setFiles([]);
         setSelectedCategory("");
@@ -322,12 +325,84 @@ setErrors({ ...errors, [name]: error });
         console.log("Hubo un error al crear la publicación.");
       }
     } catch (error) {
+
+      console.error("Error al enviar los datos al servidor:", error);
+      console.log("Hubo un error al crear la publicación.");
+
+      const handlePremium = async () => {
+        try {
+          let paymentData;
+      
+          if (userData) {
+            paymentData = {
+              userId: userData.id,
+              title: "Premium",
+              quantity: 1,
+              price: 1500,
+              currency_id: "ARG",
+              description: "Usuario premium",
+            };
+          } else {
+            paymentData = {
+              userId: user.id,
+              title: "Premium",
+              quantity: 1,
+              price: 1500,
+              currency_id: "ARG",
+              description: "Usuario premium",
+            };
+          }
+      
+          const response = await axios.post("/plans/create-order", paymentData);
+      
+          if (response) {
+            window.location.href = response.data.response.body.init_point;
+          } else {
+            console.error("Init point not found in the response");
+          }
+        } catch (error) {
+          console.error("Error al realizar solicitud de compra", error);
+        }
+      };
+
+      if (error.response && error.response.data && error.response.data.error) {
+        const errorMessage = error.response.data.error;
+        if (errorMessage === "Solo los usuarios premium pueden tener mas de una publicacion a la vez!") {
+          const payResponse = await Swal.fire({
+            title: "¡Ups!",
+            text: "Solo los usuarios premium pueden tener más de una publicación a la vez.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Hacerse Premium",
+            cancelButtonText: "Cancelar",
+            reverseButtons: true,
+            preConfirm: () => {
+              handlePremium(true);
+            },
+          });
+    
+          if (payResponse.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Acción cancelada',
+              text: 'No te has vuelto Premium. Si decides hacerlo más tarde, ¡siempre estamos aquí!',
+            });
+          }
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Usuario Premium',
+            text: errorMessage,
+          });
+        }
+      } else {
+        console.error("Error inesperado:", error);
+      }
+    
       setFormData({
         ...formData,
         disabled: false,
-      })
-      console.error("Error al enviar los datos al servidor:", error);
-      console.log("Hubo un error al crear la publicación.");
+      });
     }
   };
 
