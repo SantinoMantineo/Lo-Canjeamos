@@ -21,6 +21,7 @@ import Register from "./components/register/Register";
 import Loading from "./views/loading/Loading";
 import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/resetPassword/ResetPassword";
+import UserProfile from "./views/userProfile/userProfile";
 
 import "./App.css";
 import ReviewForm from "./components/formReview/FormReview";
@@ -64,7 +65,9 @@ const App = () => {
   }, [])
 
   axios.defaults.baseURL = "http://localhost:3001/";
+
   //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+
 
   //*Auth0
   const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
@@ -234,6 +237,7 @@ const App = () => {
         <Route path="/messages" element={userData && <Messages userData={userData} />} />
 
         <Route path="/admin" element={<AdminDash></AdminDash>} />
+        <Route path="/UserProfile/:userId" element={<UserProfile id={userData}></UserProfile>} />
       </Routes>
     </>
   );

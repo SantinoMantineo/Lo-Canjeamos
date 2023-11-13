@@ -68,6 +68,16 @@ router.get("/userId", authorization, async (req, res) => {
   }
 });
 
+router.get("/anotherUserId", async (req, res) => {
+  const { id } = req.query
+  try {
+    const response = await userController.getAnotherUser(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
+});
+
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const updatedData = req.body;

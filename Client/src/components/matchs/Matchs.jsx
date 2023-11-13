@@ -129,6 +129,10 @@ const Matchs = ({ userData}) => {
     }
   }
 
+  function handleGoProfile(anotherUserId) {
+      navigate(`/UserProfile/${anotherUserId}`);
+  }
+
   return (
     <div className={style.container}>
       {loading ? (
@@ -165,6 +169,7 @@ const Matchs = ({ userData}) => {
               />
             </button>
             <button className={style.goChats}>
+            onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}
               <img
                 width="24"
                 height="24"
@@ -173,6 +178,7 @@ const Matchs = ({ userData}) => {
               />
             </button>
             <button
+
               onClick={() => {
                 dispatch(deleteLike(pair.anotherUserPost.id));
                 console.log(pair.anotherUserPost.id);
