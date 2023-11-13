@@ -67,7 +67,11 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
       OneSignal.User.addTag("subscription:", "notPremium");
       console.log("notPremium");
     }
+    OneSignal.User.addAlias("Name", userData.unsername || user.name);
+    console.log("Name", userData.unsername || user.name);
   };
+
+  console.log(OneSignal);
 
   sendNot();
 
