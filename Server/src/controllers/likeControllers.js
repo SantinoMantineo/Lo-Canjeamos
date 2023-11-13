@@ -46,8 +46,34 @@ const getLikesRecibidos = async (myUserId) => {
   }
 };
 
+const removeLike = async (likeId) => {
+  try {
+    // Busca el like por la propiedad "likedPostId"
+    const likeToRemove = await Like.findOne({
+      where: { likedPostId: likeId },
+    });
+
+    // Verifica si el like existe
+    if (!likeToRemove) {
+      throw new Error('No se encontró el like con el likedPostId proporcionado');
+    }
+
+    // Obtiene el ID del post que le dio like
+    const likedPostId = likeToRemove.likedPostId;
+
+    // Elimina el like
+    await likeToRemove.destroy();
+
+    return likedPostId; // Devuelve el ID del post que le dio like
+  } catch (error) {
+    throw new Error('Error al eliminar el like: ' + error.message);
+  }
+};
+
+
 module.exports = {
   createLike,
   getAllLikes,
-  getLikesRecibidos
+  getLikesRecibidos,
+  removeLike
 };

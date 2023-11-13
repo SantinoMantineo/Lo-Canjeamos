@@ -33,6 +33,7 @@ import {
   LIKE_POST,
   LIKED_POSTS,
   GET_ALL_LIKES,
+  DELETE_LIKE,
   GET_MATCHES,
   UPDATE_FILTERED_MATCHES,
   CREATE_POST,
@@ -253,6 +254,17 @@ export function getAllLikes() {
     return dispatch({
       type: GET_ALL_LIKES,
       payload: response.data,
+    });
+  };
+}
+
+export function deleteLike(likeId) {
+  return async (dispatch) => {
+    const result = await axios.delete(`/likes/${likeId}`);
+    console.log(result)
+    dispatch({
+      type: DELETE_LIKE,
+      payload: result.data,
     });
   };
 }
