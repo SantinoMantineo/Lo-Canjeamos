@@ -22,6 +22,15 @@ router.get("/allDisabledUsers", async (req, res) => {
   }
 });
 
+router.get("/allExistingUsers", async (req, res) => {
+  try {
+    const response = await userController.getAllExisting();
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(error.message)
+  }
+});
+
 router.post("/register", validInfo, async (req, res) => {
   const user = req.body;
   try {
@@ -53,6 +62,16 @@ router.get("/verify", authorization, async (req, res) => {
 router.get("/userId", authorization, async (req, res) => {
   try {
     const response = await userController.getUserId(req.body.user);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
+});
+
+router.get("/anotherUserId", async (req, res) => {
+  const { id } = req.query
+  try {
+    const response = await userController.getAnotherUser(id);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json(error.message);

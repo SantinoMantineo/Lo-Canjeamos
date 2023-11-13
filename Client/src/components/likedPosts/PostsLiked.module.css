@@ -41,6 +41,7 @@
 
 .containerP h4 {
   text-align: left;
+  align-self: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,5 +1,5 @@
 const express = require("express");
-const { createServer } = require("http");
+const { createServer } = require("node:http");
 const { Server } = require("socket.io");
 
 const router = require("./src/routes/routes");
@@ -15,23 +15,23 @@ const io = new Server(httpServer, {
 
 io.on("connection", (socket) => {
   console.log('Un cliente se ha conectado');
-  socket.on("new-message", async (mensaje) => {
-    try {
-      // Guarda el mensaje en la base de datos utilizando el modelo de mensajes
-      const nuevoMensaje = await Message.create({
-        contenido: mensaje.contenido,
-        remitenteId: mensaje.remitenteId, // ID del remitente
-        chatId: mensaje.chatId, // ID del chat al que pertenece
-        fechaEnvio: new Date(), // Fecha y hora actual
-        // Otros campos del mensaje
-      });
-      // Notifica a todos los clientes (incluido el remitente) sobre el nuevo mensaje
-      socket.emit("new-message", nuevoMensaje);
-    } catch (error) {
-      console.error("Error al guardar el mensaje en la base de datos:", error);
-    }
+
+  socket.on("joinRoom", (chatId) => {
+    socket.join(chatId);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Un cliente se ha desconectado");
+  });
+
+  socket.on('chat message', (messageData) => {
+    const { userId, chatId, content } = messageData;
+    console.log(`Mensaje recibido para el chat ${chatId} del usuario ${userId}: ${content}`);
+    io.to(chatId).emit('chat message', messageData);
   });
 });
+
+
 
 const morgan = require("morgan");
 const cors = require("cors");

@@ -1,13 +1,22 @@
 import {
   GET_ALL_USERS,
   GET_ALL_DISABLED_USERS,
+  GET_ALL_EXISTING_USERS,
   GET_USER_BY_ID,
+  SORT_USER_BY_PLAN,
+  SORT_USER_BY_STATUS,
+  SORT_USER_BY_ID,
   CREATE_USER,
   UPDATE_USER,
   DELETE_USER,
   RESTORE_USER,
+  RESET_USERS_FILTER,
   GET_ALL_POSTS,
   GET_ALL_DISABLED_POSTS,
+  GET_ALL_EXISTING_POSTS,
+  SORT_POSTS_BY_ID,
+  SORT_POSTS_BY_STATUS,
+  RESET_POSTS_FILTER,
   GET_POST_BY_ID,
   SELECT_CATEGORY,
   SELECT_LOCALITY,
@@ -21,9 +30,10 @@ import {
   RESTORE_POST,
   RESET_FILTERS,
   CARGAR_HISTORIAL_MENSAJES,
-  ADD_MESSAGE_TO_HISTORY,
+  OTHER_USER_DATA,
   GET_ALL_MESSAGES,
   GET_ALL_CHATS,
+  CHAT_CREATED,
   GET_MATCHES,
   UPDATE_FILTERED_MATCHES,
   LIKED_POSTS,
@@ -34,11 +44,17 @@ import {
 
 const initialState = {
   allUsers: [],
+  allExistingUsers: [],
+  allExistingUsersCopy: [],
   allDisabledUsers: [],
+  otherUserName: "",
+  otherUserImage: "",
   selectedUser: "",
   allPosts: [],
   allPostsCopy: [],
   allDisabledPosts: [],
+  allExistingPosts: [],
+  allExistingPostsCopy: [],
   selectedPost: "",
   selectedProvince: "",
   selectedLocality: "",
@@ -61,6 +77,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsers: action.payload,
+        allUsersCopy: action.payload,
       };
 
     case GET_ALL_DISABLED_USERS:
@@ -69,11 +86,73 @@ function rootReducer(state = initialState, action) {
         allDisabledUsers: action.payload,
       };
 
+    case GET_ALL_EXISTING_USERS:
+      return {
+        ...state,
+        allExistingUsers: action.payload,
+        allExistingUsersCopy: action.payload,
+      };
+
     case GET_USER_BY_ID:
       return {
         ...state,
         selectedUser: action.payload,
       };
+
+    case SORT_USER_BY_ID: {
+      let ordered;
+
+      if (action.payload === "Ascendente") {
+        ordered = state.allExistingUsers.sort((a, b) =>
+          a.id > b.id ? 1 : -1
+        );
+      } else {
+        ordered = state.allExistingUsers.sort((a, b) =>
+          b.id > a.id ? 1 : -1
+        );
+      }
+
+      return {
+        ...state,
+        allExistingUsers: [...ordered],
+      };
+    }
+
+    case SORT_USER_BY_PLAN: {
+      let users = state.allExistingUsersCopy;
+
+      if(action.payload === "Todos") {
+        users = state.allExistingUsersCopy
+      } else {
+        users = state.allExistingUsersCopy.filter(
+          (user) => user.plan === action.payload
+        )
+      }
+
+      return {
+        ...state,
+        allExistingUsers: [...users]
+      };
+    }
+
+    case SORT_USER_BY_STATUS: {
+      let users = state.allExistingUsersCopy;
+
+      if (action.payload === "Activos") {
+        users = state.allExistingUsersCopy.filter(
+          (user) => !user.Deshabilitado)
+      } else if (action.payload === "Deshabilitados") {
+        users = state.allExistingUsersCopy.filter(
+          (user) => user.Deshabilitado)
+      } else {
+        users = state.allExistingUsersCopy
+      }
+
+      return {
+        ...state,
+        allExistingUsers: [...users]
+      };
+    }
 
     case CREATE_USER:
       return {
@@ -106,13 +185,23 @@ function rootReducer(state = initialState, action) {
         if (insertIndex === -1) {
           allUsers.push(action.payload);
         } else {
-          allUsers.splice(insertIndex, 0, action.payload);
+          if (insertIndex === 0) {
+            allUsers.unshift(action.payload);
+          } else {
+            allUsers.splice(insertIndex, 0, action.payload);
+          }
         }
       
         return {
           ...state,
           allUsers,
         };
+      }
+
+    case RESET_USERS_FILTER: 
+      return {
+        ...state,
+        allExistingUsers: state.allExistingUsersCopy
       }
 
     case GET_ALL_POSTS:
@@ -128,11 +217,71 @@ function rootReducer(state = initialState, action) {
         allDisabledPosts: action.payload,
       };
 
+
+    case OTHER_USER_DATA:
+      return {
+        ...state,
+        otherUserName: action.payload.otherUserName,
+        otherUserImage: action.payload.otherUserImage
+      }
+
+    case GET_ALL_EXISTING_POSTS:
+      return {
+        ...state,
+        allExistingPosts: action.payload,
+        allExistingPostsCopy: action.payload,
+      };
+
+
     case GET_POST_BY_ID:
       return {
         ...state,
         selectedPost: action.payload,
       };
+
+      case SORT_POSTS_BY_ID: {
+        let ordered;
+  
+        if (action.payload === "Ascendente") {
+          ordered = state.allExistingPosts.sort((a, b) =>
+            a.id > b.id ? 1 : -1
+          );
+        } else {
+          ordered = state.allExistingPosts.sort((a, b) =>
+            b.id > a.id ? 1 : -1
+          );
+        }
+  
+        return {
+          ...state,
+          allExistingPost: [...ordered],
+        };
+      }
+  
+      case SORT_POSTS_BY_STATUS: {
+        let posts = state.allExistingPostsCopy;
+  
+        if (action.payload === "Activas") {
+          posts = state.allExistingPostsCopy.filter(
+            (post) => !post.Deshabilitado)
+        } else if (action.payload === "Deshabilitadas") {
+          posts = state.allExistingPostsCopy.filter(
+            (post) => post.Deshabilitado)
+        } else {
+          posts = state.allExistingPostsCopy
+        }
+  
+        return {
+          ...state,
+          allExistingPosts: [...posts]
+        };
+      }
+
+      case RESET_POSTS_FILTER: 
+      return {
+        ...state,
+        allExistingPosts: state.allExistingPostsCopy
+      }
 
     case SELECT_PROVINCE:
       return {
@@ -210,23 +359,27 @@ function rootReducer(state = initialState, action) {
         ),
       };
 
-    case RESTORE_POST: {
-      const { id } = action.payload;
-      const allPosts = [...state.allPosts];
-
-      const insertIndex = allPosts.findIndex((post) => post.id > id);
-
-      if (insertIndex === -1) {
-        allPosts.push(action.payload);
-      } else {
-        allPosts.splice(insertIndex, 0, action.payload);
+      case RESTORE_POST: {
+        const { id } = action.payload;
+        const allPosts = [...state.allPosts];
+      
+        const insertIndex = allPosts.findIndex((user) => user.id > id);
+      
+        if (insertIndex === -1) {
+          allPosts.push(action.payload);
+        } else {
+          if (insertIndex === 0) {
+            allPosts.unshift(action.payload);
+          } else {
+            allPosts.splice(insertIndex, 0, action.payload);
+          }
+        }
+      
+        return {
+          ...state,
+          allPosts,
+        };
       }
-    
-      return {
-        ...state,
-        allPosts,
-      };
-    }
 
     case GET_ALL_LIKES:
       return {
@@ -272,12 +425,6 @@ function rootReducer(state = initialState, action) {
         messageHistory: action.payload,
       };
 
-    case ADD_MESSAGE_TO_HISTORY:
-      return {
-        ...state,
-        messageHistory: [...state.messageHistory, action.payload],
-      };
-
     case GET_ALL_MESSAGES:
       return {
         ...state,
@@ -289,6 +436,20 @@ function rootReducer(state = initialState, action) {
         ...state,
         chats: action.payload,
       };
+
+case CHAT_CREATED:
+  return {
+    ...state,
+    chats: [
+      ...state.chats,
+      {
+        id: action.payload.chatId.chatId,
+        user1Id: action.payload.user1Id,
+        user2Id: action.payload.user2Id
+      },
+    ],
+  };
+
 
     case RESET_FILTERS:
       return {

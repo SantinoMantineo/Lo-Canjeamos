@@ -13,7 +13,6 @@ import axios from "axios";
 
 const Exchanges = ({ userData }) => {
   const [isPremium, setPremium] = useState(false);
-  const dispatch = useDispatch();
 
   const premium = async () => {
     try {
@@ -35,7 +34,6 @@ const Exchanges = ({ userData }) => {
 
   useEffect(() => {
     premium();
-    setPremium(true)      // ESTA LINEA ESTA DE PRUEBA HASTA QUE SE ARREGLE EL PREMIUM
   }, []);
 
   return (
@@ -50,22 +48,27 @@ const Exchanges = ({ userData }) => {
           opacity: 1,
           y: 0,
         }}
-        className={isPremium ? style.exchanges : style.exchangesPremium}
+        className={isPremium ? style.exchangesPremium : style.exchanges }
       >
         <div className={style.matchs}>
-          <h3>Canjes logrados</h3>
+          <h3>Mis canjes logrados</h3>
           <Matchs userData={userData}></Matchs>
         </div>
         <div className={style.likes}>
-          <h3>Intentos de canje</h3>
+          <h3>Mis intentos de canje</h3>
           <PostsLiked userData={userData}></PostsLiked>
         </div>
-        {isPremium && (
-          <div className={style.likes}>
-            <h3>Publicaciones que quieren canjear!</h3>
+        {isPremium ? (
+          <div className={style.requests}>
+            <h3>Pedidos de canje recibidos</h3>
             <RecivedLikes userData={userData}></RecivedLikes>
           </div>
-        )}
+        ) : <div className={style.requests}>
+        <h3>Pedidos de canje recibidos</h3>
+        <div className={style.alert}>
+       <h3>Para acceder a esta funcionalidad debes ser premium</h3>
+       </div>
+      </div>}
       </motion.div>
     </>
   );

@@ -1,12 +1,30 @@
 .containerP {
     display: grid;
-    
+  }
+
+  .containerP a {
+    color: grey;
+    justify-self: left;
+  }
+
+  .containerP h5 {
+    position: absolute;
+    justify-self: center;
+    align-self: center;
+    margin: 0px;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  .containerP .label {
+    margin-top: 25px;
+    margin-bottom: 0px;
   }
   
   .like {
     display: grid;
-    justify-self: center;
     grid-template-columns: 1fr 2fr;
+    justify-self: center;
     width: 250px;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
     border-radius: 10px;
@@ -14,6 +32,13 @@
     padding: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
+  }
+
+  .like p {
+    display: grid;
+    align-self: center;
+    justify-self: left;
+    margin-left: 10px;
   }
   
   .likes {
@@ -47,10 +72,32 @@
   }
   
   .containerP img {
-    justify-self: center;
+    justify-self: left;
+    margin-left: 10px;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     border: 3px solid grey;
+  }
+
+  .firstLike {
+    display: grid;
+  }
+
+  .firstLike .like {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border: 2px solid #4ecdc4;
+  }
+
+  .firstLike .like img {
+    border: 3px solid #4ecdc4;
+  }
+
+  .firstLike .like p {
+    display: grid;
+    align-self: center;
+    justify-self: left;
+    margin-left: 10px;
   }
   

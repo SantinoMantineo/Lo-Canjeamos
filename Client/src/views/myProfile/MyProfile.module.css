@@ -22,6 +22,18 @@
   justify-self: right;
 }
 
+.publicationsPremium {
+  display: grid;
+  align-content: flex-start;
+  width: 300px;
+  height: fit-content;
+  box-shadow: 0px 5px 10px rgba(127, 126, 126, 0.3);
+  border: 2px solid goldenrod;
+  border-radius: 10px;
+  padding: 30px;
+  justify-self: right;
+}
+
 .agregar {
   background-color: #4ecdc4;
   color: whitesmoke;

@@ -87,6 +87,7 @@
   gap: 30px;
   margin-top: 30px;
   justify-self: center;
+  margin-bottom: 100px;
 }
 
 .column1 {
@@ -95,6 +96,10 @@
   height: auto;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   border-radius: 10px;
+}
+
+.column1 img {
+  justify-self: center;
 }
 
 .column1 h4 {
@@ -119,4 +124,20 @@
     background-color: rgba(0, 149, 255, 0.3);
     padding-left: 10px;
     border-radius: 5px;
+}
+
+/* Los estilos de 'element' los agregó Agus, borrar o modificar cuando sea necesario. */
+
+.element {
+  display: grid;
+  grid-template-columns: 2fr 5fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+}
+
+.element span {
+  width: fit-content;
+}
+
+button:disabled img{
+  filter: grayscale(100%);
 }

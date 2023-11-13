@@ -1,0 +1,35 @@
+
+.formReview input,
+.formReview textarea,
+.formReview button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+   border: 2px solid #4caf50; /* Color del borde */
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.formReview button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.formReview button:hover {
+  background-color: #45a049;
+}
+
+.formReview .star {
+    cursor: pointer;
+    font-size: 30px;
+    color: gray;
+    transition: color 0.3s;
+  }
+  
+  .formReview .star:hover,
+  .formReview .star.active {
+    color: gold;
+  }

@@ -15,10 +15,9 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    senderId: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    // Otras propiedades que puedas necesitar
   });
 };
