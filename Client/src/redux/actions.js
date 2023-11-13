@@ -3,11 +3,15 @@ import {
   GET_ALL_USERS,
   GET_ALL_DISABLED_USERS,
   GET_ALL_EXISTING_USERS,
+  SORT_USER_BY_ID,
+  SORT_USER_BY_PLAN,
+  SORT_USER_BY_STATUS,
   GET_USER_BY_ID,
   CREATE_USER,
   UPDATE_USER,
   DELETE_USER,
   RESTORE_USER,
+  RESET_USERS_FILTER,
   CARGAR_HISTORIAL_MENSAJES,
   GET_ALL_MESSAGES,
   OTHER_USER_DATA,
@@ -15,6 +19,9 @@ import {
   GET_ALL_POSTS,
   GET_ALL_DISABLED_POSTS,
   GET_ALL_EXISTING_POSTS,
+  SORT_POSTS_BY_ID,
+  SORT_POSTS_BY_STATUS,
+  RESET_POSTS_FILTER,
   GET_POST_BY_ID,
   SELECT_CATEGORY,
   SELECT_LOCALITY,
@@ -76,7 +83,29 @@ export function getUserById(id) {
   };
 }
 
+export const sortUsersByID = (order) => {
+  return {
+    type: SORT_USER_BY_ID,
+    payload: order,
+  };
+};
+
+export const sortUsersByPlan = (plan) => {
+  return {
+    type: SORT_USER_BY_PLAN,
+    payload: plan,
+  };
+};
+
+export const sortUsersByStatus = (status) => {
+  return {
+    type: SORT_USER_BY_STATUS,
+    payload: status,
+  };
+};
+
 export function createGoogleUser(user) {
+
   console.log("actions entrega",user);
   return async (dispatch) => {
     const result = await axios.post(
@@ -117,6 +146,12 @@ export function deleteUser(id) {
       type: DELETE_USER,
       payload: result.data,
     });
+  };
+}
+
+export function resetUsersFilter() {
+  return {
+    type: RESET_USERS_FILTER,
   };
 }
 
@@ -337,6 +372,26 @@ export function restorePost(id) {
       type: RESTORE_POST,
       payload: result.data,
     });
+  };
+}
+
+export const sortPostsByID = (order) => {
+  return {
+    type: SORT_POSTS_BY_ID,
+    payload: order,
+  };
+};
+
+export const sortPostsByStatus = (status) => {
+  return {
+    type: SORT_POSTS_BY_STATUS,
+    payload: status,
+  };
+};
+
+export function resetPostsFilter() {
+  return {
+    type: RESET_POSTS_FILTER,
   };
 }
 

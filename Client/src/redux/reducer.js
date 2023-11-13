@@ -3,13 +3,20 @@ import {
   GET_ALL_DISABLED_USERS,
   GET_ALL_EXISTING_USERS,
   GET_USER_BY_ID,
+  SORT_USER_BY_PLAN,
+  SORT_USER_BY_STATUS,
+  SORT_USER_BY_ID,
   CREATE_USER,
   UPDATE_USER,
   DELETE_USER,
   RESTORE_USER,
+  RESET_USERS_FILTER,
   GET_ALL_POSTS,
   GET_ALL_DISABLED_POSTS,
   GET_ALL_EXISTING_POSTS,
+  SORT_POSTS_BY_ID,
+  SORT_POSTS_BY_STATUS,
+  RESET_POSTS_FILTER,
   GET_POST_BY_ID,
   SELECT_CATEGORY,
   SELECT_LOCALITY,
@@ -37,6 +44,7 @@ import {
 const initialState = {
   allUsers: [],
   allExistingUsers: [],
+  allExistingUsersCopy: [],
   allDisabledUsers: [],
   otherUserName: "",
   otherUserImage: "",
@@ -45,6 +53,7 @@ const initialState = {
   allPostsCopy: [],
   allDisabledPosts: [],
   allExistingPosts: [],
+  allExistingPostsCopy: [],
   selectedPost: "",
   selectedProvince: "",
   selectedLocality: "",
@@ -80,6 +89,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allExistingUsers: action.payload,
+        allExistingUsersCopy: action.payload,
       };
 
     case GET_USER_BY_ID:
@@ -87,6 +97,61 @@ function rootReducer(state = initialState, action) {
         ...state,
         selectedUser: action.payload,
       };
+
+    case SORT_USER_BY_ID: {
+      let ordered;
+
+      if (action.payload === "Ascendente") {
+        ordered = state.allExistingUsers.sort((a, b) =>
+          a.id > b.id ? 1 : -1
+        );
+      } else {
+        ordered = state.allExistingUsers.sort((a, b) =>
+          b.id > a.id ? 1 : -1
+        );
+      }
+
+      return {
+        ...state,
+        allExistingUsers: [...ordered],
+      };
+    }
+
+    case SORT_USER_BY_PLAN: {
+      let users = state.allExistingUsersCopy;
+
+      if(action.payload === "Todos") {
+        users = state.allExistingUsersCopy
+      } else {
+        users = state.allExistingUsersCopy.filter(
+          (user) => user.plan === action.payload
+        )
+      }
+
+      return {
+        ...state,
+        allExistingUsers: [...users]
+      };
+    }
+
+    case SORT_USER_BY_STATUS: {
+      let users = state.allExistingUsersCopy;
+
+      if (action.payload === "Activos") {
+        users = state.allExistingUsersCopy.filter(
+          (user) => !user.Deshabilitado)
+      } else if (action.payload === "Deshabilitados") {
+        users = state.allExistingUsersCopy.filter(
+          (user) => user.Deshabilitado)
+      } else {
+        users = state.allExistingUsersCopy
+      }
+
+      return {
+        ...state,
+        allExistingUsers: [...users]
+      };
+    }
 
     case CREATE_USER:
       return {
@@ -132,6 +197,12 @@ function rootReducer(state = initialState, action) {
         };
       }
 
+    case RESET_USERS_FILTER: 
+      return {
+        ...state,
+        allExistingUsers: state.allExistingUsersCopy
+      }
+
     case GET_ALL_POSTS:
       return {
         ...state,
@@ -157,6 +228,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allExistingPosts: action.payload,
+        allExistingPostsCopy: action.payload,
       };
 
 
@@ -165,6 +237,50 @@ function rootReducer(state = initialState, action) {
         ...state,
         selectedPost: action.payload,
       };
+
+      case SORT_POSTS_BY_ID: {
+        let ordered;
+  
+        if (action.payload === "Ascendente") {
+          ordered = state.allExistingPosts.sort((a, b) =>
+            a.id > b.id ? 1 : -1
+          );
+        } else {
+          ordered = state.allExistingPosts.sort((a, b) =>
+            b.id > a.id ? 1 : -1
+          );
+        }
+  
+        return {
+          ...state,
+          allExistingPost: [...ordered],
+        };
+      }
+  
+      case SORT_POSTS_BY_STATUS: {
+        let posts = state.allExistingPostsCopy;
+  
+        if (action.payload === "Activas") {
+          posts = state.allExistingPostsCopy.filter(
+            (post) => !post.Deshabilitado)
+        } else if (action.payload === "Deshabilitadas") {
+          posts = state.allExistingPostsCopy.filter(
+            (post) => post.Deshabilitado)
+        } else {
+          posts = state.allExistingPostsCopy
+        }
+  
+        return {
+          ...state,
+          allExistingPosts: [...posts]
+        };
+      }
+
+      case RESET_POSTS_FILTER: 
+      return {
+        ...state,
+        allExistingPosts: state.allExistingPostsCopy
+      }
 
     case SELECT_PROVINCE:
       return {
