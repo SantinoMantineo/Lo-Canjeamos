@@ -34,6 +34,7 @@ import {
   SELECTED_POST,
   RESET_FILTERS,
   CLEAR_DETAIL,
+  ADD_REVIEW
 } from "./actionTypes";
 
 export function getAllUsers() {
