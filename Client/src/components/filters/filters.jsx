@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectCategory,
@@ -11,7 +11,6 @@ import {
   resetFilters,
 } from "../../redux/actions";
 import style from "./Filters.module.css";
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import imgBase from "../../assets/imgBase.jpg";
@@ -23,10 +22,32 @@ const Filters = () => {
   const dispatch = useDispatch();
   const allPostsCopy = useSelector((state) => state.allPostsCopy);
   const selectedImage = useSelector((state) => state.selectedPostImage);
-  
+
+  // Obtener filtros almacenados en localStorage al cargar el componente
   useEffect(() => {
+    const storedProvince = localStorage.getItem("selectedProvince");
+    const storedLocality = localStorage.getItem("selectedLocality");
+    const storedCategory = localStorage.getItem("selectedCategory");
+
+    if (storedProvince) dispatch(selectProvince(storedProvince));
+    if (storedLocality) dispatch(selectLocality(storedLocality));
+    if (storedCategory) dispatch(selectCategory(storedCategory));
+
+    // Obtener posts según los filtros almacenados
+    if (storedProvince) dispatch(getPostByProvince(storedProvince));
+    if (storedLocality) dispatch(getPostByLocality(storedLocality));
+    if (storedCategory) dispatch(getPostByCategory(storedCategory));
+
+    // Obtener todos los posts al cargar el componente
     dispatch(getAllPosts());
   }, [dispatch]);
+
+  // Actualizar localStorage cuando cambian los filtros
+  useEffect(() => {
+    if (selectedProvince) localStorage.setItem("selectedProvince", selectedProvince);
+    if (selectedLocality) localStorage.setItem("selectedLocality", selectedLocality);
+    if (selectedCategory) localStorage.setItem("selectedCategory", selectedCategory);
+  }, [selectedProvince, selectedLocality, selectedCategory]);
 
   const handleProvinceChange = (event) => {
     const province = event.target.value;
@@ -69,6 +90,11 @@ const Filters = () => {
   ];
 
   const handleResetFilters = () => {
+    // Limpiar localStorage al restablecer los filtros
+    localStorage.removeItem("selectedProvince");
+    localStorage.removeItem("selectedLocality");
+    localStorage.removeItem("selectedCategory");
+
     dispatch(resetFilters());
     dispatch(getAllPosts());
   };
