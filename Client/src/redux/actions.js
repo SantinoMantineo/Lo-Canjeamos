@@ -76,7 +76,7 @@ export function getUserById(id) {
   };
 }
 
-export function createGoogleUser(user) {//* 
+export function createGoogleUser(user) {
   console.log("actions entrega",user);
   return async (dispatch) => {
     const result = await axios.post(

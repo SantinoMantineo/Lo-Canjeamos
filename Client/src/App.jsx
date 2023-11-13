@@ -23,6 +23,7 @@ import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import ResetPassword from "./components/resetPassword/ResetPassword";
 
 import "./App.css";
+import ReviewForm from "./components/formReview/FormReview";
 
 
 
@@ -223,6 +224,8 @@ const App = () => {
         <Route path="/chats/:chatId" element={userData ? <Chats userData={userData} /> : <Loading />}/>
 
         <Route path="/register" element={isAuthenticated ? (userData && <MyProfile userData={userData} setAuth={setAuth}/>) : (<Register setAuth={setAuth}/>)}/>
+
+        <Route path="/review" element={userData ? (<ReviewForm userData={userData} />) : user ? (<ReviewForm userData={user} />) : (<Loading />)}/>
         
         <Route path="/forgotpassword" element={<ForgotPassword />} />
 
