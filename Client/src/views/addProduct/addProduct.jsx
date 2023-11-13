@@ -301,14 +301,14 @@ setErrors({ ...errors, [name]: error });
       if (response) {
         Swal.fire({
           icon: "success",
-          title: ">🎉 ¡Hecho! 🎉",
+          title: "🎉 ¡Hecho! 🎉",
           html: '<p>Tu publicación ha sido creada correctamente. Puedes verla en tu perfil o visualizarla en el inicio.</p>',
           allowOutsideClick: false
         }).then((result) => {
           if (result.isConfirmed) {
             window.location.href = response
-              ? 'http://localhost:5173/#/login'
-              : 'https://locanjeamos.com.ar/#/login';
+              ? 'https://locanjeamos.com.ar/#/login'
+              : 'http://localhost:5173/#/login'
           }
         });
 
@@ -525,3 +525,4 @@ setErrors({ ...errors, [name]: error });
     </>
   );
 }
+

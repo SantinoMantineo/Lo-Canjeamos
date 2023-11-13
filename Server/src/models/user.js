@@ -39,10 +39,15 @@ module.exports = (sequelize) => {
     origin: {
       type: DataTypes.STRING,
       defaultValue: "DB"
-    }
+    },
+    averageRating: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0, 
+    },
   },
   {
     paranoid: true,
     deletedAt: 'Deshabilitado'
   });
 };
+
