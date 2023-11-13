@@ -1,0 +1,106 @@
+.footer {
+  display: grid;
+  justify-self: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100vw;
+  height: 150px;
+  background-color: rgb(230, 230, 230);
+}
+
+.footer h3 {
+  color: rgb(75, 75, 75);
+  margin: 0;
+  margin: 10px;
+  align-self: center;
+}
+
+.left {
+  display: grid;
+}
+
+.right a {
+  margin-left: 50px;
+}
+
+.center {
+  display: grid;
+}
+
+.ab {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.a {
+  display: grid;
+}
+
+.b {
+  display: grid;
+}
+
+.b a {
+  justify-self: left;
+}
+
+.a a {
+  justify-self: left;
+}
+
+.center a {
+  font-size: 12px;
+}
+
+.right {
+  display: grid;
+}
+
+.footer a {
+  display: flex;
+  color: grey;
+  justify-self: left;
+  transition: 200ms;
+}
+
+.footer p {
+  justify-self: left;
+  margin: 0;
+  margin-left: 50px;
+}
+
+.footer a:hover {
+  scale: 1.03;
+}
+
+.bottom {
+  background-color: whitesmoke;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .footer a {
+    justify-self: center;
+  }
+
+  .right a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .footer p {
+    justify-self: center;
+    margin-left: 0;
+  }
+
+  .right a {
+    margin-left: 0;
+  }
+
+  .bottom {
+    margin-bottom: 60px;
+  }
+}
