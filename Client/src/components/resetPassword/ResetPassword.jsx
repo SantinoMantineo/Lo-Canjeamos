@@ -76,7 +76,7 @@ const ResetPassword = () => {
         <div className={style.textContainer}>
           <h1 className={`${style.title} ${style.fontSemiBold}`}>Subir Contraseña</h1>
         </div>
-        <div className={`${style.inputContainer} ${style.flexCol}`}>
+        <div className={style.inputContainer}>
           <label className={style.label}>Nueva contraseña</label>
           <input
             type={showPassword ? "text" : "password"}
@@ -96,12 +96,13 @@ const ResetPassword = () => {
               className={style.segundoInput}
             />
               {error.passwordRepeat && <span className={style.error}>{error.passwordRepeat}</span>}
+              <label className={style.showP}>ver contraseñas</label>
             <input
               type="checkbox"
               id="showPassword"
               onChange={handleShowPassword}
               checked={showPassword}
-            
+
             />
         </div>
         <div className={style.buttonContainer}>
