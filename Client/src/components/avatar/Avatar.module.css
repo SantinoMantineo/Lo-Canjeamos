@@ -39,6 +39,11 @@
   margin: 5px;
 }
 
+.avatar h4 {
+  color: #4ecdc4;
+  margin: 0;
+}
+
 .avatarPremium h3 {
   margin: 5px;
 }

@@ -96,7 +96,7 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
             ))}
           </div>
         ) : (
-          <h3>Todavia nadie te a calificado</h3>
+          <h4>Todavia nadie te a calificado</h4>
         )}
         <button
           className={isDarkMode ? style.dark : style.light}

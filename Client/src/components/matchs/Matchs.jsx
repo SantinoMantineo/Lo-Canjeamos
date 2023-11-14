@@ -168,8 +168,8 @@ const Matchs = ({ userData}) => {
                 alt="Chat"
               />
             </button>
-            <button className={style.goChats}>
-            onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}
+            <button className={style.goChats} onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}>
+            
               <img
                 width="24"
                 height="24"
@@ -185,7 +185,7 @@ const Matchs = ({ userData}) => {
               }}
               className={style.eliminateMatch}
             >
-              Eliminar Match
+              <img width="24" height="24" src="https://img.icons8.com/fluency-systems-filled/48/cancel.png" alt="cancel"/>
             </button>
           </div>
         ))
