@@ -192,8 +192,15 @@ const Detail = ({ userData }) => {
         </div>
 
         <div className={style.info}>
-          <span>Rating usuario:</span>
-          <h4>⭐️⭐️⭐️</h4>
+        {post.User.averageRating ? (
+          <div>
+            {Array.from({ length: post.User.averageRating }, (_, index) => (
+              <span key={index}>⭐️</span>
+            ))}
+          </div>
+        ) : (
+          <h4>Todavía nadie te ha calificado.</h4>
+        )}
           <span>Publicacion de:</span>
           {post.User && userName && <h4>{userName}</h4>}
 
