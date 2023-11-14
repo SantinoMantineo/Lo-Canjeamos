@@ -107,8 +107,7 @@ const ChatsMessages = ({ chatId, userData }) => {
     dispatch(getAllChats());
   }, [dispatch]);
 
-  // Buscar el username del otro usuario en la lista de usuarios
-  // Buscar el username del otro usuario en allUsers
+
   useEffect(() => {
     if (chats.length > 0) {
       window.scrollTo(0, document.body.scrollHeight);
