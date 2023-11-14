@@ -75,9 +75,10 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
   return (
     <>
       <div className={isPremium ? style.avatarPremium : style.avatar}>
-        <Link to="/admin">
+        {userData.rol === "admin" &&         <Link to="/admin">
         <button className={style.dash}><img width="30" height="30" src="https://img.icons8.com/color/48/dashboard.png" alt="dashboard"/></button>
-        </Link>
+        </Link>}
+
         <img
           src={(user && user.picture) || (userData && userData.image)}
           className={style.photo}
