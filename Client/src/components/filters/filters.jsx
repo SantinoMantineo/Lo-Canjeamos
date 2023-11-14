@@ -108,7 +108,7 @@ const Filters = () => {
         <span>Filtros</span>
         <select value={selectedProvince} onChange={handleProvinceChange}>
           <option value="" disabled>Provincia</option>
-          {provinces.map((province, index) => (
+          {uniqueProvinces().map((province, index) => (
             <option key={index} value={province}>
               {province}
             </option>
@@ -128,7 +128,7 @@ const Filters = () => {
         </select>
 
         <select value={selectedCategory} onChange={handleCategoryChange}>
-          <option value="">Categoría</option>
+          <option value="" disabled>Categoría</option>
           {uniqueCategories().map((category, index) => (
             <option key={index} value={category}>
               {category}
