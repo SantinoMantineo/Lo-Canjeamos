@@ -9,8 +9,7 @@
     align-content: center;
     justify-content: center;
     margin-top: 150px;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding: 20px;
 }
 
 .loading h1 {

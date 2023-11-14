@@ -261,7 +261,7 @@ const Register = ({setAuth}) => {
     <div className={style.container}>
       <img src={Logo} className={style.logo}/>
       <div className={style.title}>
-        <h2>Registrate</h2>
+        <h2>Regístrate</h2>
       </div>
 
       <div className={style.form}>
@@ -270,7 +270,7 @@ const Register = ({setAuth}) => {
             <input
               type="text"
               name="username"
-              placeholder="usuario"
+              placeholder="Usuario"
               onChange={handleInputChange}
               value={input.username}
               disabled={input.disabled}
@@ -282,7 +282,7 @@ const Register = ({setAuth}) => {
             <input
               type="email"
               name="email"
-              placeholder="email"
+              placeholder="Email"
               onChange={handleInputChange}
               value={input.email}
               disabled={input.disabled}
@@ -294,7 +294,7 @@ const Register = ({setAuth}) => {
             <input
               type={showPassword ? "text" : "password"}
               name="password"
-              placeholder="contraseña"
+              placeholder="Contraseña"
               onChange={handleInputChange}
               value={input.password}
               disabled={input.disabled}
@@ -311,7 +311,7 @@ const Register = ({setAuth}) => {
           <input
             type="password"
             name="repeatPassword"
-            placeholder="repetir contraseña"
+            placeholder="Repetir contraseña"
             onChange={handleInputChange}
             value={input.repeatPassword} // Asegúrate de tener un valor inicial en el estado
             disabled={input.disabled}
@@ -340,7 +340,7 @@ const Register = ({setAuth}) => {
         </div>
            
             <select onChange={handleProvinceChange} disabled={input.disabled}>
-              <option value="Elige una provincia">provincia</option>
+              <option value="Elige una provincia">Provincia</option>
               {sortedProvinces.map((province) => (
                 <option key={province.id} value={province.nombre}>
                   {province.nombre}
@@ -350,7 +350,7 @@ const Register = ({setAuth}) => {
             {errors.province && <span className={style.error}>{errors.province}</span>}
                
             <select id="selectLocalidades" onChange={handleLocalidadChange} disabled={input.disabled}>
-              <option value="Elige una localidad">localidad</option>
+              <option value="Elige una localidad">Localidad</option>
               {sortedLocalities.map((locality) => (
                 <option key={locality.id} value={locality.nombre}>
                   {locality.nombre}

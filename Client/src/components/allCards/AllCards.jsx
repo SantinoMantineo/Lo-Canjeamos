@@ -5,7 +5,7 @@ import style from './AllCards.module.css'
 
 const AllCards = ({ posts }) => {
 
-  const sortedPosts = posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const sortedPosts = posts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
   return (
     <>

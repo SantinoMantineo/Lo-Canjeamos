@@ -13,9 +13,9 @@ const Loading = () => {
           src="https://img.icons8.com/color/48/cancel.png"
           alt="cancel"
         />
-        <h1>Inicia sesión para acceder a todas las funciones</h1>
+        <h1>Debes iniciar sesión para acceder a todas las funcionalidades.</h1>
         <Link to="/login">
-        <button>Inicia sesión</button>
+        <button>Iniciar sesión</button>
         </Link>
       </div>
     </>

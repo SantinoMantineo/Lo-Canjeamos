@@ -23,31 +23,7 @@ const Filters = () => {
   const allPostsCopy = useSelector((state) => state.allPostsCopy);
   const selectedImage = useSelector((state) => state.selectedPostImage);
 
-  // Obtener filtros almacenados en localStorage al cargar el componente
-  useEffect(() => {
-    const storedProvince = localStorage.getItem("selectedProvince");
-    const storedLocality = localStorage.getItem("selectedLocality");
-    const storedCategory = localStorage.getItem("selectedCategory");
 
-    if (storedProvince) dispatch(selectProvince(storedProvince));
-    if (storedLocality) dispatch(selectLocality(storedLocality));
-    if (storedCategory) dispatch(selectCategory(storedCategory));
-
-    // Obtener posts según los filtros almacenados
-    if (storedProvince) dispatch(getPostByProvince(storedProvince));
-    if (storedLocality) dispatch(getPostByLocality(storedLocality));
-    if (storedCategory) dispatch(getPostByCategory(storedCategory));
-
-    // Obtener todos los posts al cargar el componente
-    dispatch(getAllPosts());
-  }, [dispatch]);
-
-  // Actualizar localStorage cuando cambian los filtros
-  useEffect(() => {
-    if (selectedProvince) localStorage.setItem("selectedProvince", selectedProvince);
-    if (selectedLocality) localStorage.setItem("selectedLocality", selectedLocality);
-    if (selectedCategory) localStorage.setItem("selectedCategory", selectedCategory);
-  }, [selectedProvince, selectedLocality, selectedCategory]);
 
   const handleProvinceChange = (event) => {
     const province = event.target.value;
@@ -83,18 +59,24 @@ const Filters = () => {
   });
 
   // Obtener las provincias únicas
-  const provinces = Array.from(provinceToLocalityMap.keys());
+  const uniqueProvinces = () => {
+    const filteredPosts = allPostsCopy
+      .filter((post) => !selectedLocality || post.ubication.includes(selectedLocality))
+      .filter((post) => !selectedCategory || post.category === selectedCategory);
 
-  const uniqueCategories = [
-    ...new Set(allPostsCopy.map((post) => post.category)),
-  ];
+    return Array.from(new Set(filteredPosts.map((post) => post.ubication.split(", ")[0])));
+  };
+
+  // Obtener las categorías únicas basadas en la provincia, localidad y categoría seleccionadas
+  const uniqueCategories = () => {
+    const filteredPosts = allPostsCopy
+      .filter((post) => !selectedProvince || post.ubication.startsWith(selectedProvince))
+      .filter((post) => !selectedLocality || post.ubication.includes(selectedLocality));
+
+    return [...new Set(filteredPosts.map((post) => post.category))];
+  };
 
   const handleResetFilters = () => {
-    // Limpiar localStorage al restablecer los filtros
-    localStorage.removeItem("selectedProvince");
-    localStorage.removeItem("selectedLocality");
-    localStorage.removeItem("selectedCategory");
-
     dispatch(resetFilters());
     dispatch(getAllPosts());
   };
@@ -123,9 +105,9 @@ const Filters = () => {
             />
           )}
         </Link>
-        <span>Filtros:</span>
+        <span>Filtros</span>
         <select value={selectedProvince} onChange={handleProvinceChange}>
-          <option value="">Provincia</option>
+          <option value="" disabled>Provincia</option>
           {provinces.map((province, index) => (
             <option key={index} value={province}>
               {province}
@@ -134,7 +116,7 @@ const Filters = () => {
         </select>
 
         <select value={selectedLocality} onChange={handleLocalityChange}>
-          <option value="">Localidad</option>
+          <option value="" disabled>Localidad</option>
           {provinceToLocalityMap.get(selectedProvince) &&
             provinceToLocalityMap
               .get(selectedProvince)
@@ -147,7 +129,7 @@ const Filters = () => {
 
         <select value={selectedCategory} onChange={handleCategoryChange}>
           <option value="">Categoría</option>
-          {uniqueCategories.map((category, index) => (
+          {uniqueCategories().map((category, index) => (
             <option key={index} value={category}>
               {category}
             </option>
