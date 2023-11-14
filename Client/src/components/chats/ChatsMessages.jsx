@@ -18,13 +18,13 @@ const ChatsMessages = ({ chatId, userData }) => {
   const senderId = userData.id;
   const userId = userData.id;
 
-  const socketServer = io("http://localhost:3001/", {
-    query: { chatId },
-  });
-
-  /* const socketServer = io("https://lo-canjeamos-production.up.railway.app/", {
+  /*  const socketServer = io("http://localhost:3001/", {
     query: { chatId },
   }); */
+
+  const socketServer = io("https://lo-canjeamos-production.up.railway.app/", {
+    query: { chatId },
+  });
 
   const chats = useSelector((state) => state.chats);
   const allUsers = useSelector((state) => state.allUsers);
