@@ -17,7 +17,6 @@ const Home = ({}) => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
   const Posts = useSelector((state) => state.allPostsCopy);
-  const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
     dispatch(getAllPosts());
@@ -31,16 +30,6 @@ const Home = ({}) => {
     // Lógica para actualizar la página actual
     setCurrentPage(pageNumber);
   };
-
-  const handleDownload = () => {
-    if (!isInstalled) {
-      navigator.serviceWorker.register('sw.js').then((reg) => {
-        setIsInstalled(true);
-      });
-    }
-  };
-
-  handleDownload();
 
   const Banner = "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885578/emailAssets/er00zffd102eyze13aug.jpg";
   const Banner2 = "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885578/emailAssets/cyzzxxg8vkfxaqzolq9m.jpg";
