@@ -48,7 +48,7 @@ exports.webhook = async (data) => {
             const user = await User.findByPk(currentUserId)
 
             const premiumNew = await user.update({
-                plan: "Premium"
+                plan: "premium"
             });
             if(premiumNew){
                 return true
