@@ -205,12 +205,33 @@ function rootReducer(state = initialState, action) {
         allExistingUsers: state.allExistingUsersCopy
       }
 
-    case GET_ALL_POSTS:
-      return {
-        ...state,
-        allPosts: action.payload,
-        allPostsCopy: action.payload,
-      };
+      case GET_ALL_POSTS:
+        // Aplicar los filtros directamente a action.payload
+        let filteredAllPosts = action.payload;
+      
+        if (state.selectedCategory) {
+          filteredAllPosts = filteredAllPosts.filter(
+            (post) => post.category === state.selectedCategory
+          );
+        }
+      
+        if (state.selectedProvince) {
+          filteredAllPosts = filteredAllPosts.filter((post) =>
+            post.ubication.includes(state.selectedProvince)
+          );
+        }
+      
+        if (state.selectedLocality) {
+          filteredAllPosts = filteredAllPosts.filter((post) =>
+            post.ubication.includes(state.selectedLocality)
+          );
+        }
+      
+        return {
+          ...state,
+          allPosts: filteredAllPosts,
+          allPostsCopy: action.payload,
+        };
 
     case GET_ALL_DISABLED_POSTS:
       return {
