@@ -49,11 +49,12 @@ const matchMail = (firstUser, secondUser, firstPost, secondPost) => {
     .replace('{{user2.product}}', secondPost.image[0])
     .replace('{{matchProfileLink}}', urlPersonalizada);
 
-  return {
-      to: [firstMail, secondMail],
+  return {      
+      to: firstMail,
+      bcc: secondMail,
       subject: "¡Match encontrado!",
-      html: notificationEmail
-    }
+      html: notificationEmail,
+  }
 };
 
 const passwordForgot = (email, id) => {

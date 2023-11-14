@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <title>¡Match encontrado!</title>
   <style>
+  
     body {
-      font-family: Arial, sans-serif;
+      font-family: "DM Sans", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+      font-weight: 400;
       background-color: #f2f2f2;
       margin: 0;
       padding: 0;
@@ -50,6 +57,32 @@
       text-align: center;
       padding: 10px 0;
     }
+    
+    .products-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    
+    .product-circle img{
+      align-items: center;
+      justify-content: center;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid #ffe66d;
+      overflow: hidden;
+      object-fit: cover;
+    }
+    
+    a {
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: none; 
+    }
+    
   </style>
 </head>
 <body>
@@ -64,12 +97,17 @@
       <p>A continuación, encontrarás la información de tu nuevo match:</p>
       <p><b>Fecha y hora del match:</b> {{currentDateTime}}.</p>
       <p><b>Usuarios del Match:</b> {{user1.username}} y {{user2.username}}.</p>
-      <p><b>Los productos a cambiar:</b>
+      <p><b>Los productos a cambiar:</b></p>
       <br>
-      <img src="{{user1.product}}" style="width: 180px; height: auto;"/>
-      <br>
-      <img src="{{user2.product}}" style="width: 180px; height: auto;"/>
-      </p>
+      <div class="products-container">
+        <div class="product-circle">
+          <img src="{{user1.product}}" />
+        </div>
+        <img src="https://res.cloudinary.com/dlahgnpwp/image/upload/v1699970860/emailAssets/t3en2k2nhv6tvsft9f2h.png" style="width: 50px; height: 50px"/>
+        <div class="product-circle">
+          <img src="{{user2.product}}" />
+        </div>
+      </div>
       <p>¡No olvides contactar a la otra persona para coordinar el intercambio!
       Revisa tu pestaña de "Canjes" para encontrar el chat.</p>
       <a class="button" href="{{matchProfileLink}}">¡Vamos a verlo!</a>
