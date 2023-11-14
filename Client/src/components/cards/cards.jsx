@@ -17,6 +17,7 @@ const Cards = ({ allPosts }) => {
     variableWidth: true,
     className: "slider variable-width",
     slidesToScroll: 1,
+    arrows: false,
     responsive: [
       {
         breakpoint: 1280,

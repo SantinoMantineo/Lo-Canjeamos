@@ -1,10 +1,13 @@
 .filters {
     display: grid;
-    grid-template-columns: 75px 75px 100px 100px 100px 50px;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 0.5fr;
     gap: 20px;
     justify-content: center;
-    margin-bottom: 20px;margin-top: 50px;
+    justify-self: center;
+    margin-bottom: 20px;
+    margin-top: 50px;
     border-radius: 10px;
+    width: 1300px;
   }
 
   .product {
@@ -13,25 +16,40 @@
     border-radius: 50%;
     border: 3px solid #4ecdc4;
     object-fit: cover;
+    justify-self: right;
   }
 
-  span {
+  .filters span {
     align-self: center;
     font-size: 18px;
-    color: grey;
+    color: #4ecdc4;
+    justify-self: center;
   }
 
   .filters select {
     border-radius: 5px;
     outline: none;
     background-color: whitesmoke;
-    width: 100px;
+    width: 200px;
     height: 30px;
     font-size: 16px;
     justify-self: center;
     align-self: center;
     color: grey;
     border: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .filters a {
+    width: fit-content;
+    justify-self: right;
+  }
+
+  .filters button {
+    width: fit-content;
+    justify-self: center;
+    margin-left: -5px;
   }
 
   @media (max-width: 768px) {

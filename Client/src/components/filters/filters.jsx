@@ -123,9 +123,9 @@ const Filters = () => {
             />
           )}
         </Link>
-        <span>Filtros:</span>
+        <span>Filtros</span>
         <select value={selectedProvince} onChange={handleProvinceChange}>
-          <option value="">Provincia</option>
+          <option value="" disabled>Provincia</option>
           {provinces.map((province, index) => (
             <option key={index} value={province}>
               {province}
@@ -134,7 +134,7 @@ const Filters = () => {
         </select>
 
         <select value={selectedLocality} onChange={handleLocalityChange}>
-          <option value="">Localidad</option>
+          <option value="" disabled>Localidad</option>
           {provinceToLocalityMap.get(selectedProvince) &&
             provinceToLocalityMap
               .get(selectedProvince)
@@ -146,7 +146,7 @@ const Filters = () => {
         </select>
 
         <select value={selectedCategory} onChange={handleCategoryChange}>
-          <option value="">Categoría</option>
+          <option value="" disabled>Categoría</option>
           {uniqueCategories.map((category, index) => (
             <option key={index} value={category}>
               {category}
