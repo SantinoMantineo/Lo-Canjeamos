@@ -64,7 +64,7 @@ const App = () => {
     });
   }, [])
 
-  //axios.defaults.baseURL = "http://localhost:3001/";
+  // axios.defaults.baseURL = "http://localhost:3001/";
   axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
 
   //*Auth0
@@ -169,6 +169,9 @@ const App = () => {
                   id: userDataResponse.data.id,
                   username: userDataResponse.data.username,
                   image: userDataResponse.data.image,
+                  rol: userDataResponse.data.rol,
+                  averageRating: userDataResponse.data.averageRating,
+                  plan: userDataResponse.data.plan
                 });
               })
               .catch((userDataError) => {
