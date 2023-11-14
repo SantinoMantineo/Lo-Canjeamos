@@ -175,4 +175,12 @@
   .light {
     padding-top: 3px;
   }
+
+  .avatar span {
+    display: inline-flex;
+  }
+
+  .modal span {
+    display: inline-flex;
+  }
 }

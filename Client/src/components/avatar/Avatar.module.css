@@ -44,6 +44,11 @@
   margin: 0;
 }
 
+.avatarPremium h4 {
+  color: #4ecdc4;
+  margin: 0;
+}
+
 .avatarPremium h3 {
   margin: 5px;
 }
@@ -135,6 +140,11 @@
 }
 @media (max-width: 768px) {
   .avatar {
+    width: 240px;
+    justify-self: center;
+  }
+
+  .avatarPremium {
     width: 240px;
     justify-self: center;
   }
