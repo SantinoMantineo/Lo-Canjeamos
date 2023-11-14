@@ -192,10 +192,12 @@ const Detail = ({ userData }) => {
         </div>
 
         <div className={style.info}>
-        {post.User.averageRating ? (
-          <div>
+        <h5>Calificación:</h5>
+        {post.User && post.User.averageRating ? (
+          <div className={style.rating}>
+            
             {Array.from({ length: post.User.averageRating }, (_, index) => (
-              <span key={index}>⭐️</span>
+              <p key={index}>⭐️</p>
             ))}
           </div>
         ) : (

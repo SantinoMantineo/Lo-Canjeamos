@@ -10,6 +10,43 @@
   margin-bottom: 100px;
 }
 
+.detail h5 {
+  font-size: 14px;
+  width: 307px;
+  height: fit-content;
+  padding-left: 5px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 5px;
+  text-align: left;
+  margin-left: 44px;
+  margin-bottom: -30px;
+  margin-top: 15px;
+  color: whitesmoke;
+  background-color: rgba(126, 126, 126, 0.5);
+  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
+}
+
+.rating {
+  display: inline-flex;
+  gap: 10px;
+  background-color: whitesmoke;
+  border: 1px solid #4ecdc4;
+  width: 310px;
+  height: 30px;
+  margin-left: 44px;
+  border-radius: 5px;
+  padding: 0;
+  margin-top: 35px;
+  margin-bottom: -10px;
+}
+
+.rating p {
+  margin: 0;
+  align-self: center;
+  padding-left: 10px;
+}
+
 .carousel {
   justify-self: center;
   width: 280px;
@@ -171,5 +208,42 @@
   .navigationButtons {
     position: relative;
     margin-top: 0px;
+  }
+
+  .detail h5 {
+    font-size: 14px;
+    width: 255px;
+    height: 15px;
+    padding-left: 5px;
+    padding-top: 6px;
+    padding-bottom: 12px;
+    border-radius: 5px;
+    text-align: left;
+    margin-left: 35px;
+    margin-bottom: 0px;
+    margin-top: 15px;
+    color: whitesmoke;
+    background-color: rgba(126, 126, 126, 0.5);
+    box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
+  }
+  
+  .rating {
+    display: inline-flex;
+    gap: 10px;
+    background-color: whitesmoke;
+    border: 1px solid #4ecdc4;
+    width: 255px;
+    height: 30px;
+    margin-left: 35px;
+    border-radius: 5px;
+    padding: 0;
+    margin-top: 35px;
+    margin-bottom: -5px;
+  }
+  
+  .rating p {
+    margin: 0;
+    align-self: center;
+    padding-left: 10px;
   }
 }
