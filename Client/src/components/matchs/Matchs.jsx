@@ -12,7 +12,7 @@ import {
 
 import style from "./Matchs.module.css";
 
-const Matchs = ({ userData}) => {
+const Matchs = ({ userData }) => {
   const [loading, setLoading] = useState(true);
   const matches = useSelector((state) => state.matches);
   const chats = useSelector((state) => state.chats);
@@ -29,7 +29,7 @@ const Matchs = ({ userData}) => {
   useEffect(() => {
     dispatch(getMatches(userId));
     dispatch(getAllPosts()).then(() => setLoading(false));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   const filteredMatches = matches.filter((match) => {
     return match.match.some((m) => m.myUserId === userId);
@@ -88,29 +88,30 @@ const Matchs = ({ userData}) => {
   useEffect(() => {
     const createChatsForPairs = async () => {
       // Al detectar nuevos matches, crea el chat automáticamente
-      const newChatPairs = [];
+      if (!loading) {
+        const newChatPairs = [];
 
-      for (const pair of matchedPairs) {
-        const existingChat = chats.find((chat) => {
-          return (
-            (chat.user1Id === userId && chat.user2Id === pair.anotherUserId) ||
-            (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
-          );
-        });
+        for (const pair of matchedPairs) {
+          const existingChat = chats.find((chat) => {
+            return (
+              (chat.user1Id === userId &&
+                chat.user2Id === pair.anotherUserId) ||
+              (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
+            );
+          });
 
-        // Si no hay un chat existente, acumula la pareja para crear uno nuevo
-        if (!existingChat) {
-          newChatPairs.push(pair);
-          // Espera a que se cree el chat antes de continuar
-          await dispatch(createChat(userId, pair.anotherUserId));
+          // Si no hay un chat existente, acumula la pareja para crear uno nuevo
+          if (!existingChat) {
+            newChatPairs.push(pair);
+            // Espera a que se cree el chat antes de continuar
+            await dispatch(createChat(userId, pair.anotherUserId));
+          }
         }
       }
-
-      // ...resto del código
     };
 
     createChatsForPairs();
-  }, [loading]);
+  }, [loading, matchedPairs]);
 
   function handleGoChat(anotherUserId) {
     const existingChat = chats.find((chat) => {
@@ -130,7 +131,7 @@ const Matchs = ({ userData}) => {
   }
 
   function handleGoProfile(anotherUserId) {
-      navigate(`/UserProfile/${anotherUserId}`);
+    navigate(`/UserProfile/${anotherUserId}`);
   }
 
   return (
@@ -168,7 +169,10 @@ const Matchs = ({ userData}) => {
                 alt="Chat"
               />
             </button>
-            <button className={style.goChats} onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}>
+            <button
+              className={style.goChats}
+              onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}
+            >
               <img
                 width="24"
                 height="24"
@@ -177,14 +181,18 @@ const Matchs = ({ userData}) => {
               />
             </button>
             <button
-
               onClick={() => {
                 dispatch(deleteLike(pair.anotherUserPost.id));
                 console.log(pair.anotherUserPost.id);
               }}
               className={style.eliminateMatch}
             >
-              <img width="24" height="24" src="https://img.icons8.com/fluency-systems-filled/48/cancel.png" alt="cancel"/>
+              <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/ios-filled/50/multiply.png"
+                alt="multiply"
+              />
             </button>
           </div>
         ))
