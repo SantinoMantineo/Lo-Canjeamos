@@ -4,8 +4,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import {motion} from 'framer-motion';
 import Header from "../../components/header/Header";
-import Banner from "../../assets/banner1.jpg";
-import Banner2 from "../../assets/banner2.jpg";
 import style from "./AddProduct.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -405,6 +403,9 @@ setErrors({ ...errors, [name]: error });
       });
     }
   };
+
+  const Banner = "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885578/emailAssets/er00zffd102eyze13aug.jpg";
+  const Banner2 = "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885578/emailAssets/cyzzxxg8vkfxaqzolq9m.jpg";
 
   return (
     <>
