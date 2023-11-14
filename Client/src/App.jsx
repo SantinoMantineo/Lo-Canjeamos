@@ -34,8 +34,6 @@ const App = () => {
 
   const [darkMode, setDarkMode] = useState(initialDarkMode);
 
-  const [isInstalled, setIsInstalled] = useState(false);
-
   useEffect(() => {
     setDarkModeStyles(darkMode);
     localStorage.setItem("darkMode", darkMode);
@@ -65,16 +63,6 @@ const App = () => {
       },
     });
   }, [])
-
-  const handleDownload = () => {
-    if (!isInstalled) {
-      navigator.serviceWorker.register('sw.js').then((reg) => {
-        setIsInstalled(true);
-      });
-    }
-  };
-
-  handleDownload();
 
   //axios.defaults.baseURL = "http://localhost:3001/";
   axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
