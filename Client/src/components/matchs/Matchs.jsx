@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import Confetti from "react-confetti";
 import {
   getAllPosts,
   getMatches,
@@ -17,6 +18,7 @@ const Matchs = ({ userData }) => {
   const matches = useSelector((state) => state.matches);
   const chats = useSelector((state) => state.chats);
   const allPosts = useSelector((state) => state.allPostsCopy);
+  const [showConfetti, setShowConfetti] = useState(true);
   const userId = userData.id;
 
   const dispatch = useDispatch();
@@ -133,6 +135,14 @@ const Matchs = ({ userData }) => {
     navigate(`/UserProfile/${anotherUserId}`);
   }
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowConfetti(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [matchedPairs]);
+
   return (
     <div className={style.container}>
       {loading ? (
@@ -140,6 +150,7 @@ const Matchs = ({ userData }) => {
       ) : (
         matchedPairs.map((pair, index) => (
           <div key={index} className={style.matchs}>
+            {showConfetti && <Confetti />}
             <div className={style.match}>
               <img
                 className={style.img}
@@ -168,7 +179,10 @@ const Matchs = ({ userData }) => {
                 alt="Chat"
               />
             </button>
-            <button className={style.goChats} onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}>
+            <button
+              className={style.goChats}
+              onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}
+            >
               <img
                 width="24"
                 height="24"
