@@ -7,17 +7,15 @@ import { getAllPosts } from "../../redux/actions";
 import Cards from "../../components/cards/Cards";
 import Filters from "../../components/filters/filters";
 import Header from "../../components/header/Header";
-import Banner from "../../assets/banner1.jpg";
-import Banner2 from "../../assets/banner2.jpg";
 import Paginado from "../../components/pagination/pagination";
 import AllCards from "../../components/allCards/AllCards";
 import Footer from '../../components/footer/Footer'
-
 import style from "./Home.module.css";
 
 const Home = ({}) => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
+  console.log(allPosts);
   const Posts = useSelector((state) => state.allPostsCopy);
   const [isInstalled, setIsInstalled] = useState(false);
 
@@ -53,6 +51,12 @@ const Home = ({}) => {
       <Cards allPosts={Posts}></Cards>
       <Filters></Filters>
       <AllCards posts={allPosts}></AllCards>
+      <Paginado
+        allCard={allPosts.length}
+        cardPerPage={3}
+        paginado={handlePaginado}
+        currentPage={currentPage}
+      ></Paginado>
       <Footer></Footer>
     </>
   );
