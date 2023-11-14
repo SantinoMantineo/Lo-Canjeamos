@@ -62,7 +62,7 @@ const payModal = ({ userData, user, isOpen, onClose }) => {
           </button>
 
           <h2>¡Sé Premium!</h2>
-          <p>💛 Publica todos los articulos que quieras! 💛</p>
+          <p>💛 ¡Publicá todos los articulos que quieras! 💛</p>
 
           <p>👀 Mirá quien quiere canjear con vos 👀</p>
 

@@ -95,13 +95,13 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
             ))}
           </div>
         ) : (
-          <h4>Todavia nadie te a calificado</h4>
+          <h4>Todavía nadie te ha calificado.</h4>
         )}
         <button
           className={isDarkMode ? style.dark : style.light}
           onClick={handleThemeToggle}
         >
-          {isDarkMode ? "Dark 🌘" : "Light ☀️"}
+          {isDarkMode ? "Oscuro 🌘" : "Claro ☀️"}
         </button>
         <br></br>
         <button
@@ -109,7 +109,7 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
           onClick={openModal}
           disabled={isPremium}
         >
-          {isPremium ? "!Gracias!" : "Sé premium"}
+          {isPremium ? "¡Gracias!" : "Sé premium"}
         </button>
         <br />
         <br />

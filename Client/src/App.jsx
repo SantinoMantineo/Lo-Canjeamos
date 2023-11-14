@@ -244,7 +244,7 @@ const App = () => {
 
         <Route path="/resetpassword/:id" element={<ResetPassword />} />
 
-        <Route path="/messages" element={userData && <Messages userData={userData} />} />
+        <Route path="/messages" element={userData ? (<Messages userData={userData} />) : user ? (<Messages userData={user} />) : (<Loading />)}/>
 
         <Route path="/admin" element={<AdminDash></AdminDash>} />
         <Route path="/UserProfile/:userId" element={<UserProfile id={userData}></UserProfile>} />

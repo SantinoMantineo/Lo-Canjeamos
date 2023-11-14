@@ -89,10 +89,14 @@ const UserProfile = ({ id }) => {
               ))}
             </div>
           ) : (
-            <h4 className={style.calif}>Todavia no hay calificaciones, se el primero!</h4>
+            <h4 className={style.calif}>
+              ¡Todavía no hay calificaciones, sé el primero!
+            </h4>
           )}
           <div>
-            <button className={style.back} onClick={handleGoBack}>Atras</button>
+            <button className={style.back} onClick={handleGoBack}>
+              Atrás
+            </button>
             <button onClick={handleRatingClick} className={style.bRating}>
               Calificar
             </button>
@@ -109,7 +113,7 @@ const UserProfile = ({ id }) => {
             ))}
           </div>
           <button onClick={handleResetRatingClick} className={style.back}>
-            Atras
+            Atrás
           </button>
         </div>
       )}
