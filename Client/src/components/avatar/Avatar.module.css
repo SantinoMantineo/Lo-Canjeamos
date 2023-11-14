@@ -57,6 +57,18 @@
   margin: 5px;
 }
 
+.avatar a {
+  position: absolute;
+  margin-left: 300px;
+  margin-top: -20px;
+}
+
+.avatarPremium a {
+  position: absolute;
+  margin-left: 300px;
+  margin-top: -20px;
+}
+
 .avatarPremium p {
   margin: 5px;
 }
@@ -155,5 +167,17 @@
 
   .light {
     padding-top: 3px;
+  }
+
+  .avatar a {
+    position: absolute;
+    margin-left: 220px;
+    margin-top: -20px;
+  }
+
+  .avatarPremium a {
+    position: absolute;
+    margin-left: 220px;
+    margin-top: -20px;
   }
 }

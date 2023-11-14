@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import OneSignal from "react-onesignal";
 import style from "./Avatar.module.css";
 import PayModal from "../payModal/PayModal";
@@ -71,11 +72,12 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
 
   sendNot();
 
-  console.log();
-
   return (
     <>
       <div className={isPremium ? style.avatarPremium : style.avatar}>
+        <Link to="/admin">
+        <button className={style.dash}><img width="30" height="30" src="https://img.icons8.com/color/48/dashboard.png" alt="dashboard"/></button>
+        </Link>
         <img
           src={(user && user.picture) || (userData && userData.image)}
           className={style.photo}
