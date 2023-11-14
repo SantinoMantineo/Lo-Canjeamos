@@ -62,25 +62,3 @@ exports.webhook = async (data) => {
         };
     }
 }
-
-exports.webhook = async (data) => {
-console.log("AAA", data)
-    try {
-        if (data.type === "payment") {
-            const user = await User.findByPk(currentUserId)
-
-            const premiumNew = await user.update({
-                plan: "premium"
-            });
-            if(premiumNew){
-                return true
-            }
-        } else {
-            throw new Error("Invalid webhook event type");
-        }
-    } catch (error) {
-        return {
-            error: error.message
-        };
-    }
-}
