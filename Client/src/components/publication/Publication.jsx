@@ -9,7 +9,6 @@ const Publication = ({ userData }) => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
   const matches = useSelector((state) => state.matches)
-  console.log(matches);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
 

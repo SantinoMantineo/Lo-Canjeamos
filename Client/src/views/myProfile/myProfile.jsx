@@ -6,8 +6,6 @@ import { motion } from "framer-motion";
 import Avatar from "../../components/avatar/Avatar";
 import Publication from "../../components/publication/Publication";
 import Header from "../../components/header/Header";
-import Banner3 from "../../assets/banner3.jpg";
-import Banner4 from "../../assets/banner4.jpg";
 import style from "./MyProfile.module.css";
 import axios from "axios";
 
@@ -39,6 +37,9 @@ const MyProfile = ({ userData, setAuth, toggleDarkMode }) => {
   /* const userName = userData.username;
 
   OneSignal.User.addTag("name", userName); */
+  
+  const Banner3 = "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885578/emailAssets/itncfxbtlnpm7e6tsffu.jpg";
+  const Banner4 = "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885577/emailAssets/pql2ueup71odoj5lm7wk.jpg";
 
   return (
     <>

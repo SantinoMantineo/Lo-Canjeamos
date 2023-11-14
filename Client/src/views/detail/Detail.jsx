@@ -240,7 +240,7 @@ const Detail = ({ userData }) => {
 
         <div className={style.buttons}>
           <button className={style.back} onClick={handleGoBack}>
-            Volver
+            Atras
           </button>
 
           <button
