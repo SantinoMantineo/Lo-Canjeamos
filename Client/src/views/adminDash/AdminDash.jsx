@@ -17,6 +17,7 @@ import {
   resetPostsFilter,
 } from "../../redux/actions";
 import style from "./AdminDash.module.css";
+import Swal from "sweetalert2";
 
 const AdminDash = () => {
   const dispatch = useDispatch();
@@ -77,9 +78,24 @@ const AdminDash = () => {
 
   const handleDisableUser = async (id) => {
     try {
-      dispatch(deleteUser(id));
-      alert("⛔ Usuario Deshabilitado ⛔");
-      dispatch(getAllExistingUsers());
+      await dispatch(deleteUser(id));
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+      });
+
+      Toast.fire({
+        icon: 'warning',
+        iconColor: 'red',
+        title: '⛔ Usuario Deshabilitado ⛔',
+      });
+      await dispatch(getAllExistingUsers());
     } catch (error) {
       console.error("Hubo un problema al deshabilitar el usuario: ", error);
     }
@@ -87,9 +103,23 @@ const AdminDash = () => {
 
   const handleRestoreUser = async (id) => {
     try {
-      dispatch(restoreUser(id));
-      alert("✅ Usuario Reactivado ✅");
-      dispatch(getAllExistingUsers());
+      await dispatch(restoreUser(id));
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+      });
+
+      Toast.fire({
+        icon: 'success',
+        title: '✅ Usuario Reactivado ✅',
+      });
+      await dispatch(getAllExistingUsers());
     } catch (error) {
       console.error("Hubo un problema al reactivar el usuario: ", error);
     }
@@ -97,9 +127,25 @@ const AdminDash = () => {
 
   const handleDisablePost = async (id) => {
     try {
-      dispatch(deletePost(id));
-      alert("⛔ Publicacion Deshabilitada ⛔");
-      dispatch(getAllExistingPosts());
+      await dispatch(deletePost(id));
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+      });
+
+      Toast.fire({
+        icon: 'warning',
+        iconColor: 'red',
+        title: '⛔Publicacion deshabilitada⛔',
+      });
+      await dispatch(getAllExistingPosts());
     } catch (error) {
       console.error("Hubo un problema al deshabilitar la publicacion: ", error);
     }
@@ -107,9 +153,23 @@ const AdminDash = () => {
 
   const handleRestorePost = async (id) => {
     try {
-      dispatch(restorePost(id));
-      alert("✅ Publicacion Reactivada ✅");
-      dispatch(getAllExistingPosts());
+      await dispatch(restorePost(id));
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+      });
+
+      Toast.fire({
+        icon: 'succes',
+        title: '✅ Publicacion Reactivada ✅',
+      });
+      await dispatch(getAllExistingPosts());
     } catch (error) {
       console.error("Hubo un problema al reactivar la publicacion: ", error);
     }
