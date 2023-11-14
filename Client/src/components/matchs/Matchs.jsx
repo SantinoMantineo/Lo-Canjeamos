@@ -31,7 +31,7 @@ const Matchs = ({ userData }) => {
   useEffect(() => {
     dispatch(getMatches(userId));
     dispatch(getAllPosts()).then(() => setLoading(false));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   const filteredMatches = matches.filter((match) => {
     return match.match.some((m) => m.myUserId === userId);
@@ -90,29 +90,30 @@ const Matchs = ({ userData }) => {
   useEffect(() => {
     const createChatsForPairs = async () => {
       // Al detectar nuevos matches, crea el chat automáticamente
-      const newChatPairs = [];
+      if (!loading) {
+        const newChatPairs = [];
 
-      for (const pair of matchedPairs) {
-        const existingChat = chats.find((chat) => {
-          return (
-            (chat.user1Id === userId && chat.user2Id === pair.anotherUserId) ||
-            (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
-          );
-        });
+        for (const pair of matchedPairs) {
+          const existingChat = chats.find((chat) => {
+            return (
+              (chat.user1Id === userId &&
+                chat.user2Id === pair.anotherUserId) ||
+              (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
+            );
+          });
 
-        // Si no hay un chat existente, acumula la pareja para crear uno nuevo
-        if (!existingChat) {
-          newChatPairs.push(pair);
-          // Espera a que se cree el chat antes de continuar
-          await dispatch(createChat(userId, pair.anotherUserId));
+          // Si no hay un chat existente, acumula la pareja para crear uno nuevo
+          if (!existingChat) {
+            newChatPairs.push(pair);
+            // Espera a que se cree el chat antes de continuar
+            await dispatch(createChat(userId, pair.anotherUserId));
+          }
         }
       }
-
-      // ...resto del código
     };
 
     createChatsForPairs();
-  }, [loading]);
+  }, [loading, matchedPairs]);
 
   function handleGoChat(anotherUserId) {
     const existingChat = chats.find((chat) => {
