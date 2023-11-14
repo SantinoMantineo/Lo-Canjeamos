@@ -7,7 +7,7 @@ import icon from "../../assets/iconChoosed.png";
 
 const Publication = ({ userData }) => {
   const dispatch = useDispatch();
-  const allPosts = useSelector((state) => state.allPosts);
+  const allPosts = useSelector((state) => state.allPostsCopy);
   const matches = useSelector((state) => state.matches)
   console.log(matches);
   const [selectedPostId, setSelectedPostId] = useState(null);
