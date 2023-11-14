@@ -45,7 +45,7 @@ const Cards = ({ allPosts }) => {
     ],
   };
 
-  const sortedPosts = allPosts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)).slice(0, 20);
+  const sortedPosts = allPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 20);
 
   return (
     <>
@@ -61,7 +61,7 @@ const Cards = ({ allPosts }) => {
         className={style.cards}
       >
         <div>
-          <span>Lo más destacado</span>{" "}
+          <span>Lo más reciente</span>{" "}
           <img src={fire} className={style.fire}></img>
         </div>
         <Slider {...settings}>
