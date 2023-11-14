@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import OneSignal from "react-onesignal";
 import style from "./Avatar.module.css";
 import PayModal from "../payModal/PayModal";
@@ -60,13 +61,13 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
   };
 
   const sendNot = () => {
+    OneSignal.User.addAlias("name:", userData.username || user.name)
     if (isPremium) {
       OneSignal.User.addTag("subscription:", "premium");
     }
     if (!isPremium) {
       OneSignal.User.addTag("subscription:", "notPremium");
     }
-    OneSignal.User.addAlias("Name", userData && userData.username);
   };
 
   sendNot();
@@ -74,6 +75,9 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
   return (
     <>
       <div className={isPremium ? style.avatarPremium : style.avatar}>
+        <Link to="/admin">
+        <button className={style.dash}><img width="30" height="30" src="https://img.icons8.com/color/48/dashboard.png" alt="dashboard"/></button>
+        </Link>
         <img
           src={(user && user.picture) || (userData && userData.image)}
           className={style.photo}
@@ -96,13 +100,13 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
             ))}
           </div>
         ) : (
-          <h4>Todavia nadie te a calificado</h4>
+          <h4>Todavía nadie te ha calificado.</h4>
         )}
         <button
           className={isDarkMode ? style.dark : style.light}
           onClick={handleThemeToggle}
         >
-          {isDarkMode ? "Dark 🌘" : "Light ☀️"}
+          {isDarkMode ? "Oscuro 🌘" : "Claro ☀️"}
         </button>
         <br></br>
         <button
@@ -110,7 +114,7 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
           onClick={openModal}
           disabled={isPremium}
         >
-          {isPremium ? "!Gracias!" : "Sé premium"}
+          {isPremium ? "¡Gracias!" : "Sé premium"}
         </button>
         <br />
         <br />

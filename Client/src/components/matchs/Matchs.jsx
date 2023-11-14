@@ -12,7 +12,7 @@ import {
 
 import style from "./Matchs.module.css";
 
-const Matchs = ({ userData}) => {
+const Matchs = ({ userData }) => {
   const [loading, setLoading] = useState(true);
   const matches = useSelector((state) => state.matches);
   const chats = useSelector((state) => state.chats);
@@ -130,7 +130,7 @@ const Matchs = ({ userData}) => {
   }
 
   function handleGoProfile(anotherUserId) {
-      navigate(`/UserProfile/${anotherUserId}`);
+    navigate(`/UserProfile/${anotherUserId}`);
   }
 
   return (
@@ -177,14 +177,18 @@ const Matchs = ({ userData}) => {
               />
             </button>
             <button
-
               onClick={() => {
                 dispatch(deleteLike(pair.anotherUserPost.id));
                 console.log(pair.anotherUserPost.id);
               }}
               className={style.eliminateMatch}
             >
-              <img width="24" height="24" src="https://img.icons8.com/fluency-systems-filled/48/cancel.png" alt="cancel"/>
+              <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/ios-filled/50/multiply.png"
+                alt="multiply"
+              />
             </button>
           </div>
         ))

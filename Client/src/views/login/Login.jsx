@@ -90,11 +90,11 @@ const Login = ({ setAuth, userData }) => {
         <div className={style.form}>
           <form>
               <div>
-                <input type="text" name="username" placeholder='usuario' onChange={handleInputChange}
+                <input type="text" name="username" placeholder='Usuario' onChange={handleInputChange}
                   value={input.username}/>
               </div>
               <div>
-                <input type="password"name="password" placeholder='contraseña'onChange={handleInputChange}
+                <input type="password"name="password" placeholder='Contraseña'onChange={handleInputChange}
                   value={input.password}/>
               </div>
               
@@ -105,8 +105,8 @@ const Login = ({ setAuth, userData }) => {
 
         <div className={style.buttons}>
           <span>
-          No tienes una cuenta? 
-          <Link to='/register' className={style.register}>Registrate</Link>
+          ¿No tienes una cuenta? 
+          <Link to='/register' className={style.register}>Regístrate</Link>
           </span>
         </div>
 
@@ -118,7 +118,7 @@ const Login = ({ setAuth, userData }) => {
         </div>
         <div className={style.buttons}>
           <span className={style.recover}>
-          Olvidaste la contraseña? 
+          ¿Olvidaste la contraseña? 
           <Link to='/forgotpassword' className={style.register}>Recuperar</Link>
           </span>
         </div>

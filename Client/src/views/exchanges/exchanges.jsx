@@ -67,7 +67,7 @@ const Exchanges = ({ userData }) => {
         ) : <div className={style.requests}>
         <h3>Pedidos de canje recibidos</h3>
         <div className={style.alert}>
-       <h3>Para acceder a esta funcionalidad debes ser premium</h3>
+       <h3>Para acceder a esta funcionalidad debes ser premium.</h3>
        </div>
       </div>}
       </motion.div>

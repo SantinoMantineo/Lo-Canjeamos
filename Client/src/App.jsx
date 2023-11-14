@@ -64,8 +64,8 @@ const App = () => {
     });
   }, [])
 
-  axios.defaults.baseURL = "http://localhost:3001/";
-   //axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+  //axios.defaults.baseURL = "http://localhost:3001/";
+  axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
 
   //*Auth0
   const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
@@ -232,7 +232,7 @@ const App = () => {
 
         <Route path="/resetpassword/:id" element={<ResetPassword />} />
 
-        <Route path="/messages" element={userData && <Messages userData={userData} />} />
+        <Route path="/messages" element={userData ? (<Messages userData={userData} />) : user ? (<Messages userData={user} />) : (<Loading />)}/>
 
         <Route path="/admin" element={<AdminDash></AdminDash>} />
         <Route path="/UserProfile/:userId" element={<UserProfile id={userData}></UserProfile>} />

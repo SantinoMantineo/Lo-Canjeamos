@@ -38,7 +38,6 @@
 .avatar h3 {
   margin: 5px;
   font-size: 16px;
-  color: black;
 }
 
 .avatarPremium h3 {
@@ -175,5 +174,13 @@
 
   .light {
     padding-top: 3px;
+  }
+
+  .avatar span {
+    display: inline-flex;
+  }
+
+  .modal span {
+    display: inline-flex;
   }
 }

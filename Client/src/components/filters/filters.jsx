@@ -105,10 +105,10 @@ const Filters = () => {
             />
           )}
         </Link>
-        <span>Filtros:</span>
+        <span>Filtros</span>
         <select value={selectedProvince} onChange={handleProvinceChange}>
-          <option value="">Provincia</option>
-          {uniqueProvinces().map((province, index) => (
+          <option value="" disabled>Provincia</option>
+          {provinces.map((province, index) => (
             <option key={index} value={province}>
               {province}
             </option>
@@ -116,7 +116,7 @@ const Filters = () => {
         </select>
 
         <select value={selectedLocality} onChange={handleLocalityChange}>
-          <option value="">Localidad</option>
+          <option value="" disabled>Localidad</option>
           {provinceToLocalityMap.get(selectedProvince) &&
             provinceToLocalityMap
               .get(selectedProvince)

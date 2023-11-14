@@ -33,18 +33,20 @@
 
 .a {
   display: grid;
+  justify-self: center;
 }
 
 .b {
   display: grid;
+  justify-self: center;
 }
 
 .b a {
-  justify-self: left;
+  justify-self: center;
 }
 
 .a a {
-  justify-self: left;
+  justify-self: center;
 }
 
 .center a {
@@ -74,6 +76,10 @@
 
 .bottom {
   background-color: whitesmoke;
+}
+
+.bottom p {
+  font-size: 14px;
 }
 
 @media (max-width: 768px) {

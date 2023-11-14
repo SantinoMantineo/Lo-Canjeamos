@@ -70,4 +70,15 @@
     width: 300px;
     margin-bottom: 100px;
   }
+
+  .publicationsPremium {
+    display: grid;
+    justify-self: center;
+    padding: 0px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 90px;
+    width: 300px;
+    margin-bottom: 100px;
+  }
 }
