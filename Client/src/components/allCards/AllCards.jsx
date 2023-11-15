@@ -5,6 +5,8 @@ import style from './AllCards.module.css'
 
 const AllCards = ({ posts,prevHandler,nextHandler,currentPage}) => {
 
+  console.log(currentPage);
+
   return (
     <>
       <motion.div
