@@ -23,12 +23,13 @@ const Filters = () => {
   const allPostsCopy = useSelector((state) => state.allPostsCopy);
   const selectedImage = useSelector((state) => state.selectedPostImage);
 
-
-
   const handleProvinceChange = (event) => {
     const province = event.target.value;
     dispatch(selectProvince(province));
     dispatch(getPostByProvince(province));
+    if (selectedCategory) {
+      dispatch(getPostByCategory(selectedCategory));
+    }
   };
 
   const handleLocalityChange = (event) => {
@@ -45,7 +46,6 @@ const Filters = () => {
 
   const locations = allPostsCopy.map((post) => post.ubication);
 
-  // Crear un mapa de provincias y sus localidades correspondientes
   const provinceToLocalityMap = new Map();
   locations.forEach((location) => {
     const [province, locality] = location.split(", ");
@@ -58,7 +58,6 @@ const Filters = () => {
     }
   });
 
-  // Obtener las provincias únicas
   const uniqueProvinces = () => {
     const filteredPosts = allPostsCopy
       .filter((post) => !selectedLocality || post.ubication.includes(selectedLocality))
@@ -67,7 +66,24 @@ const Filters = () => {
     return Array.from(new Set(filteredPosts.map((post) => post.ubication.split(", ")[0])));
   };
 
-  // Obtener las categorías únicas basadas en la provincia, localidad y categoría seleccionadas
+  const uniqueLocalities = () => {
+    let filteredPosts = allPostsCopy;
+    if (selectedProvince) {
+      filteredPosts = filteredPosts.filter(post => post.ubication.startsWith(selectedProvince));
+    }
+    if (selectedCategory) {
+      filteredPosts = filteredPosts.filter(post => post.category === selectedCategory);
+    }
+    const localities = new Set();
+    filteredPosts.forEach((post) => {
+      const [province, locality] = post.ubication.split(", ");
+      if (!selectedProvince || province === selectedProvince) {
+        localities.add(locality);
+      }
+    });
+    return Array.from(localities);
+  };
+
   const uniqueCategories = () => {
     const filteredPosts = allPostsCopy
       .filter((post) => !selectedProvince || post.ubication.startsWith(selectedProvince))
@@ -115,16 +131,13 @@ const Filters = () => {
           ))}
         </select>
 
-        <select value={selectedLocality} onChange={handleLocalityChange}>
+        <select value={selectedLocality} onChange={handleLocalityChange} disabled={!selectedProvince}>
           <option value="" disabled>Localidad</option>
-          {provinceToLocalityMap.get(selectedProvince) &&
-            provinceToLocalityMap
-              .get(selectedProvince)
-              .map((locality, index) => (
-                <option key={index} value={locality}>
-                  {locality}
-                </option>
-              ))}
+          {uniqueLocalities().map((locality, index) => (
+            <option key={index} value={locality}>
+              {locality}
+            </option>
+          ))}
         </select>
 
         <select value={selectedCategory} onChange={handleCategoryChange}>
