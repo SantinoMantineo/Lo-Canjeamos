@@ -19,7 +19,7 @@ const Home = ({}) => {
   const [showModal, setShowModal] = useState(false);
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const postPerPage = 12;
+  const postPerPage = 4;
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -37,6 +37,7 @@ const Home = ({}) => {
     if (allPosts.length > 0) {
       const initialItems = sortedPosts.slice(0, postPerPage);
       setItems(initialItems);
+      setCurrentPage(0);
     }
   }, [allPosts]);
 
