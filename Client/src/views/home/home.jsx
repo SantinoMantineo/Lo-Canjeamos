@@ -16,6 +16,7 @@ import style from "./Home.module.css";
 const Home = ({}) => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
+  console.log(allPosts);
   const Posts = useSelector((state) => state.allPostsCopy);
   const [isInstalled, setIsInstalled] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -70,6 +71,12 @@ const Home = ({}) => {
       <Cards allPosts={Posts}></Cards>
       <Filters></Filters>
       <AllCards posts={allPosts}></AllCards>
+      <Paginado
+        allCard={allPosts.length}
+        cardPerPage={3}
+        paginado={handlePaginado}
+        currentPage={currentPage}
+      ></Paginado>
       <Footer></Footer>
     </>
   );

@@ -8,8 +8,8 @@
   }
 
   export function validateDescription(description) {
-    if (description.length > 400) {
-      return "La descripción no puede superar los 400 caracteres";
+    if (description.length > 250) {
+      return "La descripción no puede superar los 250 caracteres";
     }
     return "";
   }
