@@ -70,10 +70,8 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
       OneSignal.User.addTag("subscription:", "notPremium");
     }
   };
-
-  useEffect(() => {
-    sendNot();
-  }, []);
+  
+  sendNot();
   
   return (
     <>
