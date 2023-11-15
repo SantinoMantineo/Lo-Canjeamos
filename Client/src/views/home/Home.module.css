@@ -16,7 +16,8 @@
 
 @media (max-width: 768px) {
   .open {
-    margin-top: 65px;
+    margin-top: 68px;
+    margin-left: 10px;
     opacity: 50%;
   }
 }

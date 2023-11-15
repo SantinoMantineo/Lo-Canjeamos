@@ -54,14 +54,19 @@ const Home = ({}) => {
 
   return (
     <>
-      
       <Header banner1={Banner} banner2={Banner2}></Header>
-      
+
       <div className={style.button}>
-        
         {showModal && <VideoModal onClose={toggleModal} />}
       </div>
-      <button onClick={toggleModal} className={style.open}><img width="50" height="50" src="https://img.icons8.com/color/96/help--v1.png" alt="help--v1"/></button>
+      <button onClick={toggleModal} className={style.open}>
+        <img
+          width="50"
+          height="50"
+          src="https://img.icons8.com/color/96/help--v1.png"
+          alt="help--v1"
+        />
+      </button>
       <Cards allPosts={Posts}></Cards>
       <Filters></Filters>
       <AllCards posts={allPosts}></AllCards>

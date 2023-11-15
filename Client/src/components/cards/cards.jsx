@@ -60,7 +60,7 @@ const Cards = ({ allPosts }) => {
         }}
         className={style.cards}
       >
-        <div>
+        <div className={style.masRec}>
           <span>Lo más reciente</span>{" "}
           <img src={fire} className={style.fire}></img>
         </div>
