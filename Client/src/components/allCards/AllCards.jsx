@@ -3,7 +3,7 @@ import Card from "../card/Card";
 import {motion} from 'framer-motion';
 import style from './AllCards.module.css'
 
-const AllCards = ({ posts }) => {
+const AllCards = ({ posts,prevHandler,nextHandler,currenPage}) => {
 
   const sortedPosts = posts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
@@ -27,6 +27,9 @@ const AllCards = ({ posts }) => {
             </div>
           ))}
       </motion.div>
+      <h3>Page:{currenPage} </h3>
+      <button onClick={prevHandler}>Prev</button>
+      <button onClick={nextHandler}>Next</button>
     </>
   );
 };
