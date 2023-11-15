@@ -27,7 +27,7 @@ const Home = ({}) => {
     dispatch(getAllPosts());
   }, []);
 
-  const postporpagina = 6
+  const postporpagina = 12;
 const [items,setItems] = useState ( [...allPosts].splice(0,postporpagina))
 const [currentPage,setCurrentPage] = useState(0);
 
