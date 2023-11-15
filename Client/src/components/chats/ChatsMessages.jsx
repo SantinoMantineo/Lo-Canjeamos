@@ -18,7 +18,7 @@ const ChatsMessages = ({ chatId, userData }) => {
   const senderId = userData.id;
   const userId = userData.id;
 
-  /*  const socketServer = io("http://localhost:3001/", {
+ /*   const socketServer = io("http://localhost:3001/", {
     query: { chatId },
   }); */
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Confetti from "react-confetti";
 import {
@@ -87,33 +87,30 @@ const Matchs = ({ userData }) => {
     dispatch(updateMatchedPairs(matchedPairs));
   });
 
-  useEffect(() => {
-    const createChatsForPairs = async () => {
-      // Al detectar nuevos matches, crea el chat automáticamente
-      if (!loading) {
-        const newChatPairs = [];
+  const createChatsForPairs = async () => {
+    // Al detectar nuevos matches, crea el chat automáticamente
+    if (!loading) {
+      const newChatPairs = [];
 
-        for (const pair of matchedPairs) {
-          const existingChat = chats.find((chat) => {
-            return (
-              (chat.user1Id === userId &&
-                chat.user2Id === pair.anotherUserId) ||
-              (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
-            );
-          });
+      for (const pair of matchedPairs) {
+        const existingChat = chats.find((chat) => {
+          return (
+            (chat.user1Id === userId && chat.user2Id === pair.anotherUserId) ||
+            (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
+          );
+        });
 
-          // Si no hay un chat existente, acumula la pareja para crear uno nuevo
-          if (!existingChat) {
-            newChatPairs.push(pair);
-            // Espera a que se cree el chat antes de continuar
-            await dispatch(createChat(userId, pair.anotherUserId));
-          }
+        // Si no hay un chat existente, acumula la pareja para crear uno nuevo
+        if (!existingChat) {
+          newChatPairs.push(pair);
+          // Espera a que se cree el chat antes de continuar
+          await dispatch(createChat(userId, pair.anotherUserId));
         }
       }
-    };
+    }
+  };
 
-    createChatsForPairs();
-  }, [loading, matchedPairs]);
+  /* createChatsForPairs(); */
 
   function handleGoChat(anotherUserId) {
     const existingChat = chats.find((chat) => {
@@ -151,63 +148,34 @@ const Matchs = ({ userData }) => {
       ) : (
         matchedPairs.map((pair, index) => (
           <div key={index} className={style.matchs}>
-            {showConfetti && <Confetti />}
             <div className={style.match}>
-              <img
-                className={style.img}
-                src={pair.myPost.image[0]}
-                alt={`My Post ${pair.myPost.id}`}
-              />
+              <img className={style.img} src={pair.myPost.image[0]} alt={`My Post ${pair.myPost.id}`}/>
             </div>
-
+            {console.log(pair.anotherUserPost)}
             {pair.anotherUserPost && (
               <div className={style.matchItem}>
-                <img
-                  className={style.img}
-                  src={pair.anotherUserPost.image[0]}
-                  alt={`Matched User Post ${pair.anotherUserPost.id}`}
-                />
+                <img className={style.img} src={pair.anotherUserPost.image[0]} alt={`Matched User Post ${pair.anotherUserPost.id}`}/>
               </div>
             )}
-            <button
-              onClick={() => handleGoChat(pair.anotherUserPost.UserId)}
-              className={style.goChats}
-            >
-              <img
-                width="24"
-                height="24"
-                src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
-                alt="Chat"
-              />
+
+            <Link to="/messages">
+              <button onClick={createChatsForPairs} className={style.goChats}>
+                <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png" alt="Chat"/>
+              </button>
+            </Link>
+
+            <button className={style.profile} onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}>
+              <img width="35" height="35" src={pair.anotherUserPost['User']['image']} alt="Usuario"/>
             </button>
-            <button
-              className={style.goChats}
-              onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}
-            >
-              <img
-                width="24"
-                height="24"
-                src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
-                alt="Usuario"
-              />
+
+            <button onClick={() => {dispatch(deleteLike(pair.anotherUserPost.id));}}className={style.eliminateMatch}>
+              <img width="24" height="24" src="https://img.icons8.com/ios-filled/50/multiply.png" alt="multiply"/>
             </button>
-            <button
-              onClick={() => {
-                dispatch(deleteLike(pair.anotherUserPost.id));
-                console.log(pair.anotherUserPost.id);
-              }}
-              className={style.eliminateMatch}
-            >
-              <img
-                width="24"
-                height="24"
-                src="https://img.icons8.com/ios-filled/50/multiply.png"
-                alt="multiply"
-              />
-            </button>
+            
           </div>
         ))
       )}
+      {showConfetti && <Confetti />}
     </div>
   );
 };

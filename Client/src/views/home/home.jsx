@@ -16,7 +16,6 @@ import style from "./Home.module.css";
 const Home = ({}) => {
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.allPosts);
-  console.log(allPosts);
   const Posts = useSelector((state) => state.allPostsCopy);
   const [isInstalled, setIsInstalled] = useState(false);
   const [showModal, setShowModal] = useState(false);
