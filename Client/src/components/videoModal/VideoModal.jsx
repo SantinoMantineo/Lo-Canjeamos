@@ -6,8 +6,8 @@ const VideoModal = ({ onClose }) => {
     <>
       <div className={style.vModal}>
         <iframe
-          width="640"
-          height="320"
+          width="960"
+          height="480"
           src="https://www.youtube.com/embed/xgOYEsdFaO4?si=8XxPYS_ejzwfPbD_"
           title="YouTube video player"
           frameborder="0"
@@ -16,7 +16,7 @@ const VideoModal = ({ onClose }) => {
         ></iframe>
       </div>
       <button className={style.closeButton} onClick={onClose}>
-        X
+        x
       </button>
     </>
   );
