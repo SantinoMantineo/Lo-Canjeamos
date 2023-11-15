@@ -64,6 +64,7 @@ const App = () => {
     });
   }, [])
 
+
   axios.defaults.baseURL = "http://localhost:3001/";
   // axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
 
@@ -169,6 +170,9 @@ const App = () => {
                   id: userDataResponse.data.id,
                   username: userDataResponse.data.username,
                   image: userDataResponse.data.image,
+                  rol: userDataResponse.data.rol,
+                  averageRating: userDataResponse.data.averageRating,
+                  plan: userDataResponse.data.plan
                 });
               })
               .catch((userDataError) => {
@@ -232,7 +236,7 @@ const App = () => {
 
         <Route path="/resetpassword/:id" element={<ResetPassword />} />
 
-        <Route path="/messages" element={userData && <Messages userData={userData} />} />
+        <Route path="/messages" element={userData ? (<Messages userData={userData} />) : user ? (<Messages userData={user} />) : (<Loading />)}/>
 
         <Route path="/admin" element={<AdminDash></AdminDash>} />
         <Route path="/UserProfile/:userId" element={<UserProfile id={userData}></UserProfile>} />

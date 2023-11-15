@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import OneSignal from "react-onesignal";
 import style from "./Avatar.module.css";
 import PayModal from "../payModal/PayModal";
@@ -60,12 +61,12 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
   };
 
   const sendNot = () => {
+    OneSignal.User.addAlias("name:", userData.username || user.name)
     if (isPremium) {
       OneSignal.User.addTag("subscription:", "premium");
-      console.log("isPremium");
-    } if (!isPremium) {
+    }
+    if (!isPremium) {
       OneSignal.User.addTag("subscription:", "notPremium");
-      console.log("notPremium");
     }
   };
 
@@ -74,6 +75,10 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
   return (
     <>
       <div className={isPremium ? style.avatarPremium : style.avatar}>
+        {userData.rol === "admin" &&         <Link to="/admin">
+        <button className={style.dash}><img width="30" height="30" src="https://img.icons8.com/color/48/dashboard.png" alt="dashboard"/></button>
+        </Link>}
+
         <img
           src={(user && user.picture) || (userData && userData.image)}
           className={style.photo}
@@ -89,23 +94,28 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
         )}
         <h3>{userData.username || user.name}</h3>
         <p>{userData.email || user.email}</p>
-        {userData.averageRating ?         
-        <div>
-          {Array.from({ length: userData.averageRating }, (_, index) => (
-            <span key={index}>⭐️</span>
-          ))}
-        </div> :
-        <h3>Todavia nadie te a calificado</h3>
-        }
+        {userData.averageRating ? (
+          <div>
+            {Array.from({ length: userData.averageRating }, (_, index) => (
+              <span key={index}>⭐️</span>
+            ))}
+          </div>
+        ) : (
+          <h4>Todavía nadie te ha calificado.</h4>
+        )}
         <button
           className={isDarkMode ? style.dark : style.light}
           onClick={handleThemeToggle}
         >
-          {isDarkMode ? "Dark 🌘" : "Light ☀️"}
+          {isDarkMode ? "Oscuro 🌘" : "Claro ☀️"}
         </button>
         <br></br>
-        <button className={style.premium} onClick={openModal} disabled={isPremium}>
-          {isPremium ? "!Gracias!" : "Sé premium"}
+        <button
+          className={style.premium}
+          onClick={openModal}
+          disabled={isPremium}
+        >
+          {isPremium ? "¡Gracias!" : "Sé premium"}
         </button>
         <br />
         <br />

@@ -119,27 +119,10 @@ const Detail = ({ userData }) => {
     ],
   };
   const allPosts = useSelector((state) => state.allPosts);
+  
   const handlePrevClick = () => {
     const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
-
-    if (
-      Array.isArray(allPosts) &&
-      allPosts.length > 0 &&
-      currentIndex !== -1 &&
-      currentIndex < allPosts.length - 1
-    ) {
-      const nextPostId = allPosts[currentIndex + 1].id;
-      navigate(`/detail/${nextPostId}`);
-    } else {
-      console.log(
-        "No hay publicaciones disponibles o ya estás en la primera publicación"
-      );
-    }
-  };
-
-  const handleNextClick = () => {
-    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
-
+  
     if (
       Array.isArray(allPosts) &&
       allPosts.length > 0 &&
@@ -154,10 +137,25 @@ const Detail = ({ userData }) => {
       );
     }
   };
-
-  const handleGoBack = () => {
-    window.history.back(); // Navega hacia atrás en el historial del navegador
+  
+  const handleNextClick = () => {
+    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+  
+    if (
+      Array.isArray(allPosts) &&
+      allPosts.length > 0 &&
+      currentIndex !== -1 &&
+      currentIndex < allPosts.length - 1
+    ) {
+      const nextPostId = allPosts[currentIndex + 1].id;
+      navigate(`/detail/${nextPostId}`);
+    } else {
+      console.log(
+        "No hay publicaciones disponibles o ya estás en la primera publicación"
+      );
+    }
   };
+  
 
   return (
     <>
@@ -194,8 +192,15 @@ const Detail = ({ userData }) => {
         </div>
 
         <div className={style.info}>
-          <span>Rating usuario:</span>
-          <h4>⭐️⭐️⭐️</h4>
+        {post.User.averageRating ? (
+          <div>
+            {Array.from({ length: post.User.averageRating }, (_, index) => (
+              <span key={index}>⭐️</span>
+            ))}
+          </div>
+        ) : (
+          <h4>Todavía nadie te ha calificado.</h4>
+        )}
           <span>Publicacion de:</span>
           {post.User && userName && <h4>{userName}</h4>}
 
@@ -239,10 +244,9 @@ const Detail = ({ userData }) => {
         </div>
 
         <div className={style.buttons}>
-          <button className={style.back} onClick={handleGoBack}>
-            Volver
-          </button>
-
+          <Link to="/">
+            <button className={style.back}>Principal</button>
+          </Link>
           <button
             className={style.match}
             onClick={handleLikeClick}

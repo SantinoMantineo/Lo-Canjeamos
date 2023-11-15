@@ -13,8 +13,9 @@
 }
 
 .newUsers {
-    font-size: 24px;
-    color: greenyellow;
+  font-size: 36px;
+  color: rgb(150, 222, 42);
+  margin: 0;
 }
 
 .tile2 {
@@ -26,8 +27,9 @@
 }
 
 .delUsers {
-    font-size: 24px;
-    color: red;
+  font-size: 36px;
+  color: red;
+  margin: 0;
 }
 
 .tile3 {
@@ -39,8 +41,9 @@
 }
 
 .publications {
-    font-size: 24px;
-    color: aqua;
+  font-size: 36px;
+  color: aqua;
+  margin: 0;
 }
 
 .tile4 {
@@ -52,8 +55,9 @@
 }
 
 .matchs {
-    font-size: 24px;
-    color: orange;
+  font-size: 36px;
+  color: orange;
+  margin: 0;
 }
 
 .tile5 {
@@ -65,26 +69,27 @@
 }
 
 .premium {
-    font-size: 24px;
-    color: blueviolet;
+  font-size: 36px;
+  color: blueviolet;
+  margin: 0;
 }
 
 .filters {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .filters select {
-    border: none;
-    outline: none;
-    margin: 10px;
-    border-radius: 5px;
+  border: none;
+  outline: none;
+  margin: 10px;
+  border-radius: 5px;
 }
 
 .bottomContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 80px;
   margin-top: 30px;
   justify-self: center;
   margin-bottom: 100px;
@@ -93,7 +98,7 @@
 .column1 {
   display: grid;
   width: 500px;
-  height: auto;
+  height: fit-content;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   border-radius: 10px;
 }
@@ -103,11 +108,11 @@
 }
 
 .column1 h4 {
-    text-align: left;
-    margin: 15px;
-    background-color: rgba(128, 128, 128, 0.3);
-    padding-left: 10px;
-    border-radius: 5px;
+  text-align: left;
+  margin: 15px;
+  background-color: rgba(128, 128, 128, 0.3);
+  padding-left: 10px;
+  border-radius: 5px;
 }
 
 .column2 {
@@ -119,11 +124,11 @@
 }
 
 .column2 h4 {
-    text-align: left;
-    margin: 15px;
-    background-color: rgba(0, 149, 255, 0.3);
-    padding-left: 10px;
-    border-radius: 5px;
+  text-align: left;
+  margin: 15px;
+  background-color: rgba(0, 149, 255, 0.3);
+  padding-left: 10px;
+  border-radius: 5px;
 }
 
 /* Los estilos de 'element' los agregó Agus, borrar o modificar cuando sea necesario. */
@@ -138,6 +143,6 @@
   width: fit-content;
 }
 
-button:disabled img{
+button:disabled img {
   filter: grayscale(100%);
 }

@@ -7,15 +7,15 @@ import {
   createChat,
   getAllChats,
   updateMatchedPairs,
+  deleteLike,
 } from "../../redux/actions";
 
 import style from "./Matchs.module.css";
 
-const Matchs = ({ userData}) => {
+const Matchs = ({ userData }) => {
   const [loading, setLoading] = useState(true);
   const matches = useSelector((state) => state.matches);
   const chats = useSelector((state) => state.chats);
-  console.log(chats);
   const allPosts = useSelector((state) => state.allPostsCopy);
   const userId = userData.id;
 
@@ -29,7 +29,7 @@ const Matchs = ({ userData}) => {
   useEffect(() => {
     dispatch(getMatches(userId));
     dispatch(getAllPosts()).then(() => setLoading(false));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   const filteredMatches = matches.filter((match) => {
     return match.match.some((m) => m.myUserId === userId);
@@ -62,8 +62,10 @@ const Matchs = ({ userData}) => {
         ) {
           if (!matchedPostIds.has(m.myPostId)) {
             matchedPostIds.add(m.myPostId);
-            const anotherUserPost = allPosts.find((post) => post.id === m.myPostId);
-  
+            const anotherUserPost = allPosts.find(
+              (post) => post.id === m.myPostId
+            );
+
             // Verificar si anotherUserPost no es undefined antes de agregar a matchingPairs
             if (anotherUserPost !== undefined) {
               matchingPairs.push({
@@ -78,42 +80,38 @@ const Matchs = ({ userData}) => {
     });
     return matchingPairs;
   });
-  
 
   useEffect(() => {
-    dispatch(updateMatchedPairs(matchedPairs))
-  })
-  
+    dispatch(updateMatchedPairs(matchedPairs));
+  });
+
   useEffect(() => {
     const createChatsForPairs = async () => {
       // Al detectar nuevos matches, crea el chat automáticamente
-      const newChatPairs = [];
-    
-      for (const pair of matchedPairs) {
-        const existingChat = chats.find((chat) => {
-          return (
-            (chat.user1Id === userId && chat.user2Id === pair.anotherUserId) ||
-            (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
-          );
-        });
-    
-        // Si no hay un chat existente, acumula la pareja para crear uno nuevo
-        if (!existingChat) {
-          newChatPairs.push(pair);
-          // Espera a que se cree el chat antes de continuar
-          await dispatch(createChat(userId, pair.anotherUserId));
-        }
-      };
-    
-      // ...resto del código
-    };
-    
-    
-  
-    createChatsForPairs();
-  }, [loading]);
-  
+      if (!loading) {
+        const newChatPairs = [];
 
+        for (const pair of matchedPairs) {
+          const existingChat = chats.find((chat) => {
+            return (
+              (chat.user1Id === userId &&
+                chat.user2Id === pair.anotherUserId) ||
+              (chat.user1Id === pair.anotherUserId && chat.user2Id === userId)
+            );
+          });
+
+          // Si no hay un chat existente, acumula la pareja para crear uno nuevo
+          if (!existingChat) {
+            newChatPairs.push(pair);
+            // Espera a que se cree el chat antes de continuar
+            await dispatch(createChat(userId, pair.anotherUserId));
+          }
+        }
+      }
+    };
+
+    createChatsForPairs();
+  }, [loading, matchedPairs]);
 
   function handleGoChat(anotherUserId) {
     const existingChat = chats.find((chat) => {
@@ -133,7 +131,7 @@ const Matchs = ({ userData}) => {
   }
 
   function handleGoProfile(anotherUserId) {
-      navigate(`/UserProfile/${anotherUserId}`);
+    navigate(`/UserProfile/${anotherUserId}`);
   }
 
   return (
@@ -172,15 +170,29 @@ const Matchs = ({ userData}) => {
               />
             </button>
             <button
-              onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}
               className={style.goChats}
+              onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}
             >
               <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
-              alt="Usuario"
-            />
+                width="24"
+                height="24"
+                src="https://img.icons8.com/puffy/32/experimental-user-puffy.png"
+                alt="Usuario"
+              />
+            </button>
+            <button
+              onClick={() => {
+                dispatch(deleteLike(pair.anotherUserPost.id));
+                console.log(pair.anotherUserPost.id);
+              }}
+              className={style.eliminateMatch}
+            >
+              <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/ios-filled/50/multiply.png"
+                alt="multiply"
+              />
             </button>
           </div>
         ))

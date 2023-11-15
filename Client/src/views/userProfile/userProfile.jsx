@@ -3,7 +3,7 @@ import style from "./UserProfile.module.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const UserProfile = ({id}) => {
+const UserProfile = ({ id }) => {
   const { userId } = useParams();
   const [userData, setUserData] = useState(null);
   const [rating, setRating] = useState(true);
@@ -29,25 +29,24 @@ const UserProfile = ({id}) => {
   }, [userId, rating]);
 
   const handleRating = async (value) => {
-    try{
+    try {
       let newReview = {
         userId: id.id,
         reviewedUserId: userId,
-        rating: value
-      }
-      
-      const newRating = await axios.post("/reviews/", newReview)
-      if(newRating){
-        const response = await axios.get(`/reviews/averageRating/${userId}`)
-        if(response){
-          userData.averageRating = response.data.averageRating
+        rating: value,
+      };
+
+      const newRating = await axios.post("/reviews/", newReview);
+      if (newRating) {
+        const response = await axios.get(`/reviews/averageRating/${userId}`);
+        if (response) {
+          userData.averageRating = response.data.averageRating;
         }
       }
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      handleResetRatingClick()
+      handleResetRatingClick();
     }
   };
 
@@ -59,15 +58,19 @@ const UserProfile = ({id}) => {
     setRating(true);
   };
 
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   return (
     <>
       {userData && rating ? (
-        <div className={userData.premium === "premium" ? style.avatarPremium : style.avatar}>
-          <img
-            src={userData.image}
-            className={style.photo}
-            alt="User Avatar"
-          />
+        <div
+          className={
+            userData.premium === "premium" ? style.avatarPremium : style.avatar
+          }
+        >
+          <img src={userData.image} className={style.photo} alt="User Avatar" />
           {userData.premium === "premium" && (
             <img
               width="36"
@@ -79,28 +82,39 @@ const UserProfile = ({id}) => {
           )}
           <h3>{userData.username}</h3>
           <p>{userData.email}</p>
-          {userData.averageRating ?           
+          {userData.averageRating ? (
+            <div>
+              {Array.from({ length: userData.averageRating }, (_, index) => (
+                <span key={index}>⭐️</span>
+              ))}
+            </div>
+          ) : (
+            <h4 className={style.calif}>
+              ¡Todavía no hay calificaciones, sé el primero!
+            </h4>
+          )}
           <div>
-            {Array.from({ length: userData.averageRating }, (_, index) => (
-              <span key={index}>⭐️</span>
-            ))}
-          </div>
-          : 
-          <h3>Todavia no hay calificaciones, se el primero!</h3>
-          }
-          <div>
-            <button onClick={handleRatingClick}>Dar Rating</button>
+            <button className={style.back} onClick={handleGoBack}>
+              Atrás
+            </button>
+            <button onClick={handleRatingClick} className={style.bRating}>
+              Calificar
+            </button>
           </div>
         </div>
       ) : (
-        <div>
-          <h1>Hola</h1>
+        <div className={style.modal}>
+          <h3>Calificá al usuario</h3>
           <div className={style.ratingContainer}>
             {[1, 2, 3, 4, 5].map((value) => (
-              <span key={value} onClick={() => handleRating(value)}>⭐️</span>
+              <span key={value} onClick={() => handleRating(value)}>
+                ☆
+              </span>
             ))}
           </div>
-          <button onClick={handleResetRatingClick}>Volver</button>
+          <button onClick={handleResetRatingClick} className={style.back}>
+            Atrás
+          </button>
         </div>
       )}
     </>

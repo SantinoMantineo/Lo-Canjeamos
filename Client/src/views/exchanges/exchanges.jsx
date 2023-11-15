@@ -4,8 +4,6 @@ import style from "./Exchanges.module.css";
 import PostsLiked from "../../components/likedPosts/PostsLiked";
 import Matchs from "../../components/matchs/Matchs";
 import Header from "../../components/header/Header";
-import Banner3 from "../../assets/banner3.jpg";
-import Banner4 from "../../assets/banner4.jpg";
 import RecivedLikes from "../../components/recivedLikes/recivedLikes";
 import { useDispatch } from "react-redux";
 import { getUserById } from "../../redux/actions";
@@ -35,6 +33,9 @@ const Exchanges = ({ userData }) => {
   useEffect(() => {
     premium();
   }, []);
+
+  const Banner3 = "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885578/emailAssets/itncfxbtlnpm7e6tsffu.jpg";
+  const Banner4 = "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885577/emailAssets/pql2ueup71odoj5lm7wk.jpg";
 
   return (
     <>
@@ -66,7 +67,7 @@ const Exchanges = ({ userData }) => {
         ) : <div className={style.requests}>
         <h3>Pedidos de canje recibidos</h3>
         <div className={style.alert}>
-       <h3>Para acceder a esta funcionalidad debes ser premium</h3>
+       <h3>Para acceder a esta funcionalidad debes ser premium.</h3>
        </div>
       </div>}
       </motion.div>

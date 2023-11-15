@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <title>¡Match encontrado!</title>
+  <style>
+  
+    body {
+      font-family: "DM Sans", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff3b9;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      background-color: #ffe66d;
+      color: #fff;
+      text-align: center;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    .content {
+      padding: 20px;
+      text-align: center;
+      background-color: #f1f1f1;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    .button {
+      display: inline-block;
+      background-color: #ffe66d;
+      color: #333;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 10px 0;
+    }
+    
+    .products-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    
+    .product-circle img{
+      align-items: center;
+      justify-content: center;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid #ffe66d;
+      overflow: hidden;
+      object-fit: cover;
+    }
+    
+    a {
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: none; 
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://res.cloudinary.com/dlahgnpwp/image/upload/v1698923277/emailAssets/mcchgfik3dasgc8s7m1l.png">
+    </div>
+    <div class="content">
+      <h4>🔄 ¡Tenemos un Match! 🔄</h4>
+      <p>¡Felicidades! Has hecho match con otro usuario. Esto significa que
+      ambos se han dado like mutuamente para intercambiar sus productos.</p>
+      <p>A continuación, encontrarás la información de tu nuevo match:</p>
+      <p><b>Fecha y hora del match:</b> {{currentDateTime}}.</p>
+      <p><b>Usuarios del Match:</b> {{user1.username}} y {{user2.username}}.</p>
+      <p><b>Los productos a cambiar:</b></p>
+      <br>
+      <div class="products-container">
+        <div class="product-circle">
+          <img src="{{user1.product}}" />
+        </div>
+        <img src="https://res.cloudinary.com/dlahgnpwp/image/upload/v1699970860/emailAssets/t3en2k2nhv6tvsft9f2h.png" style="width: 50px; height: 50px"/>
+        <div class="product-circle">
+          <img src="{{user2.product}}" />
+        </div>
+      </div>
+      <p>¡No olvides contactar a la otra persona para coordinar el intercambio!
+      Revisa tu pestaña de "Canjes" para encontrar el chat.</p>
+      <a class="button" href="{{matchProfileLink}}">¡Vamos a verlo!</a>
+    </div>
+    <div class="footer">
+      &copy; LoCanjeamos
+    </div>
+  </div>
+</body>
+</html>

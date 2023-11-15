@@ -1,81 +1,82 @@
 .avatar {
-    padding: 30px;
-    box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
-    border-radius: 10px;
-  }
-  
-  .avatarPremium{
-    padding: 30px;
-    box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
-    border-radius: 10px;
-    border: 2px solid goldenrod;
-  }
-  
-  .logo {
-    display: inline;
-    position: absolute;
-    margin-left: -28px;
-    margin-top: 40px;
-    border: none;
-  }
-  
-  .photo {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #4ecdc4;
-  }
-  
-  .avatarPremium .photo {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #4ecdc4;
-  }
-  
-  .avatar h3 {
-    margin: 5px;
-  }
-  
-  .avatarPremium h3 {
-    margin: 5px;
-  }
-  
-  .avatar p {
-    margin: 5px;
-  }
-  
-  .avatarPremium p {
-    margin: 5px;
-  }
-  
-  .avatar div {
-    text-shadow: 0px 5px 10px rgba(124, 123, 123, 0.3);
-  }
-  
-  .avatarPremium div {
-    text-shadow: 0px 5px 10px rgba(124, 123, 123, 0.3);
-  }
-  
-  .premium {
-    background-color: goldenrod;
-    padding: 5px;
-    margin-top: 15px;
-    box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
-    color: whitesmoke;
-    font-size: 14px;
-  }
-  
-  .premium:disabled {
-    background-color: gray;
-    cursor: not-allowed;
-    opacity: 0.6;
-    width: 90px;
-  }
-  
-  /* .avatarPremium .premium {
+  padding: 30px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  border-radius: 10px;
+}
+
+.avatarPremium {
+  padding: 30px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  border-radius: 10px;
+  border: 2px solid goldenrod;
+}
+
+.logo {
+  display: inline;
+  position: absolute;
+  margin-left: -28px;
+  margin-top: 40px;
+  border: none;
+}
+
+.photo {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #4ecdc4;
+}
+
+.avatarPremium .photo {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #4ecdc4;
+}
+
+.avatar h3 {
+  margin: 5px;
+  font-size: 16px;
+}
+
+.avatarPremium h3 {
+  margin: 5px;
+}
+
+.avatar p {
+  margin: 5px;
+}
+
+.avatarPremium p {
+  margin: 5px;
+}
+
+.avatar div {
+  text-shadow: 0px 5px 10px rgba(124, 123, 123, 0.3);
+}
+
+.avatarPremium div {
+  text-shadow: 0px 5px 10px rgba(124, 123, 123, 0.3);
+}
+
+.premium {
+  background-color: goldenrod;
+  padding: 5px;
+  margin-top: 15px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  color: whitesmoke;
+  font-size: 14px;
+}
+
+.premium:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+  opacity: 0.6;
+  width: 90px;
+}
+
+/* .avatarPremium .premium {
     background-color: goldenrod;
     padding: 5px;
     margin-top: 15px;
@@ -83,63 +84,103 @@
     color: whitesmoke;
     font-size: 14px;
   } */
-  
+
+.dark {
+  width: 90px;
+  height: 32px;
+  background-color: black;
+  padding: 5px;
+  padding-bottom: 3px;
+  padding-top: 0px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  color: whitesmoke;
+  font-size: 14px;
+}
+
+.light {
+  width: 90px;
+  height: 32px;
+  background-color: white;
+  padding: 5px;
+  padding-bottom: 3px;
+  padding-top: 0px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  color: black;
+  font-size: 14px;
+}
+
+.avatar .logout {
+  background-color: #ff6b6b;
+  padding: 5px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  color: whitesmoke;
+  font-size: 14px;
+  width: 93px;
+}
+.avatarPremium .logout {
+  background-color: #ff6b6b;
+  padding: 5px;
+  box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
+  color: whitesmoke;
+  font-size: 14px;
+  width: 93px;
+}
+
+.bRating {
+  background-color: #4ecdc4;
+  padding: 5px;
+  color: whitesmoke;
+  margin-top: 30px;
+  width: 90px;
+  margin: 5px;
+}
+
+.modal {
+  box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
+  padding: 30px;
+  padding-left: 60px;
+  padding-right: 60px;
+  border-radius: 10px;
+}
+
+.back {
+  background-color: tomato;
+  padding: 5px;
+  color: whitesmoke;
+
+  width: 90px;
+  margin: 5px;
+  margin-top: 30px;
+}
+
+.avatar h4 {
+  color: #4ecdc4;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .avatar {
+    width: 240px;
+    justify-self: center;
+  }
+
   .dark {
-    width: 90px;
-    height: 32px;
-    background-color: black;
-    padding: 5px;
-    padding-bottom: 3px;
-    padding-top: 0px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
-    color: whitesmoke;
-    font-size: 14px;
+    padding-top: 3px;
   }
-  
+
   .light {
-    width: 90px;
-    height: 32px;
-    background-color: white;
-    padding: 5px;
-    padding-bottom: 3px;
-    padding-top: 0px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
-    color: black;
-    font-size: 14px;
+    padding-top: 3px;
   }
-  
-  .avatar .logout {
-    background-color: #ff6b6b;
-    padding: 5px;
-    box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
-    color: whitesmoke;
-    font-size: 14px;
-    width: 93px;
+
+  .avatar span {
+    display: inline-flex;
   }
-  .avatarPremium .logout {
-    background-color: #ff6b6b;
-    padding: 5px;
-    box-shadow: 0px 5px 10px rgba(125, 125, 125, 0.3);
-    color: whitesmoke;
-    font-size: 14px;
-    width: 93px;
+
+  .modal span {
+    display: inline-flex;
   }
-  @media (max-width: 768px) {
-    .avatar {
-      width: 240px;
-      justify-self: center;
-    }
-    
-    .dark {
-      padding-top: 3px;
-    }
-  
-    .light {
-      padding-top: 3px;
-    }
-  }
-  
+}

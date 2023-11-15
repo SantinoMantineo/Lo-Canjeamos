@@ -23,11 +23,11 @@ exports.createOrder = async (paymentData) => {
                 description: description,
             }],
             back_urls: {  // Corrected property name to 'back_urls'
-                failure: "http://localhost:5173/#/",
-                pending: "http://localhost:5173/#/",
-                success: "http://localhost:5173/#/login"
+                failure: "https://locanjeamos.com.ar/#/login",
+                pending: "https://locanjeamos.com.ar/#/login",
+                success: "https://locanjeamos.com.ar/#/login"
             },
-            notification_url: "https://eadb-201-190-251-186.ngrok.io/plans/webhook"
+            notification_url: "https://lo-canjeamos-production.up.railway.app/plans/webhook"
         }
 
         const response = await mercadopago.preferences.create(preference);
@@ -43,13 +43,12 @@ exports.createOrder = async (paymentData) => {
 } 
 
 exports.webhook = async (data) => {
-console.log("AAA", data)
     try {
         if (data.type === "payment") {
             const user = await User.findByPk(currentUserId)
 
             const premiumNew = await user.update({
-                plan: "Premium"
+                plan: "premium"
             });
             if(premiumNew){
                 return true

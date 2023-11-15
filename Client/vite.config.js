@@ -68,7 +68,7 @@ const manifestForPlugIn = {
     ],
 
     theme_color: "#ffe66d",
-    background_color: "#f0e7db",
+    background_color: "#ffe66d",
     display: "standalone",
     scope: "/",
     start_url: "/",
@@ -80,4 +80,7 @@ const manifestForPlugIn = {
 export default defineConfig({
   plugins: [react(), VitePWA(manifestForPlugIn)],
   base: "",
+  build: {
+    chunkSizeWarningLimit: 1000000,
+  },
 });

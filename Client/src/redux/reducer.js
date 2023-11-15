@@ -33,6 +33,7 @@ import {
   OTHER_USER_DATA,
   GET_ALL_MESSAGES,
   GET_ALL_CHATS,
+  DELETE_LIKE,
   CHAT_CREATED,
   GET_MATCHES,
   UPDATE_FILTERED_MATCHES,
@@ -99,8 +100,8 @@ function rootReducer(state = initialState, action) {
         selectedUser: action.payload,
       };
 
-    case SORT_USER_BY_ID: {
-      let ordered;
+      case SORT_USER_BY_ID: {
+        let ordered;
 
       if (action.payload === "Ascendente") {
         ordered = state.allExistingUsers.sort((a, b) =>
@@ -110,49 +111,49 @@ function rootReducer(state = initialState, action) {
         ordered = state.allExistingUsers.sort((a, b) =>
           b.id > a.id ? 1 : -1
         );
+}
+  
+        return {
+          ...state,
+          allExistingUsers: [...ordered],
+                  };
       }
-
-      return {
-        ...state,
-        allExistingUsers: [...ordered],
-      };
-    }
-
-    case SORT_USER_BY_PLAN: {
-      let users = state.allExistingUsersCopy;
-
-      if(action.payload === "Todos") {
+  
+      case SORT_USER_BY_PLAN: {
+        let users = state.allExistingUsersCopy;
+  
+        if(action.payload === "Todos") {
         users = state.allExistingUsersCopy
       } else {
         users = state.allExistingUsersCopy.filter(
           (user) => user.plan === action.payload
         )
       }
-
-      return {
-        ...state,
-        allExistingUsers: [...users]
-      };
-    }
-
-    case SORT_USER_BY_STATUS: {
-      let users = state.allExistingUsersCopy;
-
-      if (action.payload === "Activos") {
+  
+        return {
+          ...state,
+          allExistingUsers: [...users]
+        };
+      }
+  
+      case SORT_USER_BY_STATUS: {
+        let users = state.allExistingUsersCopy;
+  
+        if (action.payload === "Activos") {
         users = state.allExistingUsersCopy.filter(
           (user) => !user.Deshabilitado)
-      } else if (action.payload === "Deshabilitados") {
+          } else if (action.payload === "Deshabilitados") {
         users = state.allExistingUsersCopy.filter(
           (user) => user.Deshabilitado)
-      } else {
+            } else {
         users = state.allExistingUsersCopy
       }
-
-      return {
-        ...state,
-        allExistingUsers: [...users]
-      };
-    }
+  
+        return {
+          ...state,
+          allExistingUsers: [...users]
+        };
+      }
 
     case CREATE_USER:
       return {
@@ -176,40 +177,61 @@ function rootReducer(state = initialState, action) {
         ),
       };
 
-      case RESTORE_USER: {
-        const { id } = action.payload;
-        const allUsers = [...state.allUsers];
-      
-        const insertIndex = allUsers.findIndex((user) => user.id > id);
-      
-        if (insertIndex === -1) {
-          allUsers.push(action.payload);
+    case RESTORE_USER: {
+      const { id } = action.payload;
+      const allUsers = [...state.allUsers];
+
+      const insertIndex = allUsers.findIndex((user) => user.id > id);
+
+      if (insertIndex === -1) {
+        allUsers.push(action.payload);
+      } else {
+        if (insertIndex === 0) {
+          allUsers.unshift(action.payload);
         } else {
-          if (insertIndex === 0) {
-            allUsers.unshift(action.payload);
-          } else {
-            allUsers.splice(insertIndex, 0, action.payload);
-          }
+          allUsers.splice(insertIndex, 0, action.payload);
         }
-      
-        return {
-          ...state,
-          allUsers,
-        };
       }
 
-    case RESET_USERS_FILTER: 
+      return {
+        ...state,
+        allUsers,
+      };
+    }
+
+    case RESET_USERS_FILTER:
       return {
         ...state,
         allExistingUsers: state.allExistingUsersCopy
       }
 
-    case GET_ALL_POSTS:
-      return {
-        ...state,
-        allPosts: action.payload,
-        allPostsCopy: action.payload,
-      };
+      case GET_ALL_POSTS:
+        // Aplicar los filtros directamente a action.payload
+        let filteredAllPosts = action.payload;
+      
+        if (state.selectedCategory) {
+          filteredAllPosts = filteredAllPosts.filter(
+            (post) => post.category === state.selectedCategory
+          );
+        }
+      
+        if (state.selectedProvince) {
+          filteredAllPosts = filteredAllPosts.filter((post) =>
+            post.ubication.includes(state.selectedProvince)
+          );
+        }
+      
+        if (state.selectedLocality) {
+          filteredAllPosts = filteredAllPosts.filter((post) =>
+            post.ubication.includes(state.selectedLocality)
+          );
+        }
+      
+        return {
+          ...state,
+          allPosts: filteredAllPosts,
+          allPostsCopy: action.payload,
+        };
 
     case GET_ALL_DISABLED_POSTS:
       return {
@@ -239,45 +261,45 @@ function rootReducer(state = initialState, action) {
         selectedPost: action.payload,
       };
 
-      case SORT_POSTS_BY_ID: {
-        let ordered;
-  
-        if (action.payload === "Ascendente") {
-          ordered = state.allExistingPosts.sort((a, b) =>
+    case SORT_POSTS_BY_ID: {
+      let ordered;
+
+      if (action.payload === "Ascendente") {
+        ordered = state.allExistingPosts.sort((a, b) =>
             a.id > b.id ? 1 : -1
           );
-        } else {
-          ordered = state.allExistingPosts.sort((a, b) =>
+      } else {
+        ordered = state.allExistingPosts.sort((a, b) =>
             b.id > a.id ? 1 : -1
           );
-        }
-  
-        return {
-          ...state,
-          allExistingPost: [...ordered],
-        };
-      }
-  
-      case SORT_POSTS_BY_STATUS: {
-        let posts = state.allExistingPostsCopy;
-  
-        if (action.payload === "Activas") {
-          posts = state.allExistingPostsCopy.filter(
-            (post) => !post.Deshabilitado)
-        } else if (action.payload === "Deshabilitadas") {
-          posts = state.allExistingPostsCopy.filter(
-            (post) => post.Deshabilitado)
-        } else {
-          posts = state.allExistingPostsCopy
-        }
-  
-        return {
-          ...state,
-          allExistingPosts: [...posts]
-        };
       }
 
-      case RESET_POSTS_FILTER: 
+      return {
+        ...state,
+        allExistingPost: [...ordered],
+      };
+    }
+
+    case SORT_POSTS_BY_STATUS: {
+      let posts = state.allExistingPostsCopy;
+
+      if (action.payload === "Activas") {
+        posts = state.allExistingPostsCopy.filter(
+          (post) => !post.Deshabilitado)
+      } else if (action.payload === "Deshabilitadas") {
+        posts = state.allExistingPostsCopy.filter(
+            (post) => post.Deshabilitado)
+      } else {
+        posts = state.allExistingPostsCopy
+      }
+
+      return {
+        ...state,
+        allExistingPosts: [...posts]
+      };
+    }
+
+    case RESET_POSTS_FILTER:
       return {
         ...state,
         allExistingPosts: state.allExistingPostsCopy
@@ -359,33 +381,52 @@ function rootReducer(state = initialState, action) {
         ),
       };
 
-      case RESTORE_POST: {
-        const { id } = action.payload;
-        const allPosts = [...state.allPosts];
-      
-        const insertIndex = allPosts.findIndex((user) => user.id > id);
-      
-        if (insertIndex === -1) {
-          allPosts.push(action.payload);
+    case RESTORE_POST: {
+      const { id } = action.payload;
+      const allPosts = [...state.allPosts];
+
+      const insertIndex = allPosts.findIndex((user) => user.id > id);
+
+      if (insertIndex === -1) {
+        allPosts.push(action.payload);
+      } else {
+        if (insertIndex === 0) {
+          allPosts.unshift(action.payload);
         } else {
-          if (insertIndex === 0) {
-            allPosts.unshift(action.payload);
-          } else {
-            allPosts.splice(insertIndex, 0, action.payload);
-          }
+          allPosts.splice(insertIndex, 0, action.payload);
         }
-      
-        return {
-          ...state,
-          allPosts,
-        };
       }
+
+      return {
+        ...state,
+        allPosts,
+      };
+    }
 
     case GET_ALL_LIKES:
       return {
         ...state,
         allLikes: action.payload,
       };
+
+      case DELETE_LIKE:
+        const deletedLikeId = action.payload.id;
+  
+        // Filtra los likes que deben eliminarse
+        const updatedLikes = state.allLikes.filter((like) => like.likedPostId == deletedLikeId);
+  
+        // Filtra los matches que deben eliminarse
+        const updatedMatches = state.matches.filter((match) =>
+          match.some((like) => like.id !== deletedLikeId)
+        );
+  
+        // Actualiza el estado con los likes y matches filtrados
+        return {
+          ...state,
+          allLikes: updatedLikes,
+          matches: updatedMatches,
+        };
+  
 
     case LIKED_POSTS:
       const userId = action.payload;
@@ -437,18 +478,18 @@ function rootReducer(state = initialState, action) {
         chats: action.payload,
       };
 
-case CHAT_CREATED:
-  return {
-    ...state,
-    chats: [
-      ...state.chats,
-      {
-        id: action.payload.chatId.chatId,
-        user1Id: action.payload.user1Id,
-        user2Id: action.payload.user2Id
-      },
-    ],
-  };
+    case CHAT_CREATED:
+      return {
+        ...state,
+        chats: [
+          ...state.chats,
+          {
+            id: action.payload.chatId.chatId,
+            user1Id: action.payload.user1Id,
+            user2Id: action.payload.user2Id
+          },
+        ],
+      };
 
 
     case RESET_FILTERS:

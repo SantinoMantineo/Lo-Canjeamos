@@ -4,13 +4,24 @@ const createReview = async (req, res) => {
     try {
         const { userId, reviewedUserId, rating} = req.body;
 
-        const newReview = await Review.create({
-            userId: userId,
-            reviewedUserId: reviewedUserId,
-            rating: rating
+        const result = await Review.findAll({
+            where: {
+                userId: userId,
+                reviewedUserId: reviewedUserId,
+            },
         });
-
-        if(newReview) res.status(201)
+        console.log(result)
+        if(result.length != 0){
+            throw new Error("Ya haz calificado a este usuario")
+        } else {
+            const newReview = await Review.create({
+                userId: userId,
+                reviewedUserId: reviewedUserId,
+                rating: rating
+            });
+    
+            if(newReview) res.status(201)
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error al crear la reseña", error: error.message });

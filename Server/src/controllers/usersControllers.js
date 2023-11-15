@@ -204,6 +204,16 @@ exports.getUserId = async (user) => {
   }
 }
 
+exports.getUserById = async (id) => {
+  try {
+    const user = await User.findByPk(id)
+
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 exports.userLogueado = async ({email}) => {
   try {
       const user = await User.findOne({

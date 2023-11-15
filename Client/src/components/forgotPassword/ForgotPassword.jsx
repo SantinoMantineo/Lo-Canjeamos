@@ -68,9 +68,9 @@ const ForgotPassword = () => {
           >
             Enviar
           </button>
-          <div className={style.registerLink}>No tiene una cuenta?</div>
+          <div className={style.registerLink}>¿No tiene una cuenta?</div>
             <Link to="/register" className={style.textYellow}>
-              <button className={style.btnAqui}>Registrese </button>
+              <button className={style.btnAqui}>Regístrate </button>
             </Link>
           
         </div>
