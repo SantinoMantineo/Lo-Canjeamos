@@ -71,8 +71,10 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
     }
   };
 
-  sendNot();
-
+  useEffect(() => {
+    sendNot();
+  }, []);
+  
   return (
     <>
       <div className={isPremium ? style.avatarPremium : style.avatar}>
