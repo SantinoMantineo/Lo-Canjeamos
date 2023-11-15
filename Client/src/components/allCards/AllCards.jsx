@@ -3,9 +3,7 @@ import Card from "../card/Card";
 import {motion} from 'framer-motion';
 import style from './AllCards.module.css'
 
-const AllCards = ({ posts,prevHandler,nextHandler,currenPage}) => {
-
-  const sortedPosts = posts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+const AllCards = ({ posts,prevHandler,nextHandler,currentPage}) => {
 
   return (
     <>
@@ -20,8 +18,8 @@ const AllCards = ({ posts,prevHandler,nextHandler,currenPage}) => {
         y: 0,
       }}
       className={style.allCards}>
-        {sortedPosts &&
-          sortedPosts.map((post, index) => (
+        {posts &&
+          posts.map((post, index) => (
             <div key={index} className={style.cards}>
               <Card key={post.id} post={post} />
             </div>
@@ -29,7 +27,7 @@ const AllCards = ({ posts,prevHandler,nextHandler,currenPage}) => {
       </motion.div>
       <div className={style.buttons}>
       <button onClick={prevHandler} className={style.pag}>{`<`}</button>
-      <h3>{currenPage}</h3>
+      <h3>{currentPage}</h3>
       <button onClick={nextHandler} className={style.pag}>{`>`}</button>
       </div>
     </>
