@@ -264,8 +264,7 @@ setErrors({ ...errors, [name]: error });
         Swal.fire({
           title: "Errores en el formulario",
           text: errorMessage.join("\n"),
-          icon: "warning",
-          iconColor: 'red'
+          icon: "error",
         });
         setFormData({
           ...formData,
@@ -302,12 +301,12 @@ setErrors({ ...errors, [name]: error });
           title: "🎉 ¡Hecho! 🎉",
           html: '<p>Tu publicación ha sido creada correctamente. Puedes verla en tu perfil o visualizarla en el inicio.</p>',
           allowOutsideClick: false
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = response
-              ? 'https://locanjeamos.com.ar/#/login'
-              : 'http://localhost:5173/#/login'
-          }
+        }).then(() => {
+          // if (result.isConfirmed) {
+            // window.location.href = response
+              'https://locanjeamos.com.ar/#/login'
+              //  'http://localhost:5173/#/login'
+          // }
         });
 
         setFiles([]);
