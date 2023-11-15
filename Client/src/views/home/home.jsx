@@ -19,7 +19,7 @@ const Home = ({}) => {
   const [showModal, setShowModal] = useState(false);
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const postPerPage = 4;
+  const postPerPage = 12;
 
   const toggleModal = () => {
     setShowModal(!showModal);
