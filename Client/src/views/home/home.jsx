@@ -91,7 +91,7 @@ const Home = ({}) => {
       <Filters></Filters>
       <AllCards
         posts={items}
-        currenPage={currentPage}
+        currentPage={currentPage}
         nextHandler={nextHandler}
         prevHandler={prevHandler}
       ></AllCards>
