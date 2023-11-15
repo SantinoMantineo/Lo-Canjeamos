@@ -315,7 +315,8 @@ const AdminDash = () => {
             {allUsers.map((user) => (
               <div key={user.id} className={style.element}>
                 <h4>ID: {user.id}</h4>
-                <h4>{user.username}</h4>
+                <h4>{user.username} <h5>{user.email}</h5></h4>
+                
                 {user.Deshabilitado ? (
                   <span style={{ color: "crimson", fontSize: 16 }}>
                     Deshabilitado

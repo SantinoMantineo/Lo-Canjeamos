@@ -7,7 +7,6 @@ import VideoModal from "../../components/videoModal/VideoModal";
 import Cards from "../../components/cards/Cards";
 import Filters from "../../components/filters/filters";
 import Header from "../../components/header/Header";
-import Paginado from "../../components/pagination/pagination";
 import AllCards from "../../components/allCards/AllCards";
 import Footer from "../../components/footer/Footer";
 
@@ -28,14 +27,28 @@ const Home = ({}) => {
     dispatch(getAllPosts());
   }, []);
 
-  // Estado para la página actual
-  const [currentPage, setCurrentPage] = useState(1);
+  const postporpagina = 6
+const [items,setItems] = useState ( [...allPosts].splice(0,postporpagina))
+const [currentPage,setCurrentPage] = useState(0);
 
-  // Función de paginado
-  const handlePaginado = (pageNumber) => {
-    // Lógica para actualizar la página actual
-    setCurrentPage(pageNumber);
-  };
+const nextHandler = () =>{
+  const totalElemento = allPosts.length;
+  const nextPage = currentPage + 1;
+  const firstIndex = nextPage * postporpagina
+  if (firstIndex>=totalElemento) return;
+  setItems([...allPosts].splice(firstIndex,postporpagina))
+  setCurrentPage(nextPage)
+  console.log("ClickNext");
+}
+const prevHandler = () =>{
+  const preventPage = currentPage - 1
+
+  if(preventPage <0)return;
+  const firstIndex =preventPage *postporpagina
+  setItems([...allPosts].splice(firstIndex,postporpagina))
+  setCurrentPage(preventPage)
+  console.log("ClickPrevet");
+}
 
   const handleDownload = () => {
     if (!isInstalled) {
@@ -69,13 +82,11 @@ const Home = ({}) => {
       </button>
       <Cards allPosts={Posts}></Cards>
       <Filters></Filters>
-      <AllCards posts={allPosts}></AllCards>
-      <Paginado
-        allCard={allPosts.length}
-        cardPerPage={3}
-        paginado={handlePaginado}
-        currentPage={currentPage}
-      ></Paginado>
+      <AllCards posts={items}
+      currenPage={currentPage}
+      nextHandler={nextHandler}
+      prevHandler={prevHandler}
+      ></AllCards>
       <Footer></Footer>
     </>
   );
