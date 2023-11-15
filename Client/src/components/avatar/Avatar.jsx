@@ -62,6 +62,7 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
 
   const sendNot = () => {
     OneSignal.User.addAlias("name:", userData.username || user.name)
+    console.log("name:", userData.username || user.name)
     if (isPremium) {
       OneSignal.User.addTag("subscription:", "premium");
     }
@@ -69,9 +70,9 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
       OneSignal.User.addTag("subscription:", "notPremium");
     }
   };
-
+  
   sendNot();
-
+  
   return (
     <>
       <div className={isPremium ? style.avatarPremium : style.avatar}>

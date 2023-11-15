@@ -58,10 +58,10 @@ const RecivedLikes = ({ userData }) => {
               <div className={style.like}>
                 <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
                 {index % 2 === 0 ? (
-                  <p>{`Tú: ${posteo.title}`}</p>
+                  <h4>{`Tú: ${posteo.title}`}</h4>
                 ) : (
                   <Link to={`/detail/${posteo.id}`}>
-                    <p>{posteo.title}</p>
+                    <h4>{posteo.title}</h4>
                   </Link>
                 )}
               </div>

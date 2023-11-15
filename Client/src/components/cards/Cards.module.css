@@ -33,4 +33,8 @@
     display: inline;
     font-size: 18px;
   }
+
+  .masRec {
+    margin-bottom: 15px;
+  }
 }

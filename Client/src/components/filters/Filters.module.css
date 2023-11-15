@@ -1,86 +1,93 @@
 .filters {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 0.5fr;
-    gap: 20px;
-    justify-content: center;
-    justify-self: center;
-    margin-bottom: 20px;
-    margin-top: 50px;
-    border-radius: 10px;
-    width: 1300px;
-  }
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 0.5fr;
+  gap: 20px;
+  justify-content: center;
+  justify-self: center;
+  margin-bottom: 20px;
+  margin-top: 50px;
+  border-radius: 10px;
+  width: 1300px;
+}
 
+.product {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #4ecdc4;
+  object-fit: cover;
+  justify-self: right;
+}
+
+.filters span {
+  align-self: center;
+  font-size: 18px;
+  color: #4ecdc4;
+  justify-self: center;
+}
+
+.filters select {
+  border-radius: 5px;
+  outline: none;
+  background-color: whitesmoke;
+  width: 200px;
+  height: 30px;
+  font-size: 16px;
+  justify-self: center;
+  align-self: center;
+  color: grey;
+  border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filters a {
+  width: fit-content;
+  justify-self: right;
+}
+
+.filters button {
+  width: fit-content;
+  justify-self: center;
+  margin-left: -5px;
+}
+
+@media (max-width: 1280px) {
+  .filters {
+    grid-template-columns: 75px 75px 125px 125px 125px 75px;
+    width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
   .product {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 3px solid #4ecdc4;
-    object-fit: cover;
-    justify-self: right;
+    width: 40px;
+    height: 40px;
   }
 
-  .filters span {
-    align-self: center;
-    font-size: 18px;
-    color: #4ecdc4;
+  .filters {
     justify-self: center;
+    width: 340px;
+    margin-top: 20px;
+    padding: 5px;
+    gap: 5px;
+    grid-template-columns: 50px 75px 75px 75px 40px;
+    background-color: #ffe66d;
+  }
+
+  option {
+    text-align: right;
+    max-width: fit-content;
+  }
+
+  span {
+    display: none;
   }
 
   .filters select {
-    border-radius: 5px;
-    outline: none;
-    background-color: whitesmoke;
-    width: 200px;
-    height: 30px;
-    font-size: 16px;
-    justify-self: center;
-    align-self: center;
-    color: grey;
+    width: 80px;
+    font-size: 10px;
     border: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    background-color: #ffe66d;
   }
-
-  .filters a {
-    width: fit-content;
-    justify-self: right;
-  }
-
-  .filters button {
-    width: fit-content;
-    justify-self: center;
-    margin-left: -5px;
-  }
-
-  @media (max-width: 768px) {
-    .product {
-      width: 40px;
-      height: 40px;
-    }
-
-    .filters {
-      justify-self: center;
-      width: 340px;
-      margin-top: 20px;
-      padding: 5px;
-      gap: 5px;
-      grid-template-columns: 50px 75px 75px 75px 40px;
-      background-color: #FFE66D;
-    }
-
-    option {
-      text-align: right;
-      max-width: fit-content;
-    }
-
-    span {
-      display: none;
-    }
-
-    .filters select {
-      width: 80px;
-      font-size: 10px;
-      border: none;
-      background-color: #FFE66D;
-    }
-  }
+}

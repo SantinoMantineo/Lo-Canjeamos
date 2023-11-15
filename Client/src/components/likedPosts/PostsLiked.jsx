@@ -6,7 +6,7 @@ import style from "./PostsLiked.module.css";
 const PostsLiked = ({ userData }) => {
   const userId = userData.id;
   const dispatch = useDispatch();
-  const matchedPairs = useSelector((state) => state.matchedPairs)
+  const matchedPairs = useSelector((state) => state.matchedPairs);
   const likedPostss = useSelector((state) => state.likedPosts);
 
   // Agrega un estado local para controlar si los datos están cargados
@@ -29,12 +29,11 @@ const PostsLiked = ({ userData }) => {
     return <div>Cargando...</div>;
   }
 
-  const matchedPostIds = matchedPairs.map(pair => pair.anotherUserPost?.id);
-  console.log(matchedPairs);
+  const matchedPostIds = matchedPairs.map((pair) => pair.anotherUserPost?.id);
 
-  const filteredLikedPosts = likedPostss.filter(likedPost => !matchedPostIds.includes(likedPost.id));
-
-
+  const filteredLikedPosts = likedPostss.filter(
+    (likedPost) => !matchedPostIds.includes(likedPost.id)
+  );
 
   return (
     <div className={style.containerP}>

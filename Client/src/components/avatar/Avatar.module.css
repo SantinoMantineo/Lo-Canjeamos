@@ -180,4 +180,12 @@
     margin-left: 220px;
     margin-top: -20px;
   }
+
+  .avatar span {
+    display: inline-flex;
+  }
+
+  .avatarPremium span {
+    display: inline-flex;
+  }
 }

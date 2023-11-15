@@ -35,10 +35,14 @@
   }
 
   .like p {
-    display: grid;
+    display: inline-flex;
     align-self: center;
     justify-self: left;
     margin-left: 10px;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 16px;
   }
   
   .likes {
@@ -94,10 +98,5 @@
     border: 3px solid #4ecdc4;
   }
 
-  .firstLike .like p {
-    display: grid;
-    align-self: center;
-    justify-self: left;
-    margin-left: 10px;
-  }
+ 
   
