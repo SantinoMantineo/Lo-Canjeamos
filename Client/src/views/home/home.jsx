@@ -29,9 +29,13 @@ const Home = ({}) => {
     dispatch(getAllPosts());
   }, [dispatch]);
 
+  const sortedPosts = allPosts
+    .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+    .slice(0, 20);
+
   useEffect(() => {
     if (allPosts.length > 0) {
-      const initialItems = allPosts.slice(0, postPerPage);
+      const initialItems = sortedPosts.slice(0, postPerPage);
       setItems(initialItems);
     }
   }, [allPosts]);
@@ -41,7 +45,7 @@ const Home = ({}) => {
     const nextPage = currentPage + 1;
     const firstIndex = nextPage * postPerPage;
     if (firstIndex >= totalElemento) return;
-    setItems(allPosts.slice(firstIndex, firstIndex + postPerPage));
+    setItems(sortedPosts.slice(firstIndex, firstIndex + postPerPage));
     setCurrentPage(nextPage);
   };
 
@@ -49,7 +53,7 @@ const Home = ({}) => {
     const preventPage = currentPage - 1;
     if (preventPage < 0) return;
     const firstIndex = preventPage * postPerPage;
-    setItems(allPosts.slice(firstIndex, firstIndex + postPerPage));
+    setItems(sortedPosts.slice(firstIndex, firstIndex + postPerPage));
     setCurrentPage(preventPage);
   };
 
