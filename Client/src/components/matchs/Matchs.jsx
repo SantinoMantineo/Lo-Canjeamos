@@ -148,6 +148,7 @@ const Matchs = ({ userData }) => {
       ) : (
         matchedPairs.map((pair, index) => (
           <div key={index} className={style.matchs}>
+            {showConfetti && <Confetti />}
             <div className={style.match}>
               <img className={style.img} src={pair.myPost.image[0]} alt={`My Post ${pair.myPost.id}`}/>
             </div>
@@ -175,7 +176,6 @@ const Matchs = ({ userData }) => {
           </div>
         ))
       )}
-      {showConfetti && <Confetti />}
     </div>
   );
 };
