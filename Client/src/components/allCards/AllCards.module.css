@@ -17,9 +17,14 @@
   position: absolute;
   align-self: flex-end;
   margin-bottom: 210px;
-  gap: 10px;
+  gap: 20px;
   justify-self: center;
   max-width: 600px;
+}
+
+.buttons h3 {
+  display: grid;
+  width: 60px;
 }
 
 .pag {

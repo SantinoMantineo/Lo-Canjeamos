@@ -119,17 +119,19 @@ const Detail = ({ userData }) => {
     ],
   };
   const allPosts = useSelector((state) => state.allPosts);
+
+  const reversedPosts = [...allPosts].reverse();
   
   const handlePrevClick = () => {
-    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+    const currentIndex = reversedPosts.findIndex((p) => p.id === parseInt(id, 12));
   
     if (
-      Array.isArray(allPosts) &&
-      allPosts.length > 0 &&
+      Array.isArray(reversedPosts) &&
+      reversedPosts.length > 0 &&
       currentIndex !== -1 &&
       currentIndex > 0
     ) {
-      const prevPostId = allPosts[currentIndex - 1].id;
+      const prevPostId = reversedPosts[currentIndex - 1].id;
       navigate(`/detail/${prevPostId}`);
     } else {
       console.log(
@@ -139,15 +141,15 @@ const Detail = ({ userData }) => {
   };
   
   const handleNextClick = () => {
-    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+    const currentIndex = reversedPosts.findIndex((p) => p.id === parseInt(id, 10));
   
     if (
-      Array.isArray(allPosts) &&
-      allPosts.length > 0 &&
+      Array.isArray(reversedPosts) &&
+      reversedPosts.length > 0 &&
       currentIndex !== -1 &&
       currentIndex < allPosts.length - 1
     ) {
-      const nextPostId = allPosts[currentIndex + 1].id;
+      const nextPostId = reversedPosts[currentIndex + 1].id;
       navigate(`/detail/${nextPostId}`);
     } else {
       console.log(
@@ -216,8 +218,8 @@ const Detail = ({ userData }) => {
           <button
             onClick={handlePrevClick}
             disabled={
-              allPosts.length === 0 ||
-              allPosts.findIndex((p) => p.id === id) === 0
+              reversedPosts.length === 0 ||
+              reversedPosts.findIndex((p) => p.id === id) === 0
             }
           >
             <img
@@ -231,8 +233,8 @@ const Detail = ({ userData }) => {
           <button
             onClick={handleNextClick}
             disabled={
-              allPosts.length === 0 ||
-              allPosts.findIndex((p) => p.id === id) === allPosts.length - 1
+              reversedPosts.length === 0 ||
+              reversedPosts.findIndex((p) => p.id === id) === allPosts.length - 1
             }
           >
             <img

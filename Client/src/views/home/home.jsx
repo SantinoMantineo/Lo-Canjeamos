@@ -31,7 +31,7 @@ const Home = ({}) => {
 
   const sortedPosts = allPosts
     .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-    .slice(0, 20);
+    .slice(0, allPosts.length);
 
   useEffect(() => {
     if (allPosts.length > 0) {
