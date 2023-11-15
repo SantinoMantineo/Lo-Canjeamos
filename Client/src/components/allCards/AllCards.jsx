@@ -29,7 +29,7 @@ const AllCards = ({ posts,prevHandler,nextHandler,currenPage}) => {
       </motion.div>
       <div className={style.buttons}>
       <button onClick={prevHandler} className={style.pag}>{`<`}</button>
-      <h3>{currenPage} </h3>
+      <h3>{currenPage}</h3>
       <button onClick={nextHandler} className={style.pag}>{`>`}</button>
       </div>
     </>

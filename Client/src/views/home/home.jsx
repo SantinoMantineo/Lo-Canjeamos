@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
 import { getAllPosts } from "../../redux/actions";
 import VideoModal from "../../components/videoModal/VideoModal";
 import Cards from "../../components/cards/Cards";
@@ -18,6 +17,9 @@ const Home = ({}) => {
   const Posts = useSelector((state) => state.allPostsCopy);
   const [isInstalled, setIsInstalled] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [items, setItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const postPerPage = 12;
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -25,30 +27,31 @@ const Home = ({}) => {
 
   useEffect(() => {
     dispatch(getAllPosts());
-  }, []);
+  }, [dispatch]);
 
-  const postporpagina = 12;
-const [items,setItems] = useState ( [...allPosts].splice(0,postporpagina))
-const [currentPage,setCurrentPage] = useState(0);
+  useEffect(() => {
+    if (allPosts.length > 0) {
+      const initialItems = allPosts.slice(0, postPerPage);
+      setItems(initialItems);
+    }
+  }, [allPosts]);
 
-const nextHandler = () =>{
-  const totalElemento = allPosts.length;
-  const nextPage = currentPage + 1;
-  const firstIndex = nextPage * postporpagina
-  if (firstIndex>=totalElemento) return;
-  setItems([...allPosts].splice(firstIndex,postporpagina))
-  setCurrentPage(nextPage)
-  console.log("ClickNext");
-}
-const prevHandler = () =>{
-  const preventPage = currentPage - 1
+  const nextHandler = () => {
+    const totalElemento = allPosts.length;
+    const nextPage = currentPage + 1;
+    const firstIndex = nextPage * postPerPage;
+    if (firstIndex >= totalElemento) return;
+    setItems(allPosts.slice(firstIndex, firstIndex + postPerPage));
+    setCurrentPage(nextPage);
+  };
 
-  if(preventPage <0)return;
-  const firstIndex =preventPage *postporpagina
-  setItems([...allPosts].splice(firstIndex,postporpagina))
-  setCurrentPage(preventPage)
-  console.log("ClickPrevet");
-}
+  const prevHandler = () => {
+    const preventPage = currentPage - 1;
+    if (preventPage < 0) return;
+    const firstIndex = preventPage * postPerPage;
+    setItems(allPosts.slice(firstIndex, firstIndex + postPerPage));
+    setCurrentPage(preventPage);
+  };
 
   const handleDownload = () => {
     if (!isInstalled) {
@@ -82,10 +85,11 @@ const prevHandler = () =>{
       </button>
       <Cards allPosts={Posts}></Cards>
       <Filters></Filters>
-      <AllCards posts={items}
-      currenPage={currentPage}
-      nextHandler={nextHandler}
-      prevHandler={prevHandler}
+      <AllCards
+        posts={items}
+        currenPage={currentPage}
+        nextHandler={nextHandler}
+        prevHandler={prevHandler}
       ></AllCards>
       <Footer></Footer>
     </>
