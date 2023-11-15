@@ -19,6 +19,9 @@ const Register = ({setAuth}) => {
     const cloud_name = "dlahgnpwp";
     const folderName = "usersProfilePic";
 
+    const [imageError, setImageError] = useState(null);
+    const [provinceError, setProvinceError] = useState(null);
+    const [localidadError, setLocalidadError] = useState(null);
   const [errors, setErrors] = useState({
     username: null,
     password: null,
@@ -47,6 +50,8 @@ const Register = ({setAuth}) => {
 
     const provinceError = validateProvince(selectedProvince);
     setErrors({ ...errors, province: provinceError });
+    setProvinceError(provinceError);
+
 
     fetch(
       `https://apis.datos.gob.ar/georef/api/localidades?provincia=${selectedProvince}&max=500`
@@ -69,6 +74,7 @@ const Register = ({setAuth}) => {
 
     const localidadError = validateLocalidad(selectedLocalidad);
     setErrors({ ...errors, localidad: localidadError });
+    setLocalidadError(localidadError);
   };
   const sortedProvinces = provinces.sort((a, b) => {
     return a.nombre.localeCompare(b.nombre);
@@ -130,6 +136,7 @@ const Register = ({setAuth}) => {
         image: imageUrl,
       });
       setImageFile(file); 
+      setImageError(null)
     }
   };
   
@@ -157,18 +164,40 @@ const Register = ({setAuth}) => {
     !input.image ||
     !selectedProvince ||
     !localidad
-  ) {
-    Swal.fire({
-      icon: 'info',
-      title: 'Campos incompletos',
-      text: 'Todos los campos son obligatorios para completar el registro',
-    });
+  )   
+  {
+ 
+    
+  if (!input.image) {
+    setImageError('Es necesario completar con una imagen.');
+  } else {
+    setImageError(null); 
+  }
+
+  if (!selectedProvince) {
+    setProvinceError('Es necesario seleccionar una provincia.');
+  } else {
+    setProvinceError(null); 
+  }
+
+  if (!localidad) {
+    setLocalidadError('Es necesario seleccionar una localidad.');
+  } else {
+    setLocalidadError(null); 
+  }
+  Swal.fire({
+    icon: 'info',
+    title: 'Campos incompletos',
+    html: 'Todos los campos son obligatorios para completar el registro'
+  });
+    
     setInput({
       ...input,
       disabled: false,
     });
     return;
   }
+
   try {
     let secureUrl = '';
 
@@ -228,8 +257,7 @@ const Register = ({setAuth}) => {
       });
     } else {
       Swal.fire({
-        icon: 'warning',
-        iconColor: 'red',
+        icon: 'error',
         title: 'Error al registrar',
         text: 'Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.',
       });
@@ -337,8 +365,10 @@ const Register = ({setAuth}) => {
               <button onClick={handleImageClear}>✖️</button>
             </div>
           )}
+          {/* {errors.image && <span className={style.error}>{errors.image}</span>} */}
+          {imageError && <div className={style.error}>{imageError}</div>}
         </div>
-           
+
             <select onChange={handleProvinceChange} disabled={input.disabled}>
               <option value="Elige una provincia">Provincia</option>
               {sortedProvinces.map((province) => (
@@ -347,7 +377,8 @@ const Register = ({setAuth}) => {
                 </option>
               ))}
             </select>
-            {errors.province && <span className={style.error}>{errors.province}</span>}
+            {/* {errors.province && <span className={style.error}>{errors.province}</span>} */}
+            {provinceError && <div className={style.error}>{provinceError}</div>}
                
             <select id="selectLocalidades" onChange={handleLocalidadChange} disabled={input.disabled}>
               <option value="Elige una localidad">Localidad</option>
@@ -357,7 +388,8 @@ const Register = ({setAuth}) => {
                 </option>
               ))}
             </select>
-            {errors.localidad && <span className={style.error}>{errors.localidad}</span>}
+            {/* {errors.localidad && <span className={style.error}>{errors.localidad}</span>} */}
+            {localidadError && <div className={style.error}>{localidadError}</div>}
        
           <button className={isSubmitDisabled() ? `${style.register} ${style.buttonDisabled}` : style.register} disabled={isSubmitDisabled()} type="submit">
             Enviar
