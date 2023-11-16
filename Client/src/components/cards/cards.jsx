@@ -70,6 +70,7 @@ const Cards = ({ allPosts }) => {
           {premiumPosts &&
             premiumPosts.map((post, index) => (
               <div key={index}>
+                <img width="32" height="32" src="https://img.icons8.com/color/48/guarantee.png" alt="guarantee" className={style.logo}/>
                 <Card key={post.id} post={post} />
               </div>
             ))}
