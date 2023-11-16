@@ -60,9 +60,9 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
     localStorage.setItem("darkMode", updatedDarkMode);
   };
 
-  const sendNot = () => {
-    OneSignal.User.addAlias("name:", userData.username || user.name)
-    console.log("name:", userData.username || user.name)
+  const sendMail = () => {
+    OneSignal.User.addEmail("mail", userData.email || user.mail)
+    console.log("name:", userData.email || user.mail)
     if (isPremium) {
       OneSignal.User.addTag("subscription:", "premium");
     }
@@ -71,7 +71,7 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
     }
   };
   
-  sendNot();
+  sendMail();
   
   return (
     <>
