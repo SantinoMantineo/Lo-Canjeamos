@@ -29,13 +29,13 @@ const Home = ({}) => {
     dispatch(getAllPosts());
   }, [dispatch]);
 
-  const sortedPosts = allPosts
+  /* const sortedPosts = allPosts
     .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-    .slice(0, allPosts.length);
+    .slice(0, allPosts.length); */
 
   useEffect(() => {
     if (allPosts.length > 0) {
-      const initialItems = sortedPosts.slice(0, postPerPage);
+      const initialItems = allPosts.slice(0, postPerPage);
       setItems(initialItems);
       setCurrentPage(0);
     }
@@ -46,7 +46,7 @@ const Home = ({}) => {
     const nextPage = currentPage + 1;
     const firstIndex = nextPage * postPerPage;
     if (firstIndex >= totalElemento) return;
-    setItems(sortedPosts.slice(firstIndex, firstIndex + postPerPage));
+    setItems(allPosts.slice(firstIndex, firstIndex + postPerPage));
     setCurrentPage(nextPage);
   };
 
@@ -54,7 +54,7 @@ const Home = ({}) => {
     const preventPage = currentPage - 1;
     if (preventPage < 0) return;
     const firstIndex = preventPage * postPerPage;
-    setItems(sortedPosts.slice(firstIndex, firstIndex + postPerPage));
+    setItems(allPosts.slice(firstIndex, firstIndex + postPerPage));
     setCurrentPage(preventPage);
   };
 
