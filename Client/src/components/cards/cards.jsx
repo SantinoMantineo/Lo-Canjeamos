@@ -47,6 +47,8 @@ const Cards = ({ allPosts }) => {
 
   const sortedPosts = allPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 20);
 
+  const premiumPosts = sortedPosts.filter(post => post.User.plan === "premium");
+
   return (
     <>
       <motion.div
@@ -61,12 +63,12 @@ const Cards = ({ allPosts }) => {
         className={style.cards}
       >
         <div className={style.masRec}>
-          <span>Lo más reciente</span>{" "}
+          <span>Lo más destacado</span>{" "}
           <img src={fire} className={style.fire}></img>
         </div>
         <Slider {...settings}>
-          {sortedPosts &&
-            sortedPosts.map((post, index) => (
+          {premiumPosts &&
+            premiumPosts.map((post, index) => (
               <div key={index}>
                 <Card key={post.id} post={post} />
               </div>
