@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllLikes, getAllPosts, likedPosts } from "../../redux/actions";
 import style from "./PostsLiked.module.css";

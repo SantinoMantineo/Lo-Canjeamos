@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Confetti from "react-confetti";
@@ -150,29 +151,59 @@ const Matchs = ({ userData }) => {
           <div key={index} className={style.matchs}>
             {showConfetti && <Confetti />}
             <div className={style.match}>
-              <img className={style.img} src={pair.myPost.image[0]} alt={`My Post ${pair.myPost.id}`}/>
+              <img
+                className={style.img}
+                src={pair.myPost.image[0]}
+                alt={`My Post ${pair.myPost.id}`}
+              />
             </div>
             {console.log(pair.anotherUserPost)}
             {pair.anotherUserPost && (
               <div className={style.matchItem}>
-                <img className={style.img} src={pair.anotherUserPost.image[0]} alt={`Matched User Post ${pair.anotherUserPost.id}`}/>
+                <img
+                  className={style.img}
+                  src={pair.anotherUserPost.image[0]}
+                  alt={`Matched User Post ${pair.anotherUserPost.id}`}
+                />
               </div>
             )}
 
             <Link to="/messages">
               <button onClick={createChatsForPairs} className={style.goChats}>
-                <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png" alt="Chat"/>
+                <img
+                  width="24"
+                  height="24"
+                  src="https://img.icons8.com/fluency-systems-regular/48/chat--v1.png"
+                  alt="Chat"
+                />
               </button>
             </Link>
 
-            <button className={style.profile} onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}>
-              <img width="35" height="35" src={pair.anotherUserPost['User']['image']} alt="Usuario"/>
+            <button
+              className={style.profile}
+              onClick={() => handleGoProfile(pair.anotherUserPost.UserId)}
+            >
+              <img
+                width="35"
+                height="35"
+                src={pair.anotherUserPost["User"]["image"]}
+                alt="Usuario"
+              />
             </button>
 
-            <button onClick={() => {dispatch(deleteLike(pair.anotherUserPost.id));}}className={style.eliminateMatch}>
-              <img width="24" height="24" src="https://img.icons8.com/ios-filled/50/multiply.png" alt="multiply"/>
+            <button
+              onClick={() => {
+                dispatch(deleteLike(pair.anotherUserPost.id));
+              }}
+              className={style.eliminateMatch}
+            >
+              <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/ios-filled/50/multiply.png"
+                alt="multiply"
+              />
             </button>
-            
           </div>
         ))
       )}
