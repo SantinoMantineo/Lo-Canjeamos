@@ -217,8 +217,10 @@ axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
   }
 
   const sendMail = () => {
+    if(userData) {
     OneSignal.User.addEmail(userData && userData.email || user && user.mail);
     console.log(userData && userData.email || user && user.mail);
+    }
     if (isPremium) {
       OneSignal.User.addTag("subscription:", "premium");
       console.log("isPremium: ", isPremium);
