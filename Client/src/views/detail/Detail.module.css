@@ -122,13 +122,17 @@
   justify-self: center;
   margin-left: 20px;
   margin-right: 20px;
-  background-color: rgba(128, 128, 128, 0.5);
+  background-color: #4ecdc4;
   width: 30px;
   height: 30px;
   color: whitesmoke;
   font-size: 14px;
   padding: 5px;
   border-radius: 50%;
+}
+
+.navigationButtons button:disabled {
+  background-color: gray;
 }
 
 .buttons {

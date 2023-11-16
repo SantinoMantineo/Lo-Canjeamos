@@ -47,7 +47,7 @@ const Cards = ({ allPosts }) => {
 
   const sortedPosts = allPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 20);
 
-  const premiumPosts = sortedPosts.filter(post => post.User.plan === "premium");
+  const premiumPosts = sortedPosts.filter(post => post.User && post.User.plan === "premium");
 
   return (
     <>

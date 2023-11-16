@@ -61,8 +61,8 @@ const Avatar = ({ userData, setAuth, toggleDarkMode }) => {
   };
 
   const sendMail = () => {
-    OneSignal.User.addEmail("mail", userData.email || user.mail)
-    console.log("name:", userData.email || user.mail)
+    OneSignal.User.addEmail(userData && userData.email || user && user.mail);
+    console.log(userData && userData.email || user && user.mail);
     if (isPremium) {
       OneSignal.User.addTag("subscription:", "premium");
     }

@@ -120,36 +120,16 @@ const Detail = ({ userData }) => {
   };
   const allPosts = useSelector((state) => state.allPosts);
 
-  const reversedPosts = [...allPosts].reverse();
-  
   const handlePrevClick = () => {
-    const currentIndex = reversedPosts.findIndex((p) => p.id === parseInt(id, 12));
-  
+    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+
     if (
-      Array.isArray(reversedPosts) &&
-      reversedPosts.length > 0 &&
-      currentIndex !== -1 &&
-      currentIndex > 0
-    ) {
-      const prevPostId = reversedPosts[currentIndex - 1].id;
-      navigate(`/detail/${prevPostId}`);
-    } else {
-      console.log(
-        "No hay publicaciones disponibles o ya estás en la última publicación"
-      );
-    }
-  };
-  
-  const handleNextClick = () => {
-    const currentIndex = reversedPosts.findIndex((p) => p.id === parseInt(id, 10));
-  
-    if (
-      Array.isArray(reversedPosts) &&
-      reversedPosts.length > 0 &&
+      Array.isArray(allPosts) &&
+      allPosts.length > 0 &&
       currentIndex !== -1 &&
       currentIndex < allPosts.length - 1
     ) {
-      const nextPostId = reversedPosts[currentIndex + 1].id;
+      const nextPostId = allPosts[currentIndex + 1].id;
       navigate(`/detail/${nextPostId}`);
     } else {
       console.log(
@@ -157,7 +137,24 @@ const Detail = ({ userData }) => {
       );
     }
   };
-  
+
+  const handleNextClick = () => {
+    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+
+    if (
+      Array.isArray(allPosts) &&
+      allPosts.length > 0 &&
+      currentIndex !== -1 &&
+      currentIndex > 0
+    ) {
+      const prevPostId = allPosts[currentIndex - 1].id;
+      navigate(`/detail/${prevPostId}`);
+    } else {
+      console.log(
+        "No hay publicaciones disponibles o ya estás en la última publicación"
+      );
+    }
+  };
 
   return (
     <>
@@ -194,17 +191,16 @@ const Detail = ({ userData }) => {
         </div>
 
         <div className={style.info}>
-        <h5>Calificación:</h5>
-        {post.User && post.User.averageRating ? (
-          <div className={style.rating}>
-            
-            {Array.from({ length: post.User.averageRating }, (_, index) => (
-              <p key={index}>⭐️</p>
-            ))}
-          </div>
-        ) : (
-          <h4>Todavía nadie te ha calificado.</h4>
-        )}
+          <h5>Calificación:</h5>
+          {post.User && post.User.averageRating ? (
+            <div className={style.rating}>
+              {Array.from({ length: post.User.averageRating }, (_, index) => (
+                <p key={index}>⭐️</p>
+              ))}
+            </div>
+          ) : (
+            <h4>Todavía nadie te ha calificado.</h4>
+          )}
           <span>Publicacion de:</span>
           {post.User && userName && <h4>{userName}</h4>}
 
@@ -215,13 +211,7 @@ const Detail = ({ userData }) => {
         </div>
 
         <div className={style.navigationButtons}>
-          <button
-            onClick={handlePrevClick}
-            disabled={
-              reversedPosts.length === 0 ||
-              reversedPosts.findIndex((p) => p.id === id) === 0
-            }
-          >
+          <button onClick={handleNextClick}>
             <img
               width="24"
               height="24"
@@ -230,13 +220,7 @@ const Detail = ({ userData }) => {
               className={style.arrow}
             />
           </button>
-          <button
-            onClick={handleNextClick}
-            disabled={
-              reversedPosts.length === 0 ||
-              reversedPosts.findIndex((p) => p.id === id) === allPosts.length - 1
-            }
-          >
+          <button onClick={handlePrevClick}>
             <img
               width="24"
               height="24"
