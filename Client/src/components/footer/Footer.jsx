@@ -2,22 +2,22 @@ import { useState } from "react";
 import style from "./Footer.module.css";
 
 const Footer = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isColapsed, setIsColapsed] = useState(true);
 
   const toggleFooter = () => {
-    setIsExpanded(!isExpanded);
+    setIsColapsed(!isColapsed);
   };
 
   return (
     <>
       <button onClick={toggleFooter}>
-        {isExpanded ? (
+        {isColapsed ? (
           <img width="30" height="30" src="https://img.icons8.com/ios-filled/50/sort-up.png" alt="sort-up"/>
         ) : (
           <img width="30" height="30" src="https://img.icons8.com/ios-filled/50/sort-down.png" alt="sort-down"/>
         )}
       </button>
-      <div className={`${style.footer} ${isExpanded ? style.expanded : ""}`}>
+      <div className={`${style.footer} ${isColapsed ? style.expanded : ""}`}>
         <div className={style.left}>
           <h3>Acerca de</h3>
           <p>Terminos y condiciones</p>

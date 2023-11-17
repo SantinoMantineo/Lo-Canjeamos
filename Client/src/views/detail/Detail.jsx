@@ -214,7 +214,24 @@ const Detail = ({ userData }) => {
           {post && post.description && <h4>{post.description}</h4>}
         </div>
 
-        <div className={style.navigationButtons}>
+        
+
+        <div className={style.buttons}>
+          <Link to="/">
+            <button className={style.back}>Principal</button>
+          </Link>
+          <button
+            className={style.button}
+            onClick={handleLikeClick}
+            disabled={
+              liked || myUserId === anotherUserId || isMatched || isPostLiked
+            }
+          >
+            Canjear
+          </button>
+        </div>
+      </motion.div>
+      <div className={style.navigationButtons}>
           <button onClick={handleNextClick}>
             <img
               width="24"
@@ -234,22 +251,6 @@ const Detail = ({ userData }) => {
             />
           </button>
         </div>
-
-        <div className={style.buttons}>
-          <Link to="/">
-            <button className={style.back}>Principal</button>
-          </Link>
-          <button
-            className={style.button}
-            onClick={handleLikeClick}
-            disabled={
-              liked || myUserId === anotherUserId || isMatched || isPostLiked
-            }
-          >
-            Canjear
-          </button>
-        </div>
-      </motion.div>
     </>
   );
 };
