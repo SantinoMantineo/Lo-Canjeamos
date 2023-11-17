@@ -7,6 +7,12 @@
   background-color: rgb(230, 230, 230);
 }
 
+.expanded {
+  height: 15px;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
 .footer h3 {
   color: rgb(75, 75, 75);
   margin: 0;
@@ -86,6 +92,12 @@
   .footer {
     grid-template-columns: 1fr;
     height: auto;
+  }
+
+  .expanded {
+    height: 15px;
+    overflow: hidden;
+    transition: 0.3s ease;
   }
 
   .footer a {
