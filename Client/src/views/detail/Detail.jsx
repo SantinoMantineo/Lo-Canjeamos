@@ -71,30 +71,34 @@ const Detail = ({ userData }) => {
           setLiked(true);
         }
       }
-      Swal.fire({
-        title: "Solicitud de canje enviada",
-        text: "Tu solicitud de canje ha sido enviada con éxito.",
-        icon: "success",
-        confirmButtonText: "Ok",
-      });
+      setTimeout(function () {
+        Swal.fire({
+          title: "Solicitud de canje enviada",
+          text: "Tu solicitud de canje ha sido enviada con éxito.",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+      }, 500);
     } else {
-      Swal.fire({
-        title: "Aviso",
-        text: "Debes seleccionar una de tus publicaciones para intercambiar.",
-        icon: "info",
-        showCancelButton: true,
-        confirmButtonText: "Aceptar",
-        cancelButtonText: "Cancelar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const isLocalhost = window.location.hostname === "localhost";
-          const redirectURL = isLocalhost
-            ? "http://localhost:5173/#/login"
-            : "https://locanjeamos.com.ar/#/login";
-          window.location.href = redirectURL;
-          Swal.close();
-        }
-      });
+      setTimeout(function () {
+        Swal.fire({
+          title: "Aviso",
+          text: "Debes seleccionar una de tus publicaciones para intercambiar.",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonText: "Aceptar",
+          cancelButtonText: "Cancelar",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const isLocalhost = window.location.hostname === "localhost";
+            const redirectURL = isLocalhost
+              ? "http://localhost:5173/#/login"
+              : "https://locanjeamos.com.ar/#/login";
+            window.location.href = redirectURL;
+            Swal.close();
+          }
+        });
+      }, 500);
     }
   };
   const settings = {
@@ -236,7 +240,7 @@ const Detail = ({ userData }) => {
             <button className={style.back}>Principal</button>
           </Link>
           <button
-            className={style.match}
+            className={style.button}
             onClick={handleLikeClick}
             disabled={
               liked || myUserId === anotherUserId || isMatched || isPostLiked

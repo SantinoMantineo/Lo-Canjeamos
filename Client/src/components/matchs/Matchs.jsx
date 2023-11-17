@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Confetti from "react-confetti";
@@ -157,7 +156,6 @@ const Matchs = ({ userData }) => {
                 alt={`My Post ${pair.myPost.id}`}
               />
             </div>
-            {console.log(pair.anotherUserPost)}
             {pair.anotherUserPost && (
               <div className={style.matchItem}>
                 <img
