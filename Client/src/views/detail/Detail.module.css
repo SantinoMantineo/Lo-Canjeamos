@@ -105,6 +105,18 @@
   }
 }
 
+.button:disabled {
+  background-color: grey;
+}
+
+.button:disabled:hover::after {
+  animation: none;
+}
+
+.button:disabled:hover::before {
+  animation: none;
+}
+
 .detail h5 {
   font-size: 14px;
   width: 307px;

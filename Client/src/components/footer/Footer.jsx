@@ -12,9 +12,9 @@ const Footer = () => {
     <>
       <button onClick={toggleFooter}>
         {isColapsed ? (
-          <img width="30" height="30" src="https://img.icons8.com/ios-filled/50/sort-up.png" alt="sort-up"/>
+          <img width="24" height="24" src="https://img.icons8.com/color/48/collapse-arrow.png" alt="collapse-arrow"/>
         ) : (
-          <img width="30" height="30" src="https://img.icons8.com/ios-filled/50/sort-down.png" alt="sort-down"/>
+          <img width="24" height="24" src="https://img.icons8.com/color/48/expand-arrow.png" alt="expand-arrow"/>
         )}
       </button>
       <div className={`${style.footer} ${isColapsed ? style.expanded : ""}`}>
