@@ -104,12 +104,19 @@ const UserProfile = ({ id }) => {
         </div>
       ) : (
         <div className={style.modal}>
-          <h3>Calificá al usuario</h3>
+          <h3>Califica al usuario con estrellas</h3>
           <div className={style.ratingContainer}>
             {[1, 2, 3, 4, 5].map((value) => (
-              <span key={value} onClick={() => handleRating(value)}>
-                ☆
-              </span>
+              <label key={value} className={style.starLabel}>
+                <input
+                  type="radio"
+                  name="rating"
+                  value={value}
+                  onClick={() => handleRating(value)}
+                  className={style.starInput}
+                />
+                {value}
+              </label>
             ))}
           </div>
           <button onClick={handleResetRatingClick} className={style.back}>

@@ -5,6 +5,12 @@
   margin-left: -10px;
 }
 
+.logo {
+  position: absolute;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
 .fire {
   width: 30px;
   margin-bottom: -5px;
@@ -32,5 +38,9 @@
   .cards span {
     display: inline;
     font-size: 18px;
+  }
+
+  .masRec {
+    margin-bottom: 15px;
   }
 }

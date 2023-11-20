@@ -162,6 +162,21 @@
   margin: 0;
 }
 
+.ratingContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.starLabel {
+  display: grid;
+  font-size: 16px;
+  margin: 0;
+}
+
+.startInput {
+  display: flex;
+}
+
 @media (max-width: 768px) {
   .avatar {
     width: 240px;

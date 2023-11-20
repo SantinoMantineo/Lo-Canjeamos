@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./recivedLikes.module.css";
@@ -54,18 +55,31 @@ const RecivedLikes = ({ userData }) => {
         arrayPost.length > 0 &&
         arrayPost.map((posteo, index) => (
           <React.Fragment key={`${posteo.id}_${index}`}>
-            <div className={index % 2 === 0 ? style.firstLike : style.likes}>
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 50,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.2,
+              }}
+              className={index % 2 === 0 ? style.firstLike : style.likes}
+            >
               <div className={style.like}>
                 <img src={posteo.image && posteo.image[0]} alt={posteo.title} />
                 {index % 2 === 0 ? (
-                  <p>{`Tú: ${posteo.title}`}</p>
+                  <h4>{`Tú: ${posteo.title}`}</h4>
                 ) : (
                   <Link to={`/detail/${posteo.id}`}>
-                    <p>{posteo.title}</p>
+                    <h4>{posteo.title}</h4>
                   </Link>
                 )}
               </div>
-            </div>
+            </motion.div>
             {index === 1 ||
               (index % 2 === 0 && <p className={style.label}>por:</p>)}
           </React.Fragment>

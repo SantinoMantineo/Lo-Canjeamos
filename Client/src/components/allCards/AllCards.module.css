@@ -1,28 +1,64 @@
 .allCards {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin-top: 50px;
-    margin-bottom: 100px;
-    justify-content: center;
-    width: 1320px;
-    justify-self: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  justify-content: center;
+  width: 1320px;
+  justify-self: center;
 }
 
 .cards {
-    justify-self: center;
+  justify-self: center;
+}
+
+.buttons {
+  display: flex;
+  position: relative;
+  align-self: flex-end;
+  gap: 20px;
+  justify-self: center;
+  max-width: 600px;
+}
+
+.buttons h3 {
+  display: grid;
+  width: 60px;
+}
+
+.pag {
+  background-color: #4ecdc4;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  padding: 0px;
+  margin: 0px;
+  justify-self: center;
+  align-self: center;
+}
+
+.activePage {
+  background-color: #4ecdc4;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  padding: 0px;
+  margin: 0px;
+  justify-self: center;
+  align-self: center;
 }
 
 @media (max-width: 1280px) {
-    .allCards {
-        grid-template-columns: 1fr 1fr 1fr;
-        width: auto;
-    }
+  .allCards {
+    grid-template-columns: 1fr 1fr 1fr;
+    width: auto;
+  }
 }
 
 @media (max-width: 768px) {
-    .allCards {
-        grid-template-columns: 1fr 1fr;
-        justify-self: center;
-        margin-top: 10px;
-    }
+  .allCards {
+    grid-template-columns: 1fr 1fr;
+    justify-self: center;
+    margin-top: 10px;
+  }
 }

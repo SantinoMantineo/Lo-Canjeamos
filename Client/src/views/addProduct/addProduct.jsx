@@ -302,12 +302,9 @@ setErrors({ ...errors, [name]: error });
           html: '<p>Tu publicación ha sido creada correctamente. Puedes verla en tu perfil o visualizarla en el inicio.</p>',
           allowOutsideClick: false
         }).then(() => {
-          // if (result.isConfirmed) {
-            // window.location.href = response
-              'https://locanjeamos.com.ar/#/login'
-              //  'http://localhost:5173/#/login'
-          // }
-        });
+          navigate("/login");
+
+           });
 
         setFiles([]);
         setSelectedCategory("");

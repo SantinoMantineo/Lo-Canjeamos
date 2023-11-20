@@ -53,20 +53,8 @@ const App = () => {
     }
   };
 
-  //onesignal push notifications
-
-  useEffect(() => {
-    OneSignal.init({
-      appId: 'bd442249-142f-4367-9f32-0d10df4a3be1', 
-      notifyButton: {
-        enable: true,
-      },
-    });
-  }, [])
-
-
-  axios.defaults.baseURL = "http://localhost:3001/";
-  // axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
+//axios.defaults.baseURL = "http://localhost:3001/";
+axios.defaults.baseURL = "https://lo-canjeamos-production.up.railway.app/";
 
   //*Auth0
   const { user, isAuthenticated: isAuthenticatedAuth0, loginWithRedirect, isLoading } = useAuth0();
@@ -194,11 +182,62 @@ const App = () => {
     }
   }, [isAuthenticated]);
 
+  //onesignal push notifications
+
+  useEffect(() => {
+    OneSignal.init({
+      appId: 'bd442249-142f-4367-9f32-0d10df4a3be1', 
+      notifyButton: {
+        enable: true,
+      },
+    });
+  }, [])
+
+  const [isPremium, setPremium] = useState(false);
+
+  if (userData && userData) {
+    const premium = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const usuario = await axios.get("/users/userId", {
+          headers: {
+            token: token,
+          },
+          params: { id: userData.id },
+        });
+  
+        if (usuario.data.plan === "premium") {
+          setPremium(true);
+        }
+      } catch (error) {
+        console.error("Error al obtener la información del usuario:", error);
+      }
+    };
+    premium();
+  }
+
+  const sendMail = () => {
+    if(userData) {
+    OneSignal.User.addEmail(userData && userData.email || user && user.mail);
+    console.log(userData && userData.email || user && user.mail);
+    }
+    if (isPremium) {
+      OneSignal.User.addTag("subscription:", "premium");
+      console.log("isPremium: ", isPremium);
+    }
+    if (!isPremium) {
+      OneSignal.User.addTag("subscription:", "notPremium");
+      console.log("isPremium: ", isPremium);
+    }
+  };
+  
+  sendMail();
+
   return (
     <>
       <Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} userData={userData}/>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home/>} />
 
         <Route path="/login" element={isAuthenticated ? (userData ? (<MyProfile userData={userData} setAuth={setAuth} toggleDarkMode={toggleDarkMode}/>
               ) : (
@@ -246,3 +285,5 @@ const App = () => {
 };
 
 export default App;
+
+//
