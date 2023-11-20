@@ -34,43 +34,90 @@ const Exchanges = ({ userData }) => {
     premium();
   }, []);
 
-  const Banner3 = "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885578/emailAssets/itncfxbtlnpm7e6tsffu.jpg";
-  const Banner4 = "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885577/emailAssets/pql2ueup71odoj5lm7wk.jpg";
+  const Banner3 =
+    "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885578/emailAssets/itncfxbtlnpm7e6tsffu.jpg";
+  const Banner4 =
+    "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885577/emailAssets/pql2ueup71odoj5lm7wk.jpg";
 
   return (
     <>
       <Header banner1={Banner3} banner2={Banner4}></Header>
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 50,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        className={isPremium ? style.exchangesPremium : style.exchanges }
-      >
-        <div className={style.matchs}>
+
+      <div className={isPremium ? style.exchangesPremium : style.exchanges}>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 50,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            delay: 0.2,
+          }}
+          className={style.matchs}
+        >
           <h3>Mis canjes logrados</h3>
           <Matchs userData={userData}></Matchs>
-        </div>
-        <div className={style.likes}>
+        </motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 50,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            delay: 0.2,
+          }}
+          className={style.likes}
+        >
           <h3>Mis intentos de canje</h3>
           <PostsLiked userData={userData}></PostsLiked>
-        </div>
+        </motion.div>
         {isPremium ? (
-          <div className={style.requests}>
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 50,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: 0.2,
+            }}
+            className={style.requests}
+          >
             <h3>Pedidos de canje recibidos</h3>
             <RecivedLikes userData={userData}></RecivedLikes>
-          </div>
-        ) : <div className={style.requests}>
-        <h3>Pedidos de canje recibidos</h3>
-        <div className={style.alert}>
-       <h3>Para acceder a esta funcionalidad debes ser premium.</h3>
-       </div>
-      </div>}
-      </motion.div>
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 50,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: 0.2,
+            }}
+            className={style.requests}
+          >
+            <h3>Pedidos de canje recibidos</h3>
+            <div className={style.alert}>
+              <h3>Para acceder a esta funcionalidad debes ser premium.</h3>
+            </div>
+          </motion.div>
+        )}
+      </div>
     </>
   );
 };

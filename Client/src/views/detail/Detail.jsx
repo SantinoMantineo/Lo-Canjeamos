@@ -71,30 +71,34 @@ const Detail = ({ userData }) => {
           setLiked(true);
         }
       }
-      Swal.fire({
-        title: "Solicitud de canje enviada",
-        text: "Tu solicitud de canje ha sido enviada con éxito.",
-        icon: "success",
-        confirmButtonText: "Ok",
-      });
+      setTimeout(function () {
+        Swal.fire({
+          title: "Solicitud de canje enviada",
+          text: "Tu solicitud de canje ha sido enviada con éxito.",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+      }, 500);
     } else {
-      Swal.fire({
-        title: "Aviso",
-        text: "Debes seleccionar una de tus publicaciones para intercambiar.",
-        icon: "info",
-        showCancelButton: true,
-        confirmButtonText: "Aceptar",
-        cancelButtonText: "Cancelar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const isLocalhost = window.location.hostname === "localhost";
-          const redirectURL = isLocalhost
-            ? "http://localhost:5173/#/login"
-            : "https://locanjeamos.com.ar/#/login";
-          window.location.href = redirectURL;
-          Swal.close();
-        }
-      });
+      setTimeout(function () {
+        Swal.fire({
+          title: "Aviso",
+          text: "Debes seleccionar una de tus publicaciones para intercambiar.",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonText: "Aceptar",
+          cancelButtonText: "Cancelar",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const isLocalhost = window.location.hostname === "localhost";
+            const redirectURL = isLocalhost
+              ? "http://localhost:5173/#/login"
+              : "https://locanjeamos.com.ar/#/login";
+            window.location.href = redirectURL;
+            Swal.close();
+          }
+        });
+      }, 500);
     }
   };
   const settings = {
@@ -120,36 +124,16 @@ const Detail = ({ userData }) => {
   };
   const allPosts = useSelector((state) => state.allPosts);
 
-  const reversedPosts = [...allPosts].reverse();
-  
   const handlePrevClick = () => {
-    const currentIndex = reversedPosts.findIndex((p) => p.id === parseInt(id, 12));
-  
+    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+
     if (
-      Array.isArray(reversedPosts) &&
-      reversedPosts.length > 0 &&
-      currentIndex !== -1 &&
-      currentIndex > 0
-    ) {
-      const prevPostId = reversedPosts[currentIndex - 1].id;
-      navigate(`/detail/${prevPostId}`);
-    } else {
-      console.log(
-        "No hay publicaciones disponibles o ya estás en la última publicación"
-      );
-    }
-  };
-  
-  const handleNextClick = () => {
-    const currentIndex = reversedPosts.findIndex((p) => p.id === parseInt(id, 10));
-  
-    if (
-      Array.isArray(reversedPosts) &&
-      reversedPosts.length > 0 &&
+      Array.isArray(allPosts) &&
+      allPosts.length > 0 &&
       currentIndex !== -1 &&
       currentIndex < allPosts.length - 1
     ) {
-      const nextPostId = reversedPosts[currentIndex + 1].id;
+      const nextPostId = allPosts[currentIndex + 1].id;
       navigate(`/detail/${nextPostId}`);
     } else {
       console.log(
@@ -157,7 +141,24 @@ const Detail = ({ userData }) => {
       );
     }
   };
-  
+
+  const handleNextClick = () => {
+    const currentIndex = allPosts.findIndex((p) => p.id === parseInt(id, 10));
+
+    if (
+      Array.isArray(allPosts) &&
+      allPosts.length > 0 &&
+      currentIndex !== -1 &&
+      currentIndex > 0
+    ) {
+      const prevPostId = allPosts[currentIndex - 1].id;
+      navigate(`/detail/${prevPostId}`);
+    } else {
+      console.log(
+        "No hay publicaciones disponibles o ya estás en la última publicación"
+      );
+    }
+  };
 
   return (
     <>
@@ -194,17 +195,16 @@ const Detail = ({ userData }) => {
         </div>
 
         <div className={style.info}>
-        <h5>Calificación:</h5>
-        {post.User && post.User.averageRating ? (
-          <div className={style.rating}>
-            
-            {Array.from({ length: post.User.averageRating }, (_, index) => (
-              <p key={index}>⭐️</p>
-            ))}
-          </div>
-        ) : (
-          <h4>Todavía nadie te ha calificado.</h4>
-        )}
+          <h5>Calificación:</h5>
+          {post.User && post.User.averageRating ? (
+            <div className={style.rating}>
+              {Array.from({ length: post.User.averageRating }, (_, index) => (
+                <p key={index}>⭐️</p>
+              ))}
+            </div>
+          ) : (
+            <h4>Todavía nadie te ha calificado.</h4>
+          )}
           <span>Publicacion de:</span>
           {post.User && userName && <h4>{userName}</h4>}
 
@@ -214,45 +214,14 @@ const Detail = ({ userData }) => {
           {post && post.description && <h4>{post.description}</h4>}
         </div>
 
-        <div className={style.navigationButtons}>
-          <button
-            onClick={handlePrevClick}
-            disabled={
-              reversedPosts.length === 0 ||
-              reversedPosts.findIndex((p) => p.id === id) === 0
-            }
-          >
-            <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/ios-filled/50/back.png"
-              alt="back"
-              className={style.arrow}
-            />
-          </button>
-          <button
-            onClick={handleNextClick}
-            disabled={
-              reversedPosts.length === 0 ||
-              reversedPosts.findIndex((p) => p.id === id) === allPosts.length - 1
-            }
-          >
-            <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/ios-filled/50/forward.png"
-              alt="forward"
-              className={style.arrow}
-            />
-          </button>
-        </div>
+        
 
         <div className={style.buttons}>
           <Link to="/">
             <button className={style.back}>Principal</button>
           </Link>
           <button
-            className={style.match}
+            className={style.button}
             onClick={handleLikeClick}
             disabled={
               liked || myUserId === anotherUserId || isMatched || isPostLiked
@@ -262,6 +231,26 @@ const Detail = ({ userData }) => {
           </button>
         </div>
       </motion.div>
+      <div className={style.navigationButtons}>
+          <button onClick={handleNextClick}>
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/ios-filled/50/back.png"
+              alt="back"
+              className={style.arrow}
+            />
+          </button>
+          <button onClick={handlePrevClick}>
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/ios-filled/50/forward.png"
+              alt="forward"
+              className={style.arrow}
+            />
+          </button>
+        </div>
     </>
   );
 };

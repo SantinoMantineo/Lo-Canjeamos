@@ -58,16 +58,6 @@ const Home = ({}) => {
     setCurrentPage(preventPage);
   };
 
-  const handleDownload = () => {
-    if (!isInstalled) {
-      navigator.serviceWorker.register("sw.js").then((reg) => {
-        setIsInstalled(true);
-      });
-    }
-  };
-
-  handleDownload();
-
   const Banner =
     "https://res.cloudinary.com/dlahgnpwp/image/upload/v1699885578/emailAssets/er00zffd102eyze13aug.jpg";
   const Banner2 =

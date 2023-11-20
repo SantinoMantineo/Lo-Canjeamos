@@ -14,9 +14,8 @@
 
 .buttons {
   display: flex;
-  position: absolute;
+  position: relative;
   align-self: flex-end;
-  margin-bottom: 210px;
   gap: 20px;
   justify-self: center;
   max-width: 600px;
@@ -61,10 +60,5 @@
     grid-template-columns: 1fr 1fr;
     justify-self: center;
     margin-top: 10px;
-  }
-
-  .buttons {
-    margin-bottom: 450px;
-    overflow: scroll;
   }
 }

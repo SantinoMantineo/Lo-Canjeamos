@@ -6,8 +6,115 @@
   width: 800px;
   box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.3);
   border-radius: 10px;
-  margin-top: 30px;
+  margin-top: 40px;
   margin-bottom: 100px;
+}
+
+.button {
+  position: relative;
+  justify-self: center;
+  align-self: center;
+  width: 80px;
+  height: 32px;
+  padding: 0;
+  border-radius: 5px;
+  font-size: 14px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  background-color: #4ecdc4;
+  transition: all 1.6s ease;
+}
+
+.button:before,
+.button:after {
+  position: absolute;
+  content: "";
+  width: 150%;
+  left: 50%;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: -1000;
+  background-repeat: no-repeat;
+}
+
+.button:hover:before {
+  top: -70%;
+  background-image: radial-gradient(circle, #a89215 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, #13a5be 20%, transparent 30%),
+    radial-gradient(circle, #a3b82d 20%, transparent 20%),
+    radial-gradient(circle, #590cbe 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #bd1717 15%, transparent 20%),
+    radial-gradient(circle, #2a7ce8 20%, transparent 20%),
+    radial-gradient(circle, #30e82a 20%, transparent 20%),
+    radial-gradient(circle, #e92c75 20%, transparent 20%),
+    radial-gradient(circle, #914fe7 20%, transparent 20%);
+  background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
+    10% 10%, 18% 18%;
+  background-position: 50% 120%;
+  animation: greentopBubbles 1.6s ease;
+}
+
+@keyframes greentopBubbles {
+  0% {
+    background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
+      40% 90%, 55% 90%, 70% 90%;
+  }
+
+  50% {
+    background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+      50% 50%, 65% 20%, 90% 30%;
+  }
+
+  100% {
+    background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+      50% 40%, 65% 10%, 90% 20%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
+.button:hover::after {
+  bottom: -70%;
+  background-image: radial-gradient(circle, #ff93db 20%, transparent 20%),
+    radial-gradient(circle, #2ae8df 20%, transparent 20%),
+    radial-gradient(circle, transparent 10%, #71ffbd 15%, transparent 20%),
+    radial-gradient(circle, #2a9ce8 20%, transparent 20%),
+    radial-gradient(circle, #7814fc 20%, transparent 20%),
+    radial-gradient(circle, #73e4f8 20%, transparent 20%),
+    radial-gradient(circle, #f8d3a9 20%, transparent 20%);
+  background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+  background-position: 50% 0%;
+  animation: greenbottomBubbles 1.6s ease;
+}
+
+@keyframes greenbottomBubbles {
+  0% {
+    background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
+      70% -10%, 70% 0%;
+  }
+
+  50% {
+    background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+      105% 0%;
+  }
+
+  100% {
+    background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+      110% 10%;
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
+.button:disabled {
+  background-color: grey;
+}
+
+.button:disabled:hover::after {
+  animation: none;
+}
+
+.button:disabled:hover::before {
+  animation: none;
 }
 
 .detail h5 {
@@ -110,25 +217,28 @@
 }
 
 .navigationButtons {
-  display: grid;
+  display: flex;
   position: absolute;
-  margin-top: 600px;
   justify-self: center;
-  align-self: center;
-  grid-template-columns: 1fr 1fr;
+  margin: 0;
+  margin-top: -25px;
 }
 
 .navigationButtons button {
   justify-self: center;
   margin-left: 20px;
   margin-right: 20px;
-  background-color: rgba(128, 128, 128, 0.5);
+  background-color: #4ecdc4;
   width: 30px;
   height: 30px;
   color: whitesmoke;
   font-size: 14px;
   padding: 5px;
   border-radius: 50%;
+}
+
+.navigationButtons button:disabled {
+  background-color: gray;
 }
 
 .buttons {
@@ -206,8 +316,11 @@
   }
 
   .navigationButtons {
+    display: flex;
     position: relative;
-    margin-top: 0px;
+    justify-self: center;
+    margin: 0;
+    margin-bottom: 100px;
   }
 
   .detail h5 {
@@ -226,7 +339,7 @@
     background-color: rgba(126, 126, 126, 0.5);
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.2);
   }
-  
+
   .rating {
     display: inline-flex;
     gap: 10px;
@@ -240,7 +353,7 @@
     margin-top: 5px;
     margin-bottom: -5px;
   }
-  
+
   .rating p {
     margin: 0;
     align-self: center;
